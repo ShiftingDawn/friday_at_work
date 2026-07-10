@@ -158,11 +158,13 @@ export type PersonWhereInput = {
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   id?: Prisma.StringFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
+  consumptions?: Prisma.ConsumptionListRelationFilter
 }
 
 export type PersonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  consumptions?: Prisma.ConsumptionOrderByRelationAggregateInput
 }
 
 export type PersonWhereUniqueInput = Prisma.AtLeast<{
@@ -171,6 +173,7 @@ export type PersonWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PersonWhereInput[]
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   name?: Prisma.StringFilter<"Person"> | string
+  consumptions?: Prisma.ConsumptionListRelationFilter
 }, "id">
 
 export type PersonOrderByWithAggregationInput = {
@@ -192,21 +195,25 @@ export type PersonScalarWhereWithAggregatesInput = {
 export type PersonCreateInput = {
   id?: string
   name: string
+  consumptions?: Prisma.ConsumptionCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateInput = {
   id?: string
   name: string
+  consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  consumptions?: Prisma.ConsumptionUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateManyInput = {
@@ -239,15 +246,101 @@ export type PersonMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
 }
 
+export type PersonScalarRelationFilter = {
+  is?: Prisma.PersonWhereInput
+  isNot?: Prisma.PersonWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type PersonCreateNestedOneWithoutConsumptionsInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutConsumptionsInput, Prisma.PersonUncheckedCreateWithoutConsumptionsInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutConsumptionsInput
+  connect?: Prisma.PersonWhereUniqueInput
+}
+
+export type PersonUpdateOneRequiredWithoutConsumptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutConsumptionsInput, Prisma.PersonUncheckedCreateWithoutConsumptionsInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutConsumptionsInput
+  upsert?: Prisma.PersonUpsertWithoutConsumptionsInput
+  connect?: Prisma.PersonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutConsumptionsInput, Prisma.PersonUpdateWithoutConsumptionsInput>, Prisma.PersonUncheckedUpdateWithoutConsumptionsInput>
+}
+
+export type PersonCreateWithoutConsumptionsInput = {
+  id?: string
+  name: string
+}
+
+export type PersonUncheckedCreateWithoutConsumptionsInput = {
+  id?: string
+  name: string
+}
+
+export type PersonCreateOrConnectWithoutConsumptionsInput = {
+  where: Prisma.PersonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonCreateWithoutConsumptionsInput, Prisma.PersonUncheckedCreateWithoutConsumptionsInput>
+}
+
+export type PersonUpsertWithoutConsumptionsInput = {
+  update: Prisma.XOR<Prisma.PersonUpdateWithoutConsumptionsInput, Prisma.PersonUncheckedUpdateWithoutConsumptionsInput>
+  create: Prisma.XOR<Prisma.PersonCreateWithoutConsumptionsInput, Prisma.PersonUncheckedCreateWithoutConsumptionsInput>
+  where?: Prisma.PersonWhereInput
+}
+
+export type PersonUpdateToOneWithWhereWithoutConsumptionsInput = {
+  where?: Prisma.PersonWhereInput
+  data: Prisma.XOR<Prisma.PersonUpdateWithoutConsumptionsInput, Prisma.PersonUncheckedUpdateWithoutConsumptionsInput>
+}
+
+export type PersonUpdateWithoutConsumptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type PersonUncheckedUpdateWithoutConsumptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+
+/**
+ * Count Type PersonCountOutputType
+ */
+
+export type PersonCountOutputType = {
+  consumptions: number
+}
+
+export type PersonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  consumptions?: boolean | PersonCountOutputTypeCountConsumptionsArgs
+}
+
+/**
+ * PersonCountOutputType without action
+ */
+export type PersonCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PersonCountOutputType
+   */
+  select?: Prisma.PersonCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PersonCountOutputType without action
+ */
+export type PersonCountOutputTypeCountConsumptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConsumptionWhereInput
+}
 
 
 export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  consumptions?: boolean | Prisma.Person$consumptionsArgs<ExtArgs>
+  _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
 
 export type PersonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -266,10 +359,18 @@ export type PersonSelectScalar = {
 }
 
 export type PersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["person"]>
+export type PersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  consumptions?: boolean | Prisma.Person$consumptionsArgs<ExtArgs>
+  _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type PersonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PersonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $PersonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Person"
-  objects: {}
+  objects: {
+    consumptions: Prisma.$ConsumptionPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
@@ -667,6 +768,7 @@ readonly fields: PersonFieldRefs;
  */
 export interface Prisma__PersonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  consumptions<T extends Prisma.Person$consumptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$consumptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsumptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -715,6 +817,10 @@ export type PersonFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  /**
    * Filter, which Person to fetch.
    */
   where: Prisma.PersonWhereUniqueInput
@@ -733,6 +839,10 @@ export type PersonFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  /**
    * Filter, which Person to fetch.
    */
   where: Prisma.PersonWhereUniqueInput
@@ -750,6 +860,10 @@ export type PersonFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Person
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
   /**
    * Filter, which Person to fetch.
    */
@@ -799,6 +913,10 @@ export type PersonFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  /**
    * Filter, which Person to fetch.
    */
   where?: Prisma.PersonWhereInput
@@ -846,6 +964,10 @@ export type PersonFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Person
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
   /**
    * Filter, which People to fetch.
    */
@@ -895,6 +1017,10 @@ export type PersonCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  /**
    * The data needed to create a Person.
    */
   data: Prisma.XOR<Prisma.PersonCreateInput, Prisma.PersonUncheckedCreateInput>
@@ -940,6 +1066,10 @@ export type PersonUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Person
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
   /**
    * The data needed to update a Person.
    */
@@ -1007,6 +1137,10 @@ export type PersonUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  /**
    * The filter to search for the Person to update in case it exists.
    */
   where: Prisma.PersonWhereUniqueInput
@@ -1033,6 +1167,10 @@ export type PersonDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
+  /**
    * Filter which Person to delete.
    */
   where: Prisma.PersonWhereUniqueInput
@@ -1053,6 +1191,30 @@ export type PersonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Person.consumptions
+ */
+export type Person$consumptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Consumption
+   */
+  select?: Prisma.ConsumptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Consumption
+   */
+  omit?: Prisma.ConsumptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConsumptionInclude<ExtArgs> | null
+  where?: Prisma.ConsumptionWhereInput
+  orderBy?: Prisma.ConsumptionOrderByWithRelationInput | Prisma.ConsumptionOrderByWithRelationInput[]
+  cursor?: Prisma.ConsumptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConsumptionScalarFieldEnum | Prisma.ConsumptionScalarFieldEnum[]
+}
+
+/**
  * Person without action
  */
 export type PersonDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1064,4 +1226,8 @@ export type PersonDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Person
    */
   omit?: Prisma.PersonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonInclude<ExtArgs> | null
 }

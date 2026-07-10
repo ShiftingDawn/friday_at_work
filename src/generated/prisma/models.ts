@@ -10,4 +10,5 @@
  */
 export type * from './models/Person.ts'
 export type * from './models/Drink.ts'
+export type * from './models/Consumption.ts'
 export type * from './commonInputTypes.ts'

@@ -8,13 +8,24 @@ datasource db {
 }
 
 model Person {
-  id   String @id @default(uuid())
-  name String
+  id           String        @id @default(uuid())
+  name         String
+  consumptions Consumption[]
 }
 
 model Drink {
-  id    String  @id @default(uuid())
-  name  String
-  price Int
-  image String?
+  id           String        @id @default(uuid())
+  name         String
+  price        Int
+  image        String?
+  consumptions Consumption[]
+}
+
+model Consumption {
+  id        String   @id @default(uuid())
+  personId  String
+  drinkId   String
+  timestamp DateTime @default(now())
+  person    Person   @relation(fields: [personId], references: [id])
+  drink     Drink    @relation(fields: [drinkId], references: [id])
 }

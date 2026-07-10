@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Person: 'Person',
-  Drink: 'Drink'
+  Drink: 'Drink',
+  Consumption: 'Consumption'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "person" | "drink"
+    modelProps: "person" | "drink" | "consumption"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Consumption: {
+      payload: Prisma.$ConsumptionPayload<ExtArgs>
+      fields: Prisma.ConsumptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConsumptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConsumptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>
+        }
+        findFirst: {
+          args: Prisma.ConsumptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConsumptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>
+        }
+        findMany: {
+          args: Prisma.ConsumptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>[]
+        }
+        create: {
+          args: Prisma.ConsumptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>
+        }
+        createMany: {
+          args: Prisma.ConsumptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConsumptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>[]
+        }
+        delete: {
+          args: Prisma.ConsumptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>
+        }
+        update: {
+          args: Prisma.ConsumptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConsumptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConsumptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConsumptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConsumptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConsumptionPayload>
+        }
+        aggregate: {
+          args: Prisma.ConsumptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConsumption>
+        }
+        groupBy: {
+          args: Prisma.ConsumptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsumptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConsumptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConsumptionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -607,6 +682,16 @@ export const DrinkScalarFieldEnum = {
 export type DrinkScalarFieldEnum = (typeof DrinkScalarFieldEnum)[keyof typeof DrinkScalarFieldEnum]
 
 
+export const ConsumptionScalarFieldEnum = {
+  id: 'id',
+  personId: 'personId',
+  drinkId: 'drinkId',
+  timestamp: 'timestamp'
+} as const
+
+export type ConsumptionScalarFieldEnum = (typeof ConsumptionScalarFieldEnum)[keyof typeof ConsumptionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -640,6 +725,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -761,6 +853,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   person?: Prisma.PersonOmit
   drink?: Prisma.DrinkOmit
+  consumption?: Prisma.ConsumptionOmit
 }
 
 /* Types for Logging */

@@ -51,3 +51,8 @@ export type Person = Prisma.PersonModel
  * 
  */
 export type Drink = Prisma.DrinkModel
+/**
+ * Model Consumption
+ * 
+ */
+export type Consumption = Prisma.ConsumptionModel
