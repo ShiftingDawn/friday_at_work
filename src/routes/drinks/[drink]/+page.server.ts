@@ -1,13 +1,11 @@
 import type {Actions, PageServerLoad} from "./$types";
-import {db} from "$lib/server/db";
-import {eq} from "drizzle-orm";
-import {drinksTable} from "$lib/server/db/schema";
+import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({params}) => {
-    return await db.query.drinksTable.findFirst({where: eq(drinksTable.id, params.drink)});
+    return await prisma.drink.findFirst({where: {id: params.drink}});
 }
 
 export const actions = {
@@ -16,10 +14,13 @@ export const actions = {
         if (!success) {
             return fail(400);
         }
-        await db.update(drinksTable).set({
-            name: data?.name,
-            price: data?.price,
-        }).where(eq(drinksTable.id, params.drink));
+        await prisma.drink.update({
+            data: {
+                name: data?.name,
+                price: data?.price,
+            },
+            where: {id: params.drink}
+        });
     },
     reskin: async ({request, params}) => {
         const {data, success, error} = reskinScheme.safeParse(await request.formData());
@@ -28,10 +29,10 @@ export const actions = {
         }
         const imageBytes = await data?.image.bytes();
         const imageType = data.image.name.substring(data.image.name.lastIndexOf("."));
-        await db.update(drinksTable).set({
-            image: imageBytes ? `data:image/${imageType};base64,${imageBytes.toBase64()}` : null
-
-        }).where(eq(drinksTable.id, params.drink));
+        await prisma.drink.update({
+            data: {image: imageBytes ? `data:image/${imageType};base64,${imageBytes.toBase64()}` : null},
+            where: {id: params.drink}
+        });
     }
 } satisfies Actions;
 

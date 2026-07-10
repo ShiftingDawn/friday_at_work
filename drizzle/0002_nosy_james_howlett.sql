@@ -1,1 +1,0 @@
-ALTER TABLE `drinks` ADD `image` blob;

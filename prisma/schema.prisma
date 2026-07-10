@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Person {
+  id   String @id @default(uuid())
+  name String
+}
+
+model Drink {
+  id    String  @id @default(uuid())
+  name  String
+  price Int
+  image String?
+}

@@ -1,13 +1,12 @@
 import type {Actions, PageServerLoad} from "./$types";
-import {db} from "$lib/server/db";
-import {personTable} from "$lib/server/db/schema";
+import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({params}) => {
     return {
-        people: await db.select().from(personTable)
+        people: await prisma.person.findMany()
     };
 }
 
@@ -17,7 +16,7 @@ export const actions = {
         if (!success) {
             return fail(400);
         }
-        await db.insert(personTable).values({name: data?.name});
+        await prisma.person.create({data: {name: data?.name}});
     }
 } satisfies Actions;
 

@@ -1,10 +1,12 @@
-import {drizzle} from "drizzle-orm/bun-sqlite";
-import {Database} from "bun:sqlite";
-import * as schema from "./schema";
-import {env} from "$env/dynamic/private";
+import {PrismaLibSql} from "@prisma/adapter-libsql";
+import {PrismaClient} from "@/generated/prisma/client";
+import {DATABASE_URL} from "$env/static/private";
 
-if (!env.DATABASE_URL) throw new Error("DATABASE_URL is not set");
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-const client = new Database(env.DATABASE_URL);
+const adapter = new PrismaLibSql({url: DATABASE_URL});
+export const prisma = globalForPrisma.prisma ?? new PrismaClient({adapter});
 
-export const db = drizzle(client, {schema});
+if (process.env.NODE_ENV !== "production") {
+    globalForPrisma.prisma = prisma;
+}
