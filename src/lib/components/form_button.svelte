@@ -1,9 +1,10 @@
 <script lang="ts">
     import type {HTMLButtonAttributes} from "svelte/elements";
+    import {twMerge} from "tailwind-merge";
 
-    const {children, ...props}: HTMLButtonAttributes = $props();
+    const {class: cls, children, ...props}: HTMLButtonAttributes = $props();
 </script>
 
-<button {...props} class="bg-ctp-surface1 h-8 self-end px-4 rounded-full">
+<button {...props} class={twMerge("bg-ctp-surface1 h-8 self-end px-4 rounded-full", cls)}>
     {@render children?.()}
 </button>

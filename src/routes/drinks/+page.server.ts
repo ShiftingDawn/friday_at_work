@@ -14,7 +14,6 @@ export const load: PageServerLoad = async ({params}) => {
 export const actions = {
     default: async ({request}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
-        console.log(error);
         if (!success) {
             return fail(400);
         }
@@ -33,4 +32,4 @@ const createScheme = zfd.formData({
     name: zfd.text(z.string().min(3)),
     price: zfd.numeric(z.int().min(0)),
     image: zfd.file().optional(),
-})
+});
