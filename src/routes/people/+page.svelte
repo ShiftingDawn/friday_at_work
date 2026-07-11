@@ -12,7 +12,9 @@
 </script>
 
 <Card as="form" method="POST" class="flex flex-col gap-4">
-    <span class="text-xl">Register new person</span>
+    {#snippet name()}
+        Register new person
+    {/snippet}
     <div class="flex gap-4">
         <FormLabel name="Name">
             <FormInput type="text" min="3" name="name"/>

@@ -10,7 +10,7 @@
     } = $props();
 </script>
 
-<label class="flex flex-col gap-2">
-    {name}
+<label class="flex bg-ctp-overlay2 rounded-full items-center">
+    <span class="pl-4 pr-2 text-ctp-base font-bold">{name}</span>
     {@render children()}
 </label>

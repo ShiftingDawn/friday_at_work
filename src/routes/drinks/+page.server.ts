@@ -4,9 +4,11 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({params}) => {
+export const load: PageServerLoad = async ({params, url}) => {
+    const showHidden = new URLSearchParams(url.search).has("hidden", "true")
     return {
-        drinks: await prisma.drink.findMany({where: {hidden: false}})
+        drinks: await prisma.drink.findMany({where: {hidden: false}}),
+        hidden: showHidden ? await prisma.drink.findMany({where: {hidden: true}}) : undefined
     };
 }
 

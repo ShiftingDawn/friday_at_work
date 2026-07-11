@@ -12,13 +12,17 @@
 </script>
 
 <Card class="flex flex-col gap-4">
-    <span class="text-xl">{data.person!.name}</span>
-    <span>Total price: &euro;{displayPrice(totalPrice)}</span>
-    <form method="POST">
-        <FormButton type="submit">
-            Reset
-        </FormButton>
-    </form>
+    {#snippet name()}
+        {data.person!.name}
+    {/snippet}
+    {#snippet action()}
+        <span class="text-ctp-blue font-bold">&euro;{displayPrice(totalPrice)}</span>
+        <form method="POST">
+            <FormButton type="submit">
+                Reset
+            </FormButton>
+        </form>
+    {/snippet}
     <table class="w-full">
         <thead>
         <TableRow>
