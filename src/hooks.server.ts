@@ -1,12 +1,14 @@
 import {type Handle, redirect} from "@sveltejs/kit";
-import {PINCODE} from "$env/static/private";
+import {env} from "$env/dynamic/private";
 
 export const handle: Handle = ({event, resolve}) => {
     if (event.url.pathname === "/authorize") {
+        event.cookies.delete("pincode", {sameSite: "strict", httpOnly: true, path: "/"});
         return resolve(event);
     }
     event.locals.authorized = false;
-    if (event.cookies.get("pincode") !== PINCODE) {
+    if (event.cookies.get("pincode") !== env.PINCODE) {
+        event.cookies.delete("pincode", {sameSite: "strict", httpOnly: true, path: "/"});
         return redirect(307, "/authorize");
     }
     event.locals.authorized = true;
