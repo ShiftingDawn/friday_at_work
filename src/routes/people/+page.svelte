@@ -4,9 +4,7 @@
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import FormButton from "$lib/components/form_button.svelte";
-    import TableRow from "$lib/components/table_row.svelte";
-    import TableHeadCell from "$lib/components/table_headcell.svelte";
-    import TableCell from "$lib/components/table_cell.svelte";
+    import LinkButton from "$lib/components/link_button.svelte";
 
     const {data}: PageProps = $props();
 </script>
@@ -21,19 +19,12 @@
         </FormButton>
     </div>
 </Card>
-<Card class="mt-4">
-    <table class="w-full">
-        <thead>
-        <TableRow>
-            <TableHeadCell>Name</TableHeadCell>
-        </TableRow>
-        </thead>
-        <tbody>
+<Card title="View details" class="mt-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {#each data.people as person}
-            <TableRow>
-                <TableCell>{person.name}</TableCell>
-            </TableRow>
+            <LinkButton href={`/people/${person.id}`} class="w-full p-2 h-10">
+                {person.name}
+            </LinkButton>
         {/each}
-        </tbody>
-    </table>
+    </div>
 </Card>
