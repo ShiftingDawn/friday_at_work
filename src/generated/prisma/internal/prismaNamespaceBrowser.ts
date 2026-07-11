@@ -81,7 +81,8 @@ export const DrinkScalarFieldEnum = {
   id: 'id',
   name: 'name',
   price: 'price',
-  image: 'image'
+  image: 'image',
+  hidden: 'hidden'
 } as const
 
 export type DrinkScalarFieldEnum = (typeof DrinkScalarFieldEnum)[keyof typeof DrinkScalarFieldEnum]

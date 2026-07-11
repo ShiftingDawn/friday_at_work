@@ -7,7 +7,7 @@ import {fail} from "@sveltejs/kit";
 export const load: PageServerLoad = async () => {
     return {
         people: await prisma.person.findMany(),
-        drinks: await prisma.drink.findMany(),
+        drinks: await prisma.drink.findMany({where: {hidden: false}}),
     };
 }
 

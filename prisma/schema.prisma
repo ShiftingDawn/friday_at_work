@@ -18,6 +18,7 @@ model Drink {
   name         String
   price        Int
   image        String?
+  hidden       Boolean       @default(false)
   consumptions Consumption[]
 }
 

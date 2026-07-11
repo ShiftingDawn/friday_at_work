@@ -33,6 +33,16 @@ export const actions = {
             data: {image: imageBytes ? `data:image/${imageType};base64,${imageBytes.toBase64()}` : null},
             where: {id: params.drink}
         });
+    },
+    hide: async ({params}) => {
+        const current = await prisma.drink.findFirst({where: {id: params.drink}});
+        if (!current) {
+            return fail(400);
+        }
+        await prisma.drink.update({
+            where: {id: params.drink},
+            data: {hidden: !current.hidden},
+        });
     }
 } satisfies Actions;
 
