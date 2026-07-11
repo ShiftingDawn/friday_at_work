@@ -11,10 +11,7 @@
     const {data}: PageProps = $props();
 </script>
 
-<Card as="form" method="POST" class="flex flex-col gap-4">
-    {#snippet name()}
-        Register new person
-    {/snippet}
+<Card title="Register new person" as="form" method="POST" class="flex flex-col gap-4">
     <div class="flex gap-4">
         <FormLabel name="Name">
             <FormInput type="text" min="3" name="name"/>

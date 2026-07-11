@@ -5,7 +5,9 @@ import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({params}) => {
-    return await prisma.drink.findFirst({where: {id: params.drink}});
+    return {
+        drink: await prisma.drink.findFirst({where: {id: params.drink}})
+    };
 }
 
 export const actions = {

@@ -9,10 +9,7 @@
 </script>
 
 <form method="POST" class="flex flex-col gap-4">
-    <Card class="flex flex-col gap-4">
-        {#snippet name()}
-            Select person
-        {/snippet}
+    <Card title="Select person" class="flex flex-col gap-4">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {#each data.people as person}
                 <FormRadio name="person" value={person.id}>
@@ -21,10 +18,7 @@
             {/each}
         </div>
     </Card>
-    <Card class="flex flex-col gap-4">
-        {#snippet name()}
-            Select drink
-        {/snippet}
+    <Card title="Select drink" class="flex flex-col gap-4">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {#each data.drinks as drink}
                 <FormRadio name="drink" value={drink.id}>

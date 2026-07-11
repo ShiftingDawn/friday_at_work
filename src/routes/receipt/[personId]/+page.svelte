@@ -11,10 +11,7 @@
     const totalPrice = $derived(data.consumptions!.map(c => c.drink!.price * c.count).reduce((a, b) => a + b));
 </script>
 
-<Card class="flex flex-col gap-4">
-    {#snippet name()}
-        {data.person!.name}
-    {/snippet}
+<Card title={data.person!.name} class="flex flex-col gap-4">
     {#snippet action()}
         <span class="text-ctp-blue font-bold">&euro;{displayPrice(totalPrice)}</span>
         <form method="POST">

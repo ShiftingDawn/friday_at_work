@@ -12,10 +12,7 @@
     const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
 </script>
 
-<Card as="form" method="POST" class="flex flex-col gap-4" enctype="multipart/form-data">
-    {#snippet name()}
-        Register new drink
-    {/snippet}
+<Card title="Register new drink" as="form" method="POST" class="flex flex-col gap-4" enctype="multipart/form-data">
     {#snippet action()}
         <FormButton type="submit">
             Save
