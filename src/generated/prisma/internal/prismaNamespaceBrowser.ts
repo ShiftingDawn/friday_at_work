@@ -93,6 +93,7 @@ export const ConsumptionScalarFieldEnum = {
   id: 'id',
   personId: 'personId',
   drinkId: 'drinkId',
+  price: 'price',
   timestamp: 'timestamp'
 } as const
 

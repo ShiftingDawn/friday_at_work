@@ -20,14 +20,25 @@ export type ConsumptionModel = runtime.Types.Result.DefaultSelection<Prisma.$Con
 
 export type AggregateConsumption = {
   _count: ConsumptionCountAggregateOutputType | null
+  _avg: ConsumptionAvgAggregateOutputType | null
+  _sum: ConsumptionSumAggregateOutputType | null
   _min: ConsumptionMinAggregateOutputType | null
   _max: ConsumptionMaxAggregateOutputType | null
+}
+
+export type ConsumptionAvgAggregateOutputType = {
+  price: number | null
+}
+
+export type ConsumptionSumAggregateOutputType = {
+  price: number | null
 }
 
 export type ConsumptionMinAggregateOutputType = {
   id: string | null
   personId: string | null
   drinkId: string | null
+  price: number | null
   timestamp: Date | null
 }
 
@@ -35,6 +46,7 @@ export type ConsumptionMaxAggregateOutputType = {
   id: string | null
   personId: string | null
   drinkId: string | null
+  price: number | null
   timestamp: Date | null
 }
 
@@ -42,15 +54,25 @@ export type ConsumptionCountAggregateOutputType = {
   id: number
   personId: number
   drinkId: number
+  price: number
   timestamp: number
   _all: number
 }
 
 
+export type ConsumptionAvgAggregateInputType = {
+  price?: true
+}
+
+export type ConsumptionSumAggregateInputType = {
+  price?: true
+}
+
 export type ConsumptionMinAggregateInputType = {
   id?: true
   personId?: true
   drinkId?: true
+  price?: true
   timestamp?: true
 }
 
@@ -58,6 +80,7 @@ export type ConsumptionMaxAggregateInputType = {
   id?: true
   personId?: true
   drinkId?: true
+  price?: true
   timestamp?: true
 }
 
@@ -65,6 +88,7 @@ export type ConsumptionCountAggregateInputType = {
   id?: true
   personId?: true
   drinkId?: true
+  price?: true
   timestamp?: true
   _all?: true
 }
@@ -107,6 +131,18 @@ export type ConsumptionAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ConsumptionAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ConsumptionSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ConsumptionMinAggregateInputType
@@ -137,6 +173,8 @@ export type ConsumptionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: ConsumptionCountAggregateInputType | true
+  _avg?: ConsumptionAvgAggregateInputType
+  _sum?: ConsumptionSumAggregateInputType
   _min?: ConsumptionMinAggregateInputType
   _max?: ConsumptionMaxAggregateInputType
 }
@@ -145,8 +183,11 @@ export type ConsumptionGroupByOutputType = {
   id: string
   personId: string
   drinkId: string
+  price: number
   timestamp: Date
   _count: ConsumptionCountAggregateOutputType | null
+  _avg: ConsumptionAvgAggregateOutputType | null
+  _sum: ConsumptionSumAggregateOutputType | null
   _min: ConsumptionMinAggregateOutputType | null
   _max: ConsumptionMaxAggregateOutputType | null
 }
@@ -173,6 +214,7 @@ export type ConsumptionWhereInput = {
   id?: Prisma.StringFilter<"Consumption"> | string
   personId?: Prisma.StringFilter<"Consumption"> | string
   drinkId?: Prisma.StringFilter<"Consumption"> | string
+  price?: Prisma.IntFilter<"Consumption"> | number
   timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
   person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
@@ -182,6 +224,7 @@ export type ConsumptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   person?: Prisma.PersonOrderByWithRelationInput
   drink?: Prisma.DrinkOrderByWithRelationInput
@@ -194,6 +237,7 @@ export type ConsumptionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ConsumptionWhereInput | Prisma.ConsumptionWhereInput[]
   personId?: Prisma.StringFilter<"Consumption"> | string
   drinkId?: Prisma.StringFilter<"Consumption"> | string
+  price?: Prisma.IntFilter<"Consumption"> | number
   timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
   person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
@@ -203,10 +247,13 @@ export type ConsumptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   _count?: Prisma.ConsumptionCountOrderByAggregateInput
+  _avg?: Prisma.ConsumptionAvgOrderByAggregateInput
   _max?: Prisma.ConsumptionMaxOrderByAggregateInput
   _min?: Prisma.ConsumptionMinOrderByAggregateInput
+  _sum?: Prisma.ConsumptionSumOrderByAggregateInput
 }
 
 export type ConsumptionScalarWhereWithAggregatesInput = {
@@ -216,11 +263,13 @@ export type ConsumptionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
   personId?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
   drinkId?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
+  price?: Prisma.IntWithAggregatesFilter<"Consumption"> | number
   timestamp?: Prisma.DateTimeWithAggregatesFilter<"Consumption"> | Date | string
 }
 
 export type ConsumptionCreateInput = {
   id?: string
+  price: number
   timestamp?: Date | string
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
@@ -230,11 +279,13 @@ export type ConsumptionUncheckedCreateInput = {
   id?: string
   personId: string
   drinkId: string
+  price: number
   timestamp?: Date | string
 }
 
 export type ConsumptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
@@ -244,6 +295,7 @@ export type ConsumptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -251,11 +303,13 @@ export type ConsumptionCreateManyInput = {
   id?: string
   personId: string
   drinkId: string
+  price: number
   timestamp?: Date | string
 }
 
 export type ConsumptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -263,6 +317,7 @@ export type ConsumptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -280,13 +335,19 @@ export type ConsumptionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
+}
+
+export type ConsumptionAvgOrderByAggregateInput = {
+  price?: Prisma.SortOrder
 }
 
 export type ConsumptionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
 }
 
@@ -294,7 +355,12 @@ export type ConsumptionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
+}
+
+export type ConsumptionSumOrderByAggregateInput = {
+  price?: Prisma.SortOrder
 }
 
 export type ConsumptionCreateNestedManyWithoutPersonInput = {
@@ -387,6 +453,7 @@ export type DateTimeFieldUpdateOperationsInput = {
 
 export type ConsumptionCreateWithoutPersonInput = {
   id?: string
+  price: number
   timestamp?: Date | string
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
 }
@@ -394,6 +461,7 @@ export type ConsumptionCreateWithoutPersonInput = {
 export type ConsumptionUncheckedCreateWithoutPersonInput = {
   id?: string
   drinkId: string
+  price: number
   timestamp?: Date | string
 }
 
@@ -429,11 +497,13 @@ export type ConsumptionScalarWhereInput = {
   id?: Prisma.StringFilter<"Consumption"> | string
   personId?: Prisma.StringFilter<"Consumption"> | string
   drinkId?: Prisma.StringFilter<"Consumption"> | string
+  price?: Prisma.IntFilter<"Consumption"> | number
   timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
 }
 
 export type ConsumptionCreateWithoutDrinkInput = {
   id?: string
+  price: number
   timestamp?: Date | string
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
 }
@@ -441,6 +511,7 @@ export type ConsumptionCreateWithoutDrinkInput = {
 export type ConsumptionUncheckedCreateWithoutDrinkInput = {
   id?: string
   personId: string
+  price: number
   timestamp?: Date | string
 }
 
@@ -472,11 +543,13 @@ export type ConsumptionUpdateManyWithWhereWithoutDrinkInput = {
 export type ConsumptionCreateManyPersonInput = {
   id?: string
   drinkId: string
+  price: number
   timestamp?: Date | string
 }
 
 export type ConsumptionUpdateWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
 }
@@ -484,23 +557,27 @@ export type ConsumptionUpdateWithoutPersonInput = {
 export type ConsumptionUncheckedUpdateWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ConsumptionUncheckedUpdateManyWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ConsumptionCreateManyDrinkInput = {
   id?: string
   personId: string
+  price: number
   timestamp?: Date | string
 }
 
 export type ConsumptionUpdateWithoutDrinkInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
 }
@@ -508,12 +585,14 @@ export type ConsumptionUpdateWithoutDrinkInput = {
 export type ConsumptionUncheckedUpdateWithoutDrinkInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ConsumptionUncheckedUpdateManyWithoutDrinkInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -523,6 +602,7 @@ export type ConsumptionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   personId?: boolean
   drinkId?: boolean
+  price?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
@@ -532,6 +612,7 @@ export type ConsumptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   personId?: boolean
   drinkId?: boolean
+  price?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
@@ -541,6 +622,7 @@ export type ConsumptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   personId?: boolean
   drinkId?: boolean
+  price?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
@@ -550,10 +632,11 @@ export type ConsumptionSelectScalar = {
   id?: boolean
   personId?: boolean
   drinkId?: boolean
+  price?: boolean
   timestamp?: boolean
 }
 
-export type ConsumptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "drinkId" | "timestamp", ExtArgs["result"]["consumption"]>
+export type ConsumptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "drinkId" | "price" | "timestamp", ExtArgs["result"]["consumption"]>
 export type ConsumptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
@@ -577,6 +660,7 @@ export type $ConsumptionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: string
     personId: string
     drinkId: string
+    price: number
     timestamp: Date
   }, ExtArgs["result"]["consumption"]>
   composites: {}
@@ -1006,6 +1090,7 @@ export interface ConsumptionFieldRefs {
   readonly id: Prisma.FieldRef<"Consumption", 'String'>
   readonly personId: Prisma.FieldRef<"Consumption", 'String'>
   readonly drinkId: Prisma.FieldRef<"Consumption", 'String'>
+  readonly price: Prisma.FieldRef<"Consumption", 'Int'>
   readonly timestamp: Prisma.FieldRef<"Consumption", 'DateTime'>
 }
     

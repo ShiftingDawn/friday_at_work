@@ -8,7 +8,7 @@
     import FormButton from "$lib/components/form_button.svelte";
 
     const {data}: PageProps = $props();
-    const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.drink!.price * c.count).reduce((a, b) => a + b));
+    const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
 </script>
 
 <Card title={data.person!.name} class="flex flex-col gap-4">
@@ -33,9 +33,9 @@
         {#each data.consumptions! as consumption}
             <TableRow>
                 <TableCell>{consumption.drink!.name}</TableCell>
-                <TableCell>&euro;{displayPrice(consumption.drink!.price)}</TableCell>
+                <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
                 <TableCell>{consumption.count}</TableCell>
-                <TableCell>&euro;{displayPrice(consumption.drink!.price, consumption.count)}</TableCell>
+                <TableCell>&euro;{displayPrice(consumption.price, consumption.count)}</TableCell>
             </TableRow>
         {/each}
         </tbody>

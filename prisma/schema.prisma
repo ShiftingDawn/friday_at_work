@@ -27,6 +27,7 @@ model Consumption {
   id        String   @id @default(uuid())
   personId  String
   drinkId   String
+  price     Int
   timestamp DateTime @default(now())
   person    Person   @relation(fields: [personId], references: [id])
   drink     Drink    @relation(fields: [drinkId], references: [id])

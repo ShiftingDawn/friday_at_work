@@ -15,7 +15,7 @@
 <Card title="Register new drink" as="form" method="POST" class="flex flex-col gap-4" enctype="multipart/form-data">
     {#snippet action()}
         <FormButton type="submit">
-            Save
+            Create
         </FormButton>
     {/snippet}
     <div class="flex flex-col lg:flex-row gap-4">

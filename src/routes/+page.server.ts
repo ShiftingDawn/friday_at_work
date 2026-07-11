@@ -14,14 +14,20 @@ export const load: PageServerLoad = async () => {
 export const actions = {
     default: async ({request}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
-        console.log({data, success, error});
         if (!success) {
+            return fail(400);
+        }
+        const drink = await prisma.drink.findUnique({
+            where: {id: data?.drink}
+        });
+        if (!drink) {
             return fail(400);
         }
         await prisma.consumption.create({
             data: {
                 personId: data?.person,
-                drinkId: data?.drink
+                drinkId: data?.drink,
+                price: drink.price
             }
         });
     }

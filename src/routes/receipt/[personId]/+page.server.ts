@@ -9,14 +9,14 @@ export const load: PageServerLoad = async ({params}) => {
             id: true,
             name: true,
             reset: true,
-            consumptions: {select: {drink: {omit: {image: true}}}}
+            consumptions: {select: {drink: {select: {name: true}}}}
         },
     });
     if (!person) {
         return fail(404);
     }
     const consumptions = await prisma.consumption.groupBy({
-        by: ["drinkId"],
+        by: ["drinkId", "price"],
         where: {
             personId: person.id,
             ...(person.reset ? {timestamp: {gte: person.reset}} : {})
@@ -24,6 +24,7 @@ export const load: PageServerLoad = async ({params}) => {
         _count: {drinkId: true}
     });
     const drinks = await prisma.drink.findMany({
+        omit: {price: true},
         where: {
             id: {
                 in: consumptions.map(consumption => consumption.drinkId)
@@ -34,6 +35,7 @@ export const load: PageServerLoad = async ({params}) => {
         person,
         consumptions: consumptions.map(consumption => ({
             drink: drinks.find(drink => drink.id === consumption.drinkId),
+            price: consumption.price,
             count: consumption._count.drinkId,
         })),
     };
