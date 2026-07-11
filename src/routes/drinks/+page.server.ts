@@ -32,5 +32,5 @@ export const actions = {
 const createScheme = zfd.formData({
     name: zfd.text(z.string().min(3)),
     price: zfd.numeric(z.int().min(0)),
-    image: zfd.file().optional(),
+    image: zfd.file(z.instanceof(File).optional()),
 });
