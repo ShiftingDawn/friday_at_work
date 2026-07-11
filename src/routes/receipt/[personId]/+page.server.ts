@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({params}) => {
         select: {
             id: true,
             name: true,
+            reset: true,
             consumptions: {select: {drink: {omit: {image: true}}}}
         },
     });
@@ -16,7 +17,10 @@ export const load: PageServerLoad = async ({params}) => {
     }
     const consumptions = await prisma.consumption.groupBy({
         by: ["drinkId"],
-        where: {personId: person.id},
+        where: {
+            personId: person.id,
+            ...(person.reset ? {timestamp: {gte: person.reset}} : {})
+        },
         _count: {drinkId: true}
     });
     const drinks = await prisma.drink.findMany({
@@ -39,6 +43,13 @@ export const actions = {
     default: async ({params}) => {
         const person = await prisma.person.findUnique({
             where: {id: params.personId},
+        });
+        if (!person) {
+            return fail(404);
+        }
+        await prisma.person.update({
+            data: {reset: new Date()},
+            where: {id: person.id}
         });
     }
 } satisfies Actions;

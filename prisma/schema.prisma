@@ -10,6 +10,7 @@ datasource db {
 model Person {
   id           String        @id @default(uuid())
   name         String
+  reset        DateTime?
   consumptions Consumption[]
 }
 

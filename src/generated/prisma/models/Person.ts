@@ -27,16 +27,19 @@ export type AggregatePerson = {
 export type PersonMinAggregateOutputType = {
   id: string | null
   name: string | null
+  reset: Date | null
 }
 
 export type PersonMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  reset: Date | null
 }
 
 export type PersonCountAggregateOutputType = {
   id: number
   name: number
+  reset: number
   _all: number
 }
 
@@ -44,16 +47,19 @@ export type PersonCountAggregateOutputType = {
 export type PersonMinAggregateInputType = {
   id?: true
   name?: true
+  reset?: true
 }
 
 export type PersonMaxAggregateInputType = {
   id?: true
   name?: true
+  reset?: true
 }
 
 export type PersonCountAggregateInputType = {
   id?: true
   name?: true
+  reset?: true
   _all?: true
 }
 
@@ -132,6 +138,7 @@ export type PersonGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type PersonGroupByOutputType = {
   id: string
   name: string
+  reset: Date | null
   _count: PersonCountAggregateOutputType | null
   _min: PersonMinAggregateOutputType | null
   _max: PersonMaxAggregateOutputType | null
@@ -158,12 +165,14 @@ export type PersonWhereInput = {
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   id?: Prisma.StringFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
+  reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
   consumptions?: Prisma.ConsumptionListRelationFilter
 }
 
 export type PersonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  reset?: Prisma.SortOrderInput | Prisma.SortOrder
   consumptions?: Prisma.ConsumptionOrderByRelationAggregateInput
 }
 
@@ -173,12 +182,14 @@ export type PersonWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PersonWhereInput[]
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   name?: Prisma.StringFilter<"Person"> | string
+  reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
   consumptions?: Prisma.ConsumptionListRelationFilter
 }, "id">
 
 export type PersonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  reset?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PersonCountOrderByAggregateInput
   _max?: Prisma.PersonMaxOrderByAggregateInput
   _min?: Prisma.PersonMinOrderByAggregateInput
@@ -190,60 +201,71 @@ export type PersonScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PersonScalarWhereWithAggregatesInput | Prisma.PersonScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Person"> | string
   name?: Prisma.StringWithAggregatesFilter<"Person"> | string
+  reset?: Prisma.DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
 }
 
 export type PersonCreateInput = {
   id?: string
   name: string
+  reset?: Date | string | null
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateInput = {
   id?: string
   name: string
+  reset?: Date | string | null
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   consumptions?: Prisma.ConsumptionUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateManyInput = {
   id?: string
   name: string
+  reset?: Date | string | null
 }
 
 export type PersonUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PersonUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PersonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  reset?: Prisma.SortOrder
 }
 
 export type PersonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  reset?: Prisma.SortOrder
 }
 
 export type PersonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  reset?: Prisma.SortOrder
 }
 
 export type PersonScalarRelationFilter = {
@@ -253,6 +275,10 @@ export type PersonScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type PersonCreateNestedOneWithoutConsumptionsInput = {
@@ -272,11 +298,13 @@ export type PersonUpdateOneRequiredWithoutConsumptionsNestedInput = {
 export type PersonCreateWithoutConsumptionsInput = {
   id?: string
   name: string
+  reset?: Date | string | null
 }
 
 export type PersonUncheckedCreateWithoutConsumptionsInput = {
   id?: string
   name: string
+  reset?: Date | string | null
 }
 
 export type PersonCreateOrConnectWithoutConsumptionsInput = {
@@ -298,11 +326,13 @@ export type PersonUpdateToOneWithWhereWithoutConsumptionsInput = {
 export type PersonUpdateWithoutConsumptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PersonUncheckedUpdateWithoutConsumptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -339,6 +369,7 @@ export type PersonCountOutputTypeCountConsumptionsArgs<ExtArgs extends runtime.T
 export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  reset?: boolean
   consumptions?: boolean | Prisma.Person$consumptionsArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
@@ -346,19 +377,22 @@ export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type PersonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  reset?: boolean
 }, ExtArgs["result"]["person"]>
 
 export type PersonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  reset?: boolean
 }, ExtArgs["result"]["person"]>
 
 export type PersonSelectScalar = {
   id?: boolean
   name?: boolean
+  reset?: boolean
 }
 
-export type PersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["person"]>
+export type PersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "reset", ExtArgs["result"]["person"]>
 export type PersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   consumptions?: boolean | Prisma.Person$consumptionsArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
@@ -374,6 +408,7 @@ export type $PersonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    reset: Date | null
   }, ExtArgs["result"]["person"]>
   composites: {}
 }
@@ -800,6 +835,7 @@ export interface Prisma__PersonClient<T, Null = never, ExtArgs extends runtime.T
 export interface PersonFieldRefs {
   readonly id: Prisma.FieldRef<"Person", 'String'>
   readonly name: Prisma.FieldRef<"Person", 'String'>
+  readonly reset: Prisma.FieldRef<"Person", 'DateTime'>
 }
     
 

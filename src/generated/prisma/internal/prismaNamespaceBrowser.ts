@@ -71,7 +71,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const PersonScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  reset: 'reset'
 } as const
 
 export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof PersonScalarFieldEnum]

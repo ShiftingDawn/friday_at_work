@@ -8,7 +8,7 @@
     import FormButton from "$lib/components/form_button.svelte";
 
     const {data}: PageProps = $props();
-    const totalPrice = $derived(data.consumptions!.map(c => c.drink!.price * c.count).reduce((a, b) => a + b));
+    const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.drink!.price * c.count).reduce((a, b) => a + b));
 </script>
 
 <Card title={data.person!.name} class="flex flex-col gap-4">
