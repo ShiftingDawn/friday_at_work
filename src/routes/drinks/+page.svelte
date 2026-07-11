@@ -19,7 +19,7 @@
     let modalOpen = $state(false);
 </script>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     <Modal title="Register new drink" open={modalOpen} onclose={() => modalOpen = false}>
         <div class="flex flex-col gap-4">
             <FormLabel name="Name">

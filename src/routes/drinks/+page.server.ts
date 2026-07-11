@@ -15,6 +15,7 @@ export const load: PageServerLoad = async ({params, url}) => {
 export const actions = {
     default: async ({request}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
+        console.log({data, success, error});
         if (!success) {
             return fail(400);
         }

@@ -6,7 +6,6 @@ export const handle: Handle = ({event, resolve}) => {
         event.cookies.delete("pincode", {sameSite: "strict", httpOnly: true, path: "/"});
         return resolve(event);
     }
-    event.locals.authorized = false;
     if (event.cookies.get("pincode") !== env.PINCODE) {
         event.cookies.delete("pincode", {sameSite: "strict", httpOnly: true, path: "/"});
         return redirect(307, "/authorize");
