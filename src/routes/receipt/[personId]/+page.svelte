@@ -6,12 +6,16 @@
     import TableRow from "$lib/components/table_row.svelte";
     import {displayPrice} from "$lib";
     import FormButton from "$lib/components/form_button.svelte";
+    import BackButton from "$lib/components/back_button.svelte";
 
     const {data}: PageProps = $props();
     const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
 </script>
 
 <Card title={data.person!.name} class="flex flex-col gap-4">
+    {#snippet back()}
+        <BackButton href="/receipt"/>
+    {/snippet}
     {#snippet action()}
         <span class="text-ctp-blue font-bold">&euro;{displayPrice(totalPrice)}</span>
         <form method="POST">

@@ -12,8 +12,8 @@
 </script>
 
 <a href={href} class={twMerge(
-    "text-ctp-text bg-ctp-surface0 rounded-[50px] px-4 py-2 flex items-center gap-2 min-w-fit transition-all hover:bg-ctp-overlay0",
-    active && "bg-ctp-lavender text-ctp-base rounded-lg hover:cursor-default hover:bg-ctp-lavender",
+    "text-ctp-text bg-ctp-surface0 rounded-[50px] px-4 py-2 flex items-center gap-2 min-w-fit transition-all hover:bg-ctp-lavender hover:text-ctp-crust",
+    active && "bg-ctp-rosewater text-ctp-crust rounded-lg hover:cursor-default hover:bg-ctp-rosewater",
 )}>
     <div class="w-8 h-8">
         {@render children()}

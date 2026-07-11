@@ -5,11 +5,15 @@
     import FormInput from "$lib/components/form_input.svelte";
     import FormButton from "$lib/components/form_button.svelte";
     import Section from '$lib/components/section.svelte';
+    import BackButton from '$lib/components/back_button.svelte';
 
     const {data}: PageProps = $props();
 </script>
 
 <Card title={data.drink!.name}>
+    {#snippet back()}
+        <BackButton href="/drinks"/>
+    {/snippet}
     {#snippet action()}
         <form method="POST" action="?/hide">
             <FormButton type="submit">

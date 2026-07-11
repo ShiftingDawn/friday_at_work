@@ -10,18 +10,20 @@
                 : Record<string, any>
         ) & {
         as?: T;
+        back?: Snippet;
         action?: Snippet;
         children?: Snippet;
     };
 
-    let {as = 'div' as any, title, action, class: cls, children, ...rest}: Props = $props();
+    let {as = 'div' as any, title, back, action, class: cls, children, ...rest}: Props = $props();
 </script>
 
 <svelte:element this={as} class={twMerge("bg-ctp-surface0 p-4 rounded-2xl shadow-lg", cls)} {...rest}>
     <div class="flex flex-col gap-2">
-        {#if title || action}
+        {#if back || title || action}
             <div class="flex items-center justify-between">
-                <div>
+                <div class="flex items-center gap-2">
+                    {@render back?.()}
                     {#if title}
                         <span class="font-bold text-xl uppercase">{title}</span>
                     {/if}
