@@ -6,6 +6,7 @@
     import iconHome from "$lib/assets/home.svg";
     import iconPerson from "$lib/assets/person.svg";
     import iconDrinks from "$lib/assets/drinks.svg";
+    import iconReceipt from "$lib/assets/receipt.svg";
 
     let {children} = $props();
 </script>
@@ -32,6 +33,9 @@
                 </HeaderButton>
                 <HeaderButton href="/drinks">
                     <Icon icon={iconDrinks}/>
+                </HeaderButton>
+                <HeaderButton href="/receipt">
+                    <Icon icon={iconReceipt}/>
                 </HeaderButton>
             </nav>
         </header>
