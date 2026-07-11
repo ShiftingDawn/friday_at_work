@@ -3,9 +3,12 @@
     import Card from "$lib/components/card.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
-    import FormButton from "$lib/components/form_button.svelte";
+    import IconButton from "$lib/components/icon_button.svelte";
     import Section from '$lib/components/section.svelte';
     import BackButton from '$lib/components/back_button.svelte';
+    import Button from '$lib/components/button.svelte';
+    import IconHide from "$lib/icon/hide.svelte";
+    import IconShow from "$lib/icon/show.svelte";
 
     const {data}: PageProps = $props();
 </script>
@@ -16,13 +19,13 @@
     {/snippet}
     {#snippet action()}
         <form method="POST" action="?/hide">
-            <FormButton type="submit">
+            <IconButton type="submit">
                 {#if data.drink!.hidden}
-                    Unhide drink
+                    <IconShow/>
                 {:else}
-                    Hide drink
+                    <IconHide/>
                 {/if}
-            </FormButton>
+            </IconButton>
         </form>
     {/snippet}
     <Section name="Update data">
@@ -33,9 +36,9 @@
             <FormLabel name="Price">
                 <FormInput type="number" min="0" name="price" value={data.drink!.price}/>
             </FormLabel>
-            <FormButton type="submit" class="self-start">
+            <Button type="submit" class="self-start">
                 Save
-            </FormButton>
+            </Button>
         </form>
     </Section>
     <Section name="Update image">
@@ -45,9 +48,9 @@
             {/if}
             <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4">
                 <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"/>
-                <FormButton type="submit" class="self-start">
+                <Button type="submit" class="self-start">
                     Save
-                </FormButton>
+                </Button>
             </form>
         </div>
     </Section>

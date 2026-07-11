@@ -5,16 +5,19 @@
 
     const {
         name,
+        class: cls,
         children
     }: {
         name?: string,
+        class?: string,
         children?: Snippet
     } = $props();
 </script>
 
 <div class={twMerge(
     "border-4 border-ctp-surface1 rounded-lg p-4 relative",
-    name && "mt-6 pt-6"
+    cls,
+    name && "mt-6 pt-6",
 )}>
     {#if name}
         <div class="absolute bg-ctp-surface1 px-2 py-1 rounded-full -top-4.5">

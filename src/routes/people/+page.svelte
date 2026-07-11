@@ -4,7 +4,7 @@
     import Modal from "$lib/components/modal.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
-    import FormButton from "$lib/components/form_button.svelte";
+    import Button from "$lib/components/button.svelte";
     import LinkButton from "$lib/components/link_button.svelte";
     import IconButton from "$lib/components/icon_button.svelte";
     import IconSubmit from "$lib/icon/plus.svelte";
@@ -19,9 +19,9 @@
             <FormInput type="text" min="3" name="name"/>
         </FormLabel>
         {#snippet actions()}
-            <FormButton type="submit" class="font-bold uppercase">
+            <Button type="submit" class="font-bold uppercase">
                 Add
-            </FormButton>
+            </Button>
         {/snippet}
     </Modal>
 </form>

@@ -5,8 +5,9 @@
     import TableHeadCell from "$lib/components/table_headcell.svelte";
     import TableRow from "$lib/components/table_row.svelte";
     import {displayPrice} from "$lib";
-    import FormButton from "$lib/components/form_button.svelte";
+    import IconButton from "$lib/components/icon_button.svelte";
     import BackButton from "$lib/components/back_button.svelte";
+    import IconReset from "$lib/icon/reset.svelte";
 
     const {data}: PageProps = $props();
     const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
@@ -17,11 +18,13 @@
         <BackButton href="/receipt"/>
     {/snippet}
     {#snippet action()}
-        <span class="text-ctp-blue font-bold">&euro;{displayPrice(totalPrice)}</span>
+        <span class="text-ctp-blue font-bold text-xl mr-4">
+            &euro;{displayPrice(totalPrice)}
+        </span>
         <form method="POST">
-            <FormButton type="submit">
-                Reset
-            </FormButton>
+            <IconButton type="submit">
+                <IconReset/>
+            </IconButton>
         </form>
     {/snippet}
     <table class="w-full">

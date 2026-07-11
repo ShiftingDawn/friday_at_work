@@ -14,10 +14,11 @@
     };
 
     let {as = "button" as any, class: cls, children, ...rest}: Props = $props();
+
 </script>
 
-<svelte:element this={as} class={twMerge("w-12 h-12 bg-ctp-surface1 rounded-full cursor-pointer hover:bg-ctp-lavender hover:text-ctp-base transition-all flex items-center justify-center", cls as any)} {...rest}>
-    <div class="w-8 h-8">
-        {@render children?.()}
-    </div>
+<svelte:element this={as}
+                class={twMerge("bg-ctp-surface1 min-w-8 h-8 self-end px-4 rounded-full cursor-pointer hover:bg-ctp-lavender hover:text-ctp-base transition-all", cls as any)}
+                {...rest}>
+    {@render children?.()}
 </svelte:element>

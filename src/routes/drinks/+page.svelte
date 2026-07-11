@@ -7,10 +7,12 @@
     import LinkButton from "$lib/components/link_button.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
-    import FormButton from "$lib/components/form_button.svelte";
+    import Button from "$lib/components/button.svelte";
+    import IconButton from "$lib/components/icon_button.svelte";
     import IconDrink from "$lib/icon/drinks.svelte";
     import IconSubmit from "$lib/icon/plus.svelte";
-    import IconButton from "$lib/components/icon_button.svelte";
+    import IconHide from "$lib/icon/hide.svelte";
+    import IconShow from "$lib/icon/show.svelte";
 
     const {data}: PageProps = $props();
     const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
@@ -31,18 +33,22 @@
             </FormLabel>
         </div>
         {#snippet actions()}
-            <FormButton type="submit" class="font-bold uppercase">
+            <Button type="submit" class="font-bold uppercase">
                 Add
-            </FormButton>
+            </Button>
         {/snippet}
     </Modal>
 </form>
 <Card title="Manage drinks">
     {#snippet action()}
         {#if !showHidden}
-            <LinkButton href="/drinks?hidden=true">Show hidden</LinkButton>
+            <IconButton as="a" href="/drinks?hidden=true">
+                <IconHide/>
+            </IconButton>
         {:else}
-            <LinkButton href="/drinks?hidden=false">Hide hidden</LinkButton>
+            <IconButton as="a" href="/drinks?hidden=false">
+                <IconShow/>
+            </IconButton>
         {/if}
         <IconButton onclick={() => modalOpen = true}>
             <IconSubmit/>
