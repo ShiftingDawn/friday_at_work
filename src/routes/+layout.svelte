@@ -14,7 +14,7 @@
     <link rel="icon" href={favicon}/>
 </svelte:head>
 
-<nav class="sticky top-0 bg-ctp-crust p-4 flex items-start gap-4 shadow-xl overflow-auto z-50">
+<nav class="sticky top-0 bg-ctp-crust p-4 flex items-start gap-4 shadow-xl overflow-auto z-30">
     <HeaderButton name="Home" href="/">
         <IconHome/>
     </HeaderButton>
