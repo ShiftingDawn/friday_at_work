@@ -389,7 +389,8 @@ export const ModelName = {
   Workspace: 'Workspace',
   Person: 'Person',
   Drink: 'Drink',
-  Consumption: 'Consumption'
+  Consumption: 'Consumption',
+  Restock: 'Restock'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "workspace" | "person" | "drink" | "consumption"
+    modelProps: "user" | "session" | "workspace" | "person" | "drink" | "consumption" | "restock"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -853,6 +854,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Restock: {
+      payload: Prisma.$RestockPayload<ExtArgs>
+      fields: Prisma.RestockFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RestockFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RestockFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>
+        }
+        findFirst: {
+          args: Prisma.RestockFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RestockFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>
+        }
+        findMany: {
+          args: Prisma.RestockFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>[]
+        }
+        create: {
+          args: Prisma.RestockCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>
+        }
+        createMany: {
+          args: Prisma.RestockCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RestockCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>[]
+        }
+        delete: {
+          args: Prisma.RestockDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>
+        }
+        update: {
+          args: Prisma.RestockUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>
+        }
+        deleteMany: {
+          args: Prisma.RestockDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RestockUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RestockUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>[]
+        }
+        upsert: {
+          args: Prisma.RestockUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RestockPayload>
+        }
+        aggregate: {
+          args: Prisma.RestockAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRestock>
+        }
+        groupBy: {
+          args: Prisma.RestockGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RestockGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RestockCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RestockCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -948,6 +1023,16 @@ export const ConsumptionScalarFieldEnum = {
 } as const
 
 export type ConsumptionScalarFieldEnum = (typeof ConsumptionScalarFieldEnum)[keyof typeof ConsumptionScalarFieldEnum]
+
+
+export const RestockScalarFieldEnum = {
+  id: 'id',
+  drinkId: 'drinkId',
+  amount: 'amount',
+  timestamp: 'timestamp'
+} as const
+
+export type RestockScalarFieldEnum = (typeof RestockScalarFieldEnum)[keyof typeof RestockScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1122,6 +1207,7 @@ export type GlobalOmitConfig = {
   person?: Prisma.PersonOmit
   drink?: Prisma.DrinkOmit
   consumption?: Prisma.ConsumptionOmit
+  restock?: Prisma.RestockOmit
 }
 
 /* Types for Logging */

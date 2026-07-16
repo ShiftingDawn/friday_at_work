@@ -4,9 +4,23 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({params}) => {
+export const load: PageServerLoad = async ({params, locals}) => {
+    const [restocked, consumed] = await Promise.all([
+        prisma.restock.aggregate({
+            where: {drinkId: params.drink},
+            _sum: {amount: true},
+        }),
+        prisma.consumption.count({
+            where: {workspaceId: locals.workspace!.id, drinkId: params.drink}
+        })
+    ]);
     return {
-        drink: await prisma.drink.findFirst({where: {id: params.drink}})
+        drink: await prisma.drink.findFirst({where: {workspaceId: locals.workspace!.id, id: params.drink,}}),
+        stock: (restocked._sum.amount ?? 0) - consumed,
+        last_restock: await prisma.restock.findFirst({
+            where: {drinkId: params.drink},
+            orderBy: {timestamp: "desc"}
+        }),
     };
 }
 
@@ -45,6 +59,18 @@ export const actions = {
             where: {id: params.drink},
             data: {hidden: !current.hidden},
         });
+    },
+    restock: async ({request, params}) => {
+        const {data, success, error} = restockScheme.safeParse(await request.formData());
+        if (!success) {
+            return fail(400);
+        }
+        await prisma.restock.create({
+            data: {
+                drinkId: params.drink,
+                amount: data?.amount
+            }
+        });
     }
 } satisfies Actions;
 
@@ -56,3 +82,7 @@ const updateScheme = zfd.formData({
 const reskinScheme = zfd.formData({
     image: zfd.file(),
 });
+
+const restockScheme = zfd.formData({
+    amount: zfd.numeric(z.int().min(1)),
+})

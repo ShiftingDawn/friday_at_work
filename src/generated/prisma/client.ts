@@ -71,3 +71,8 @@ export type Drink = Prisma.DrinkModel
  * 
  */
 export type Consumption = Prisma.ConsumptionModel
+/**
+ * Model Restock
+ * 
+ */
+export type Restock = Prisma.RestockModel

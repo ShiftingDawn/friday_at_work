@@ -226,6 +226,7 @@ export type DrinkWhereInput = {
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   consumptions?: Prisma.ConsumptionListRelationFilter
+  restocks?: Prisma.RestockListRelationFilter
 }
 
 export type DrinkOrderByWithRelationInput = {
@@ -237,6 +238,7 @@ export type DrinkOrderByWithRelationInput = {
   hidden?: Prisma.SortOrder
   workspace?: Prisma.WorkspaceOrderByWithRelationInput
   consumptions?: Prisma.ConsumptionOrderByRelationAggregateInput
+  restocks?: Prisma.RestockOrderByRelationAggregateInput
 }
 
 export type DrinkWhereUniqueInput = Prisma.AtLeast<{
@@ -251,6 +253,7 @@ export type DrinkWhereUniqueInput = Prisma.AtLeast<{
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   consumptions?: Prisma.ConsumptionListRelationFilter
+  restocks?: Prisma.RestockListRelationFilter
 }, "id">
 
 export type DrinkOrderByWithAggregationInput = {
@@ -287,6 +290,7 @@ export type DrinkCreateInput = {
   hidden?: boolean
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDrinksInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutDrinkInput
+  restocks?: Prisma.RestockCreateNestedManyWithoutDrinkInput
 }
 
 export type DrinkUncheckedCreateInput = {
@@ -297,6 +301,7 @@ export type DrinkUncheckedCreateInput = {
   image?: string | null
   hidden?: boolean
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutDrinkInput
+  restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutDrinkInput
 }
 
 export type DrinkUpdateInput = {
@@ -307,6 +312,7 @@ export type DrinkUpdateInput = {
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDrinksNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutDrinkNestedInput
+  restocks?: Prisma.RestockUpdateManyWithoutDrinkNestedInput
 }
 
 export type DrinkUncheckedUpdateInput = {
@@ -317,6 +323,7 @@ export type DrinkUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput
+  restocks?: Prisma.RestockUncheckedUpdateManyWithoutDrinkNestedInput
 }
 
 export type DrinkCreateManyInput = {
@@ -467,6 +474,20 @@ export type DrinkUpdateOneRequiredWithoutConsumptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DrinkUpdateToOneWithWhereWithoutConsumptionsInput, Prisma.DrinkUpdateWithoutConsumptionsInput>, Prisma.DrinkUncheckedUpdateWithoutConsumptionsInput>
 }
 
+export type DrinkCreateNestedOneWithoutRestocksInput = {
+  create?: Prisma.XOR<Prisma.DrinkCreateWithoutRestocksInput, Prisma.DrinkUncheckedCreateWithoutRestocksInput>
+  connectOrCreate?: Prisma.DrinkCreateOrConnectWithoutRestocksInput
+  connect?: Prisma.DrinkWhereUniqueInput
+}
+
+export type DrinkUpdateOneRequiredWithoutRestocksNestedInput = {
+  create?: Prisma.XOR<Prisma.DrinkCreateWithoutRestocksInput, Prisma.DrinkUncheckedCreateWithoutRestocksInput>
+  connectOrCreate?: Prisma.DrinkCreateOrConnectWithoutRestocksInput
+  upsert?: Prisma.DrinkUpsertWithoutRestocksInput
+  connect?: Prisma.DrinkWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DrinkUpdateToOneWithWhereWithoutRestocksInput, Prisma.DrinkUpdateWithoutRestocksInput>, Prisma.DrinkUncheckedUpdateWithoutRestocksInput>
+}
+
 export type DrinkCreateWithoutWorkspaceInput = {
   id?: string
   name: string
@@ -474,6 +495,7 @@ export type DrinkCreateWithoutWorkspaceInput = {
   image?: string | null
   hidden?: boolean
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutDrinkInput
+  restocks?: Prisma.RestockCreateNestedManyWithoutDrinkInput
 }
 
 export type DrinkUncheckedCreateWithoutWorkspaceInput = {
@@ -483,6 +505,7 @@ export type DrinkUncheckedCreateWithoutWorkspaceInput = {
   image?: string | null
   hidden?: boolean
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutDrinkInput
+  restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutDrinkInput
 }
 
 export type DrinkCreateOrConnectWithoutWorkspaceInput = {
@@ -529,6 +552,7 @@ export type DrinkCreateWithoutConsumptionsInput = {
   image?: string | null
   hidden?: boolean
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDrinksInput
+  restocks?: Prisma.RestockCreateNestedManyWithoutDrinkInput
 }
 
 export type DrinkUncheckedCreateWithoutConsumptionsInput = {
@@ -538,6 +562,7 @@ export type DrinkUncheckedCreateWithoutConsumptionsInput = {
   price: number
   image?: string | null
   hidden?: boolean
+  restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutDrinkInput
 }
 
 export type DrinkCreateOrConnectWithoutConsumptionsInput = {
@@ -563,6 +588,7 @@ export type DrinkUpdateWithoutConsumptionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDrinksNestedInput
+  restocks?: Prisma.RestockUpdateManyWithoutDrinkNestedInput
 }
 
 export type DrinkUncheckedUpdateWithoutConsumptionsInput = {
@@ -572,6 +598,63 @@ export type DrinkUncheckedUpdateWithoutConsumptionsInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restocks?: Prisma.RestockUncheckedUpdateManyWithoutDrinkNestedInput
+}
+
+export type DrinkCreateWithoutRestocksInput = {
+  id?: string
+  name: string
+  price: number
+  image?: string | null
+  hidden?: boolean
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutDrinksInput
+  consumptions?: Prisma.ConsumptionCreateNestedManyWithoutDrinkInput
+}
+
+export type DrinkUncheckedCreateWithoutRestocksInput = {
+  id?: string
+  workspaceId: string
+  name: string
+  price: number
+  image?: string | null
+  hidden?: boolean
+  consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutDrinkInput
+}
+
+export type DrinkCreateOrConnectWithoutRestocksInput = {
+  where: Prisma.DrinkWhereUniqueInput
+  create: Prisma.XOR<Prisma.DrinkCreateWithoutRestocksInput, Prisma.DrinkUncheckedCreateWithoutRestocksInput>
+}
+
+export type DrinkUpsertWithoutRestocksInput = {
+  update: Prisma.XOR<Prisma.DrinkUpdateWithoutRestocksInput, Prisma.DrinkUncheckedUpdateWithoutRestocksInput>
+  create: Prisma.XOR<Prisma.DrinkCreateWithoutRestocksInput, Prisma.DrinkUncheckedCreateWithoutRestocksInput>
+  where?: Prisma.DrinkWhereInput
+}
+
+export type DrinkUpdateToOneWithWhereWithoutRestocksInput = {
+  where?: Prisma.DrinkWhereInput
+  data: Prisma.XOR<Prisma.DrinkUpdateWithoutRestocksInput, Prisma.DrinkUncheckedUpdateWithoutRestocksInput>
+}
+
+export type DrinkUpdateWithoutRestocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDrinksNestedInput
+  consumptions?: Prisma.ConsumptionUpdateManyWithoutDrinkNestedInput
+}
+
+export type DrinkUncheckedUpdateWithoutRestocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput
 }
 
 export type DrinkCreateManyWorkspaceInput = {
@@ -589,6 +672,7 @@ export type DrinkUpdateWithoutWorkspaceInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   consumptions?: Prisma.ConsumptionUpdateManyWithoutDrinkNestedInput
+  restocks?: Prisma.RestockUpdateManyWithoutDrinkNestedInput
 }
 
 export type DrinkUncheckedUpdateWithoutWorkspaceInput = {
@@ -598,6 +682,7 @@ export type DrinkUncheckedUpdateWithoutWorkspaceInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput
+  restocks?: Prisma.RestockUncheckedUpdateManyWithoutDrinkNestedInput
 }
 
 export type DrinkUncheckedUpdateManyWithoutWorkspaceInput = {
@@ -615,10 +700,12 @@ export type DrinkUncheckedUpdateManyWithoutWorkspaceInput = {
 
 export type DrinkCountOutputType = {
   consumptions: number
+  restocks: number
 }
 
 export type DrinkCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   consumptions?: boolean | DrinkCountOutputTypeCountConsumptionsArgs
+  restocks?: boolean | DrinkCountOutputTypeCountRestocksArgs
 }
 
 /**
@@ -638,6 +725,13 @@ export type DrinkCountOutputTypeCountConsumptionsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.ConsumptionWhereInput
 }
 
+/**
+ * DrinkCountOutputType without action
+ */
+export type DrinkCountOutputTypeCountRestocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RestockWhereInput
+}
+
 
 export type DrinkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -648,6 +742,7 @@ export type DrinkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   hidden?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   consumptions?: boolean | Prisma.Drink$consumptionsArgs<ExtArgs>
+  restocks?: boolean | Prisma.Drink$restocksArgs<ExtArgs>
   _count?: boolean | Prisma.DrinkCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["drink"]>
 
@@ -684,6 +779,7 @@ export type DrinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type DrinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   consumptions?: boolean | Prisma.Drink$consumptionsArgs<ExtArgs>
+  restocks?: boolean | Prisma.Drink$restocksArgs<ExtArgs>
   _count?: boolean | Prisma.DrinkCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DrinkIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -698,6 +794,7 @@ export type $DrinkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     workspace: Prisma.$WorkspacePayload<ExtArgs>
     consumptions: Prisma.$ConsumptionPayload<ExtArgs>[]
+    restocks: Prisma.$RestockPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1102,6 +1199,7 @@ export interface Prisma__DrinkClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   workspace<T extends Prisma.WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkspaceDefaultArgs<ExtArgs>>): Prisma.Prisma__WorkspaceClient<runtime.Types.Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   consumptions<T extends Prisma.Drink$consumptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Drink$consumptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsumptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  restocks<T extends Prisma.Drink$restocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Drink$restocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1557,6 +1655,30 @@ export type Drink$consumptionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.ConsumptionScalarFieldEnum | Prisma.ConsumptionScalarFieldEnum[]
+}
+
+/**
+ * Drink.restocks
+ */
+export type Drink$restocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Restock
+   */
+  select?: Prisma.RestockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Restock
+   */
+  omit?: Prisma.RestockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RestockInclude<ExtArgs> | null
+  where?: Prisma.RestockWhereInput
+  orderBy?: Prisma.RestockOrderByWithRelationInput | Prisma.RestockOrderByWithRelationInput[]
+  cursor?: Prisma.RestockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RestockScalarFieldEnum | Prisma.RestockScalarFieldEnum[]
 }
 
 /**

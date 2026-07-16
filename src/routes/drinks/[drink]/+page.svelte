@@ -4,20 +4,46 @@
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import IconButton from "$lib/components/icon_button.svelte";
+    import LinkButton from "$lib/components/link_button.svelte";
     import Section from '$lib/components/section.svelte';
     import BackButton from '$lib/components/back_button.svelte';
     import Button from '$lib/components/button.svelte';
     import IconHide from "$lib/icon/hide.svelte";
     import IconShow from "$lib/icon/show.svelte";
+    import IconRestock from "$lib/icon/plus.svelte";
+    import Modal from "$lib/components/modal.svelte";
 
-    const {data}: PageProps = $props();
+    const {params, data}: PageProps = $props();
+    let modalOpen = $state(false);
 </script>
+
+<form method="POST" action="?/restock">
+    <Modal title="Register restock" open={modalOpen} onclose={() => modalOpen = false}>
+        <FormLabel name="Amount">
+            <FormInput
+                    type="number"
+                    min="1"
+                    name="amount"
+                    required
+                    autofocus
+            />
+        </FormLabel>
+        {#snippet actions()}
+            <Button type="submit" class="font-bold uppercase">
+                Restock
+            </Button>
+        {/snippet}
+    </Modal>
+</form>
 
 <Card title={data.drink!.name}>
     {#snippet back()}
         <BackButton href="/drinks"/>
     {/snippet}
     {#snippet action()}
+        <IconButton onclick={() => modalOpen = true}>
+            <IconRestock/>
+        </IconButton>
         <form method="POST" action="?/hide">
             <IconButton type="submit">
                 {#if data.drink!.hidden}
@@ -28,6 +54,11 @@
             </IconButton>
         </form>
     {/snippet}
+    <Section name="Stock" class="flex flex-col gap-2">
+        <p>Current stock: {data.stock}</p>
+        <p>Last restock: {data.last_restock?.timestamp?.toLocaleString() ?? "never"}</p>
+        <LinkButton href={`/drinks/${params.drink}/restocks`}>Restock history</LinkButton>
+    </Section>
     <Section name="Update data">
         <form method="POST" action="?/update" class="flex flex-col sm:flex-row gap-4">
             <FormLabel name="Name">

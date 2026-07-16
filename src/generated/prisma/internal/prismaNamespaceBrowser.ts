@@ -56,7 +56,8 @@ export const ModelName = {
   Workspace: 'Workspace',
   Person: 'Person',
   Drink: 'Drink',
-  Consumption: 'Consumption'
+  Consumption: 'Consumption',
+  Restock: 'Restock'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -131,6 +132,16 @@ export const ConsumptionScalarFieldEnum = {
 } as const
 
 export type ConsumptionScalarFieldEnum = (typeof ConsumptionScalarFieldEnum)[keyof typeof ConsumptionScalarFieldEnum]
+
+
+export const RestockScalarFieldEnum = {
+  id: 'id',
+  drinkId: 'drinkId',
+  amount: 'amount',
+  timestamp: 'timestamp'
+} as const
+
+export type RestockScalarFieldEnum = (typeof RestockScalarFieldEnum)[keyof typeof RestockScalarFieldEnum]
 
 
 export const SortOrder = {

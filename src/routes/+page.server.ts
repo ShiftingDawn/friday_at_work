@@ -12,7 +12,7 @@ export const load: PageServerLoad = async () => {
 }
 
 export const actions = {
-    default: async ({request}) => {
+    default: async ({request, locals}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
         if (!success) {
             return fail(400);
@@ -25,6 +25,7 @@ export const actions = {
         }
         await prisma.consumption.create({
             data: {
+                workspaceId: locals.workspace!.id,
                 personId: data?.person,
                 drinkId: data?.drink,
                 price: drink.price

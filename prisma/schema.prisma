@@ -13,6 +13,8 @@ model User {
   password   String
   sessions   Session[]
   workspaces Workspace[]
+
+  @@map("users")
 }
 
 model Session {
@@ -20,6 +22,8 @@ model Session {
   userId    String
   expiresAt DateTime
   user      User     @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
 }
 
 model Workspace {
@@ -32,6 +36,7 @@ model Workspace {
   consumptions Consumption[]
 
   @@unique([name, ownerId])
+  @@map("workspaces")
 }
 
 model Person {
@@ -41,6 +46,8 @@ model Person {
   reset        DateTime?
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
+
+  @@map("people")
 }
 
 model Drink {
@@ -52,6 +59,9 @@ model Drink {
   hidden       Boolean       @default(false)
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
+  restocks     Restock[]
+
+  @@map("drinks")
 }
 
 model Consumption {
@@ -64,4 +74,16 @@ model Consumption {
   person      Person    @relation(fields: [personId], references: [id])
   drink       Drink     @relation(fields: [drinkId], references: [id])
   workspace   Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@map("consumptions")
+}
+
+model Restock {
+  id        String   @id @default(uuid())
+  drinkId   String
+  amount    Int
+  timestamp DateTime @default(now())
+  drink     Drink    @relation(fields: [drinkId], references: [id])
+
+  @@map("restocks")
 }
