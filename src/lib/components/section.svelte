@@ -20,7 +20,7 @@
     name && "mt-6 pt-6",
 )}>
     {#if name}
-        <div class="absolute bg-ctp-surface1 px-2 py-1 rounded-full -top-4.5">
+        <div class="absolute bg-ctp-surface1 px-2 py-1 rounded-full left-4 -top-4.5">
             {name}
         </div>
     {/if}
