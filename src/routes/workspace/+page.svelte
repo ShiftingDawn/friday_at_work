@@ -31,7 +31,7 @@
         </FormLabel>
         {#snippet actions()}
             <Button type="submit" class="font-bold uppercase">
-                Creat() => modalOpen = falsee
+                Create
             </Button>
         {/snippet}
     </Modal>
