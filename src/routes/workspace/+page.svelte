@@ -18,6 +18,12 @@
     }
 </script>
 
+{#if data.hasWorkspace}
+    <Card title="Current Workspace" class="mb-4 max-w-md mx-auto">
+        {data.workspace}
+    </Card>
+{/if}
+
 <form method="POST" action="?/create">
     <Modal title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}>
         <FormLabel name="Name">
@@ -30,6 +36,7 @@
         {/snippet}
     </Modal>
 </form>
+
 <Card title="Select workspace" class="max-w-md mx-auto">
     {#snippet action()}
         <IconButton onclick={() => modalOpen = true}>

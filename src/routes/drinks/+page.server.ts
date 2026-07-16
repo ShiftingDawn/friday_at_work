@@ -4,16 +4,26 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({params, url}) => {
+export const load: PageServerLoad = async ({url, locals}) => {
     const showHidden = new URLSearchParams(url.search).has("hidden", "true")
     return {
-        drinks: await prisma.drink.findMany({where: {hidden: false}}),
-        hidden: showHidden ? await prisma.drink.findMany({where: {hidden: true}}) : undefined
+        drinks: await prisma.drink.findMany({
+            where: {
+                workspaceId: locals.workspace!.id,
+                hidden: false
+            }
+        }),
+        hidden: showHidden ? await prisma.drink.findMany({
+            where: {
+                workspaceId: locals.workspace!.id,
+                hidden: true
+            }
+        }) : undefined
     };
 }
 
 export const actions = {
-    default: async ({request}) => {
+    default: async ({request, locals}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
         console.log({data, success, error});
         if (!success) {
@@ -24,6 +34,7 @@ export const actions = {
             ? data.image.name.substring(data.image.name.lastIndexOf(".")) : null;
         await prisma.drink.create({
             data: {
+                workspaceId: locals.workspace!.id,
                 name: data?.name,
                 price: data?.price,
                 image: imageBytes ? `data:image/${imageType};base64,${imageBytes.toBase64()}` : null

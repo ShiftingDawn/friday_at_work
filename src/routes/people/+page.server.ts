@@ -4,19 +4,26 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({params}) => {
+export const load: PageServerLoad = async ({params, locals}) => {
     return {
-        people: await prisma.person.findMany()
+        people: await prisma.person.findMany({
+            where: {workspaceId: locals.workspace!.id}
+        })
     };
 }
 
 export const actions = {
-    default: async ({request}) => {
+    default: async ({request, locals}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
         if (!success) {
             return fail(400);
         }
-        await prisma.person.create({data: {name: data?.name}});
+        await prisma.person.create({
+            data: {
+                workspaceId: locals.workspace!.id,
+                name: data?.name,
+            }
+        });
     }
 } satisfies Actions;
 
