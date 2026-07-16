@@ -447,10 +447,6 @@ export type ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput = {
   deleteMany?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type ConsumptionCreateWithoutPersonInput = {
   id?: string
   price: number

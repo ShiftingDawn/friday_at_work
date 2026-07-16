@@ -4,7 +4,8 @@ declare global {
     namespace App {
         // interface Error {}
         interface Locals {
-            authorized: boolean;
+            user: import("$lib/server/auth").ServerSession["user"],
+            session: import("$lib/server/auth").ServerSession["session"],
         }
         // interface PageData {}
         // interface PageState {}

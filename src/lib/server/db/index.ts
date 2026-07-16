@@ -1,5 +1,5 @@
 import {PrismaLibSql} from "@prisma/adapter-libsql";
-import {PrismaClient} from "@/generated/prisma/client";
+import {Prisma, PrismaClient} from "@/generated/prisma/client";
 import {env} from "$env/dynamic/private";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
@@ -10,3 +10,6 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({adapter});
 if (process.env.NODE_ENV !== "production") {
     globalForPrisma.prisma = prisma;
 }
+
+export type User = Prisma.UserGetPayload<{}>;
+export type Session = Prisma.SessionGetPayload<{}>;

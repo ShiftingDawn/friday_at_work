@@ -1,15 +1,25 @@
 import {type Handle, redirect} from "@sveltejs/kit";
-import {env} from "$env/dynamic/private";
+import * as auth from "$lib/server/auth";
 
-export const handle: Handle = ({event, resolve}) => {
-    if (event.url.pathname === "/authorize") {
-        event.cookies.delete("pincode", {sameSite: "strict", httpOnly: true, path: "/"});
+const PUBLIC_ROUTES = ["/signin", "/signup"];
+
+export const handle: Handle = async ({event, resolve}) => {
+    const sessionId = auth.getSessionId(event);
+    if (!sessionId) {
+        if (PUBLIC_ROUTES.indexOf(event.url.pathname) === -1) {
+            return redirect(307, "/signin");
+        }
+        event.locals.user = null;
+        event.locals.session = null;
         return resolve(event);
     }
-    if (event.cookies.get("pincode") !== env.PINCODE) {
-        event.cookies.delete("pincode", {sameSite: "strict", httpOnly: true, path: "/"});
-        return redirect(307, "/authorize");
+    const { session, user, } = await auth.getCurrentSession(sessionId);
+    if (session) {
+        auth.setSessionTokenCookie(event, sessionId, session.expiresAt);
+    } else {
+        await auth.destroyCurrentSession(event);
     }
-    event.locals.authorized = true;
+    event.locals.user = user;
+    event.locals.session = session;
     return resolve(event);
 }

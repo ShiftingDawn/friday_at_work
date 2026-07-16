@@ -2,6 +2,8 @@ import type {LayoutServerLoad} from "./$types";
 
 export const load: LayoutServerLoad = ({locals}) => {
     return {
-        authorized: locals.authorized,
+        isLoggedIn: Boolean(locals.user),
+        username: locals.user?.username ?? null,
+        userId: locals.user?.id ?? null,
     }
 }

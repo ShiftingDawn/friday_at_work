@@ -7,6 +7,20 @@ datasource db {
   provider = "sqlite"
 }
 
+model User {
+  id       String    @id @default(uuid())
+  username String    @unique
+  password String
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+}
+
 model Person {
   id           String        @id @default(uuid())
   name         String

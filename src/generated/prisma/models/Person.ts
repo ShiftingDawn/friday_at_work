@@ -273,10 +273,6 @@ export type PersonScalarRelationFilter = {
   isNot?: Prisma.PersonWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
