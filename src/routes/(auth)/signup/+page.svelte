@@ -50,6 +50,8 @@
             </div>
         </form>
         <Divider>OR</Divider>
-        <LinkButton href="/signin">Already have an account?</LinkButton>
+        <LinkButton href="/signin" class="w-full">
+            Already have an account?
+        </LinkButton>
     </div>
 </Card>

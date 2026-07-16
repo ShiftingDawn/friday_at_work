@@ -3,16 +3,23 @@ import {fail, redirect} from "@sveltejs/kit";
 import {hashSync} from "bcrypt";
 import type {Actions, PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
+import {env} from "$env/dynamic/private";
 
 export const load: PageServerLoad = async (event) => {
     if (event.locals.user) {
         return redirect(302, "/");
+    }
+    if (env.DISABLE_REGISTER === "true") {
+        return redirect(307, "/signin");
     }
     return {};
 };
 
 export const actions: Actions = {
     default: async (event) => {
+        if (env.DISABLE_REGISTER === "true") {
+            return redirect(307, "/signin");
+        }
         const formData = await event.request.formData();
         const username = formData.get("username");
         const password = formData.get("password");

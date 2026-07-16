@@ -6,9 +6,8 @@
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import Card from "@/lib/components/card.svelte";
-    import type {ActionData} from "./$types";
 
-    let {form}: { form: ActionData } = $props();
+    let {form, data} = $props();
 </script>
 
 <Card title="Sign in" class="max-w-md mx-auto">
@@ -39,9 +38,11 @@
                 <Button type="submit">Sign in</Button>
             </div>
         </form>
-        <Divider>OR</Divider>
-        <LinkButton href="/signup">
-            Don&apos;t have an account?
-        </LinkButton>
+        {#if data.canRegister}
+            <Divider>OR</Divider>
+            <LinkButton href="/signup" class="w-full">
+                Don&apos;t have an account?
+            </LinkButton>
+        {/if}
     </div>
 </Card>

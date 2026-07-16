@@ -3,12 +3,15 @@ import {fail, redirect} from "@sveltejs/kit";
 import {compareSync} from "bcrypt";
 import type {Actions, PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
+import {env} from "$env/dynamic/private";
 
 export const load: PageServerLoad = async (event) => {
     if (event.locals.user) {
         return redirect(302, "/");
     }
-    return {};
+    return {
+        canRegister: env.DISABLE_REGISTER !== "true",
+    };
 };
 
 export const actions: Actions = {
