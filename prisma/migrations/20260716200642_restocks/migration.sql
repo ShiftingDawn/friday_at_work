@@ -8,9 +8,9 @@ CREATE TABLE "restocks" (
 );
 
 -- RedefineIndex
-DROP INDEX "User_username_key";
+DROP INDEX "users_username_key";
 CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- RedefineIndex
-DROP INDEX "Workspace_name_ownerId_key";
+DROP INDEX "workspaces_name_ownerId_key";
 CREATE UNIQUE INDEX "workspaces_name_ownerId_key" ON "workspaces"("name", "ownerId");

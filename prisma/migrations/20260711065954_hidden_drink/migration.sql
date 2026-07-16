@@ -1,15 +1,15 @@
 -- RedefineTables
 PRAGMA defer_foreign_keys=ON;
 PRAGMA foreign_keys=OFF;
-CREATE TABLE "new_Drink" (
+CREATE TABLE "new_drinks" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "image" TEXT,
     "hidden" BOOLEAN NOT NULL DEFAULT false
 );
-INSERT INTO "new_Drink" ("id", "image", "name", "price") SELECT "id", "image", "name", "price" FROM "Drink";
-DROP TABLE "Drink";
-ALTER TABLE "new_Drink" RENAME TO "Drink";
+INSERT INTO "new_drinks" ("id", "image", "name", "price") SELECT "id", "image", "name", "price" FROM "drinks";
+DROP TABLE "drinks";
+ALTER TABLE "new_drinks" RENAME TO "drinks";
 PRAGMA foreign_keys=ON;
 PRAGMA defer_foreign_keys=OFF;

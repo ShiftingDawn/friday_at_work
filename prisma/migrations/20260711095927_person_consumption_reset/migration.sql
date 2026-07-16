@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "Person" ADD COLUMN "reset" DATETIME;
+ALTER TABLE "people" ADD COLUMN "reset" DATETIME;
