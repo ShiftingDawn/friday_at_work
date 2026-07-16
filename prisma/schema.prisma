@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  username String    @unique
-  password String
-  sessions Session[]
+  id         String      @id @default(uuid())
+  username   String      @unique
+  password   String
+  sessions   Session[]
+  workspaces Workspace[]
 }
 
 model Session {
@@ -21,28 +22,46 @@ model Session {
   user      User     @relation(fields: [userId], references: [id])
 }
 
-model Person {
+model Workspace {
   id           String        @id @default(uuid())
   name         String
+  ownerId      String
+  owner        User          @relation(fields: [ownerId], references: [id])
+  people       Person[]
+  drinks       Drink[]
+  consumptions Consumption[]
+
+  @@unique([name, ownerId])
+}
+
+model Person {
+  id           String        @id @default(uuid())
+  workspaceId  String
+  name         String
   reset        DateTime?
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
 }
 
 model Drink {
   id           String        @id @default(uuid())
+  workspaceId  String
   name         String
   price        Int
   image        String?
   hidden       Boolean       @default(false)
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
 }
 
 model Consumption {
-  id        String   @id @default(uuid())
-  personId  String
-  drinkId   String
-  price     Int
-  timestamp DateTime @default(now())
-  person    Person   @relation(fields: [personId], references: [id])
-  drink     Drink    @relation(fields: [drinkId], references: [id])
+  id          String    @id @default(uuid())
+  workspaceId String
+  personId    String
+  drinkId     String
+  price       Int
+  timestamp   DateTime  @default(now())
+  person      Person    @relation(fields: [personId], references: [id])
+  drink       Drink     @relation(fields: [drinkId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
 }

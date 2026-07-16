@@ -6,6 +6,7 @@ declare global {
         interface Locals {
             user: import("$lib/server/auth").ServerSession["user"],
             session: import("$lib/server/auth").ServerSession["session"],
+            workspace: import("$lib/server/workspace").Workspace | null,
         }
         // interface PageData {}
         // interface PageState {}

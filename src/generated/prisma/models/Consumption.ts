@@ -36,6 +36,7 @@ export type ConsumptionSumAggregateOutputType = {
 
 export type ConsumptionMinAggregateOutputType = {
   id: string | null
+  workspaceId: string | null
   personId: string | null
   drinkId: string | null
   price: number | null
@@ -44,6 +45,7 @@ export type ConsumptionMinAggregateOutputType = {
 
 export type ConsumptionMaxAggregateOutputType = {
   id: string | null
+  workspaceId: string | null
   personId: string | null
   drinkId: string | null
   price: number | null
@@ -52,6 +54,7 @@ export type ConsumptionMaxAggregateOutputType = {
 
 export type ConsumptionCountAggregateOutputType = {
   id: number
+  workspaceId: number
   personId: number
   drinkId: number
   price: number
@@ -70,6 +73,7 @@ export type ConsumptionSumAggregateInputType = {
 
 export type ConsumptionMinAggregateInputType = {
   id?: true
+  workspaceId?: true
   personId?: true
   drinkId?: true
   price?: true
@@ -78,6 +82,7 @@ export type ConsumptionMinAggregateInputType = {
 
 export type ConsumptionMaxAggregateInputType = {
   id?: true
+  workspaceId?: true
   personId?: true
   drinkId?: true
   price?: true
@@ -86,6 +91,7 @@ export type ConsumptionMaxAggregateInputType = {
 
 export type ConsumptionCountAggregateInputType = {
   id?: true
+  workspaceId?: true
   personId?: true
   drinkId?: true
   price?: true
@@ -181,6 +187,7 @@ export type ConsumptionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type ConsumptionGroupByOutputType = {
   id: string
+  workspaceId: string
   personId: string
   drinkId: string
   price: number
@@ -212,22 +219,26 @@ export type ConsumptionWhereInput = {
   OR?: Prisma.ConsumptionWhereInput[]
   NOT?: Prisma.ConsumptionWhereInput | Prisma.ConsumptionWhereInput[]
   id?: Prisma.StringFilter<"Consumption"> | string
+  workspaceId?: Prisma.StringFilter<"Consumption"> | string
   personId?: Prisma.StringFilter<"Consumption"> | string
   drinkId?: Prisma.StringFilter<"Consumption"> | string
   price?: Prisma.IntFilter<"Consumption"> | number
   timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
   person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
+  workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
 }
 
 export type ConsumptionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   person?: Prisma.PersonOrderByWithRelationInput
   drink?: Prisma.DrinkOrderByWithRelationInput
+  workspace?: Prisma.WorkspaceOrderByWithRelationInput
 }
 
 export type ConsumptionWhereUniqueInput = Prisma.AtLeast<{
@@ -235,16 +246,19 @@ export type ConsumptionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ConsumptionWhereInput | Prisma.ConsumptionWhereInput[]
   OR?: Prisma.ConsumptionWhereInput[]
   NOT?: Prisma.ConsumptionWhereInput | Prisma.ConsumptionWhereInput[]
+  workspaceId?: Prisma.StringFilter<"Consumption"> | string
   personId?: Prisma.StringFilter<"Consumption"> | string
   drinkId?: Prisma.StringFilter<"Consumption"> | string
   price?: Prisma.IntFilter<"Consumption"> | number
   timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
   person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
+  workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
 }, "id">
 
 export type ConsumptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -261,6 +275,7 @@ export type ConsumptionScalarWhereWithAggregatesInput = {
   OR?: Prisma.ConsumptionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ConsumptionScalarWhereWithAggregatesInput | Prisma.ConsumptionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
+  workspaceId?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
   personId?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
   drinkId?: Prisma.StringWithAggregatesFilter<"Consumption"> | string
   price?: Prisma.IntWithAggregatesFilter<"Consumption"> | number
@@ -273,10 +288,12 @@ export type ConsumptionCreateInput = {
   timestamp?: Date | string
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
 }
 
 export type ConsumptionUncheckedCreateInput = {
   id?: string
+  workspaceId: string
   personId: string
   drinkId: string
   price: number
@@ -289,10 +306,12 @@ export type ConsumptionUpdateInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
 }
 
 export type ConsumptionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
@@ -301,6 +320,7 @@ export type ConsumptionUncheckedUpdateInput = {
 
 export type ConsumptionCreateManyInput = {
   id?: string
+  workspaceId: string
   personId: string
   drinkId: string
   price: number
@@ -315,6 +335,7 @@ export type ConsumptionUpdateManyMutationInput = {
 
 export type ConsumptionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
@@ -333,6 +354,7 @@ export type ConsumptionOrderByRelationAggregateInput = {
 
 export type ConsumptionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -345,6 +367,7 @@ export type ConsumptionAvgOrderByAggregateInput = {
 
 export type ConsumptionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -353,6 +376,7 @@ export type ConsumptionMaxOrderByAggregateInput = {
 
 export type ConsumptionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   personId?: Prisma.SortOrder
   drinkId?: Prisma.SortOrder
   price?: Prisma.SortOrder
@@ -361,6 +385,48 @@ export type ConsumptionMinOrderByAggregateInput = {
 
 export type ConsumptionSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+}
+
+export type ConsumptionCreateNestedManyWithoutWorkspaceInput = {
+  create?: Prisma.XOR<Prisma.ConsumptionCreateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput> | Prisma.ConsumptionCreateWithoutWorkspaceInput[] | Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput | Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput[]
+  createMany?: Prisma.ConsumptionCreateManyWorkspaceInputEnvelope
+  connect?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+}
+
+export type ConsumptionUncheckedCreateNestedManyWithoutWorkspaceInput = {
+  create?: Prisma.XOR<Prisma.ConsumptionCreateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput> | Prisma.ConsumptionCreateWithoutWorkspaceInput[] | Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput | Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput[]
+  createMany?: Prisma.ConsumptionCreateManyWorkspaceInputEnvelope
+  connect?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+}
+
+export type ConsumptionUpdateManyWithoutWorkspaceNestedInput = {
+  create?: Prisma.XOR<Prisma.ConsumptionCreateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput> | Prisma.ConsumptionCreateWithoutWorkspaceInput[] | Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput | Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput[]
+  upsert?: Prisma.ConsumptionUpsertWithWhereUniqueWithoutWorkspaceInput | Prisma.ConsumptionUpsertWithWhereUniqueWithoutWorkspaceInput[]
+  createMany?: Prisma.ConsumptionCreateManyWorkspaceInputEnvelope
+  set?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  disconnect?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  delete?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  connect?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  update?: Prisma.ConsumptionUpdateWithWhereUniqueWithoutWorkspaceInput | Prisma.ConsumptionUpdateWithWhereUniqueWithoutWorkspaceInput[]
+  updateMany?: Prisma.ConsumptionUpdateManyWithWhereWithoutWorkspaceInput | Prisma.ConsumptionUpdateManyWithWhereWithoutWorkspaceInput[]
+  deleteMany?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
+}
+
+export type ConsumptionUncheckedUpdateManyWithoutWorkspaceNestedInput = {
+  create?: Prisma.XOR<Prisma.ConsumptionCreateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput> | Prisma.ConsumptionCreateWithoutWorkspaceInput[] | Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput | Prisma.ConsumptionCreateOrConnectWithoutWorkspaceInput[]
+  upsert?: Prisma.ConsumptionUpsertWithWhereUniqueWithoutWorkspaceInput | Prisma.ConsumptionUpsertWithWhereUniqueWithoutWorkspaceInput[]
+  createMany?: Prisma.ConsumptionCreateManyWorkspaceInputEnvelope
+  set?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  disconnect?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  delete?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  connect?: Prisma.ConsumptionWhereUniqueInput | Prisma.ConsumptionWhereUniqueInput[]
+  update?: Prisma.ConsumptionUpdateWithWhereUniqueWithoutWorkspaceInput | Prisma.ConsumptionUpdateWithWhereUniqueWithoutWorkspaceInput[]
+  updateMany?: Prisma.ConsumptionUpdateManyWithWhereWithoutWorkspaceInput | Prisma.ConsumptionUpdateManyWithWhereWithoutWorkspaceInput[]
+  deleteMany?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
 }
 
 export type ConsumptionCreateNestedManyWithoutPersonInput = {
@@ -447,15 +513,70 @@ export type ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput = {
   deleteMany?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
 }
 
+export type ConsumptionCreateWithoutWorkspaceInput = {
+  id?: string
+  price: number
+  timestamp?: Date | string
+  person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
+  drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
+}
+
+export type ConsumptionUncheckedCreateWithoutWorkspaceInput = {
+  id?: string
+  personId: string
+  drinkId: string
+  price: number
+  timestamp?: Date | string
+}
+
+export type ConsumptionCreateOrConnectWithoutWorkspaceInput = {
+  where: Prisma.ConsumptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ConsumptionCreateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput>
+}
+
+export type ConsumptionCreateManyWorkspaceInputEnvelope = {
+  data: Prisma.ConsumptionCreateManyWorkspaceInput | Prisma.ConsumptionCreateManyWorkspaceInput[]
+}
+
+export type ConsumptionUpsertWithWhereUniqueWithoutWorkspaceInput = {
+  where: Prisma.ConsumptionWhereUniqueInput
+  update: Prisma.XOR<Prisma.ConsumptionUpdateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedUpdateWithoutWorkspaceInput>
+  create: Prisma.XOR<Prisma.ConsumptionCreateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedCreateWithoutWorkspaceInput>
+}
+
+export type ConsumptionUpdateWithWhereUniqueWithoutWorkspaceInput = {
+  where: Prisma.ConsumptionWhereUniqueInput
+  data: Prisma.XOR<Prisma.ConsumptionUpdateWithoutWorkspaceInput, Prisma.ConsumptionUncheckedUpdateWithoutWorkspaceInput>
+}
+
+export type ConsumptionUpdateManyWithWhereWithoutWorkspaceInput = {
+  where: Prisma.ConsumptionScalarWhereInput
+  data: Prisma.XOR<Prisma.ConsumptionUpdateManyMutationInput, Prisma.ConsumptionUncheckedUpdateManyWithoutWorkspaceInput>
+}
+
+export type ConsumptionScalarWhereInput = {
+  AND?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
+  OR?: Prisma.ConsumptionScalarWhereInput[]
+  NOT?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
+  id?: Prisma.StringFilter<"Consumption"> | string
+  workspaceId?: Prisma.StringFilter<"Consumption"> | string
+  personId?: Prisma.StringFilter<"Consumption"> | string
+  drinkId?: Prisma.StringFilter<"Consumption"> | string
+  price?: Prisma.IntFilter<"Consumption"> | number
+  timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
+}
+
 export type ConsumptionCreateWithoutPersonInput = {
   id?: string
   price: number
   timestamp?: Date | string
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
 }
 
 export type ConsumptionUncheckedCreateWithoutPersonInput = {
   id?: string
+  workspaceId: string
   drinkId: string
   price: number
   timestamp?: Date | string
@@ -486,26 +607,17 @@ export type ConsumptionUpdateManyWithWhereWithoutPersonInput = {
   data: Prisma.XOR<Prisma.ConsumptionUpdateManyMutationInput, Prisma.ConsumptionUncheckedUpdateManyWithoutPersonInput>
 }
 
-export type ConsumptionScalarWhereInput = {
-  AND?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
-  OR?: Prisma.ConsumptionScalarWhereInput[]
-  NOT?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
-  id?: Prisma.StringFilter<"Consumption"> | string
-  personId?: Prisma.StringFilter<"Consumption"> | string
-  drinkId?: Prisma.StringFilter<"Consumption"> | string
-  price?: Prisma.IntFilter<"Consumption"> | number
-  timestamp?: Prisma.DateTimeFilter<"Consumption"> | Date | string
-}
-
 export type ConsumptionCreateWithoutDrinkInput = {
   id?: string
   price: number
   timestamp?: Date | string
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
 }
 
 export type ConsumptionUncheckedCreateWithoutDrinkInput = {
   id?: string
+  workspaceId: string
   personId: string
   price: number
   timestamp?: Date | string
@@ -536,8 +648,41 @@ export type ConsumptionUpdateManyWithWhereWithoutDrinkInput = {
   data: Prisma.XOR<Prisma.ConsumptionUpdateManyMutationInput, Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkInput>
 }
 
+export type ConsumptionCreateManyWorkspaceInput = {
+  id?: string
+  personId: string
+  drinkId: string
+  price: number
+  timestamp?: Date | string
+}
+
+export type ConsumptionUpdateWithoutWorkspaceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
+  drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
+}
+
+export type ConsumptionUncheckedUpdateWithoutWorkspaceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  personId?: Prisma.StringFieldUpdateOperationsInput | string
+  drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ConsumptionUncheckedUpdateManyWithoutWorkspaceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  personId?: Prisma.StringFieldUpdateOperationsInput | string
+  drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ConsumptionCreateManyPersonInput = {
   id?: string
+  workspaceId: string
   drinkId: string
   price: number
   timestamp?: Date | string
@@ -548,10 +693,12 @@ export type ConsumptionUpdateWithoutPersonInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
 }
 
 export type ConsumptionUncheckedUpdateWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -559,6 +706,7 @@ export type ConsumptionUncheckedUpdateWithoutPersonInput = {
 
 export type ConsumptionUncheckedUpdateManyWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -566,6 +714,7 @@ export type ConsumptionUncheckedUpdateManyWithoutPersonInput = {
 
 export type ConsumptionCreateManyDrinkInput = {
   id?: string
+  workspaceId: string
   personId: string
   price: number
   timestamp?: Date | string
@@ -576,10 +725,12 @@ export type ConsumptionUpdateWithoutDrinkInput = {
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
 }
 
 export type ConsumptionUncheckedUpdateWithoutDrinkInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -587,6 +738,7 @@ export type ConsumptionUncheckedUpdateWithoutDrinkInput = {
 
 export type ConsumptionUncheckedUpdateManyWithoutDrinkInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -596,54 +748,64 @@ export type ConsumptionUncheckedUpdateManyWithoutDrinkInput = {
 
 export type ConsumptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  workspaceId?: boolean
   personId?: boolean
   drinkId?: boolean
   price?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["consumption"]>
 
 export type ConsumptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  workspaceId?: boolean
   personId?: boolean
   drinkId?: boolean
   price?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["consumption"]>
 
 export type ConsumptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  workspaceId?: boolean
   personId?: boolean
   drinkId?: boolean
   price?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["consumption"]>
 
 export type ConsumptionSelectScalar = {
   id?: boolean
+  workspaceId?: boolean
   personId?: boolean
   drinkId?: boolean
   price?: boolean
   timestamp?: boolean
 }
 
-export type ConsumptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "drinkId" | "price" | "timestamp", ExtArgs["result"]["consumption"]>
+export type ConsumptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "personId" | "drinkId" | "price" | "timestamp", ExtArgs["result"]["consumption"]>
 export type ConsumptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }
 export type ConsumptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }
 export type ConsumptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }
 
 export type $ConsumptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -651,9 +813,11 @@ export type $ConsumptionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     person: Prisma.$PersonPayload<ExtArgs>
     drink: Prisma.$DrinkPayload<ExtArgs>
+    workspace: Prisma.$WorkspacePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    workspaceId: string
     personId: string
     drinkId: string
     price: number
@@ -1054,6 +1218,7 @@ export interface Prisma__ConsumptionClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   drink<T extends Prisma.DrinkDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DrinkDefaultArgs<ExtArgs>>): Prisma.Prisma__DrinkClient<runtime.Types.Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  workspace<T extends Prisma.WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkspaceDefaultArgs<ExtArgs>>): Prisma.Prisma__WorkspaceClient<runtime.Types.Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1084,6 +1249,7 @@ export interface Prisma__ConsumptionClient<T, Null = never, ExtArgs extends runt
  */
 export interface ConsumptionFieldRefs {
   readonly id: Prisma.FieldRef<"Consumption", 'String'>
+  readonly workspaceId: Prisma.FieldRef<"Consumption", 'String'>
   readonly personId: Prisma.FieldRef<"Consumption", 'String'>
   readonly drinkId: Prisma.FieldRef<"Consumption", 'String'>
   readonly price: Prisma.FieldRef<"Consumption", 'Int'>

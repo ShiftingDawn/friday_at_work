@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Session: 'Session',
+  Workspace: 'Workspace',
   Person: 'Person',
   Drink: 'Drink',
   Consumption: 'Consumption'
@@ -89,8 +90,18 @@ export const SessionScalarFieldEnum = {
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
+export const WorkspaceScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  ownerId: 'ownerId'
+} as const
+
+export type WorkspaceScalarFieldEnum = (typeof WorkspaceScalarFieldEnum)[keyof typeof WorkspaceScalarFieldEnum]
+
+
 export const PersonScalarFieldEnum = {
   id: 'id',
+  workspaceId: 'workspaceId',
   name: 'name',
   reset: 'reset'
 } as const
@@ -100,6 +111,7 @@ export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof 
 
 export const DrinkScalarFieldEnum = {
   id: 'id',
+  workspaceId: 'workspaceId',
   name: 'name',
   price: 'price',
   image: 'image',
@@ -111,6 +123,7 @@ export type DrinkScalarFieldEnum = (typeof DrinkScalarFieldEnum)[keyof typeof Dr
 
 export const ConsumptionScalarFieldEnum = {
   id: 'id',
+  workspaceId: 'workspaceId',
   personId: 'personId',
   drinkId: 'drinkId',
   price: 'price',

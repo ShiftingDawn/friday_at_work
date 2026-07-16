@@ -2,7 +2,6 @@ import {env} from "$env/dynamic/private";
 import {redirect, type RequestEvent} from "@sveltejs/kit";
 import {getRequestEvent} from "$app/server";
 import {prisma, type Session, type User} from "$lib/server/db";
-import {Prisma} from "@/generated/prisma/client";
 
 const SESSION_COOKIE_NAME = "sid";
 const SESSION_MAX_AGE = 3600 * 24 * 28 * 1000;
@@ -27,7 +26,7 @@ export function setSessionTokenCookie(event: RequestEvent, sessionId: string, ex
         secure: env.NODE_ENV !== "development",
         path: "/",
         expires: expiresAt,
-        sameSite: "lax",
+        sameSite: "strict",
         httpOnly: true,
     });
 }

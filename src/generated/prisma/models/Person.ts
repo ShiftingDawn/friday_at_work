@@ -26,18 +26,21 @@ export type AggregatePerson = {
 
 export type PersonMinAggregateOutputType = {
   id: string | null
+  workspaceId: string | null
   name: string | null
   reset: Date | null
 }
 
 export type PersonMaxAggregateOutputType = {
   id: string | null
+  workspaceId: string | null
   name: string | null
   reset: Date | null
 }
 
 export type PersonCountAggregateOutputType = {
   id: number
+  workspaceId: number
   name: number
   reset: number
   _all: number
@@ -46,18 +49,21 @@ export type PersonCountAggregateOutputType = {
 
 export type PersonMinAggregateInputType = {
   id?: true
+  workspaceId?: true
   name?: true
   reset?: true
 }
 
 export type PersonMaxAggregateInputType = {
   id?: true
+  workspaceId?: true
   name?: true
   reset?: true
 }
 
 export type PersonCountAggregateInputType = {
   id?: true
+  workspaceId?: true
   name?: true
   reset?: true
   _all?: true
@@ -137,6 +143,7 @@ export type PersonGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type PersonGroupByOutputType = {
   id: string
+  workspaceId: string
   name: string
   reset: Date | null
   _count: PersonCountAggregateOutputType | null
@@ -164,15 +171,19 @@ export type PersonWhereInput = {
   OR?: Prisma.PersonWhereInput[]
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   id?: Prisma.StringFilter<"Person"> | string
+  workspaceId?: Prisma.StringFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
+  workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   consumptions?: Prisma.ConsumptionListRelationFilter
 }
 
 export type PersonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   reset?: Prisma.SortOrderInput | Prisma.SortOrder
+  workspace?: Prisma.WorkspaceOrderByWithRelationInput
   consumptions?: Prisma.ConsumptionOrderByRelationAggregateInput
 }
 
@@ -181,13 +192,16 @@ export type PersonWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   OR?: Prisma.PersonWhereInput[]
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
+  workspaceId?: Prisma.StringFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
+  workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   consumptions?: Prisma.ConsumptionListRelationFilter
 }, "id">
 
 export type PersonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   reset?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PersonCountOrderByAggregateInput
@@ -200,6 +214,7 @@ export type PersonScalarWhereWithAggregatesInput = {
   OR?: Prisma.PersonScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PersonScalarWhereWithAggregatesInput | Prisma.PersonScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Person"> | string
+  workspaceId?: Prisma.StringWithAggregatesFilter<"Person"> | string
   name?: Prisma.StringWithAggregatesFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
 }
@@ -208,11 +223,13 @@ export type PersonCreateInput = {
   id?: string
   name: string
   reset?: Date | string | null
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutPeopleInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateInput = {
   id?: string
+  workspaceId: string
   name: string
   reset?: Date | string | null
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutPersonInput
@@ -222,11 +239,13 @@ export type PersonUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutPeopleNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutPersonNestedInput
@@ -234,6 +253,7 @@ export type PersonUncheckedUpdateInput = {
 
 export type PersonCreateManyInput = {
   id?: string
+  workspaceId: string
   name: string
   reset?: Date | string | null
 }
@@ -246,24 +266,38 @@ export type PersonUpdateManyMutationInput = {
 
 export type PersonUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+export type PersonListRelationFilter = {
+  every?: Prisma.PersonWhereInput
+  some?: Prisma.PersonWhereInput
+  none?: Prisma.PersonWhereInput
+}
+
+export type PersonOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type PersonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   reset?: Prisma.SortOrder
 }
 
 export type PersonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   reset?: Prisma.SortOrder
 }
 
 export type PersonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   reset?: Prisma.SortOrder
 }
@@ -271,6 +305,48 @@ export type PersonMinOrderByAggregateInput = {
 export type PersonScalarRelationFilter = {
   is?: Prisma.PersonWhereInput
   isNot?: Prisma.PersonWhereInput
+}
+
+export type PersonCreateNestedManyWithoutWorkspaceInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutWorkspaceInput, Prisma.PersonUncheckedCreateWithoutWorkspaceInput> | Prisma.PersonCreateWithoutWorkspaceInput[] | Prisma.PersonUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutWorkspaceInput | Prisma.PersonCreateOrConnectWithoutWorkspaceInput[]
+  createMany?: Prisma.PersonCreateManyWorkspaceInputEnvelope
+  connect?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+}
+
+export type PersonUncheckedCreateNestedManyWithoutWorkspaceInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutWorkspaceInput, Prisma.PersonUncheckedCreateWithoutWorkspaceInput> | Prisma.PersonCreateWithoutWorkspaceInput[] | Prisma.PersonUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutWorkspaceInput | Prisma.PersonCreateOrConnectWithoutWorkspaceInput[]
+  createMany?: Prisma.PersonCreateManyWorkspaceInputEnvelope
+  connect?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+}
+
+export type PersonUpdateManyWithoutWorkspaceNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutWorkspaceInput, Prisma.PersonUncheckedCreateWithoutWorkspaceInput> | Prisma.PersonCreateWithoutWorkspaceInput[] | Prisma.PersonUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutWorkspaceInput | Prisma.PersonCreateOrConnectWithoutWorkspaceInput[]
+  upsert?: Prisma.PersonUpsertWithWhereUniqueWithoutWorkspaceInput | Prisma.PersonUpsertWithWhereUniqueWithoutWorkspaceInput[]
+  createMany?: Prisma.PersonCreateManyWorkspaceInputEnvelope
+  set?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  disconnect?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  delete?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  connect?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  update?: Prisma.PersonUpdateWithWhereUniqueWithoutWorkspaceInput | Prisma.PersonUpdateWithWhereUniqueWithoutWorkspaceInput[]
+  updateMany?: Prisma.PersonUpdateManyWithWhereWithoutWorkspaceInput | Prisma.PersonUpdateManyWithWhereWithoutWorkspaceInput[]
+  deleteMany?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
+}
+
+export type PersonUncheckedUpdateManyWithoutWorkspaceNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutWorkspaceInput, Prisma.PersonUncheckedCreateWithoutWorkspaceInput> | Prisma.PersonCreateWithoutWorkspaceInput[] | Prisma.PersonUncheckedCreateWithoutWorkspaceInput[]
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutWorkspaceInput | Prisma.PersonCreateOrConnectWithoutWorkspaceInput[]
+  upsert?: Prisma.PersonUpsertWithWhereUniqueWithoutWorkspaceInput | Prisma.PersonUpsertWithWhereUniqueWithoutWorkspaceInput[]
+  createMany?: Prisma.PersonCreateManyWorkspaceInputEnvelope
+  set?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  disconnect?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  delete?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  connect?: Prisma.PersonWhereUniqueInput | Prisma.PersonWhereUniqueInput[]
+  update?: Prisma.PersonUpdateWithWhereUniqueWithoutWorkspaceInput | Prisma.PersonUpdateWithWhereUniqueWithoutWorkspaceInput[]
+  updateMany?: Prisma.PersonUpdateManyWithWhereWithoutWorkspaceInput | Prisma.PersonUpdateManyWithWhereWithoutWorkspaceInput[]
+  deleteMany?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -291,14 +367,65 @@ export type PersonUpdateOneRequiredWithoutConsumptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutConsumptionsInput, Prisma.PersonUpdateWithoutConsumptionsInput>, Prisma.PersonUncheckedUpdateWithoutConsumptionsInput>
 }
 
+export type PersonCreateWithoutWorkspaceInput = {
+  id?: string
+  name: string
+  reset?: Date | string | null
+  consumptions?: Prisma.ConsumptionCreateNestedManyWithoutPersonInput
+}
+
+export type PersonUncheckedCreateWithoutWorkspaceInput = {
+  id?: string
+  name: string
+  reset?: Date | string | null
+  consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutPersonInput
+}
+
+export type PersonCreateOrConnectWithoutWorkspaceInput = {
+  where: Prisma.PersonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonCreateWithoutWorkspaceInput, Prisma.PersonUncheckedCreateWithoutWorkspaceInput>
+}
+
+export type PersonCreateManyWorkspaceInputEnvelope = {
+  data: Prisma.PersonCreateManyWorkspaceInput | Prisma.PersonCreateManyWorkspaceInput[]
+}
+
+export type PersonUpsertWithWhereUniqueWithoutWorkspaceInput = {
+  where: Prisma.PersonWhereUniqueInput
+  update: Prisma.XOR<Prisma.PersonUpdateWithoutWorkspaceInput, Prisma.PersonUncheckedUpdateWithoutWorkspaceInput>
+  create: Prisma.XOR<Prisma.PersonCreateWithoutWorkspaceInput, Prisma.PersonUncheckedCreateWithoutWorkspaceInput>
+}
+
+export type PersonUpdateWithWhereUniqueWithoutWorkspaceInput = {
+  where: Prisma.PersonWhereUniqueInput
+  data: Prisma.XOR<Prisma.PersonUpdateWithoutWorkspaceInput, Prisma.PersonUncheckedUpdateWithoutWorkspaceInput>
+}
+
+export type PersonUpdateManyWithWhereWithoutWorkspaceInput = {
+  where: Prisma.PersonScalarWhereInput
+  data: Prisma.XOR<Prisma.PersonUpdateManyMutationInput, Prisma.PersonUncheckedUpdateManyWithoutWorkspaceInput>
+}
+
+export type PersonScalarWhereInput = {
+  AND?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
+  OR?: Prisma.PersonScalarWhereInput[]
+  NOT?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
+  id?: Prisma.StringFilter<"Person"> | string
+  workspaceId?: Prisma.StringFilter<"Person"> | string
+  name?: Prisma.StringFilter<"Person"> | string
+  reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
+}
+
 export type PersonCreateWithoutConsumptionsInput = {
   id?: string
   name: string
   reset?: Date | string | null
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutPeopleInput
 }
 
 export type PersonUncheckedCreateWithoutConsumptionsInput = {
   id?: string
+  workspaceId: string
   name: string
   reset?: Date | string | null
 }
@@ -323,9 +450,37 @@ export type PersonUpdateWithoutConsumptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutPeopleNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutConsumptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type PersonCreateManyWorkspaceInput = {
+  id?: string
+  name: string
+  reset?: Date | string | null
+}
+
+export type PersonUpdateWithoutWorkspaceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  consumptions?: Prisma.ConsumptionUpdateManyWithoutPersonNestedInput
+}
+
+export type PersonUncheckedUpdateWithoutWorkspaceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutPersonNestedInput
+}
+
+export type PersonUncheckedUpdateManyWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   reset?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -364,45 +519,59 @@ export type PersonCountOutputTypeCountConsumptionsArgs<ExtArgs extends runtime.T
 
 export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  workspaceId?: boolean
   name?: boolean
   reset?: boolean
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   consumptions?: boolean | Prisma.Person$consumptionsArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
 
 export type PersonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  workspaceId?: boolean
   name?: boolean
   reset?: boolean
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
 
 export type PersonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  workspaceId?: boolean
   name?: boolean
   reset?: boolean
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
 
 export type PersonSelectScalar = {
   id?: boolean
+  workspaceId?: boolean
   name?: boolean
   reset?: boolean
 }
 
-export type PersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "reset", ExtArgs["result"]["person"]>
+export type PersonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "name" | "reset", ExtArgs["result"]["person"]>
 export type PersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   consumptions?: boolean | Prisma.Person$consumptionsArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type PersonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type PersonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PersonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+}
+export type PersonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
+}
 
 export type $PersonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Person"
   objects: {
+    workspace: Prisma.$WorkspacePayload<ExtArgs>
     consumptions: Prisma.$ConsumptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    workspaceId: string
     name: string
     reset: Date | null
   }, ExtArgs["result"]["person"]>
@@ -799,6 +968,7 @@ readonly fields: PersonFieldRefs;
  */
 export interface Prisma__PersonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  workspace<T extends Prisma.WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkspaceDefaultArgs<ExtArgs>>): Prisma.Prisma__WorkspaceClient<runtime.Types.Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   consumptions<T extends Prisma.Person$consumptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$consumptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsumptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -830,6 +1000,7 @@ export interface Prisma__PersonClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface PersonFieldRefs {
   readonly id: Prisma.FieldRef<"Person", 'String'>
+  readonly workspaceId: Prisma.FieldRef<"Person", 'String'>
   readonly name: Prisma.FieldRef<"Person", 'String'>
   readonly reset: Prisma.FieldRef<"Person", 'DateTime'>
 }
@@ -1084,6 +1255,10 @@ export type PersonCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many People.
    */
   data: Prisma.PersonCreateManyInput | Prisma.PersonCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1154,6 +1329,10 @@ export type PersonUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many People to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PersonIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
