@@ -20,6 +20,14 @@ export const handle: Handle = async ({event, resolve}) => {
     } else {
         await auth.destroyCurrentSession(event);
     }
+    if (!user || !session) {
+        if (PUBLIC_ROUTES.indexOf(event.url.pathname) === -1) {
+            return redirect(307, "/signin");
+        }
+        event.locals.user = null;
+        event.locals.session = null;
+        return resolve(event);
+    }
     event.locals.user = user;
     event.locals.session = session;
 
