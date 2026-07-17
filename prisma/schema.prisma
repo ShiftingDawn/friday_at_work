@@ -8,11 +8,12 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  username   String      @unique
-  password   String
-  sessions   Session[]
-  workspaces Workspace[]
+  id                   String                @id @default(uuid())
+  username             String                @unique
+  password             String
+  sessions             Session[]
+  workspaces           Workspace[]
+  workspacePermissions WorkspacePermission[]
 
   @@map("users")
 }
@@ -27,16 +28,34 @@ model Session {
 }
 
 model Workspace {
-  id           String        @id @default(uuid())
+  id           String                @id @default(uuid())
   name         String
   ownerId      String
-  owner        User          @relation(fields: [ownerId], references: [id])
+  owner        User                  @relation(fields: [ownerId], references: [id])
   people       Person[]
   drinks       Drink[]
   consumptions Consumption[]
+  permissions  WorkspacePermission[]
 
   @@unique([name, ownerId])
   @@map("workspaces")
+}
+
+enum Permission {
+  READ
+  WRITE
+  ADMIN
+}
+
+model WorkspacePermission {
+  id          String     @id @default(uuid())
+  permission  Permission @default(READ)
+  workspaceId String
+  userId      String
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
+
+  @@map("workspace_permissions")
 }
 
 model Person {

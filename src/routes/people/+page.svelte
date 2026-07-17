@@ -13,23 +13,27 @@
     let modalOpen = $state(false);
 </script>
 
-<form method="POST">
-    <Modal title="Register new person" open={modalOpen} onclose={() => modalOpen = false}>
-        <FormLabel name="Name">
-            <FormInput type="text" min="3" name="name"/>
-        </FormLabel>
-        {#snippet actions()}
-            <Button type="submit" class="font-bold uppercase">
-                Add
-            </Button>
-        {/snippet}
-    </Modal>
-</form>
+{#if data.canWrite}
+    <form method="POST">
+        <Modal title="Register new person" open={modalOpen} onclose={() => modalOpen = false}>
+            <FormLabel name="Name">
+                <FormInput type="text" min="3" name="name"/>
+            </FormLabel>
+            {#snippet actions()}
+                <Button type="submit" class="font-bold uppercase">
+                    Add
+                </Button>
+            {/snippet}
+        </Modal>
+    </form>
+{/if}
 <Card title="Manage people" class="mt-4">
     {#snippet action()}
-        <IconButton onclick={() => modalOpen = true}>
-            <IconSubmit/>
-        </IconButton>
+        {#if data.canWrite}
+            <IconButton onclick={() => modalOpen = true}>
+                <IconSubmit/>
+            </IconButton>
+        {/if}
     {/snippet}
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {#each data.people as person}

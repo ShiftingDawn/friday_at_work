@@ -1,6 +1,7 @@
 import {type Handle, redirect} from "@sveltejs/kit";
 import * as auth from "$lib/server/auth";
 import * as workspace from "$lib/server/workspace";
+import {getRole} from "$lib/server/permission";
 
 const PUBLIC_ROUTES = ["/signin", "/signup"];
 
@@ -39,10 +40,15 @@ export const handle: Handle = async ({event, resolve}) => {
         event.locals.workspace = null;
     } else {
         const ws = await workspace.getWorkspace(user!.id, workspaceId);
-        if (!ws && event.url.pathname !== "/workspace") {
-            return redirect(307, "/workspace");
+        if (!ws) {
+            if (event.url.pathname !== "/workspace") {
+                return redirect(307, "/workspace");
+            } else {
+                return resolve(event);
+            }
         }
         event.locals.workspace = ws;
+        event.locals.role = await getRole(user.id, ws);
     }
     return resolve(event);
 }

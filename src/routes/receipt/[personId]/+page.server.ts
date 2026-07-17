@@ -1,6 +1,7 @@
 import type {Actions, PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
 import {fail} from "@sveltejs/kit";
+import {canWrite} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({params}) => {
     const person = await prisma.person.findUnique({
@@ -42,7 +43,10 @@ export const load: PageServerLoad = async ({params}) => {
 }
 
 export const actions = {
-    default: async ({params}) => {
+    default: async ({params, locals}) => {
+        if (!canWrite(locals.role)) {
+            return fail(403);
+        }
         const person = await prisma.person.findUnique({
             where: {id: params.personId},
         });

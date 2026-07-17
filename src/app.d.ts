@@ -7,6 +7,7 @@ declare global {
             user: import("$lib/server/auth").ServerSession["user"],
             session: import("$lib/server/auth").ServerSession["session"],
             workspace: import("$lib/server/workspace").Workspace | null,
+            role: "OWNER" | import("@/generated/prisma/enums").Permission,
         }
         // interface PageData {}
         // interface PageState {}

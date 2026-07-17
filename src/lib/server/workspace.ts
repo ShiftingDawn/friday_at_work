@@ -20,11 +20,14 @@ export function getWorkspaceId(event: RequestEvent): string | null {
     return event.cookies.get(WORKSPACE_COOKIE_NAME) ?? null;
 }
 
-export function getWorkspace(userId: string, workspaceId: string): Promise<Workspace | null> {
+export async function getWorkspace(userId: string, workspaceId: string): Promise<Workspace | null> {
     return prisma.workspace.findFirst({
         where: {
             id: workspaceId,
-            ownerId: userId,
+            OR: [
+                {ownerId: userId},
+                {permissions: {every: {userId: userId}}}
+            ],
         }
     });
 }

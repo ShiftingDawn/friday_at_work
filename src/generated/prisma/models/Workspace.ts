@@ -170,6 +170,7 @@ export type WorkspaceWhereInput = {
   people?: Prisma.PersonListRelationFilter
   drinks?: Prisma.DrinkListRelationFilter
   consumptions?: Prisma.ConsumptionListRelationFilter
+  permissions?: Prisma.WorkspacePermissionListRelationFilter
 }
 
 export type WorkspaceOrderByWithRelationInput = {
@@ -180,6 +181,7 @@ export type WorkspaceOrderByWithRelationInput = {
   people?: Prisma.PersonOrderByRelationAggregateInput
   drinks?: Prisma.DrinkOrderByRelationAggregateInput
   consumptions?: Prisma.ConsumptionOrderByRelationAggregateInput
+  permissions?: Prisma.WorkspacePermissionOrderByRelationAggregateInput
 }
 
 export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
@@ -194,6 +196,7 @@ export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
   people?: Prisma.PersonListRelationFilter
   drinks?: Prisma.DrinkListRelationFilter
   consumptions?: Prisma.ConsumptionListRelationFilter
+  permissions?: Prisma.WorkspacePermissionListRelationFilter
 }, "id" | "name_ownerId">
 
 export type WorkspaceOrderByWithAggregationInput = {
@@ -221,6 +224,7 @@ export type WorkspaceCreateInput = {
   people?: Prisma.PersonCreateNestedManyWithoutWorkspaceInput
   drinks?: Prisma.DrinkCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateInput = {
@@ -230,6 +234,7 @@ export type WorkspaceUncheckedCreateInput = {
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutWorkspaceInput
   drinks?: Prisma.DrinkUncheckedCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUpdateInput = {
@@ -239,6 +244,7 @@ export type WorkspaceUpdateInput = {
   people?: Prisma.PersonUpdateManyWithoutWorkspaceNestedInput
   drinks?: Prisma.DrinkUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateInput = {
@@ -248,6 +254,7 @@ export type WorkspaceUncheckedUpdateInput = {
   people?: Prisma.PersonUncheckedUpdateManyWithoutWorkspaceNestedInput
   drinks?: Prisma.DrinkUncheckedUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateManyInput = {
@@ -347,6 +354,20 @@ export type WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.WorkspaceScalarWhereInput | Prisma.WorkspaceScalarWhereInput[]
 }
 
+export type WorkspaceCreateNestedOneWithoutPermissionsInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutPermissionsInput, Prisma.WorkspaceUncheckedCreateWithoutPermissionsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutPermissionsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+}
+
+export type WorkspaceUpdateOneRequiredWithoutPermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutPermissionsInput, Prisma.WorkspaceUncheckedCreateWithoutPermissionsInput>
+  connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutPermissionsInput
+  upsert?: Prisma.WorkspaceUpsertWithoutPermissionsInput
+  connect?: Prisma.WorkspaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkspaceUpdateToOneWithWhereWithoutPermissionsInput, Prisma.WorkspaceUpdateWithoutPermissionsInput>, Prisma.WorkspaceUncheckedUpdateWithoutPermissionsInput>
+}
+
 export type WorkspaceCreateNestedOneWithoutPeopleInput = {
   create?: Prisma.XOR<Prisma.WorkspaceCreateWithoutPeopleInput, Prisma.WorkspaceUncheckedCreateWithoutPeopleInput>
   connectOrCreate?: Prisma.WorkspaceCreateOrConnectWithoutPeopleInput
@@ -395,6 +416,7 @@ export type WorkspaceCreateWithoutOwnerInput = {
   people?: Prisma.PersonCreateNestedManyWithoutWorkspaceInput
   drinks?: Prisma.DrinkCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutOwnerInput = {
@@ -403,6 +425,7 @@ export type WorkspaceUncheckedCreateWithoutOwnerInput = {
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutWorkspaceInput
   drinks?: Prisma.DrinkUncheckedCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutOwnerInput = {
@@ -439,12 +462,65 @@ export type WorkspaceScalarWhereInput = {
   ownerId?: Prisma.StringFilter<"Workspace"> | string
 }
 
+export type WorkspaceCreateWithoutPermissionsInput = {
+  id?: string
+  name: string
+  owner: Prisma.UserCreateNestedOneWithoutWorkspacesInput
+  people?: Prisma.PersonCreateNestedManyWithoutWorkspaceInput
+  drinks?: Prisma.DrinkCreateNestedManyWithoutWorkspaceInput
+  consumptions?: Prisma.ConsumptionCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceUncheckedCreateWithoutPermissionsInput = {
+  id?: string
+  name: string
+  ownerId: string
+  people?: Prisma.PersonUncheckedCreateNestedManyWithoutWorkspaceInput
+  drinks?: Prisma.DrinkUncheckedCreateNestedManyWithoutWorkspaceInput
+  consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutWorkspaceInput
+}
+
+export type WorkspaceCreateOrConnectWithoutPermissionsInput = {
+  where: Prisma.WorkspaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutPermissionsInput, Prisma.WorkspaceUncheckedCreateWithoutPermissionsInput>
+}
+
+export type WorkspaceUpsertWithoutPermissionsInput = {
+  update: Prisma.XOR<Prisma.WorkspaceUpdateWithoutPermissionsInput, Prisma.WorkspaceUncheckedUpdateWithoutPermissionsInput>
+  create: Prisma.XOR<Prisma.WorkspaceCreateWithoutPermissionsInput, Prisma.WorkspaceUncheckedCreateWithoutPermissionsInput>
+  where?: Prisma.WorkspaceWhereInput
+}
+
+export type WorkspaceUpdateToOneWithWhereWithoutPermissionsInput = {
+  where?: Prisma.WorkspaceWhereInput
+  data: Prisma.XOR<Prisma.WorkspaceUpdateWithoutPermissionsInput, Prisma.WorkspaceUncheckedUpdateWithoutPermissionsInput>
+}
+
+export type WorkspaceUpdateWithoutPermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutWorkspacesNestedInput
+  people?: Prisma.PersonUpdateManyWithoutWorkspaceNestedInput
+  drinks?: Prisma.DrinkUpdateManyWithoutWorkspaceNestedInput
+  consumptions?: Prisma.ConsumptionUpdateManyWithoutWorkspaceNestedInput
+}
+
+export type WorkspaceUncheckedUpdateWithoutPermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  people?: Prisma.PersonUncheckedUpdateManyWithoutWorkspaceNestedInput
+  drinks?: Prisma.DrinkUncheckedUpdateManyWithoutWorkspaceNestedInput
+  consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutWorkspaceNestedInput
+}
+
 export type WorkspaceCreateWithoutPeopleInput = {
   id?: string
   name: string
   owner: Prisma.UserCreateNestedOneWithoutWorkspacesInput
   drinks?: Prisma.DrinkCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutPeopleInput = {
@@ -453,6 +529,7 @@ export type WorkspaceUncheckedCreateWithoutPeopleInput = {
   ownerId: string
   drinks?: Prisma.DrinkUncheckedCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutPeopleInput = {
@@ -477,6 +554,7 @@ export type WorkspaceUpdateWithoutPeopleInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutWorkspacesNestedInput
   drinks?: Prisma.DrinkUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutPeopleInput = {
@@ -485,6 +563,7 @@ export type WorkspaceUncheckedUpdateWithoutPeopleInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   drinks?: Prisma.DrinkUncheckedUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutDrinksInput = {
@@ -493,6 +572,7 @@ export type WorkspaceCreateWithoutDrinksInput = {
   owner: Prisma.UserCreateNestedOneWithoutWorkspacesInput
   people?: Prisma.PersonCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutDrinksInput = {
@@ -501,6 +581,7 @@ export type WorkspaceUncheckedCreateWithoutDrinksInput = {
   ownerId: string
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutWorkspaceInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutDrinksInput = {
@@ -525,6 +606,7 @@ export type WorkspaceUpdateWithoutDrinksInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutWorkspacesNestedInput
   people?: Prisma.PersonUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutDrinksInput = {
@@ -533,6 +615,7 @@ export type WorkspaceUncheckedUpdateWithoutDrinksInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   people?: Prisma.PersonUncheckedUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateWithoutConsumptionsInput = {
@@ -541,6 +624,7 @@ export type WorkspaceCreateWithoutConsumptionsInput = {
   owner: Prisma.UserCreateNestedOneWithoutWorkspacesInput
   people?: Prisma.PersonCreateNestedManyWithoutWorkspaceInput
   drinks?: Prisma.DrinkCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceUncheckedCreateWithoutConsumptionsInput = {
@@ -549,6 +633,7 @@ export type WorkspaceUncheckedCreateWithoutConsumptionsInput = {
   ownerId: string
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutWorkspaceInput
   drinks?: Prisma.DrinkUncheckedCreateNestedManyWithoutWorkspaceInput
+  permissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutWorkspaceInput
 }
 
 export type WorkspaceCreateOrConnectWithoutConsumptionsInput = {
@@ -573,6 +658,7 @@ export type WorkspaceUpdateWithoutConsumptionsInput = {
   owner?: Prisma.UserUpdateOneRequiredWithoutWorkspacesNestedInput
   people?: Prisma.PersonUpdateManyWithoutWorkspaceNestedInput
   drinks?: Prisma.DrinkUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutConsumptionsInput = {
@@ -581,6 +667,7 @@ export type WorkspaceUncheckedUpdateWithoutConsumptionsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   people?: Prisma.PersonUncheckedUpdateManyWithoutWorkspaceNestedInput
   drinks?: Prisma.DrinkUncheckedUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceCreateManyOwnerInput = {
@@ -594,6 +681,7 @@ export type WorkspaceUpdateWithoutOwnerInput = {
   people?: Prisma.PersonUpdateManyWithoutWorkspaceNestedInput
   drinks?: Prisma.DrinkUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
@@ -602,6 +690,7 @@ export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
   people?: Prisma.PersonUncheckedUpdateManyWithoutWorkspaceNestedInput
   drinks?: Prisma.DrinkUncheckedUpdateManyWithoutWorkspaceNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutWorkspaceNestedInput
+  permissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutWorkspaceNestedInput
 }
 
 export type WorkspaceUncheckedUpdateManyWithoutOwnerInput = {
@@ -618,12 +707,14 @@ export type WorkspaceCountOutputType = {
   people: number
   drinks: number
   consumptions: number
+  permissions: number
 }
 
 export type WorkspaceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   people?: boolean | WorkspaceCountOutputTypeCountPeopleArgs
   drinks?: boolean | WorkspaceCountOutputTypeCountDrinksArgs
   consumptions?: boolean | WorkspaceCountOutputTypeCountConsumptionsArgs
+  permissions?: boolean | WorkspaceCountOutputTypeCountPermissionsArgs
 }
 
 /**
@@ -657,6 +748,13 @@ export type WorkspaceCountOutputTypeCountConsumptionsArgs<ExtArgs extends runtim
   where?: Prisma.ConsumptionWhereInput
 }
 
+/**
+ * WorkspaceCountOutputType without action
+ */
+export type WorkspaceCountOutputTypeCountPermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkspacePermissionWhereInput
+}
+
 
 export type WorkspaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -666,6 +764,7 @@ export type WorkspaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   people?: boolean | Prisma.Workspace$peopleArgs<ExtArgs>
   drinks?: boolean | Prisma.Workspace$drinksArgs<ExtArgs>
   consumptions?: boolean | Prisma.Workspace$consumptionsArgs<ExtArgs>
+  permissions?: boolean | Prisma.Workspace$permissionsArgs<ExtArgs>
   _count?: boolean | Prisma.WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["workspace"]>
 
@@ -695,6 +794,7 @@ export type WorkspaceInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   people?: boolean | Prisma.Workspace$peopleArgs<ExtArgs>
   drinks?: boolean | Prisma.Workspace$drinksArgs<ExtArgs>
   consumptions?: boolean | Prisma.Workspace$consumptionsArgs<ExtArgs>
+  permissions?: boolean | Prisma.Workspace$permissionsArgs<ExtArgs>
   _count?: boolean | Prisma.WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WorkspaceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -711,6 +811,7 @@ export type $WorkspacePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     people: Prisma.$PersonPayload<ExtArgs>[]
     drinks: Prisma.$DrinkPayload<ExtArgs>[]
     consumptions: Prisma.$ConsumptionPayload<ExtArgs>[]
+    permissions: Prisma.$WorkspacePermissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1114,6 +1215,7 @@ export interface Prisma__WorkspaceClient<T, Null = never, ExtArgs extends runtim
   people<T extends Prisma.Workspace$peopleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$peopleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   drinks<T extends Prisma.Workspace$drinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$drinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   consumptions<T extends Prisma.Workspace$consumptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$consumptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsumptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  permissions<T extends Prisma.Workspace$permissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workspace$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkspacePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1614,6 +1716,30 @@ export type Workspace$consumptionsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.ConsumptionScalarFieldEnum | Prisma.ConsumptionScalarFieldEnum[]
+}
+
+/**
+ * Workspace.permissions
+ */
+export type Workspace$permissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkspacePermission
+   */
+  select?: Prisma.WorkspacePermissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkspacePermission
+   */
+  omit?: Prisma.WorkspacePermissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkspacePermissionInclude<ExtArgs> | null
+  where?: Prisma.WorkspacePermissionWhereInput
+  orderBy?: Prisma.WorkspacePermissionOrderByWithRelationInput | Prisma.WorkspacePermissionOrderByWithRelationInput[]
+  cursor?: Prisma.WorkspacePermissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkspacePermissionScalarFieldEnum | Prisma.WorkspacePermissionScalarFieldEnum[]
 }
 
 /**

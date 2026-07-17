@@ -33,6 +33,11 @@ export type Session = Prisma.SessionModel
  */
 export type Workspace = Prisma.WorkspaceModel
 /**
+ * Model WorkspacePermission
+ * 
+ */
+export type WorkspacePermission = Prisma.WorkspacePermissionModel
+/**
  * Model Person
  * 
  */

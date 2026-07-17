@@ -12,6 +12,8 @@
     import IconShow from "$lib/icon/show.svelte";
     import IconRestock from "$lib/icon/plus.svelte";
     import Modal from "$lib/components/modal.svelte";
+    import {displayPrice} from "$lib";
+    import {getStorageUrl} from "$lib/client/storage";
 
     const {params, data}: PageProps = $props();
     let modalOpen = $state(false);
@@ -41,48 +43,60 @@
         <BackButton href="/drinks"/>
     {/snippet}
     {#snippet action()}
-        <IconButton onclick={() => modalOpen = true}>
-            <IconRestock/>
-        </IconButton>
-        <form method="POST" action="?/hide">
-            <IconButton type="submit">
-                {#if data.drink!.hidden}
-                    <IconShow/>
-                {:else}
-                    <IconHide/>
-                {/if}
+        {#if data.canWrite}
+            <IconButton onclick={() => modalOpen = true}>
+                <IconRestock/>
             </IconButton>
-        </form>
+            <form method="POST" action="?/hide">
+                <IconButton type="submit">
+                    {#if data.drink!.hidden}
+                        <IconShow/>
+                    {:else}
+                        <IconHide/>
+                    {/if}
+                </IconButton>
+            </form>
+        {/if}
     {/snippet}
     <Section name="Stock" class="flex flex-col gap-2">
         <p>Current stock: {data.stock}</p>
         <p>Last restock: {data.last_restock?.timestamp?.toLocaleString() ?? "never"}</p>
         <LinkButton href={`/drinks/${params.drink}/restocks`}>Restock history</LinkButton>
     </Section>
-    <Section name="Update data">
-        <form method="POST" action="?/update" class="flex flex-col sm:flex-row gap-4">
-            <FormLabel name="Name">
-                <FormInput type="text" min="3" name="name" value={data.drink!.name}/>
-            </FormLabel>
-            <FormLabel name="Price">
-                <FormInput type="number" min="0" name="price" value={data.drink!.price}/>
-            </FormLabel>
-            <Button type="submit" class="self-start">
-                Save
-            </Button>
-        </form>
-    </Section>
-    <Section name="Update image">
-        <div class="flex items-end">
-            {#if data.drink!.image}
-                <img src={data.drink!.image} class="w-64 aspect-square"/>
-            {/if}
-            <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4">
-                <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"/>
+    {#if data.canWrite}
+        <Section name="Update data">
+            <form method="POST" action="?/update" class="flex flex-col sm:flex-row gap-4">
+                <FormLabel name="Name">
+                    <FormInput type="text" min="3" name="name" value={data.drink!.name}/>
+                </FormLabel>
+                <FormLabel name="Price">
+                    <FormInput type="number" min="0" name="price" value={data.drink!.price}/>
+                </FormLabel>
                 <Button type="submit" class="self-start">
                     Save
                 </Button>
             </form>
-        </div>
-    </Section>
+        </Section>
+        <Section name="Update image">
+            <div class="flex items-end">
+                <img src={getStorageUrl(data.drink!.id)} class="w-64 aspect-square"/>
+                <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4">
+                    <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"/>
+                    <Button type="submit" class="self-start">
+                        Save
+                    </Button>
+                </form>
+            </div>
+        </Section>
+    {:else}
+        <Section name="Data">
+            <p>Name: {data.drink!.name}</p>
+            <p>Price: {displayPrice(data.drink!.price)}</p>
+        </Section>
+        <Section name="Image">
+            <div class="flex items-end">
+                <img src={getStorageUrl(data.drink!.id)} class="w-64 aspect-square"/>
+            </div>
+        </Section>
+    {/if}
 </Card>

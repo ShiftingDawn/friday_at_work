@@ -70,6 +70,23 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type EnumPermissionFilter<$PrismaModel = never> = {
+  equals?: $Enums.Permission | Prisma.EnumPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.Permission[]
+  notIn?: $Enums.Permission[]
+  not?: Prisma.NestedEnumPermissionFilter<$PrismaModel> | $Enums.Permission
+}
+
+export type EnumPermissionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Permission | Prisma.EnumPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.Permission[]
+  notIn?: $Enums.Permission[]
+  not?: Prisma.NestedEnumPermissionWithAggregatesFilter<$PrismaModel> | $Enums.Permission
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPermissionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPermissionFilter<$PrismaModel>
+}
+
 export type DateTimeNullableFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
   in?: Date[] | string[] | null
@@ -205,6 +222,23 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type NestedEnumPermissionFilter<$PrismaModel = never> = {
+  equals?: $Enums.Permission | Prisma.EnumPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.Permission[]
+  notIn?: $Enums.Permission[]
+  not?: Prisma.NestedEnumPermissionFilter<$PrismaModel> | $Enums.Permission
+}
+
+export type NestedEnumPermissionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Permission | Prisma.EnumPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.Permission[]
+  notIn?: $Enums.Permission[]
+  not?: Prisma.NestedEnumPermissionWithAggregatesFilter<$PrismaModel> | $Enums.Permission
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPermissionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPermissionFilter<$PrismaModel>
 }
 
 export type NestedDateTimeNullableFilter<$PrismaModel = never> = {

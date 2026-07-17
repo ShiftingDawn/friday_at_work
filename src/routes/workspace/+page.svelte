@@ -6,6 +6,7 @@
     import Modal from "$lib/components/modal.svelte";
     import IconSubmit from "$lib/icon/plus.svelte";
     import IconButton from "$lib/components/icon_button.svelte";
+    import LinkButton from "$lib/components/link_button.svelte";
 
     const {data} = $props();
     let modalOpen = $state(false);
@@ -21,6 +22,9 @@
 {#if data.hasWorkspace}
     <Card title="Current Workspace" class="mb-4 max-w-md mx-auto">
         {data.workspace}
+        <LinkButton href={`/workspace/${data.workspaceId}`}>
+            Edit
+        </LinkButton>
     </Card>
 {/if}
 

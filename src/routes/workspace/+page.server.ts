@@ -8,7 +8,12 @@ import {setWorkspaceCookie} from "$lib/server/workspace";
 export const load: PageServerLoad = async ({locals, params}) => {
     return {
         workspaces: await prisma.workspace.findMany({
-            where: {ownerId: locals.user!.id}
+            where: {
+                OR: [
+                    {ownerId: locals.user!.id},
+                    {permissions: {some: {userId: locals.user!.id}}}
+                ]
+            }
         }),
     };
 }

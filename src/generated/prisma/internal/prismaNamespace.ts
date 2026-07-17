@@ -387,6 +387,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Workspace: 'Workspace',
+  WorkspacePermission: 'WorkspacePermission',
   Person: 'Person',
   Drink: 'Drink',
   Consumption: 'Consumption',
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "workspace" | "person" | "drink" | "consumption" | "restock"
+    modelProps: "user" | "session" | "workspace" | "workspacePermission" | "person" | "drink" | "consumption" | "restock"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -629,6 +630,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.WorkspaceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.WorkspaceCountAggregateOutputType> | number
+        }
+      }
+    }
+    WorkspacePermission: {
+      payload: Prisma.$WorkspacePermissionPayload<ExtArgs>
+      fields: Prisma.WorkspacePermissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkspacePermissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkspacePermissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>
+        }
+        findFirst: {
+          args: Prisma.WorkspacePermissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkspacePermissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>
+        }
+        findMany: {
+          args: Prisma.WorkspacePermissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>[]
+        }
+        create: {
+          args: Prisma.WorkspacePermissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>
+        }
+        createMany: {
+          args: Prisma.WorkspacePermissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkspacePermissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>[]
+        }
+        delete: {
+          args: Prisma.WorkspacePermissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>
+        }
+        update: {
+          args: Prisma.WorkspacePermissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkspacePermissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkspacePermissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkspacePermissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkspacePermissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkspacePermissionPayload>
+        }
+        aggregate: {
+          args: Prisma.WorkspacePermissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkspacePermission>
+        }
+        groupBy: {
+          args: Prisma.WorkspacePermissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkspacePermissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkspacePermissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkspacePermissionCountAggregateOutputType> | number
         }
       }
     }
@@ -991,6 +1066,16 @@ export const WorkspaceScalarFieldEnum = {
 export type WorkspaceScalarFieldEnum = (typeof WorkspaceScalarFieldEnum)[keyof typeof WorkspaceScalarFieldEnum]
 
 
+export const WorkspacePermissionScalarFieldEnum = {
+  id: 'id',
+  permission: 'permission',
+  workspaceId: 'workspaceId',
+  userId: 'userId'
+} as const
+
+export type WorkspacePermissionScalarFieldEnum = (typeof WorkspacePermissionScalarFieldEnum)[keyof typeof WorkspacePermissionScalarFieldEnum]
+
+
 export const PersonScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
@@ -1067,6 +1152,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'Permission'
+ */
+export type EnumPermissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Permission'>
     
 
 
@@ -1203,6 +1295,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   workspace?: Prisma.WorkspaceOmit
+  workspacePermission?: Prisma.WorkspacePermissionOmit
   person?: Prisma.PersonOmit
   drink?: Prisma.DrinkOmit
   consumption?: Prisma.ConsumptionOmit

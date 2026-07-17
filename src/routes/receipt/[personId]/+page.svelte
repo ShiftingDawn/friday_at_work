@@ -21,11 +21,13 @@
         <span class="text-ctp-blue font-bold text-xl mr-4">
             &euro;{displayPrice(totalPrice)}
         </span>
-        <form method="POST">
-            <IconButton type="submit">
-                <IconReset/>
-            </IconButton>
-        </form>
+        {#if data.canWrite}
+            <form method="POST">
+                <IconButton type="submit">
+                    <IconReset/>
+                </IconButton>
+            </form>
+        {/if}
     {/snippet}
     <table class="w-full">
         <thead>

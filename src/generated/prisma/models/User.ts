@@ -168,6 +168,7 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   sessions?: Prisma.SessionListRelationFilter
   workspaces?: Prisma.WorkspaceListRelationFilter
+  workspacePermissions?: Prisma.WorkspacePermissionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -176,6 +177,7 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   workspaces?: Prisma.WorkspaceOrderByRelationAggregateInput
+  workspacePermissions?: Prisma.WorkspacePermissionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -187,6 +189,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   sessions?: Prisma.SessionListRelationFilter
   workspaces?: Prisma.WorkspaceListRelationFilter
+  workspacePermissions?: Prisma.WorkspacePermissionListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -213,6 +216,7 @@ export type UserCreateInput = {
   password: string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
+  workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -221,6 +225,7 @@ export type UserUncheckedCreateInput = {
   password: string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -229,6 +234,7 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -237,6 +243,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -312,11 +319,26 @@ export type UserUpdateOneRequiredWithoutWorkspacesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkspacesInput, Prisma.UserUpdateWithoutWorkspacesInput>, Prisma.UserUncheckedUpdateWithoutWorkspacesInput>
 }
 
+export type UserCreateNestedOneWithoutWorkspacePermissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkspacePermissionsInput, Prisma.UserUncheckedCreateWithoutWorkspacePermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkspacePermissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWorkspacePermissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkspacePermissionsInput, Prisma.UserUncheckedCreateWithoutWorkspacePermissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkspacePermissionsInput
+  upsert?: Prisma.UserUpsertWithoutWorkspacePermissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkspacePermissionsInput, Prisma.UserUpdateWithoutWorkspacePermissionsInput>, Prisma.UserUncheckedUpdateWithoutWorkspacePermissionsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   username: string
   password: string
   workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
+  workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -324,6 +346,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   username: string
   password: string
   workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -347,6 +370,7 @@ export type UserUpdateWithoutSessionsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -354,6 +378,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkspacesInput = {
@@ -361,6 +386,7 @@ export type UserCreateWithoutWorkspacesInput = {
   username: string
   password: string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkspacesInput = {
@@ -368,6 +394,7 @@ export type UserUncheckedCreateWithoutWorkspacesInput = {
   username: string
   password: string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -391,6 +418,7 @@ export type UserUpdateWithoutWorkspacesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkspacesInput = {
@@ -398,6 +426,55 @@ export type UserUncheckedUpdateWithoutWorkspacesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWorkspacePermissionsInput = {
+  id?: string
+  username: string
+  password: string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutWorkspacePermissionsInput = {
+  id?: string
+  username: string
+  password: string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutWorkspacePermissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkspacePermissionsInput, Prisma.UserUncheckedCreateWithoutWorkspacePermissionsInput>
+}
+
+export type UserUpsertWithoutWorkspacePermissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWorkspacePermissionsInput, Prisma.UserUncheckedUpdateWithoutWorkspacePermissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkspacePermissionsInput, Prisma.UserUncheckedCreateWithoutWorkspacePermissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWorkspacePermissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWorkspacePermissionsInput, Prisma.UserUncheckedUpdateWithoutWorkspacePermissionsInput>
+}
+
+export type UserUpdateWithoutWorkspacePermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWorkspacePermissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 
@@ -408,11 +485,13 @@ export type UserUncheckedUpdateWithoutWorkspacesInput = {
 export type UserCountOutputType = {
   sessions: number
   workspaces: number
+  workspacePermissions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   workspaces?: boolean | UserCountOutputTypeCountWorkspacesArgs
+  workspacePermissions?: boolean | UserCountOutputTypeCountWorkspacePermissionsArgs
 }
 
 /**
@@ -439,6 +518,13 @@ export type UserCountOutputTypeCountWorkspacesArgs<ExtArgs extends runtime.Types
   where?: Prisma.WorkspaceWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkspacePermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkspacePermissionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -446,6 +532,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   workspaces?: boolean | Prisma.User$workspacesArgs<ExtArgs>
+  workspacePermissions?: boolean | Prisma.User$workspacePermissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -471,6 +558,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   workspaces?: boolean | Prisma.User$workspacesArgs<ExtArgs>
+  workspacePermissions?: boolean | Prisma.User$workspacePermissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -481,6 +569,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     workspaces: Prisma.$WorkspacePayload<ExtArgs>[]
+    workspacePermissions: Prisma.$WorkspacePermissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -882,6 +971,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   workspaces<T extends Prisma.User$workspacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workspacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workspacePermissions<T extends Prisma.User$workspacePermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workspacePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkspacePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1350,6 +1440,30 @@ export type User$workspacesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.WorkspaceScalarFieldEnum | Prisma.WorkspaceScalarFieldEnum[]
+}
+
+/**
+ * User.workspacePermissions
+ */
+export type User$workspacePermissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkspacePermission
+   */
+  select?: Prisma.WorkspacePermissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkspacePermission
+   */
+  omit?: Prisma.WorkspacePermissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkspacePermissionInclude<ExtArgs> | null
+  where?: Prisma.WorkspacePermissionWhereInput
+  orderBy?: Prisma.WorkspacePermissionOrderByWithRelationInput | Prisma.WorkspacePermissionOrderByWithRelationInput[]
+  cursor?: Prisma.WorkspacePermissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkspacePermissionScalarFieldEnum | Prisma.WorkspacePermissionScalarFieldEnum[]
 }
 
 /**

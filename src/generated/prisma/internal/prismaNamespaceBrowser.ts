@@ -54,6 +54,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Workspace: 'Workspace',
+  WorkspacePermission: 'WorkspacePermission',
   Person: 'Person',
   Drink: 'Drink',
   Consumption: 'Consumption',
@@ -98,6 +99,16 @@ export const WorkspaceScalarFieldEnum = {
 } as const
 
 export type WorkspaceScalarFieldEnum = (typeof WorkspaceScalarFieldEnum)[keyof typeof WorkspaceScalarFieldEnum]
+
+
+export const WorkspacePermissionScalarFieldEnum = {
+  id: 'id',
+  permission: 'permission',
+  workspaceId: 'workspaceId',
+  userId: 'userId'
+} as const
+
+export type WorkspacePermissionScalarFieldEnum = (typeof WorkspacePermissionScalarFieldEnum)[keyof typeof WorkspacePermissionScalarFieldEnum]
 
 
 export const PersonScalarFieldEnum = {
