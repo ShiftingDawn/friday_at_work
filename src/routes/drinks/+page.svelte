@@ -4,7 +4,6 @@
     import Card from "$lib/components/card.svelte";
     import Section from "$lib/components/section.svelte";
     import Modal from "$lib/components/modal.svelte";
-    import LinkButton from "$lib/components/link_button.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import Button from "$lib/components/button.svelte";
@@ -13,6 +12,7 @@
     import IconSubmit from "$lib/icon/plus.svelte";
     import IconHide from "$lib/icon/hide.svelte";
     import IconShow from "$lib/icon/show.svelte";
+    import {getStorageUrl} from "$lib/client/storage";
 
     const {data}: PageProps = $props();
     const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
@@ -59,13 +59,7 @@
             <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
                 <div class="font-bold text-center text-2xl">{drink.name}</div>
                 <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-                    {#if drink.image}
-                        <img src={drink.image} class="min-w-full aspect-square"/>
-                    {:else}
-                        <div class="w-32">
-                            <IconDrink/>
-                        </div>
-                    {/if}
+                    <img src={getStorageUrl(drink.id)} class="min-w-full aspect-square"/>
                 </div>
                 <div class="font-bold text-center text-2xl">
                     &euro;&nbsp;{(drink.price / 100).toFixed(2)}

@@ -3,6 +3,7 @@ import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
+import {upload} from "$lib/server/storage";
 
 export const load: PageServerLoad = async ({url, locals}) => {
     const showHidden = new URLSearchParams(url.search).has("hidden", "true")
@@ -25,21 +26,19 @@ export const load: PageServerLoad = async ({url, locals}) => {
 export const actions = {
     default: async ({request, locals}) => {
         const {data, success, error} = createScheme.safeParse(await request.formData());
-        console.log({data, success, error});
         if (!success) {
             return fail(400);
         }
-        const imageBytes = data?.image ? await data?.image?.bytes() : null;
-        const imageType = data?.image && data.image.name.lastIndexOf(".") >= data.image.name.length - 5
-            ? data.image.name.substring(data.image.name.lastIndexOf(".")) : null;
-        await prisma.drink.create({
+        const drink = await prisma.drink.create({
             data: {
                 workspaceId: locals.workspace!.id,
                 name: data?.name,
                 price: data?.price,
-                image: imageBytes ? `data:image/${imageType};base64,${imageBytes.toBase64()}` : null
             }
         });
+        if (data?.image) {
+            await upload(data.image, drink.id, data.image.type);
+        }
     }
 } satisfies Actions;
 

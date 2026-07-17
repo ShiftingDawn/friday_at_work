@@ -3,6 +3,7 @@ import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
+import {upload} from "$lib/server/storage";
 
 export const load: PageServerLoad = async ({params, locals}) => {
     const [restocked, consumed] = await Promise.all([
@@ -43,12 +44,9 @@ export const actions = {
         if (!success) {
             return fail(400);
         }
-        const imageBytes = await data?.image.bytes();
-        const imageType = data.image.name.substring(data.image.name.lastIndexOf("."));
-        await prisma.drink.update({
-            data: {image: imageBytes ? `data:image/${imageType};base64,${imageBytes.toBase64()}` : null},
-            where: {id: params.drink}
-        });
+        if (data?.image) {
+            await upload(data.image, params.drink, data.image.type);
+        }
     },
     hide: async ({params}) => {
         const current = await prisma.drink.findFirst({where: {id: params.drink}});

@@ -55,7 +55,6 @@ model Drink {
   workspaceId  String
   name         String
   price        Int
-  image        String?
   hidden       Boolean       @default(false)
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]

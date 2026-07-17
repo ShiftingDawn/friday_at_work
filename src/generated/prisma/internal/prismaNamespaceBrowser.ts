@@ -115,7 +115,6 @@ export const DrinkScalarFieldEnum = {
   workspaceId: 'workspaceId',
   name: 'name',
   price: 'price',
-  image: 'image',
   hidden: 'hidden'
 } as const
 
