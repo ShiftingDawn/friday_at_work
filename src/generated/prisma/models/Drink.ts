@@ -487,6 +487,7 @@ export type DrinkCreateOrConnectWithoutWorkspaceInput = {
 
 export type DrinkCreateManyWorkspaceInputEnvelope = {
   data: Prisma.DrinkCreateManyWorkspaceInput | Prisma.DrinkCreateManyWorkspaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type DrinkUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -1422,6 +1423,7 @@ export type DrinkCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * The data used to create many Drinks.
    */
   data: Prisma.DrinkCreateManyInput | Prisma.DrinkCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1440,6 +1442,7 @@ export type DrinkCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many Drinks.
    */
   data: Prisma.DrinkCreateManyInput | Prisma.DrinkCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

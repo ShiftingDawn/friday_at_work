@@ -536,6 +536,7 @@ export type ConsumptionCreateOrConnectWithoutWorkspaceInput = {
 
 export type ConsumptionCreateManyWorkspaceInputEnvelope = {
   data: Prisma.ConsumptionCreateManyWorkspaceInput | Prisma.ConsumptionCreateManyWorkspaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type ConsumptionUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -589,6 +590,7 @@ export type ConsumptionCreateOrConnectWithoutPersonInput = {
 
 export type ConsumptionCreateManyPersonInputEnvelope = {
   data: Prisma.ConsumptionCreateManyPersonInput | Prisma.ConsumptionCreateManyPersonInput[]
+  skipDuplicates?: boolean
 }
 
 export type ConsumptionUpsertWithWhereUniqueWithoutPersonInput = {
@@ -630,6 +632,7 @@ export type ConsumptionCreateOrConnectWithoutDrinkInput = {
 
 export type ConsumptionCreateManyDrinkInputEnvelope = {
   data: Prisma.ConsumptionCreateManyDrinkInput | Prisma.ConsumptionCreateManyDrinkInput[]
+  skipDuplicates?: boolean
 }
 
 export type ConsumptionUpsertWithWhereUniqueWithoutDrinkInput = {
@@ -1488,6 +1491,7 @@ export type ConsumptionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * The data used to create many Consumptions.
    */
   data: Prisma.ConsumptionCreateManyInput | Prisma.ConsumptionCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1506,6 +1510,7 @@ export type ConsumptionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ext
    * The data used to create many Consumptions.
    */
   data: Prisma.ConsumptionCreateManyInput | Prisma.ConsumptionCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

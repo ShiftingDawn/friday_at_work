@@ -435,6 +435,7 @@ export type WorkspaceCreateOrConnectWithoutOwnerInput = {
 
 export type WorkspaceCreateManyOwnerInputEnvelope = {
   data: Prisma.WorkspaceCreateManyOwnerInput | Prisma.WorkspaceCreateManyOwnerInput[]
+  skipDuplicates?: boolean
 }
 
 export type WorkspaceUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -1482,6 +1483,7 @@ export type WorkspaceCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Workspaces.
    */
   data: Prisma.WorkspaceCreateManyInput | Prisma.WorkspaceCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1500,6 +1502,7 @@ export type WorkspaceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Workspaces.
    */
   data: Prisma.WorkspaceCreateManyInput | Prisma.WorkspaceCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

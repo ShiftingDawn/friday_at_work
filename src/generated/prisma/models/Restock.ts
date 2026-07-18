@@ -400,6 +400,7 @@ export type RestockCreateOrConnectWithoutDrinkInput = {
 
 export type RestockCreateManyDrinkInputEnvelope = {
   data: Prisma.RestockCreateManyDrinkInput | Prisma.RestockCreateManyDrinkInput[]
+  skipDuplicates?: boolean
 }
 
 export type RestockUpsertWithWhereUniqueWithoutDrinkInput = {
@@ -1168,6 +1169,7 @@ export type RestockCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Restocks.
    */
   data: Prisma.RestockCreateManyInput | Prisma.RestockCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1186,6 +1188,7 @@ export type RestockCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Restocks.
    */
   data: Prisma.RestockCreateManyInput | Prisma.RestockCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

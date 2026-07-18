@@ -404,6 +404,7 @@ export type WorkspacePermissionCreateOrConnectWithoutUserInput = {
 
 export type WorkspacePermissionCreateManyUserInputEnvelope = {
   data: Prisma.WorkspacePermissionCreateManyUserInput | Prisma.WorkspacePermissionCreateManyUserInput[]
+  skipDuplicates?: boolean
 }
 
 export type WorkspacePermissionUpsertWithWhereUniqueWithoutUserInput = {
@@ -451,6 +452,7 @@ export type WorkspacePermissionCreateOrConnectWithoutWorkspaceInput = {
 
 export type WorkspacePermissionCreateManyWorkspaceInputEnvelope = {
   data: Prisma.WorkspacePermissionCreateManyWorkspaceInput | Prisma.WorkspacePermissionCreateManyWorkspaceInput[]
+  skipDuplicates?: boolean
 }
 
 export type WorkspacePermissionUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -1241,6 +1243,7 @@ export type WorkspacePermissionCreateManyArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many WorkspacePermissions.
    */
   data: Prisma.WorkspacePermissionCreateManyInput | Prisma.WorkspacePermissionCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1259,6 +1262,7 @@ export type WorkspacePermissionCreateManyAndReturnArgs<ExtArgs extends runtime.T
    * The data used to create many WorkspacePermissions.
    */
   data: Prisma.WorkspacePermissionCreateManyInput | Prisma.WorkspacePermissionCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
