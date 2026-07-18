@@ -22,10 +22,16 @@ COPY --from=builder /app/package.json ./
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./
 
-VOLUME ["/app/data"]
-ENV DATABASE_URL=file:/app/data/local.db
+ENV DATABASE_URL=postgres://root:mysecretpassword@localhost:5432/local
+ENV DISABLE_REGISTER=false
+ENV S3_API_URL=https://example.com
+ENV S3_ACC_ID=myaccountname
+ENV S3_TOKEN=supersecret
+ENV S3_BUCKET=mybucket
+ENV PUBLIC_S3_PUBLIC_URL=https://example.com
 ENV PORT=3000
 ENV ORIGIN=http://localhost:$PORT/
+
 EXPOSE $PORT
 
 CMD ["bun", "run", "prod"]
