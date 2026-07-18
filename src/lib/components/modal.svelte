@@ -6,12 +6,14 @@
     const {
         open,
         onclose,
+        canclose,
         title,
         children,
         actions,
     }: {
         open: boolean,
         onclose: () => void,
+        canclose?: boolean,
         title?: string,
         children: Snippet,
         actions?: Snippet
@@ -24,7 +26,8 @@
 )}>
     {#if open}
         <button type="button" aria-label="Close dialog" onclick={onclose}
-                class="absolute inset-0 bg-ctp-mabg-ctp-corentle/50 backdrop-blur-xs"
+                class="absolute inset-0 bg-ctp-crust/50 backdrop-blur-xs"
+                disabled={canclose === false}
         ></button>
         <div in:fade={{duration: 150}} out:fade={{duration: 150}}
              class="relative min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2"

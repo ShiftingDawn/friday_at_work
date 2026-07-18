@@ -1,6 +1,5 @@
 <script lang="ts">
     import {enhance} from "$app/forms";
-    import LinkButton from "$lib/components/link_button.svelte";
     import Button from "$lib/components/button.svelte";
     import Divider from "$lib/components/divider.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
@@ -50,8 +49,8 @@
             </div>
         </form>
         <Divider>OR</Divider>
-        <LinkButton href="/signin" class="w-full">
+        <Button as="a" href="/signin" class="w-full">
             Already have an account?
-        </LinkButton>
+        </Button>
     </div>
 </Card>

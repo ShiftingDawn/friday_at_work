@@ -30,8 +30,10 @@ export const actions = {
                 name: data?.name
             }
         });
-        setWorkspaceCookie(event, workspace.id);
-        return redirect(303, "/");
+        if (!event.locals.workspace) {
+            setWorkspaceCookie(event, workspace.id);
+            return redirect(303, "/");
+        }
     },
     select: async (event) => {
         const {data, success, error} = selectSchema.safeParse(await event.request.formData());

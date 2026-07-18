@@ -4,12 +4,14 @@
     import FormInput from "$lib/components/form_input.svelte";
     import Button from "$lib/components/button.svelte";
     import Modal from "$lib/components/modal.svelte";
+    import Section from "$lib/components/section.svelte";
     import IconSubmit from "$lib/icon/plus.svelte";
     import IconButton from "$lib/components/icon_button.svelte";
-    import LinkButton from "$lib/components/link_button.svelte";
+    import {enhance} from "$app/forms";
 
     const {data} = $props();
     let modalOpen = $state(false);
+    let createFormLoading = $state(false);
 
     function handleSelect(id: string) {
         (document.querySelector("#workspaceselectorform > input[type=hidden]") as HTMLInputElement)
@@ -21,20 +23,30 @@
 
 {#if data.hasWorkspace}
     <Card title="Current Workspace" class="mb-4 max-w-md mx-auto">
-        {data.workspace}
-        <LinkButton href={`/workspace/${data.workspaceId}`}>
+        <Section>
+            <span>{data.workspace}</span>
+        </Section>
+        <Button as="a" href={`/workspace/${data.workspaceId}`} class="w-full">
             Edit
-        </LinkButton>
+        </Button>
     </Card>
 {/if}
 
-<form method="POST" action="?/create">
-    <Modal title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}>
+<form method="POST" action="?/create" use:enhance={() => {
+    createFormLoading = true;
+    return async ({update}) => {
+        await update();
+        createFormLoading = false;
+        modalOpen = false;
+    };
+}}>
+    <Modal title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}
+           canclose={!createFormLoading}>
         <FormLabel name="Name">
-            <FormInput type="text" min="3" name="name"/>
+            <FormInput type="text" min="3" name="name" disabled={createFormLoading}/>
         </FormLabel>
         {#snippet actions()}
-            <Button type="submit" class="font-bold uppercase">
+            <Button type="submit" class="font-bold uppercase" loading={createFormLoading}>
                 Create
             </Button>
         {/snippet}

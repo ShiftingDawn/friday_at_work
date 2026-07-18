@@ -1,11 +1,12 @@
 <script lang="ts">
     import type {PageProps} from './$types';
+    import {enhance} from "$app/forms";
     import Card from "$lib/components/card.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import IconButton from "$lib/components/icon_button.svelte";
-    import LinkButton from "$lib/components/link_button.svelte";
     import Section from '$lib/components/section.svelte';
+    import Spinner from '$lib/components/spinner.svelte';
     import BackButton from '$lib/components/back_button.svelte';
     import Button from '$lib/components/button.svelte';
     import IconHide from "$lib/icon/hide.svelte";
@@ -17,6 +18,8 @@
 
     const {params, data}: PageProps = $props();
     let modalOpen = $state(false);
+    let updateDataFormLoading = $state(false);
+    let reskinFormLoading = $state(false);
 </script>
 
 <form method="POST" action="?/restock">
@@ -61,28 +64,54 @@
     <Section name="Stock" class="flex flex-col gap-2">
         <p>Current stock: {data.stock}</p>
         <p>Last restock: {data.last_restock?.timestamp?.toLocaleString() ?? "never"}</p>
-        <LinkButton href={`/drinks/${params.drink}/restocks`}>Restock history</LinkButton>
+        <Button as="a" href={`/drinks/${params.drink}/restocks`}>Restock history</Button>
     </Section>
     {#if data.canWrite}
         <Section name="Update data">
-            <form method="POST" action="?/update" class="flex flex-col sm:flex-row gap-4">
+            <form method="POST" action="?/update" class="flex flex-col max-w-md gap-4"
+                  use:enhance={() => {
+                      updateDataFormLoading = true;
+                      return async ({update}) => {
+                          await update({reset: false});
+                          updateDataFormLoading = false;
+                      };
+                  }}
+            >
                 <FormLabel name="Name">
-                    <FormInput type="text" min="3" name="name" value={data.drink!.name}/>
+                    <FormInput type="text" min="3" name="name" disabled={updateDataFormLoading}
+                               value={data.drink!.name}/>
                 </FormLabel>
                 <FormLabel name="Price">
-                    <FormInput type="number" min="0" name="price" value={data.drink!.price}/>
+                    <FormInput type="number" min="0" name="price" disabled={updateDataFormLoading}
+                               value={data.drink!.price}/>
                 </FormLabel>
-                <Button type="submit" class="self-start">
+                <Button type="submit" class="w-full" loading={updateDataFormLoading}>
                     Save
                 </Button>
             </form>
         </Section>
         <Section name="Update image">
-            <div class="flex items-end">
-                <DrinkImage file={data.drink!.id} class="w-64"/>
-                <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4">
-                    <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"/>
-                    <Button type="submit" class="self-start">
+            <div class="flex flex-col md:flex-row items-center gap-4">
+                <div class="relative">
+                    <DrinkImage file={data.drink!.id} class="w-64" id="drinkimage"/>
+                    {#if reskinFormLoading}
+                        <div class="absolute inset-0 bg-ctp-crust/50 backdrop-blur-xs flex items-center justify-center">
+                            <Spinner/>
+                        </div>
+                    {/if}
+                </div>
+                <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4"
+                      use:enhance={() => {
+                          reskinFormLoading = true;
+                          return async ({update}) => {
+                            await update();
+                            reskinFormLoading = false;
+                          };
+                      }}
+                >
+                    <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"
+                               disabled={reskinFormLoading}/>
+                    <Button type="submit" class="self-start" disabled={reskinFormLoading}>
                         Save
                     </Button>
                 </form>

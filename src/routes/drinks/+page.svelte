@@ -12,28 +12,38 @@
     import IconCreate from "$lib/icon/plus.svelte";
     import IconHide from "$lib/icon/hide.svelte";
     import IconShow from "$lib/icon/show.svelte";
-    import {getStorageUrl} from "$lib/client/storage";
+    import {enhance} from "$app/forms";
 
     const {data}: PageProps = $props();
     const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
     let modalOpen = $state(false);
+    let newDrinkFormLoading = $state(false);
 </script>
 
-<form method="POST" enctype="multipart/form-data">
-    <Modal title="Register new drink" open={modalOpen} onclose={() => modalOpen = false}>
+<form method="POST" enctype="multipart/form-data" use:enhance={() => {
+    newDrinkFormLoading = true;
+    return async ({update}) => {
+        await update();
+        newDrinkFormLoading = false;
+        modalOpen = false;
+    };
+}}>
+    <Modal title="Register new drink" open={modalOpen} onclose={() => modalOpen = false}
+           canclose={!newDrinkFormLoading}>
         <div class="flex flex-col gap-4">
             <FormLabel name="Name">
-                <FormInput type="text" min="3" name="name"/>
+                <FormInput type="text" min="3" name="name" disabled={newDrinkFormLoading}/>
             </FormLabel>
             <FormLabel name="Price">
-                <FormInput type="number" min="0" name="price"/>
+                <FormInput type="number" min="0" name="price" disabled={newDrinkFormLoading}/>
             </FormLabel>
             <FormLabel name="Image">
-                <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"/>
+                <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"
+                           disabled={newDrinkFormLoading}/>
             </FormLabel>
         </div>
         {#snippet actions()}
-            <Button type="submit" class="font-bold uppercase">
+            <Button type="submit" class="font-bold uppercase" loading={newDrinkFormLoading}>
                 Add
             </Button>
         {/snippet}
@@ -56,7 +66,7 @@
             </IconButton>
         {/if}
     {/snippet}
-    <div class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {#each data.drinks as drink}
             <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
                 <div class="font-bold text-center text-2xl">{drink.name}</div>

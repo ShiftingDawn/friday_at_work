@@ -12,4 +12,4 @@
     } & Omit<HTMLAttributes<HTMLImageElement>, "src"> = $props();
 </script>
 
-<img src={getStorageUrl(file)} alt="" class={twMerge("w-32 aspect-square", cls as any)} {...rest}/>
+<img src={`${getStorageUrl(file)}?${new Date().getTime()}`} alt="" class={twMerge("w-32 aspect-square", cls as any)} {...rest}/>

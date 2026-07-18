@@ -7,9 +7,12 @@
     import Button from "$lib/components/button.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import Modal from "$lib/components/modal.svelte";
+    import {enhance} from "$app/forms";
 
     const {data}: PageProps = $props();
     let modalOpen = $state(false);
+    let updateFormLoading = $state(false);
+    let addPermissionFormLoading = $state(false);
 </script>
 
 <Card title={data.ws!.name}>
@@ -18,11 +21,17 @@
     {/snippet}
     <Section name={data.canAdmin ? "Update data" : "Data"}>
         {#if data.canAdmin}
-            <form method="POST" action="?/update" class="flex flex-col gap-4">
-                <FormLabel name="Name" class="max-w-md">
-                    <FormInput type="text" min="3" name="name" value={data.ws!.name}/>
+            <form method="POST" action="?/update" class="flex flex-col gap-4 max-w-md" use:enhance={() => {
+                updateFormLoading = true;
+                return async ({update}) => {
+                    await update();
+                    updateFormLoading = false;
+                };
+            }}>
+                <FormLabel name="Name">
+                    <FormInput type="text" min="3" name="name" value={data.ws!.name} disabled={updateFormLoading}/>
                 </FormLabel>
-                <Button type="submit" class="self-start">
+                <Button type="submit" class="w-full" loading={updateFormLoading}>
                     Save
                 </Button>
             </form>
@@ -35,14 +44,23 @@
             <Button onclick={() => modalOpen = true}>
                 Add
             </Button>
-            <form method="POST" action="?/addpermission">
-                <Modal title="Add permission" open={modalOpen} onclose={() => modalOpen = false}>
+            <form method="POST" action="?/addpermission" use:enhance={() => {
+                updateFormLoading = true;
+                return async ({update}) => {
+                    await update();
+                    updateFormLoading = false;
+                    modalOpen = false;
+                };
+            }}>
+                <Modal title="Add permission" open={modalOpen} onclose={() => modalOpen = false}
+                       canclose={!updateFormLoading}>
                     <div class="flex flex-col gap-4">
                         <FormLabel name="Username">
-                            <FormInput type="text" min="3" name="username"/>
+                            <FormInput type="text" min="3" name="username" disabled={updateFormLoading}/>
                         </FormLabel>
                         <FormLabel name="Permission level">
-                            <select name="role" required class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
+                            <select name="role" required disabled={updateFormLoading}
+                                    class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
                                 <option value="read" selected>Read only</option>
                                 <option value="write">Read and Write</option>
                                 <option value="admin">Admin</option>
@@ -50,7 +68,7 @@
                         </FormLabel>
                     </div>
                     {#snippet actions()}
-                        <Button type="submit" class="font-bold uppercase">
+                        <Button type="submit" class="font-bold uppercase" loading={updateFormLoading}>
                             Add
                         </Button>
                     {/snippet}
@@ -60,10 +78,10 @@
         {#if data.ws!.permissions?.length > 0}
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                 {#each data.ws!.permissions as permission}
-                    <Card as="a" href={`/workspace/${data.workspaceId}/permission/${permission.id}`}
-                          class="bg-ctp-surface1 shadow-none">
+                    <Button as="a" href={`/workspace/${data.workspaceId}/permission/${permission.id}`}
+                            class="bg-ctp-surface1 shadow-none">
                         {permission.user.username}
-                    </Card>
+                    </Button>
                 {/each}
             </div>
         {/if}
