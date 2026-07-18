@@ -21,7 +21,7 @@
 </script>
 
 <div class={twMerge(
-    "fixed z-50 top-0 left-0 right-0 bottom-0 pointer-events-none flex items-center justify-center backdrop-blur-none transition-all",
+    "fixed z-50 top-0 left-0 right-0 bottom-0 pointer-events-none flex items-end pb-16 md:pb-0 md:items-center lg:items-start lg:pt-16 justify-center backdrop-blur-none transition-all",
     open && "pointer-events-auto",
 )}>
     {#if open}
