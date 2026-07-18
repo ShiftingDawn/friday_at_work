@@ -9,15 +9,15 @@
     import IconButton from "$lib/components/icon_button.svelte";
     import {enhance} from "$app/forms";
 
-    const {data} = $props();
+    const {data,} = $props();
     let modalOpen = $state(false);
     let createFormLoading = $state(false);
 
     function handleSelect(id: string) {
-        (document.querySelector("#workspaceselectorform > input[type=hidden]") as HTMLInputElement)
-            .value = id;
-        (document.querySelector("#workspaceselectorform") as HTMLFormElement)
-            .submit();
+      (document.querySelector("#workspaceselectorform > input[type=hidden]") as HTMLInputElement)
+        .value = id;
+      (document.querySelector("#workspaceselectorform") as HTMLFormElement)
+        .submit();
     }
 </script>
 
@@ -33,12 +33,12 @@
 {/if}
 
 <form method="POST" action="?/create" use:enhance={() => {
-    createFormLoading = true;
-    return async ({update}) => {
-        await update();
-        createFormLoading = false;
-        modalOpen = false;
-    };
+  createFormLoading = true;
+  return async ({update,}) => {
+    await update();
+    createFormLoading = false;
+    modalOpen = false;
+  };
 }}>
     <Modal title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}
            canclose={!createFormLoading}>
@@ -63,7 +63,7 @@
         <input type="hidden" name="workspace"/>
     </form>
     <div class="flex flex-col gap-2">
-        {#each data.workspaces as workspace}
+        {#each data.workspaces as workspace(workspace.id)}
             <Button class="w-full" onclick={() => handleSelect(workspace.id)}>
                 {workspace.name}
             </Button>

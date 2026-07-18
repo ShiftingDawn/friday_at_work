@@ -1,14 +1,14 @@
 <script lang="ts">
-    import type {PageProps} from './$types';
+    import type {PageProps} from "./$types";
     import {enhance} from "$app/forms";
     import Card from "$lib/components/card.svelte";
     import FormLabel from "$lib/components/form_label.svelte";
     import FormInput from "$lib/components/form_input.svelte";
     import IconButton from "$lib/components/icon_button.svelte";
-    import Section from '$lib/components/section.svelte';
-    import Spinner from '$lib/components/spinner.svelte';
-    import BackButton from '$lib/components/back_button.svelte';
-    import Button from '$lib/components/button.svelte';
+    import Section from "$lib/components/section.svelte";
+    import Spinner from "$lib/components/spinner.svelte";
+    import BackButton from "$lib/components/back_button.svelte";
+    import Button from "$lib/components/button.svelte";
     import IconHide from "$lib/icon/hide.svelte";
     import IconShow from "$lib/icon/show.svelte";
     import IconRestock from "$lib/icon/plus.svelte";
@@ -16,7 +16,7 @@
     import DrinkImage from "$lib/components/drink_image.svelte";
     import {displayPrice} from "$lib";
 
-    const {params, data}: PageProps = $props();
+    const {params, data,}: PageProps = $props();
     let modalOpen = $state(false);
     let updateDataFormLoading = $state(false);
     let reskinFormLoading = $state(false);
@@ -70,11 +70,11 @@
         <Section name="Update data">
             <form method="POST" action="?/update" class="flex flex-col max-w-md gap-4"
                   use:enhance={() => {
-                      updateDataFormLoading = true;
-                      return async ({update}) => {
-                          await update({reset: false});
-                          updateDataFormLoading = false;
-                      };
+                    updateDataFormLoading = true;
+                    return async ({update,}) => {
+                      await update({reset: false,});
+                      updateDataFormLoading = false;
+                    };
                   }}
             >
                 <FormLabel name="Name">
@@ -102,11 +102,11 @@
                 </div>
                 <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4"
                       use:enhance={() => {
-                          reskinFormLoading = true;
-                          return async ({update}) => {
-                            await update();
-                            reskinFormLoading = false;
-                          };
+                        reskinFormLoading = true;
+                        return async ({update,}) => {
+                          await update();
+                          reskinFormLoading = false;
+                        };
                       }}
                 >
                     <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"

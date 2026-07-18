@@ -9,7 +9,7 @@
     import Modal from "$lib/components/modal.svelte";
     import {enhance} from "$app/forms";
 
-    const {data}: PageProps = $props();
+    const {data,}: PageProps = $props();
     let modalOpen = $state(false);
     let updateFormLoading = $state(false);
     let addPermissionFormLoading = $state(false);
@@ -22,11 +22,11 @@
     <Section name={data.canAdmin ? "Update data" : "Data"}>
         {#if data.canAdmin}
             <form method="POST" action="?/update" class="flex flex-col gap-4 max-w-md" use:enhance={() => {
-                updateFormLoading = true;
-                return async ({update}) => {
-                    await update();
-                    updateFormLoading = false;
-                };
+              updateFormLoading = true;
+              return async ({update,}) => {
+                await update();
+                updateFormLoading = false;
+              };
             }}>
                 <FormLabel name="Name">
                     <FormInput type="text" min="3" name="name" value={data.ws!.name} disabled={updateFormLoading}/>
@@ -45,12 +45,12 @@
                 Add
             </Button>
             <form method="POST" action="?/addpermission" use:enhance={() => {
-                addPermissionFormLoading = true;
-                return async ({update}) => {
-                    await update();
-                    addPermissionFormLoading = false;
-                    modalOpen = false;
-                };
+              addPermissionFormLoading = true;
+              return async ({update,}) => {
+                await update();
+                addPermissionFormLoading = false;
+                modalOpen = false;
+              };
             }}>
                 <Modal title="Add permission" open={modalOpen} onclose={() => modalOpen = false}
                        canclose={!addPermissionFormLoading}>
@@ -77,7 +77,7 @@
         {/if}
         {#if data.ws!.permissions?.length > 0}
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-                {#each data.ws!.permissions as permission}
+                {#each data.ws!.permissions as permission(permission.id)}
                     <Button as="a" href={`/workspace/${data.workspaceId}/permission/${permission.id}`}
                             class="bg-ctp-surface1 shadow-none">
                         {permission.user.username}

@@ -4,12 +4,12 @@ import {env} from "$env/dynamic/private";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-const adapter = new PrismaLibSql({url: env.DATABASE_URL});
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({adapter});
+const adapter = new PrismaLibSql({url: env.DATABASE_URL,});
+export const prisma = globalForPrisma.prisma ?? new PrismaClient({adapter,});
 
 if (process.env.NODE_ENV !== "production") {
-    globalForPrisma.prisma = prisma;
+  globalForPrisma.prisma = prisma;
 }
 
-export type User = Prisma.UserGetPayload<{}>;
-export type Session = Prisma.SessionGetPayload<{}>;
+export type User = Prisma.UserGetPayload<object>;
+export type Session = Prisma.SessionGetPayload<object>;

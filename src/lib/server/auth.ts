@@ -7,79 +7,79 @@ const SESSION_COOKIE_NAME = "sid";
 const SESSION_MAX_AGE = 3600 * 24 * 28 * 1000;
 
 export function getSessionId(event: RequestEvent): string | null {
-    return event.cookies.get(SESSION_COOKIE_NAME) ?? null;
+  return event.cookies.get(SESSION_COOKIE_NAME) ?? null;
 }
 
 export async function createSession(event: RequestEvent, userId: string): Promise<Session> {
-    const session = await prisma.session.create({
-        data: {
-            userId,
-            expiresAt: new Date(Date.now() + SESSION_MAX_AGE),
-        }
-    });
-    setSessionTokenCookie(event, session.id, session.expiresAt);
-    return session;
+  const session = await prisma.session.create({
+    data: {
+      userId,
+      expiresAt: new Date(Date.now() + SESSION_MAX_AGE),
+    },
+  });
+  setSessionTokenCookie(event, session.id, session.expiresAt);
+  return session;
 }
 
 export function setSessionTokenCookie(event: RequestEvent, sessionId: string, expiresAt: Date) {
-    event.cookies.set(SESSION_COOKIE_NAME, sessionId, {
-        secure: env.NODE_ENV !== "development",
-        path: "/",
-        expires: expiresAt,
-        sameSite: "strict",
-        httpOnly: true,
-    });
+  event.cookies.set(SESSION_COOKIE_NAME, sessionId, {
+    secure: env.NODE_ENV !== "development",
+    path: "/",
+    expires: expiresAt,
+    sameSite: "strict",
+    httpOnly: true,
+  });
 }
 
 export type ServerSession = { session: null, user: null } | { session: Session, user: User };
 
 export async function getCurrentSession(sid: string): Promise<ServerSession> {
-    const sessionAndUser = await prisma.session.findFirst({
-        where: {id: sid},
-        include: {user: true},
+  const sessionAndUser = await prisma.session.findFirst({
+    where: {id: sid,},
+    include: {user: true,},
+  });
+  if (!sessionAndUser) return {session: null, user: null,};
+
+  const isExpired = Date.now() >= sessionAndUser.expiresAt.getTime();
+  if (isExpired) {
+    await prisma.session.delete({where: {id: sessionAndUser.id,},});
+    return {session: null, user: null,};
+  }
+
+  const shouldRenew = Date.now() >= (sessionAndUser.expiresAt.getTime() - (SESSION_MAX_AGE / 2));
+  if (shouldRenew) {
+    sessionAndUser.expiresAt = new Date(Date.now() + SESSION_MAX_AGE);
+    await prisma.session.update({
+      where: {id: sessionAndUser.id,},
+      data: {expiresAt: sessionAndUser.expiresAt,},
     });
-    if (!sessionAndUser) return {session: null, user: null,};
+  }
 
-    const isExpired = Date.now() >= sessionAndUser.expiresAt.getTime();
-    if (isExpired) {
-        await prisma.session.delete({where: {id: sessionAndUser.id}});
-        return {session: null, user: null};
-    }
-
-    const shouldRenew = Date.now() >= (sessionAndUser.expiresAt.getTime() - (SESSION_MAX_AGE / 2));
-    if (shouldRenew) {
-        sessionAndUser.expiresAt = new Date(Date.now() + SESSION_MAX_AGE);
-        await prisma.session.update({
-            where: {id: sessionAndUser.id},
-            data: {expiresAt: sessionAndUser.expiresAt}
-        });
-    }
-
-    return {session: sessionAndUser, user: sessionAndUser.user};
+  return {session: sessionAndUser, user: sessionAndUser.user,};
 }
 
 export async function destroyCurrentSession(event: RequestEvent) {
-    const sid = getSessionId(event);
-    if (sid) {
-        await destroySession(sid);
-    }
-    event.cookies.delete("sid", {path: "/",});
+  const sid = getSessionId(event);
+  if (sid) {
+    await destroySession(sid);
+  }
+  event.cookies.delete("sid", {path: "/",});
 }
 
 async function destroySession(sessionId: string) {
-    try {
-        await prisma.session.delete({where: {id: sessionId}});
-    } catch {
-        //NOOP
-    }
+  try {
+    await prisma.session.delete({where: {id: sessionId,},});
+  } catch {
+    //NOOP
+  }
 }
 
 type RequireAuthResult = { user: User, session: Session } | never;
 
 export function requireAuth(event?: RequestEvent): RequireAuthResult {
-    const e = event ?? getRequestEvent();
-    if (!e.locals.user || !e.locals.session) {
-        return redirect(302, "/signin");
-    }
-    return {user: e.locals.user, session: e.locals.session,};
+  const e = event ?? getRequestEvent();
+  if (!e.locals.user || !e.locals.session) {
+    return redirect(302, "/signin");
+  }
+  return {user: e.locals.user, session: e.locals.session,};
 }

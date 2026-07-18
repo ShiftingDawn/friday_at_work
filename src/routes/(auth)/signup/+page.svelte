@@ -7,7 +7,7 @@
     import Card from "@/lib/components/card.svelte";
     import type {ActionData} from "./$types";
 
-    let {form}: { form: ActionData } = $props();
+    let {form,}: { form: ActionData } = $props();
 </script>
 
 <Card title="Sign up" class="max-w-md mx-auto">

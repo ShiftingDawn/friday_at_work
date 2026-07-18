@@ -6,7 +6,7 @@
     import FormInput from "$lib/components/form_input.svelte";
     import Card from "@/lib/components/card.svelte";
 
-    let {form, data} = $props();
+    let {form, data,} = $props();
 </script>
 
 <Card title="Sign in" class="max-w-md mx-auto">

@@ -1,13 +1,13 @@
 <script lang="ts">
-    import type {PageProps} from "./$types";
-    import Card from "$lib/components/card.svelte";
-    import IconSubmit from "$lib/icon/submit.svelte"
-    import IconButton from "$lib/components/icon_button.svelte";
-    import FormRadio from "$lib/components/form_radio.svelte";
-    import Section from "$lib/components/section.svelte";
-    import DrinkImage from "$lib/components/drink_image.svelte";
+  import type {PageProps} from "./$types";
+  import Card from "$lib/components/card.svelte";
+  import IconSubmit from "$lib/icon/submit.svelte";
+  import IconButton from "$lib/components/icon_button.svelte";
+  import FormRadio from "$lib/components/form_radio.svelte";
+  import Section from "$lib/components/section.svelte";
+  import DrinkImage from "$lib/components/drink_image.svelte";
 
-    const {data}: PageProps = $props();
+  const {data,}: PageProps = $props();
 </script>
 
 {#if !data.canWrite}
@@ -22,7 +22,7 @@
             </IconButton>
         {/snippet}
         <Section name="Select person" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {#each data.people as person}
+            {#each data.people as person(person.id)}
                 <FormRadio name="person" value={person.id}>
                     {person.name}
                 </FormRadio>
@@ -30,7 +30,7 @@
         </Section>
         <Section name="Select drink" class="flex flex-col gap-4">
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {#each data.drinks as drink}
+                {#each data.drinks as drink(drink.id)}
                     <FormRadio name="drink" value={drink.id}>
                         <DrinkImage file={drink.id}/>
                         {drink.name}

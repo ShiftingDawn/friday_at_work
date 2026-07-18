@@ -9,7 +9,7 @@
     import FormLabel from "$lib/components/form_label.svelte";
     import {enhance} from "$app/forms";
 
-    const {data}: PageProps = $props();
+    const {data,}: PageProps = $props();
     let updatePermissionFormLoading = $state(false);
 </script>
 
@@ -30,11 +30,11 @@
         <p>Editing permission for user <i>{data.permission!.user.username}</i> for workspace <i>{data.workspace}</i></p>
         <Section name="Update">
             <form method="POST" action="?/updatepermission" class="max-w-md flex flex-col gap-4" use:enhance={() => {
-                updatePermissionFormLoading = true;
-                return async ({update}) => {
-                    await update();
-                    updatePermissionFormLoading = false;
-                };
+              updatePermissionFormLoading = true;
+              return async ({update,}) => {
+                await update();
+                updatePermissionFormLoading = false;
+              };
             }}>
                 <FormLabel name="Permission level">
                     <select name="role" required class="w-full bg-ctp-surface1 rounded-full px-4 py-2"

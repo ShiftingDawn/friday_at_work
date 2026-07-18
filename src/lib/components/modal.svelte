@@ -4,32 +4,32 @@
     import {twMerge} from "tailwind-merge";
 
     const {
-        open,
-        onclose,
-        canclose,
-        title,
-        children,
-        actions,
+      open,
+      onclose,
+      canclose,
+      title,
+      children,
+      actions,
     }: {
-        open: boolean,
-        onclose: () => void,
-        canclose?: boolean,
-        title?: string,
-        children: Snippet,
-        actions?: Snippet
+      open: boolean,
+      onclose: () => void,
+      canclose?: boolean,
+      title?: string,
+      children: Snippet,
+      actions?: Snippet
     } = $props();
 </script>
 
 <div class={twMerge(
-    "fixed z-50 top-0 left-0 right-0 bottom-0 pointer-events-none flex items-end pb-16 md:pb-0 md:items-center lg:items-start lg:pt-16 justify-center backdrop-blur-none transition-all",
-    open && "pointer-events-auto",
+  "fixed z-50 top-0 left-0 right-0 bottom-0 pointer-events-none flex items-end pb-16 md:pb-0 md:items-center lg:items-start lg:pt-16 justify-center backdrop-blur-none transition-all",
+  open && "pointer-events-auto"
 )}>
     {#if open}
         <button type="button" aria-label="Close dialog" onclick={onclose}
                 class="absolute inset-0 bg-ctp-crust/50 backdrop-blur-xs"
                 disabled={canclose === false}
         ></button>
-        <div in:fade={{duration: 150}} out:fade={{duration: 150}}
+        <div in:fade={{duration: 150,}} out:fade={{duration: 150,}}
              class="relative min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2"
         >
             {#if title}

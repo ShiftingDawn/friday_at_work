@@ -3,13 +3,13 @@
     import {twMerge} from "tailwind-merge";
 
     const {
-        name,
-        class: cls,
-        children
+      name,
+      class: cls,
+      children,
     }: {
-        name: string,
-        class?: string,
-        children: Snippet
+      name: string,
+      class?: string,
+      children: Snippet
     } = $props();
 </script>
 
