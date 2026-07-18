@@ -4,7 +4,8 @@
     import IconSubmit from "$lib/icon/submit.svelte"
     import IconButton from "$lib/components/icon_button.svelte";
     import FormRadio from "$lib/components/form_radio.svelte";
-    import Section from "@/lib/components/section.svelte";
+    import Section from "$lib/components/section.svelte";
+    import DrinkImage from "$lib/components/drink_image.svelte";
     import {getStorageUrl} from "$lib/client/storage";
 
     const {data}: PageProps = $props();
@@ -32,8 +33,8 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {#each data.drinks as drink}
                     <FormRadio name="drink" value={drink.id}>
-                        <img src={getStorageUrl(drink.id)}
-                             class="w-32 aspect-square"/>                        {drink.name}
+                        <DrinkImage file={drink.id}/>
+                        {drink.name}
                     </FormRadio>
                 {/each}
             </div>

@@ -12,8 +12,8 @@
     import IconShow from "$lib/icon/show.svelte";
     import IconRestock from "$lib/icon/plus.svelte";
     import Modal from "$lib/components/modal.svelte";
+    import DrinkImage from "$lib/components/drink_image.svelte";
     import {displayPrice} from "$lib";
-    import {getStorageUrl} from "$lib/client/storage";
 
     const {params, data}: PageProps = $props();
     let modalOpen = $state(false);
@@ -79,7 +79,7 @@
         </Section>
         <Section name="Update image">
             <div class="flex items-end">
-                <img src={getStorageUrl(data.drink!.id)} class="w-64 aspect-square"/>
+                <DrinkImage file={data.drink!.id} class="w-64"/>
                 <form method="POST" action="?/reskin" enctype="multipart/form-data" class="flex flex-col gap-4 mt-4">
                     <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"/>
                     <Button type="submit" class="self-start">
@@ -95,7 +95,7 @@
         </Section>
         <Section name="Image">
             <div class="flex items-end">
-                <img src={getStorageUrl(data.drink!.id)} class="w-64 aspect-square"/>
+                <DrinkImage file={data.drink!.id} class="w-64"/>
             </div>
         </Section>
     {/if}

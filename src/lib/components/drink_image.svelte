@@ -1,0 +1,15 @@
+<script lang="ts">
+    import type {HTMLAttributes} from "svelte/elements";
+    import {getStorageUrl} from "$lib/client/storage";
+    import {twMerge} from "tailwind-merge";
+
+    const {
+        file,
+        class: cls,
+        ...rest
+    }: {
+        file: string;
+    } & Omit<HTMLAttributes<HTMLImageElement>, "src"> = $props();
+</script>
+
+<img src={getStorageUrl(file)} alt="" class={twMerge("w-32 aspect-square", cls as any)} {...rest}/>
