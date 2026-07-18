@@ -72,7 +72,7 @@
             </TableRow>
             </thead>
             <tbody>
-            {#each data.consumptions! as consumption(consumption.id)}
+            {#each data.consumptions! as consumption(`${consumption.drink!.id}_${consumption.price}`)}
                 <TableRow>
                     <TableCell>{consumption.drink!.name}</TableCell>
                     <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>

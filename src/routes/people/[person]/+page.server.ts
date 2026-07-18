@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
     return fail(404);
   }
   const consumptions = await prisma.consumption.groupBy({
-    by: ["drinkId", "price", "id",],
+    by: ["drinkId", "price",],
     where: {
       personId: person.id,
       ...(person.reset ? {timestamp: {gte: person.reset,},} : {}),
@@ -36,7 +36,6 @@ export const load: PageServerLoad = async ({params, locals,}) => {
   return {
     person,
     consumptions: consumptions.map(consumption => ({
-      id: consumption.id,
       drink: drinks.find(drink => drink.id === consumption.drinkId),
       price: consumption.price,
       count: consumption._count.drinkId,
