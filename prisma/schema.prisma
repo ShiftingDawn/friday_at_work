@@ -75,6 +75,7 @@ model Drink {
   name         String
   price        Int
   hidden       Boolean       @default(false)
+  modifiedAt   DateTime      @default(now())
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
   restocks     Restock[]

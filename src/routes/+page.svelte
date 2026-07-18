@@ -32,7 +32,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {#each data.drinks as drink(drink.id)}
                     <FormRadio name="drink" value={drink.id}>
-                        <DrinkImage file={drink.id}/>
+                        <DrinkImage file={drink.id} lastModified={drink.modifiedAt} />
                         {drink.name}
                     </FormRadio>
                 {/each}

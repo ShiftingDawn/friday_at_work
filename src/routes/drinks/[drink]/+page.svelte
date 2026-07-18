@@ -1,25 +1,25 @@
 <script lang="ts">
-    import type {PageProps} from "./$types";
-    import {enhance} from "$app/forms";
-    import Card from "$lib/components/card.svelte";
-    import FormLabel from "$lib/components/form_label.svelte";
-    import FormInput from "$lib/components/form_input.svelte";
-    import IconButton from "$lib/components/icon_button.svelte";
-    import Section from "$lib/components/section.svelte";
-    import Spinner from "$lib/components/spinner.svelte";
-    import BackButton from "$lib/components/back_button.svelte";
-    import Button from "$lib/components/button.svelte";
-    import IconHide from "$lib/icon/hide.svelte";
-    import IconShow from "$lib/icon/show.svelte";
-    import IconRestock from "$lib/icon/plus.svelte";
-    import Modal from "$lib/components/modal.svelte";
-    import DrinkImage from "$lib/components/drink_image.svelte";
-    import {displayPrice} from "$lib";
+  import type {PageProps} from "./$types";
+  import {enhance} from "$app/forms";
+  import Card from "$lib/components/card.svelte";
+  import FormLabel from "$lib/components/form_label.svelte";
+  import FormInput from "$lib/components/form_input.svelte";
+  import IconButton from "$lib/components/icon_button.svelte";
+  import Section from "$lib/components/section.svelte";
+  import Spinner from "$lib/components/spinner.svelte";
+  import BackButton from "$lib/components/back_button.svelte";
+  import Button from "$lib/components/button.svelte";
+  import IconHide from "$lib/icon/hide.svelte";
+  import IconShow from "$lib/icon/show.svelte";
+  import IconRestock from "$lib/icon/plus.svelte";
+  import Modal from "$lib/components/modal.svelte";
+  import DrinkImage from "$lib/components/drink_image.svelte";
+  import {displayPrice} from "$lib";
 
-    const {params, data,}: PageProps = $props();
-    let modalOpen = $state(false);
-    let updateDataFormLoading = $state(false);
-    let reskinFormLoading = $state(false);
+  const {params, data,}: PageProps = $props();
+  let modalOpen = $state(false);
+  let updateDataFormLoading = $state(false);
+  let reskinFormLoading = $state(false);
 </script>
 
 <form method="POST" action="?/restock">
@@ -93,7 +93,8 @@
         <Section name="Update image">
             <div class="flex flex-col md:flex-row items-center gap-4">
                 <div class="relative">
-                    <DrinkImage file={data.drink!.id} class="w-64" id="drinkimage"/>
+                    <DrinkImage file={data.drink!.id} class="w-64" id="drinkimage"
+                                lastModified={data.drink!.modifiedAt}/>
                     {#if reskinFormLoading}
                         <div class="absolute inset-0 bg-ctp-crust/50 backdrop-blur-xs flex items-center justify-center">
                             <Spinner/>
@@ -124,7 +125,7 @@
         </Section>
         <Section name="Image">
             <div class="flex items-end">
-                <DrinkImage file={data.drink!.id} class="w-64"/>
+                <DrinkImage file={data.drink!.id} lastModified={data.drink!.modifiedAt} class="w-64"/>
             </div>
         </Section>
     {/if}

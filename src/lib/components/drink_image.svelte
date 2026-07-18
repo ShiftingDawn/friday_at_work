@@ -5,12 +5,16 @@
 
     const {
       file,
+      lastModified,
       class: cls,
       ...rest
-    }: {file: string;} & Omit<HTMLAttributes<HTMLImageElement>, "src"> = $props();
+    }: {
+      file: string;
+      lastModified: Date,
+    } & Omit<HTMLAttributes<HTMLImageElement>, "src"> = $props();
 </script>
 
 <!-- eslint-disable-next-line svelte/no-unused-svelte-ignore -->
 <!-- svelte-ignore hydration_attribute_changed -->
-<img src={`${getStorageUrl(file)}?${new Date().getTime()}`} alt="" {...rest}
+<img src={`${getStorageUrl(file)}?lastmod=${lastModified.getTime()}`} alt="" {...rest}
      class={twMerge("w-32 aspect-square", cls as never)}/>

@@ -129,7 +129,8 @@ export const DrinkScalarFieldEnum = {
   workspaceId: 'workspaceId',
   name: 'name',
   price: 'price',
-  hidden: 'hidden'
+  hidden: 'hidden',
+  modifiedAt: 'modifiedAt'
 } as const
 
 export type DrinkScalarFieldEnum = (typeof DrinkScalarFieldEnum)[keyof typeof DrinkScalarFieldEnum]

@@ -4,6 +4,8 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {upload} from "$lib/server/storage";
+import {canWrite, getRole} from "$lib/server/permission.ts";
+import {getWorkspace} from "$lib/server/workspace.ts";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
   const [restocked, consumed,] = await Promise.all([
@@ -37,11 +39,25 @@ export const actions = {
       where: {id: params.drink,},
     });
   },
-  reskin: async ({request, params,}) => {
+  reskin: async ({request, params, locals,}) => {
+    if (!canWrite(await getRole(locals.user!.id, locals.workspace!.id))) {
+      return fail(403);
+    }
+    const workspace = await getWorkspace(locals.user!.id, locals.workspace!.id);
+    if (!workspace) {
+      return fail(404);
+    }
     const {data, success, error,} = reskinScheme.safeParse(await request.formData());
     if (!success) {
       return fail(400);
     }
+    await prisma.drink.update({
+      where: {
+        id: params.drink,
+        workspaceId: workspace.id,
+      },
+      data: {modifiedAt: new Date(),},
+    });
     if (data?.image) {
       await upload(data.image, params.drink, data.image.type);
     }

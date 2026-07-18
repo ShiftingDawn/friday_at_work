@@ -71,7 +71,7 @@
             <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
                 <div class="font-bold text-center text-2xl">{drink.name}</div>
                 <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-                    <DrinkImage file={drink.id} class="min-w-full"/>
+                    <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
                 </div>
                 <div class="font-bold text-center text-2xl">
                     &euro;&nbsp;{(drink.price / 100).toFixed(2)}
@@ -86,7 +86,7 @@
                     <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1">
                         <div class="font-bold text-center text-2xl">{drink.name}</div>
                         <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-                            <DrinkImage file={drink.id} class="min-w-full"/>
+                            <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
                         </div>
                         <div class="font-bold text-center text-2xl">
                             &euro;&nbsp;{(drink.price / 100).toFixed(2)}
