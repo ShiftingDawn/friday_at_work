@@ -1,11 +1,16 @@
 import type {Actions, PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
+import {zfd} from "zod-form-data";
+import {z} from "zod";
 import {fail} from "@sveltejs/kit";
-import {canWrite} from "$lib/server/permission";
+import {canAdmin, canWrite} from "$lib/server/permission";
 
-export const load: PageServerLoad = async ({params}) => {
-    const person = await prisma.person.findUnique({
-        where: {id: params.personId},
+export const load: PageServerLoad = async ({params, locals}) => {
+    const person = await prisma.person.findFirst({
+        where: {
+            id: params.person,
+            workspaceId: locals.workspace!.id,
+        },
         select: {
             id: true,
             name: true,
@@ -40,22 +45,51 @@ export const load: PageServerLoad = async ({params}) => {
             count: consumption._count.drinkId,
         })),
     };
-}
+};
 
 export const actions = {
-    default: async ({params, locals}) => {
+    update: async ({request, params, locals}) => {
         if (!canWrite(locals.role)) {
             return fail(403);
         }
         const person = await prisma.person.findUnique({
-            where: {id: params.personId},
+            where: {
+                id: params.person,
+                workspaceId: locals.workspace!.id,
+            },
+        });
+        if (!person) {
+            return fail(404);
+        }
+        const {data, success, error} = updateScheme.safeParse(await request.formData());
+        if (!success) {
+            return fail(400);
+        }
+        await prisma.person.update({
+            where: {id: person.id},
+            data: {name: data?.name}
+        });
+    },
+    resetconsumptions: async ({params, locals}) => {
+        if (!canAdmin(locals.role)) {
+            return fail(403);
+        }
+        const person = await prisma.person.findUnique({
+            where: {
+                id: params.person,
+                workspaceId: locals.workspace!.id,
+            },
         });
         if (!person) {
             return fail(404);
         }
         await prisma.person.update({
-            data: {reset: new Date()},
-            where: {id: person.id}
+            where: {id: person.id},
+            data: {reset: new Date()}
         });
     }
 } satisfies Actions;
+
+const updateScheme = zfd.formData({
+    name: zfd.text(z.string().min(3)),
+});

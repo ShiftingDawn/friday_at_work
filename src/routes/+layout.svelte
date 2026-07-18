@@ -1,11 +1,9 @@
 <script lang="ts">
     import "./layout.css";
-    import favicon from "$lib/assets/favicon.svg";
     import HeaderButton from "$lib/components/header_button.svelte";
     import IconHome from "$lib/icon/home.svelte";
     import IconPerson from "$lib/icon/person.svelte";
     import IconDrinks from "$lib/icon/drinks.svelte";
-    import IconReceipt from "$lib/icon/receipt.svelte";
     import IconWorkspace from "$lib/icon/workspace.svelte";
     import IconSignOut from "$lib/icon/signout.svelte";
 
@@ -37,9 +35,6 @@
             </HeaderButton>
             <HeaderButton name="Drinks" href="/drinks">
                 <IconDrinks/>
-            </HeaderButton>
-            <HeaderButton name="Receipt" href="/receipt">
-                <IconReceipt/>
             </HeaderButton>
         </div>
         <div class="flex items-start gap-4">

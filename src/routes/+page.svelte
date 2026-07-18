@@ -6,7 +6,6 @@
     import FormRadio from "$lib/components/form_radio.svelte";
     import Section from "$lib/components/section.svelte";
     import DrinkImage from "$lib/components/drink_image.svelte";
-    import {getStorageUrl} from "$lib/client/storage";
 
     const {data}: PageProps = $props();
 </script>
