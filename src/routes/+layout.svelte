@@ -1,13 +1,15 @@
 <script lang="ts">
-    import "./layout.css";
-    import HeaderButton from "$lib/components/header_button.svelte";
-    import IconHome from "$lib/icon/home.svelte";
-    import IconPerson from "$lib/icon/person.svelte";
-    import IconDrinks from "$lib/icon/drinks.svelte";
-    import IconWorkspace from "$lib/icon/workspace.svelte";
-    import IconSignOut from "$lib/icon/signout.svelte";
+  import type {LayoutProps} from "./$types";
+  import "./layout.css";
+  import HeaderButton from "$lib/components/header_button.svelte";
+  import IconHome from "$lib/icon/home.svelte";
+  import IconPerson from "$lib/icon/person.svelte";
+  import IconDrinks from "$lib/icon/drinks.svelte";
+  import IconWorkspace from "$lib/icon/workspace.svelte";
+  import IconSettings from "$lib/icon/settings.svelte";
+  import IconSignOut from "$lib/icon/signout.svelte";
 
-    let {children, data,} = $props();
+  let {children, data,}: LayoutProps = $props();
 </script>
 
 <svelte:head>
@@ -41,6 +43,11 @@
             <HeaderButton name="Workspace" href="/workspace">
                 <IconWorkspace/>
             </HeaderButton>
+            {#if data.isUserAdmin}
+                <HeaderButton name="Config" href="/admin">
+                    <IconSettings/>
+                </HeaderButton>
+            {/if}
             <HeaderButton name="Sign out" href="/signout" data-sveltekit-reload>
                 <IconSignOut/>
             </HeaderButton>

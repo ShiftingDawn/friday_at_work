@@ -6,6 +6,7 @@ export const load: LayoutServerLoad = ({locals,}) => {
     isLoggedIn: Boolean(locals.user),
     username: locals.user?.username ?? null,
     userId: locals.user?.id ?? null,
+    isUserAdmin: locals.user?.isAdmin ?? false,
     hasWorkspace: Boolean(locals.workspace),
     workspace: locals.workspace?.name ?? null,
     workspaceId: locals.workspace?.id ?? null,

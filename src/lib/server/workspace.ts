@@ -26,7 +26,7 @@ export async function getWorkspace(userId: string, workspaceId: string): Promise
       id: workspaceId,
       OR: [
         {ownerId: userId,},
-        {permissions: {every: {userId: userId,},},},
+        {permissions: {some: {userId: userId,},},},
       ],
     },
   });

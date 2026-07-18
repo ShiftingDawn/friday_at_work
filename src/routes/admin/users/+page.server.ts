@@ -1,29 +1,18 @@
-import * as auth from "$lib/server/auth";
-import {fail, redirect} from "@sveltejs/kit";
-import {hashSync} from "bcrypt";
 import type {Actions, PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
-import {env} from "$env/dynamic/private";
+import {fail} from "@sveltejs/kit";
+import {hashSync} from "bcrypt";
 
-export const load: PageServerLoad = async (event) => {
-  if (event.locals.user) {
-    return redirect(302, "/");
-  }
-  if (env.DISABLE_REGISTER === "true") {
-    return redirect(307, "/signin");
-  }
-  return {};
+export const load: PageServerLoad = async () => {
+  return {users: await prisma.user.findMany({include: {_count: {select: {workspaces: true,},},},}),};
 };
 
 export const actions: Actions = {
-  default: async (event) => {
-    if (env.DISABLE_REGISTER === "true") {
-      return redirect(307, "/signin");
-    }
+  createuser: async (event) => {
     const formData = await event.request.formData();
     const username = formData.get("username");
     const password = formData.get("password");
-    const password2 = formData.get("password2");
+    const admin = formData.get("admin") === "on";
 
     if (!validateUsername(username)) {
       return fail(400, {message: "Invalid username",});
@@ -31,25 +20,18 @@ export const actions: Actions = {
     if (!validatePassword(password)) {
       return fail(400, {message: "Invalid password",});
     }
-    if (password !== password2) {
-      return fail(400, {message: "Passwords do not match",});
-    }
     try {
-      const hasUsers = await prisma.user.count() > 0;
-      const user = await prisma.user.create({
+      await prisma.user.create({
         data: {
           username,
           password: hashSync(password, 12),
-          isAdmin: !hasUsers,
+          isAdmin: admin,
         },
       });
-      const session = await auth.createSession(event, user.id);
-      auth.setSessionTokenCookie(event, session.id, session.expiresAt);
     } catch (error) {
       console.error(error);
       return fail(500, {message: "An error has occurred",});
     }
-    return redirect(302, "/");
   },
 };
 

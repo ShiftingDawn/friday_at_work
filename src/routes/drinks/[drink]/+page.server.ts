@@ -4,8 +4,8 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {upload} from "$lib/server/storage";
-import {canWrite, getRole} from "$lib/server/permission.ts";
-import {getWorkspace} from "$lib/server/workspace.ts";
+import {canWrite, getRole} from "$lib/server/permission";
+import {getWorkspace} from "$lib/server/workspace";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
   const [restocked, consumed,] = await Promise.all([
