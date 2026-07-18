@@ -20,13 +20,19 @@
 
 <div class={twMerge(
     "fixed z-50 top-0 left-0 right-0 bottom-0 pointer-events-none flex items-center justify-center backdrop-blur-none transition-all",
-    open && "bg-ctp-mabg-ctp-corentle/50 backdrop-blur-xs pointer-events-auto"
-)} onclick={() => onclose()}>
+    open && "pointer-events-auto",
+)}>
     {#if open}
+        <button type="button" aria-label="Close dialog" onclick={onclose}
+                class="absolute inset-0 bg-ctp-mabg-ctp-corentle/50 backdrop-blur-xs"
+        ></button>
         <div in:fade={{duration: 150}} out:fade={{duration: 150}}
-             class="min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2" onclick={e => e.stopPropagation()}>
+             class="relative min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2"
+        >
             {#if title}
-                <div class="text-xl font-bold uppercase bg-ctp-surface1 p-4 rounded-t-lg shadow-lg">{title}</div>
+                <div class="text-xl font-bold uppercase bg-ctp-surface1 p-4 rounded-t-lg shadow-lg">
+                    {title}
+                </div>
             {/if}
             <div class="p-4">
                 {@render children()}
