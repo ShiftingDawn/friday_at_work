@@ -45,21 +45,21 @@
                 Add
             </Button>
             <form method="POST" action="?/addpermission" use:enhance={() => {
-                updateFormLoading = true;
+                addPermissionFormLoading = true;
                 return async ({update}) => {
                     await update();
-                    updateFormLoading = false;
+                    addPermissionFormLoading = false;
                     modalOpen = false;
                 };
             }}>
                 <Modal title="Add permission" open={modalOpen} onclose={() => modalOpen = false}
-                       canclose={!updateFormLoading}>
+                       canclose={!addPermissionFormLoading}>
                     <div class="flex flex-col gap-4">
                         <FormLabel name="Username">
-                            <FormInput type="text" min="3" name="username" disabled={updateFormLoading}/>
+                            <FormInput type="text" min="3" name="username" disabled={addPermissionFormLoading}/>
                         </FormLabel>
                         <FormLabel name="Permission level">
-                            <select name="role" required disabled={updateFormLoading}
+                            <select name="role" required disabled={addPermissionFormLoading}
                                     class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
                                 <option value="read" selected>Read only</option>
                                 <option value="write">Read and Write</option>
@@ -68,7 +68,7 @@
                         </FormLabel>
                     </div>
                     {#snippet actions()}
-                        <Button type="submit" class="font-bold uppercase" loading={updateFormLoading}>
+                        <Button type="submit" class="font-bold uppercase" loading={addPermissionFormLoading}>
                             Add
                         </Button>
                     {/snippet}
