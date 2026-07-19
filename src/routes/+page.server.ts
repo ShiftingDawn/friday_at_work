@@ -5,10 +5,15 @@ import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {canWrite} from "$lib/server/permission";
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({locals,}) => {
   return {
-    people: await prisma.person.findMany(),
-    drinks: await prisma.drink.findMany({where: {hidden: false,},}),
+    people: await prisma.person.findMany({where: {workspaceId: locals.workspace!.id,},}),
+    drinks: await prisma.drink.findMany({
+      where: {
+        hidden: false,
+        workspaceId: locals.workspace!.id,
+      },
+    }),
   };
 };
 
