@@ -23,4 +23,4 @@ export const actions = {
   },
 } satisfies Actions;
 
-const createScheme = zfd.formData({name: zfd.text(z.string().min(3)),});
+const createScheme = zfd.formData({name: zfd.text(z.string().trim().min(3)),});

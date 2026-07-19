@@ -86,4 +86,4 @@ export const actions = {
   },
 } satisfies Actions;
 
-const updateScheme = zfd.formData({name: zfd.text(z.string().min(3)),});
+const updateScheme = zfd.formData({name: zfd.text(z.string().trim().min(3)),});

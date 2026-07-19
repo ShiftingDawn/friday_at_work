@@ -87,7 +87,7 @@ export const actions = {
 } satisfies Actions;
 
 const updateScheme = zfd.formData({
-  name: zfd.text(z.string().min(3)),
+  name: zfd.text(z.string().trim().min(3)),
   price: zfd.numeric(z.int().min(0)),
 });
 
