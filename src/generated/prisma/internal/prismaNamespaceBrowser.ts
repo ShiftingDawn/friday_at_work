@@ -153,6 +153,7 @@ export type ConsumptionScalarFieldEnum = (typeof ConsumptionScalarFieldEnum)[key
 export const RestockScalarFieldEnum = {
   id: 'id',
   drinkId: 'drinkId',
+  creatorId: 'creatorId',
   amount: 'amount',
   timestamp: 'timestamp'
 } as const

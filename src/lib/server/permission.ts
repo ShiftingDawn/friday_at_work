@@ -22,10 +22,18 @@ export async function getRole(userId: string, workspace: string | Workspace): Pr
   }
 }
 
-export function canWrite(role: WorkspaceRole): boolean {
+function canWrite(role: WorkspaceRole): boolean {
   return role === "WRITE" || role === "ADMIN" || role === "OWNER";
 }
 
-export function canAdmin(role: WorkspaceRole): boolean {
+function canAdmin(role: WorkspaceRole): boolean {
   return role === "ADMIN" || role === "OWNER";
+}
+
+export async function hasWriteRole(locals: App.Locals): Promise<boolean> {
+  return canWrite(await getRole(locals.user!.id, locals.workspace!.id));
+}
+
+export async function hasAdminRole(locals: App.Locals): Promise<boolean> {
+  return canAdmin(await getRole(locals.user!.id, locals.workspace!.id));
 }

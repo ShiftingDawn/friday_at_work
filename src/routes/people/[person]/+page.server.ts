@@ -3,7 +3,7 @@ import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
-import {canAdmin, canWrite} from "$lib/server/permission";
+import {hasAdminRole, hasWriteRole} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
   const person = await prisma.person.findFirst({
@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
   if (!person) {
     return fail(404);
   }
-  const allConsumptions = !canAdmin(locals.role) ? null : await prisma.consumption.findMany({
+  const allConsumptions = !(await hasAdminRole(locals)) ? null : await prisma.consumption.findMany({
     where: {personId: person.id,},
     orderBy: {timestamp: "desc",},
     include: {
@@ -59,7 +59,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
 
 export const actions = {
   update: async ({request, params, locals,}) => {
-    if (!canWrite(locals.role)) {
+    if (!(await hasWriteRole(locals))) {
       return fail(403);
     }
     const person = await prisma.person.findUnique({
@@ -81,7 +81,7 @@ export const actions = {
     });
   },
   resetconsumptions: async ({params, locals,}) => {
-    if (!canAdmin(locals.role)) {
+    if (!(await hasAdminRole(locals))) {
       return fail(403);
     }
     const person = await prisma.person.findUnique({

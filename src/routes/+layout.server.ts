@@ -1,7 +1,7 @@
 import type {LayoutServerLoad} from "./$types";
-import {canAdmin, canWrite} from "$lib/server/permission";
+import {hasAdminRole, hasWriteRole} from "$lib/server/permission";
 
-export const load: LayoutServerLoad = ({locals,}) => {
+export const load: LayoutServerLoad = async ({locals,}) => {
   return {
     isLoggedIn: Boolean(locals.user),
     username: locals.user?.username ?? null,
@@ -11,7 +11,7 @@ export const load: LayoutServerLoad = ({locals,}) => {
     workspace: locals.workspace?.name ?? null,
     workspaceId: locals.workspace?.id ?? null,
     role: locals.role,
-    canWrite: canWrite(locals.role),
-    canAdmin: canAdmin(locals.role),
+    canWrite: await hasWriteRole(locals),
+    canAdmin: await hasAdminRole(locals),
   };
 };

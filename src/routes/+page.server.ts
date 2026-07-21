@@ -3,7 +3,7 @@ import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
-import {canWrite} from "$lib/server/permission";
+import {canWrite, hasWriteRole} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({locals,}) => {
   return {
@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({locals,}) => {
 
 export const actions = {
   default: async ({request, locals,}) => {
-    if (!canWrite(locals.role)) {
+    if (!(await hasWriteRole(locals))) {
       return fail(403);
     }
     const {data, success, error,} = createScheme.safeParse(await request.formData());

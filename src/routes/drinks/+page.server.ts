@@ -4,7 +4,7 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {upload} from "$lib/server/storage";
-import {canWrite} from "$lib/server/permission";
+import {hasWriteRole} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({url, locals,}) => {
   const showHidden = new URLSearchParams(url.search).has("hidden", "true");
@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({url, locals,}) => {
 
 export const actions = {
   default: async ({request, locals,}) => {
-    if (!canWrite(locals.role)) {
+    if (!(await hasWriteRole(locals))) {
       return fail(403);
     }
     const {data, success, error,} = createScheme.safeParse(await request.formData());

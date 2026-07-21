@@ -17,6 +17,7 @@ model User {
   workspaces           Workspace[]
   workspacePermissions WorkspacePermission[]
   consumptions         Consumption[]
+  restocks             Restock[]
 
   @@map("users")
 }
@@ -111,10 +112,12 @@ model Consumption {
 model Restock {
   id        String   @id @default(uuid()) @db.Uuid
   drinkId   String   @db.Uuid
+  creatorId String   @db.Uuid
   amount    Int
   timestamp DateTime @default(now())
 
-  drink Drink @relation(fields: [drinkId], references: [id])
+  drink   Drink @relation(fields: [drinkId], references: [id])
+  creator User  @relation(fields: [creatorId], references: [id])
 
   @@map("restocks")
 }

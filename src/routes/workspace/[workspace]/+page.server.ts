@@ -5,7 +5,7 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {getWorkspace} from "$lib/server/workspace";
 import type {Permission} from "@/generated/prisma/enums";
-import {canAdmin, getRole} from "$lib/server/permission";
+import {canAdmin, getRole, hasAdminRole} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
   const workspace = await prisma.workspace.findFirst({
@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
 
 export const actions = {
   update: async ({request, params, locals,}) => {
-    if (!canAdmin(await getRole(locals.user!.id, params.workspace))) {
+    if (!(await hasAdminRole(locals))) {
       return fail(403);
     }
     const {data, success, error,} = updateScheme.safeParse(await request.formData());
@@ -40,7 +40,7 @@ export const actions = {
     });
   },
   addpermission: async ({request, params, locals,}) => {
-    if (!canAdmin(await getRole(locals.user!.id, params.workspace))) {
+    if (!(await hasAdminRole(locals))) {
       return fail(403);
     }
     const {data, success, error,} = addPermissionScheme.safeParse(await request.formData());

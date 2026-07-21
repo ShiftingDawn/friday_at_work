@@ -4,7 +4,7 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {upload} from "$lib/server/storage";
-import {canWrite, getRole} from "$lib/server/permission";
+import {hasWriteRole} from "$lib/server/permission";
 import {getWorkspace} from "$lib/server/workspace";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
@@ -26,7 +26,10 @@ export const load: PageServerLoad = async ({params, locals,}) => {
 };
 
 export const actions = {
-  update: async ({request, params,}) => {
+  update: async ({request, params, locals,}) => {
+    if (!(await hasWriteRole(locals))) {
+      return fail(403);
+    }
     const {data, success, error,} = updateScheme.safeParse(await request.formData());
     if (!success) {
       return fail(400);
@@ -40,7 +43,7 @@ export const actions = {
     });
   },
   reskin: async ({request, params, locals,}) => {
-    if (!canWrite(await getRole(locals.user!.id, locals.workspace!.id))) {
+    if (!(await hasWriteRole(locals))) {
       return fail(403);
     }
     const workspace = await getWorkspace(locals.user!.id, locals.workspace!.id);
@@ -62,7 +65,10 @@ export const actions = {
       await upload(data.image, params.drink, data.image.type);
     }
   },
-  hide: async ({params,}) => {
+  hide: async ({params, locals,}) => {
+    if (!(await hasWriteRole(locals))) {
+      return fail(403);
+    }
     const current = await prisma.drink.findFirst({where: {id: params.drink,},});
     if (!current) {
       return fail(400);
@@ -72,7 +78,10 @@ export const actions = {
       data: {hidden: !current.hidden,},
     });
   },
-  restock: async ({request, params,}) => {
+  restock: async ({request, params, locals,}) => {
+    if (!(await hasWriteRole(locals))) {
+      return fail(403);
+    }
     const {data, success, error,} = restockScheme.safeParse(await request.formData());
     if (!success) {
       return fail(400);
@@ -81,6 +90,7 @@ export const actions = {
       data: {
         drinkId: params.drink,
         amount: data?.amount,
+        creatorId: locals.user!.id,
       },
     });
   },
