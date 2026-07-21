@@ -1,13 +1,7 @@
 <script lang="ts">
   import type {LayoutProps} from "./$types";
+  import Navbar from "./navbar.svelte";
   import "./layout.css";
-  import HeaderButton from "$comp/header_button.svelte";
-  import IconHome from "$icon/home.svelte";
-  import IconPerson from "$icon/person.svelte";
-  import IconDrinks from "$icon/drinks.svelte";
-  import IconWorkspace from "$icon/workspace.svelte";
-  import IconAccount from "$icon/account.svelte";
-  import IconSignOut from "$icon/signout.svelte";
 
   let {children, data,}: LayoutProps = $props();
 </script>
@@ -27,30 +21,7 @@
 </svelte:head>
 
 {#if data.isLoggedIn && data.hasWorkspace }
-  <nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-30">
-    <div class="flex items-start gap-4">
-      <HeaderButton name="Home" href="/">
-        <IconHome/>
-      </HeaderButton>
-      <HeaderButton name="People" href="/people">
-        <IconPerson/>
-      </HeaderButton>
-      <HeaderButton name="Drinks" href="/drinks">
-        <IconDrinks/>
-      </HeaderButton>
-    </div>
-    <div class="flex items-start gap-4">
-      <HeaderButton name="Workspace" href="/workspace">
-        <IconWorkspace/>
-      </HeaderButton>
-      <HeaderButton name="Account" href="/account">
-        <IconAccount/>
-      </HeaderButton>
-      <HeaderButton name="Sign out" href="/signout" data-sveltekit-reload>
-        <IconSignOut/>
-      </HeaderButton>
-    </div>
-  </nav>
+  <Navbar/>
 {/if}
 <div class="container mx-auto mt-4">
   {@render children()}
