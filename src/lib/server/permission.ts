@@ -31,9 +31,15 @@ function canAdmin(role: WorkspaceRole): boolean {
 }
 
 export async function hasWriteRole(locals: App.Locals): Promise<boolean> {
+  if (!locals.user || !locals.workspace) {
+    return false;
+  }
   return canWrite(await getRole(locals.user!.id, locals.workspace!.id));
 }
 
 export async function hasAdminRole(locals: App.Locals): Promise<boolean> {
+  if (!locals.user || !locals.workspace) {
+    return false;
+  }
   return canAdmin(await getRole(locals.user!.id, locals.workspace!.id));
 }
