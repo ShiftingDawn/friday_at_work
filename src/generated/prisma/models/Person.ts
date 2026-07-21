@@ -170,8 +170,8 @@ export type PersonWhereInput = {
   AND?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   OR?: Prisma.PersonWhereInput[]
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
-  id?: Prisma.StringFilter<"Person"> | string
-  workspaceId?: Prisma.StringFilter<"Person"> | string
+  id?: Prisma.UuidFilter<"Person"> | string
+  workspaceId?: Prisma.UuidFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
@@ -192,7 +192,7 @@ export type PersonWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
   OR?: Prisma.PersonWhereInput[]
   NOT?: Prisma.PersonWhereInput | Prisma.PersonWhereInput[]
-  workspaceId?: Prisma.StringFilter<"Person"> | string
+  workspaceId?: Prisma.UuidFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
@@ -213,8 +213,8 @@ export type PersonScalarWhereWithAggregatesInput = {
   AND?: Prisma.PersonScalarWhereWithAggregatesInput | Prisma.PersonScalarWhereWithAggregatesInput[]
   OR?: Prisma.PersonScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PersonScalarWhereWithAggregatesInput | Prisma.PersonScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Person"> | string
-  workspaceId?: Prisma.StringWithAggregatesFilter<"Person"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"Person"> | string
+  workspaceId?: Prisma.UuidWithAggregatesFilter<"Person"> | string
   name?: Prisma.StringWithAggregatesFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
 }
@@ -411,8 +411,8 @@ export type PersonScalarWhereInput = {
   AND?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
   OR?: Prisma.PersonScalarWhereInput[]
   NOT?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
-  id?: Prisma.StringFilter<"Person"> | string
-  workspaceId?: Prisma.StringFilter<"Person"> | string
+  id?: Prisma.UuidFilter<"Person"> | string
+  workspaceId?: Prisma.UuidFilter<"Person"> | string
   name?: Prisma.StringFilter<"Person"> | string
   reset?: Prisma.DateTimeNullableFilter<"Person"> | Date | string | null
 }

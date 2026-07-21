@@ -20,67 +20,92 @@
 </script>
 
 <Card title={data.person!.name}>
-    {#snippet back()}
-        <BackButton href="/people"/>
-    {/snippet}
-    {#if data.canAdmin}
-        <Section name="Update data">
-            <form method="POST" action="?/update" class="max-w-md flex flex-col gap-4" use:enhance={() => {
-              updateFormLoading = true;
-              return async ({update,}) => {
-                await update();
-                updateFormLoading = false;
-              };
-            }}>
-                <FormLabel name="Name">
-                    <FormInput type="text" min="3" name="name" value={data.person!.name} disabled={updateFormLoading}/>
-                </FormLabel>
-                <Button type="submit" loading={updateFormLoading}>
-                    Save
-                </Button>
-            </form>
-        </Section>
-    {:else}
-        <Section name="Data">
-            <p>Name: {data.person!.name}</p>
-        </Section>
-    {/if}
+  {#snippet back()}
+    <BackButton href="/people"/>
+  {/snippet}
+  {#if data.canAdmin}
+    <Section name="Update data">
+      <form method="POST" action="?/update" class="max-w-md flex flex-col gap-4" use:enhance={() => {
+        updateFormLoading = true;
+        return async ({update,}) => {
+          await update();
+          updateFormLoading = false;
+        };
+      }}>
+        <FormLabel name="Name">
+          <FormInput type="text" min="3" name="name" value={data.person!.name} disabled={updateFormLoading}/>
+        </FormLabel>
+        <Button type="submit" loading={updateFormLoading}>
+          Save
+        </Button>
+      </form>
+    </Section>
+  {:else}
+    <Section name="Data">
+      <p>Name: {data.person!.name}</p>
+    </Section>
+  {/if}
 </Card>
 <Card title="Receipt" class="mt-4">
-    {#snippet action()}
+  {#snippet action()}
         <span class="text-ctp-blue font-bold text-xl mr-4">
             &euro;{displayPrice(totalPrice)}
         </span>
-        {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
-            <form method="POST" action="?/resetconsumptions">
-                <IconButton type="submit">
-                    <IconReset/>
-                </IconButton>
-            </form>
-        {/if}
-    {/snippet}
-    {#if data.consumptions?.length === 0}
-        <p>No consumptions yet</p>
-    {:else}
-        <table class="w-full">
-            <thead>
-            <TableRow>
-                <TableHeadCell>Drink</TableHeadCell>
-                <TableHeadCell>Price</TableHeadCell>
-                <TableHeadCell>Amount</TableHeadCell>
-                <TableHeadCell>Total</TableHeadCell>
-            </TableRow>
-            </thead>
-            <tbody>
-            {#each data.consumptions! as consumption(`${consumption.drink!.id}_${consumption.price}`)}
-                <TableRow>
-                    <TableCell>{consumption.drink!.name}</TableCell>
-                    <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
-                    <TableCell>{consumption.count}</TableCell>
-                    <TableCell>&euro;{displayPrice(consumption.price, consumption.count)}</TableCell>
-                </TableRow>
-            {/each}
-            </tbody>
-        </table>
+    {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
+      <form method="POST" action="?/resetconsumptions">
+        <IconButton type="submit">
+          <IconReset/>
+        </IconButton>
+      </form>
     {/if}
+  {/snippet}
+  {#if data.consumptions?.length === 0}
+    <p>No consumptions yet</p>
+  {:else}
+    <table class="w-full">
+      <thead>
+      <TableRow>
+        <TableHeadCell>Drink</TableHeadCell>
+        <TableHeadCell>Price</TableHeadCell>
+        <TableHeadCell>Amount</TableHeadCell>
+        <TableHeadCell>Total</TableHeadCell>
+      </TableRow>
+      </thead>
+      <tbody>
+      {#each data.consumptions! as consumption(`${consumption.drink!.id}_${consumption.price}`)}
+        <TableRow>
+          <TableCell>{consumption.drink!.name}</TableCell>
+          <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
+          <TableCell>{consumption.count}</TableCell>
+          <TableCell>&euro;{displayPrice(consumption.price, consumption.count)}</TableCell>
+        </TableRow>
+      {/each}
+      </tbody>
+    </table>
+  {/if}
 </Card>
+{#if data.allConsumptions}
+  <Card title="History" class="mt-4">
+    <p>Records with a dark color have been reset already</p>
+    <table class="w-full">
+      <thead>
+      <TableRow>
+        <TableHeadCell>Drink</TableHeadCell>
+        <TableHeadCell>Price</TableHeadCell>
+        <TableHeadCell>Registered by</TableHeadCell>
+        <TableHeadCell>Registered at</TableHeadCell>
+      </TableRow>
+      </thead>
+      <tbody>
+      {#each data.allConsumptions as consumption(`history_${consumption.timestamp.getTime()}`)}
+        <TableRow class={data.person!.reset && consumption.timestamp < data.person!.reset ? "bg-ctp-mantle/50" : undefined}>
+          <TableCell>{consumption.drink!.name}</TableCell>
+          <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
+          <TableCell>{consumption.creator.username}</TableCell>
+          <TableCell>{consumption.timestamp.toLocaleDateString("en-us", {dateStyle: "long",})}</TableCell>
+        </TableRow>
+      {/each}
+      </tbody>
+    </table>
+  </Card>
+{/if}

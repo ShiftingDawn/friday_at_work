@@ -204,8 +204,8 @@ export type RestockWhereInput = {
   AND?: Prisma.RestockWhereInput | Prisma.RestockWhereInput[]
   OR?: Prisma.RestockWhereInput[]
   NOT?: Prisma.RestockWhereInput | Prisma.RestockWhereInput[]
-  id?: Prisma.StringFilter<"Restock"> | string
-  drinkId?: Prisma.StringFilter<"Restock"> | string
+  id?: Prisma.UuidFilter<"Restock"> | string
+  drinkId?: Prisma.UuidFilter<"Restock"> | string
   amount?: Prisma.IntFilter<"Restock"> | number
   timestamp?: Prisma.DateTimeFilter<"Restock"> | Date | string
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
@@ -224,7 +224,7 @@ export type RestockWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.RestockWhereInput | Prisma.RestockWhereInput[]
   OR?: Prisma.RestockWhereInput[]
   NOT?: Prisma.RestockWhereInput | Prisma.RestockWhereInput[]
-  drinkId?: Prisma.StringFilter<"Restock"> | string
+  drinkId?: Prisma.UuidFilter<"Restock"> | string
   amount?: Prisma.IntFilter<"Restock"> | number
   timestamp?: Prisma.DateTimeFilter<"Restock"> | Date | string
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
@@ -246,8 +246,8 @@ export type RestockScalarWhereWithAggregatesInput = {
   AND?: Prisma.RestockScalarWhereWithAggregatesInput | Prisma.RestockScalarWhereWithAggregatesInput[]
   OR?: Prisma.RestockScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RestockScalarWhereWithAggregatesInput | Prisma.RestockScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Restock"> | string
-  drinkId?: Prisma.StringWithAggregatesFilter<"Restock"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"Restock"> | string
+  drinkId?: Prisma.UuidWithAggregatesFilter<"Restock"> | string
   amount?: Prisma.IntWithAggregatesFilter<"Restock"> | number
   timestamp?: Prisma.DateTimeWithAggregatesFilter<"Restock"> | Date | string
 }
@@ -423,8 +423,8 @@ export type RestockScalarWhereInput = {
   AND?: Prisma.RestockScalarWhereInput | Prisma.RestockScalarWhereInput[]
   OR?: Prisma.RestockScalarWhereInput[]
   NOT?: Prisma.RestockScalarWhereInput | Prisma.RestockScalarWhereInput[]
-  id?: Prisma.StringFilter<"Restock"> | string
-  drinkId?: Prisma.StringFilter<"Restock"> | string
+  id?: Prisma.UuidFilter<"Restock"> | string
+  drinkId?: Prisma.UuidFilter<"Restock"> | string
   amount?: Prisma.IntFilter<"Restock"> | number
   timestamp?: Prisma.DateTimeFilter<"Restock"> | Date | string
 }

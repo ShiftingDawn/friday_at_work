@@ -8,30 +8,34 @@ datasource db {
 }
 
 model User {
-  id                   String                @id @default(uuid())
-  username             String                @unique
-  password             String
-  isAdmin              Boolean               @default(false)
+  id       String  @id @default(uuid()) @db.Uuid
+  username String  @unique
+  password String
+  isAdmin  Boolean @default(false)
+
   sessions             Session[]
   workspaces           Workspace[]
   workspacePermissions WorkspacePermission[]
+  consumptions         Consumption[]
 
   @@map("users")
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  userId    String
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
   expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id])
+
+  user User @relation(fields: [userId], references: [id])
 
   @@map("sessions")
 }
 
 model Workspace {
-  id           String                @id @default(uuid())
-  name         String
-  ownerId      String
+  id      String @id @default(uuid()) @db.Uuid
+  name    String
+  ownerId String @db.Uuid
+
   owner        User                  @relation(fields: [ownerId], references: [id])
   people       Person[]
   drinks       Drink[]
@@ -49,21 +53,23 @@ enum Permission {
 }
 
 model WorkspacePermission {
-  id          String     @id @default(uuid())
+  id          String     @id @default(uuid()) @db.Uuid
   permission  Permission @default(READ)
-  workspaceId String
-  userId      String
-  workspace   Workspace  @relation(fields: [workspaceId], references: [id])
-  user        User       @relation(fields: [userId], references: [id])
+  workspaceId String     @db.Uuid
+  userId      String     @db.Uuid
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
 
   @@map("workspace_permissions")
 }
 
 model Person {
-  id           String        @id @default(uuid())
-  workspaceId  String
-  name         String
-  reset        DateTime?
+  id          String    @id @default(uuid()) @db.Uuid
+  workspaceId String    @db.Uuid
+  name        String
+  reset       DateTime?
+
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
 
@@ -71,12 +77,13 @@ model Person {
 }
 
 model Drink {
-  id           String        @id @default(uuid())
-  workspaceId  String
-  name         String
-  price        Int
-  hidden       Boolean       @default(false)
-  modifiedAt   DateTime      @default(now())
+  id          String   @id @default(uuid()) @db.Uuid
+  workspaceId String   @db.Uuid
+  name        String
+  price       Int
+  hidden      Boolean  @default(false)
+  modifiedAt  DateTime @default(now())
+
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
   restocks     Restock[]
@@ -85,25 +92,29 @@ model Drink {
 }
 
 model Consumption {
-  id          String    @id @default(uuid())
-  workspaceId String
-  personId    String
-  drinkId     String
+  id          String   @id @default(uuid()) @db.Uuid
+  workspaceId String   @db.Uuid
+  personId    String   @db.Uuid
+  drinkId     String   @db.Uuid
+  creatorId   String   @db.Uuid
   price       Int
-  timestamp   DateTime  @default(now())
-  person      Person    @relation(fields: [personId], references: [id])
-  drink       Drink     @relation(fields: [drinkId], references: [id])
-  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  timestamp   DateTime @default(now())
+
+  person    Person    @relation(fields: [personId], references: [id])
+  drink     Drink     @relation(fields: [drinkId], references: [id])
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  creator   User      @relation(fields: [creatorId], references: [id])
 
   @@map("consumptions")
 }
 
 model Restock {
-  id        String   @id @default(uuid())
-  drinkId   String
+  id        String   @id @default(uuid()) @db.Uuid
+  drinkId   String   @db.Uuid
   amount    Int
   timestamp DateTime @default(now())
-  drink     Drink    @relation(fields: [drinkId], references: [id])
+
+  drink Drink @relation(fields: [drinkId], references: [id])
 
   @@map("restocks")
 }

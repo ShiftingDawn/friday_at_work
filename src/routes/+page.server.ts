@@ -35,6 +35,7 @@ export const actions = {
         workspaceId: locals.workspace!.id,
         personId: data?.person,
         drinkId: data?.drink,
+        creatorId: locals.user!.id,
         price: drink.price,
       },
     });

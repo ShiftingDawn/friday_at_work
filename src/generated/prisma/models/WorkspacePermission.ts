@@ -170,10 +170,10 @@ export type WorkspacePermissionWhereInput = {
   AND?: Prisma.WorkspacePermissionWhereInput | Prisma.WorkspacePermissionWhereInput[]
   OR?: Prisma.WorkspacePermissionWhereInput[]
   NOT?: Prisma.WorkspacePermissionWhereInput | Prisma.WorkspacePermissionWhereInput[]
-  id?: Prisma.StringFilter<"WorkspacePermission"> | string
+  id?: Prisma.UuidFilter<"WorkspacePermission"> | string
   permission?: Prisma.EnumPermissionFilter<"WorkspacePermission"> | $Enums.Permission
-  workspaceId?: Prisma.StringFilter<"WorkspacePermission"> | string
-  userId?: Prisma.StringFilter<"WorkspacePermission"> | string
+  workspaceId?: Prisma.UuidFilter<"WorkspacePermission"> | string
+  userId?: Prisma.UuidFilter<"WorkspacePermission"> | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -193,8 +193,8 @@ export type WorkspacePermissionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.WorkspacePermissionWhereInput[]
   NOT?: Prisma.WorkspacePermissionWhereInput | Prisma.WorkspacePermissionWhereInput[]
   permission?: Prisma.EnumPermissionFilter<"WorkspacePermission"> | $Enums.Permission
-  workspaceId?: Prisma.StringFilter<"WorkspacePermission"> | string
-  userId?: Prisma.StringFilter<"WorkspacePermission"> | string
+  workspaceId?: Prisma.UuidFilter<"WorkspacePermission"> | string
+  userId?: Prisma.UuidFilter<"WorkspacePermission"> | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
@@ -213,10 +213,10 @@ export type WorkspacePermissionScalarWhereWithAggregatesInput = {
   AND?: Prisma.WorkspacePermissionScalarWhereWithAggregatesInput | Prisma.WorkspacePermissionScalarWhereWithAggregatesInput[]
   OR?: Prisma.WorkspacePermissionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WorkspacePermissionScalarWhereWithAggregatesInput | Prisma.WorkspacePermissionScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"WorkspacePermission"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"WorkspacePermission"> | string
   permission?: Prisma.EnumPermissionWithAggregatesFilter<"WorkspacePermission"> | $Enums.Permission
-  workspaceId?: Prisma.StringWithAggregatesFilter<"WorkspacePermission"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"WorkspacePermission"> | string
+  workspaceId?: Prisma.UuidWithAggregatesFilter<"WorkspacePermission"> | string
+  userId?: Prisma.UuidWithAggregatesFilter<"WorkspacePermission"> | string
 }
 
 export type WorkspacePermissionCreateInput = {
@@ -427,10 +427,10 @@ export type WorkspacePermissionScalarWhereInput = {
   AND?: Prisma.WorkspacePermissionScalarWhereInput | Prisma.WorkspacePermissionScalarWhereInput[]
   OR?: Prisma.WorkspacePermissionScalarWhereInput[]
   NOT?: Prisma.WorkspacePermissionScalarWhereInput | Prisma.WorkspacePermissionScalarWhereInput[]
-  id?: Prisma.StringFilter<"WorkspacePermission"> | string
+  id?: Prisma.UuidFilter<"WorkspacePermission"> | string
   permission?: Prisma.EnumPermissionFilter<"WorkspacePermission"> | $Enums.Permission
-  workspaceId?: Prisma.StringFilter<"WorkspacePermission"> | string
-  userId?: Prisma.StringFilter<"WorkspacePermission"> | string
+  workspaceId?: Prisma.UuidFilter<"WorkspacePermission"> | string
+  userId?: Prisma.UuidFilter<"WorkspacePermission"> | string
 }
 
 export type WorkspacePermissionCreateWithoutWorkspaceInput = {

@@ -218,8 +218,8 @@ export type DrinkWhereInput = {
   AND?: Prisma.DrinkWhereInput | Prisma.DrinkWhereInput[]
   OR?: Prisma.DrinkWhereInput[]
   NOT?: Prisma.DrinkWhereInput | Prisma.DrinkWhereInput[]
-  id?: Prisma.StringFilter<"Drink"> | string
-  workspaceId?: Prisma.StringFilter<"Drink"> | string
+  id?: Prisma.UuidFilter<"Drink"> | string
+  workspaceId?: Prisma.UuidFilter<"Drink"> | string
   name?: Prisma.StringFilter<"Drink"> | string
   price?: Prisma.IntFilter<"Drink"> | number
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
@@ -246,7 +246,7 @@ export type DrinkWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.DrinkWhereInput | Prisma.DrinkWhereInput[]
   OR?: Prisma.DrinkWhereInput[]
   NOT?: Prisma.DrinkWhereInput | Prisma.DrinkWhereInput[]
-  workspaceId?: Prisma.StringFilter<"Drink"> | string
+  workspaceId?: Prisma.UuidFilter<"Drink"> | string
   name?: Prisma.StringFilter<"Drink"> | string
   price?: Prisma.IntFilter<"Drink"> | number
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
@@ -274,8 +274,8 @@ export type DrinkScalarWhereWithAggregatesInput = {
   AND?: Prisma.DrinkScalarWhereWithAggregatesInput | Prisma.DrinkScalarWhereWithAggregatesInput[]
   OR?: Prisma.DrinkScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DrinkScalarWhereWithAggregatesInput | Prisma.DrinkScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"Drink"> | string
-  workspaceId?: Prisma.StringWithAggregatesFilter<"Drink"> | string
+  id?: Prisma.UuidWithAggregatesFilter<"Drink"> | string
+  workspaceId?: Prisma.UuidWithAggregatesFilter<"Drink"> | string
   name?: Prisma.StringWithAggregatesFilter<"Drink"> | string
   price?: Prisma.IntWithAggregatesFilter<"Drink"> | number
   hidden?: Prisma.BoolWithAggregatesFilter<"Drink"> | boolean
@@ -530,8 +530,8 @@ export type DrinkScalarWhereInput = {
   AND?: Prisma.DrinkScalarWhereInput | Prisma.DrinkScalarWhereInput[]
   OR?: Prisma.DrinkScalarWhereInput[]
   NOT?: Prisma.DrinkScalarWhereInput | Prisma.DrinkScalarWhereInput[]
-  id?: Prisma.StringFilter<"Drink"> | string
-  workspaceId?: Prisma.StringFilter<"Drink"> | string
+  id?: Prisma.UuidFilter<"Drink"> | string
+  workspaceId?: Prisma.UuidFilter<"Drink"> | string
   name?: Prisma.StringFilter<"Drink"> | string
   price?: Prisma.IntFilter<"Drink"> | number
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
