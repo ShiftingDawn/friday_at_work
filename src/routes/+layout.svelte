@@ -1,13 +1,13 @@
 <script lang="ts">
   import type {LayoutProps} from "./$types";
   import "./layout.css";
-  import HeaderButton from "$lib/components/header_button.svelte";
-  import IconHome from "$lib/icon/home.svelte";
-  import IconPerson from "$lib/icon/person.svelte";
-  import IconDrinks from "$lib/icon/drinks.svelte";
-  import IconWorkspace from "$lib/icon/workspace.svelte";
-  import IconSettings from "$lib/icon/settings.svelte";
-  import IconSignOut from "$lib/icon/signout.svelte";
+  import HeaderButton from "$comp/header_button.svelte";
+  import IconHome from "$icon/home.svelte";
+  import IconPerson from "$icon/person.svelte";
+  import IconDrinks from "$icon/drinks.svelte";
+  import IconWorkspace from "$icon/workspace.svelte";
+  import IconSettings from "$icon/settings.svelte";
+  import IconSignOut from "$icon/signout.svelte";
 
   let {children, data,}: LayoutProps = $props();
 </script>

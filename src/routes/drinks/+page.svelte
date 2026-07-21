@@ -1,17 +1,17 @@
 <script lang="ts">
   import type {PageProps} from "./$types";
   import {page} from "$app/state";
-  import Card from "$lib/components/card.svelte";
-  import Section from "$lib/components/section.svelte";
-  import Modal from "$lib/components/modal.svelte";
-  import FormLabel from "$lib/components/form_label.svelte";
-  import FormInput from "$lib/components/form_input.svelte";
-  import Button from "$lib/components/button.svelte";
-  import DrinkImage from "$lib/components/drink_image.svelte";
-  import IconButton from "$lib/components/icon_button.svelte";
-  import IconCreate from "$lib/icon/plus.svelte";
-  import IconHide from "$lib/icon/hide.svelte";
-  import IconShow from "$lib/icon/show.svelte";
+  import Card from "$comp/card.svelte";
+  import Section from "$comp/section.svelte";
+  import Modal from "$comp/modal.svelte";
+  import FormLabel from "$comp/form_label.svelte";
+  import FormInput from "$comp/form_input.svelte";
+  import Button from "$comp/button.svelte";
+  import DrinkImage from "$comp/drink_image.svelte";
+  import IconButton from "$comp/icon_button.svelte";
+  import IconCreate from "$icon/plus.svelte";
+  import IconHide from "$icon/hide.svelte";
+  import IconShow from "$icon/show.svelte";
   import {enhance} from "$app/forms";
 
   const {data,}: PageProps = $props();

@@ -1,16 +1,16 @@
 <script lang="ts">
-  import Card from "$lib/components/card.svelte";
-  import BackButton from "$lib/components/back_button.svelte";
-  import IconButton from "$lib/components/icon_button.svelte";
-  import TableRow from "$lib/components/table_row.svelte";
-  import TableHeadCell from "$lib/components/table_headcell.svelte";
-  import TableCell from "$lib/components/table_cell.svelte";
-  import Modal from "$lib/components/modal.svelte";
-  import IconCreate from "$lib/icon/plus.svelte";
-  import FormInput from "$lib/components/form_input.svelte";
-  import FormCheckbox from "$lib/components/form_checkbox.svelte";
-  import FormLabel from "$lib/components/form_label.svelte";
-  import Button from "$lib/components/button.svelte";
+  import Card from "$comp/card.svelte";
+  import BackButton from "$comp/back_button.svelte";
+  import IconButton from "$comp/icon_button.svelte";
+  import TableRow from "$comp/table_row.svelte";
+  import TableHeadCell from "$comp/table_headcell.svelte";
+  import TableCell from "$comp/table_cell.svelte";
+  import Modal from "$comp/modal.svelte";
+  import IconCreate from "$icon/plus.svelte";
+  import FormInput from "$comp/form_input.svelte";
+  import FormCheckbox from "$comp/form_checkbox.svelte";
+  import FormLabel from "$comp/form_label.svelte";
+  import Button from "$comp/button.svelte";
 
   const {data,} = $props();
   let modalOpen = $state(false);

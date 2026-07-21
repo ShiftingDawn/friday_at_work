@@ -1,12 +1,12 @@
 <script lang="ts">
     import type {PageProps} from "./$types";
-    import Card from "$lib/components/card.svelte";
-    import Button from "$lib/components/button.svelte";
-    import BackButton from "$lib/components/back_button.svelte";
-    import IconButton from "$lib/components/icon_button.svelte";
-    import Section from "$lib/components/section.svelte";
-    import DeleteIcon from "$lib/icon/delete.svelte";
-    import FormLabel from "$lib/components/form_label.svelte";
+    import Card from "$comp/card.svelte";
+    import Button from "$comp/button.svelte";
+    import BackButton from "$comp/back_button.svelte";
+    import IconButton from "$comp/icon_button.svelte";
+    import Section from "$comp/section.svelte";
+    import DeleteIcon from "$icon/delete.svelte";
+    import FormLabel from "$comp/form_label.svelte";
     import {enhance} from "$app/forms";
 
     const {data,}: PageProps = $props();

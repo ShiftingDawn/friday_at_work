@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Card from "$lib/components/card.svelte";
-  import Button from "$lib/components/button.svelte";
+  import Card from "$comp/card.svelte";
+  import Button from "$comp/button.svelte";
 </script>
 
 <Card title="Admin dashboard" class="max-w-md mx-auto">

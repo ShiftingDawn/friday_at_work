@@ -1,7 +1,7 @@
 <script lang="ts">
   import type {PageProps} from "./$types";
-  import Card from "$lib/components/card.svelte";
-  import BackButton from "$lib/components/back_button.svelte";
+  import Card from "$comp/card.svelte";
+  import BackButton from "$comp/back_button.svelte";
 
   const {data,}: PageProps = $props();
 </script>

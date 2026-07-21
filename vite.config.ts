@@ -17,7 +17,12 @@ export default defineConfig({
           config.include.push("../prisma.config.ts");
         },
       },
-      alias: {"@": "./src/",},
+      alias: {
+        "@/*": "./src/*",
+        "$lib/*": "./src/lib/*",
+        "$comp/*": "./src/lib/components/*",
+        "$icon/*": "./src/lib/icon/*",
+      },
     }),
   ],
 });

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type {ResolvedPathname} from "$app/types";
-  import IconBack from "$lib/icon/back.svelte";
+  import IconBack from "$icon/back.svelte";
 
   const {href,}: { href: ResolvedPathname } = $props();
 </script>

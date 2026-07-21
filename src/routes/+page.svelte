@@ -1,11 +1,11 @@
 <script lang="ts">
   import type {PageProps} from "./$types";
-  import Card from "$lib/components/card.svelte";
-  import IconSubmit from "$lib/icon/submit.svelte";
-  import IconButton from "$lib/components/icon_button.svelte";
-  import FormRadio from "$lib/components/form_radio.svelte";
-  import Section from "$lib/components/section.svelte";
-  import DrinkImage from "$lib/components/drink_image.svelte";
+  import Card from "$comp/card.svelte";
+  import IconSubmit from "$icon/submit.svelte";
+  import IconButton from "$comp/icon_button.svelte";
+  import FormRadio from "$comp/form_radio.svelte";
+  import Section from "$comp/section.svelte";
+  import DrinkImage from "$comp/drink_image.svelte";
 
   const {data,}: PageProps = $props();
 </script>

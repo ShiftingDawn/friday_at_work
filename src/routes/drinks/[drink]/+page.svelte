@@ -1,19 +1,19 @@
 <script lang="ts">
   import type {PageProps} from "./$types";
   import {enhance} from "$app/forms";
-  import Card from "$lib/components/card.svelte";
-  import FormLabel from "$lib/components/form_label.svelte";
-  import FormInput from "$lib/components/form_input.svelte";
-  import IconButton from "$lib/components/icon_button.svelte";
-  import Section from "$lib/components/section.svelte";
-  import Spinner from "$lib/components/spinner.svelte";
-  import BackButton from "$lib/components/back_button.svelte";
-  import Button from "$lib/components/button.svelte";
-  import IconHide from "$lib/icon/hide.svelte";
-  import IconShow from "$lib/icon/show.svelte";
-  import IconRestock from "$lib/icon/plus.svelte";
-  import Modal from "$lib/components/modal.svelte";
-  import DrinkImage from "$lib/components/drink_image.svelte";
+  import Card from "$comp/card.svelte";
+  import FormLabel from "$comp/form_label.svelte";
+  import FormInput from "$comp/form_input.svelte";
+  import IconButton from "$comp/icon_button.svelte";
+  import Section from "$comp/section.svelte";
+  import Spinner from "$comp/spinner.svelte";
+  import BackButton from "$comp/back_button.svelte";
+  import Button from "$comp/button.svelte";
+  import IconHide from "$icon/hide.svelte";
+  import IconShow from "$icon/show.svelte";
+  import IconRestock from "$icon/plus.svelte";
+  import Modal from "$comp/modal.svelte";
+  import DrinkImage from "$comp/drink_image.svelte";
   import {displayPrice} from "$lib";
 
   const {params, data,}: PageProps = $props();

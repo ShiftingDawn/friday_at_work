@@ -1,10 +1,10 @@
 <script lang="ts">
     import {enhance} from "$app/forms";
-    import Button from "$lib/components/button.svelte";
-    import Divider from "$lib/components/divider.svelte";
-    import FormLabel from "$lib/components/form_label.svelte";
-    import FormInput from "$lib/components/form_input.svelte";
-    import Card from "@/lib/components/card.svelte";
+    import Button from "$comp/button.svelte";
+    import Divider from "$comp/divider.svelte";
+    import FormLabel from "$comp/form_label.svelte";
+    import FormInput from "$comp/form_input.svelte";
+    import Card from "$comp/card.svelte";
     import type {ActionData} from "./$types";
 
     let {form,}: { form: ActionData } = $props();
