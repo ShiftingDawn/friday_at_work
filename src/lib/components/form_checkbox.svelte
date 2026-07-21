@@ -8,7 +8,7 @@
   }: {
     children: Snippet,
     name: string,
-    checked: HTMLInputElement["checked"]
+    checked?: HTMLInputElement["checked"]
   } = $props();
 </script>
 
