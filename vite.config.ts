@@ -18,10 +18,10 @@ export default defineConfig({
         },
       },
       alias: {
-        "@/*": "./src/*",
-        "$lib/*": "./src/lib/*",
         "$comp/*": "./src/lib/components/*",
         "$icon/*": "./src/lib/icon/*",
+        "$lib/*": "./src/lib/*",
+        "@/*": "./src/*",
       },
     }),
   ],

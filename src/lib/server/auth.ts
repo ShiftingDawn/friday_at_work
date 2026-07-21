@@ -2,6 +2,23 @@ import {env} from "$env/dynamic/private";
 import {redirect, type RequestEvent} from "@sveltejs/kit";
 import {getRequestEvent} from "$app/server";
 import {prisma, type Session, type User} from "$lib/server/db";
+import {compareSync, hashSync} from "bcrypt";
+
+export function isValidUsername(username: unknown): username is string {
+  return typeof username === "string" && username.length >= 3 && username.length <= 24 && /^[a-z0-9_-]+$/.test(username);
+}
+
+export function isValidPassword(password: unknown): password is string {
+  return typeof password === "string" && password.length >= 8 && password.length <= 255;
+}
+
+export function checkPassword(possiblePassword: string, encoded: string): boolean {
+  return compareSync(possiblePassword, encoded);
+}
+
+export function hashPassword(password: string): string {
+  return hashSync(password, 12);
+}
 
 const SESSION_COOKIE_NAME = "sid";
 const SESSION_MAX_AGE = 3600 * 24 * 28 * 1000;

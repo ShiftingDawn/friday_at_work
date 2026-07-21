@@ -1,6 +1,6 @@
 import * as auth from "$lib/server/auth";
+import {hashPassword, isValidPassword, isValidUsername} from "$lib/server/auth";
 import {fail, redirect} from "@sveltejs/kit";
-import {hashSync} from "bcrypt";
 import type {Actions, PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
 import {env} from "$env/dynamic/private";
@@ -25,10 +25,10 @@ export const actions: Actions = {
     const password = formData.get("password");
     const password2 = formData.get("password2");
 
-    if (!validateUsername(username)) {
+    if (!isValidUsername(username)) {
       return fail(400, {message: "Invalid username",});
     }
-    if (!validatePassword(password)) {
+    if (!isValidPassword(password)) {
       return fail(400, {message: "Invalid password",});
     }
     if (password !== password2) {
@@ -39,7 +39,7 @@ export const actions: Actions = {
       const user = await prisma.user.create({
         data: {
           username,
-          password: hashSync(password, 12),
+          password: hashPassword(password),
           isAdmin: !hasUsers,
         },
       });
@@ -52,11 +52,3 @@ export const actions: Actions = {
     return redirect(302, "/");
   },
 };
-
-function validateUsername(username: unknown): username is string {
-  return typeof username === "string" && username.length >= 3 && username.length <= 24 && /^[a-z0-9_-]+$/.test(username);
-}
-
-function validatePassword(password: unknown): password is string {
-  return typeof password === "string" && password.length >= 8 && password.length <= 255;
-}
