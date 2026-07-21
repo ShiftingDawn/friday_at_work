@@ -20,6 +20,7 @@
       <thead>
       <TableRow>
         <TableHeadCell>Date</TableHeadCell>
+        <TableHeadCell>Type</TableHeadCell>
         <TableHeadCell>Amount</TableHeadCell>
         <TableHeadCell>Registered by</TableHeadCell>
       </TableRow>
@@ -28,6 +29,7 @@
       {#each data.drink!.restocks as restock(restock.id)}
         <TableRow>
           <TableCell>{restock.timestamp.toLocaleDateString("en-US", {dateStyle: "long",})}</TableCell>
+          <TableCell>{restock.type === "RESTOCK" ? "Restock" : "Correction"}</TableCell>
           <TableCell>{restock.amount}</TableCell>
           <TableCell>{restock.creator.username}</TableCell>
         </TableRow>

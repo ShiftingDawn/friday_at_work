@@ -1120,6 +1120,7 @@ export const RestockScalarFieldEnum = {
   drinkId: 'drinkId',
   creatorId: 'creatorId',
   amount: 'amount',
+  type: 'type',
   timestamp: 'timestamp'
 } as const
 
@@ -1216,6 +1217,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RestockType'
+ */
+export type EnumRestockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RestockType'>
+    
+
+
+/**
+ * Reference to a field of type 'RestockType[]'
+ */
+export type ListEnumRestockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RestockType[]'>
     
 
 

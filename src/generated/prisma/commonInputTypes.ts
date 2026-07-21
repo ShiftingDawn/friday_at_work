@@ -186,6 +186,23 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumRestockTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.RestockType | Prisma.EnumRestockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRestockTypeFilter<$PrismaModel> | $Enums.RestockType
+}
+
+export type EnumRestockTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RestockType | Prisma.EnumRestockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRestockTypeWithAggregatesFilter<$PrismaModel> | $Enums.RestockType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRestockTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRestockTypeFilter<$PrismaModel>
+}
+
 export type NestedUuidFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -369,6 +386,23 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumRestockTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.RestockType | Prisma.EnumRestockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRestockTypeFilter<$PrismaModel> | $Enums.RestockType
+}
+
+export type NestedEnumRestockTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.RestockType | Prisma.EnumRestockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.RestockType[] | Prisma.ListEnumRestockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumRestockTypeWithAggregatesFilter<$PrismaModel> | $Enums.RestockType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumRestockTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumRestockTypeFilter<$PrismaModel>
 }
 
 

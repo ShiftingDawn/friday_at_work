@@ -16,3 +16,11 @@ export const Permission = {
 } as const
 
 export type Permission = (typeof Permission)[keyof typeof Permission]
+
+
+export const RestockType = {
+  RESTOCK: 'RESTOCK',
+  CORRECTION: 'CORRECTION'
+} as const
+
+export type RestockType = (typeof RestockType)[keyof typeof RestockType]

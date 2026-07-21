@@ -155,6 +155,7 @@ export const RestockScalarFieldEnum = {
   drinkId: 'drinkId',
   creatorId: 'creatorId',
   amount: 'amount',
+  type: 'type',
   timestamp: 'timestamp'
 } as const
 

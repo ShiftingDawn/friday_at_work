@@ -90,6 +90,7 @@ export const actions = {
       data: {
         drinkId: params.drink,
         amount: data?.amount,
+        type: data.correction ? "CORRECTION" : undefined,
         creatorId: locals.user!.id,
       },
     });
@@ -103,4 +104,17 @@ const updateScheme = zfd.formData({
 
 const reskinScheme = zfd.formData({image: zfd.file(),});
 
-const restockScheme = zfd.formData({amount: zfd.numeric(z.int().min(1)),});
+const restockScheme = zfd.formData(
+  z.object({
+    amount: zfd.numeric(z.int()),
+    correction: zfd.checkbox(),
+  }).superRefine(({amount, correction,}, ctx) => {
+    if (!correction && amount < 1) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["amount",],
+        message: "Amount must be at least 1.",
+      });
+    }
+  })
+);

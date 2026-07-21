@@ -8,6 +8,7 @@
       onclose,
       canclose,
       title,
+      class: cls,
       children,
       actions,
     }: {
@@ -15,6 +16,7 @@
       onclose: () => void,
       canclose?: boolean,
       title?: string,
+      class?: string,
       children: Snippet,
       actions?: Snippet
     } = $props();
@@ -30,7 +32,7 @@
                 disabled={canclose === false}
         ></button>
         <div in:fade={{duration: 150,}} out:fade={{duration: 150,}}
-             class="relative min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2"
+             class={twMerge("relative min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2", cls)}
         >
             {#if title}
                 <div class="text-xl font-bold uppercase bg-ctp-surface1 p-4 rounded-t-lg shadow-lg">
