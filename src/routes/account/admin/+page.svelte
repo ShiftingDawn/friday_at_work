@@ -5,7 +5,7 @@
 
 <Card title="Admin dashboard" class="max-w-md mx-auto">
     <div class="flex flex-col gap-4">
-        <Button as="a" href="/admin/users">
+        <Button as="a" href="/account/admin/users">
             Manage users
         </Button>
     </div>
