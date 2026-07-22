@@ -2,6 +2,7 @@
   import type {LayoutProps} from "./$types";
   import Navbar from "./navbar.svelte";
   import "./layout.css";
+  import Flash from "./flash.svelte";
 
   let {children, data,}: LayoutProps = $props();
 </script>
@@ -26,3 +27,4 @@
 <div class="container mx-auto mt-4">
   {@render children()}
 </div>
+<Flash/>
