@@ -6,7 +6,7 @@
   import Card from "$comp/card.svelte";
   import {flash} from "$lib/flash";
   import {redirect} from "@sveltejs/kit";
-  import {signIn} from "./data.remote";
+  import {signIn} from "$lib/functions/auth.remote";
 
   let {data,} = $props();
 </script>

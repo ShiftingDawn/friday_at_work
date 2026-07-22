@@ -1,10 +1,28 @@
 import * as v from "valibot";
 import {form, getRequestEvent} from "$app/server";
-import {env} from "$env/dynamic/private";
-import {invalid, redirect} from "@sveltejs/kit";
 import {prisma} from "$lib/server/db";
-import * as auth from "$lib/server/auth";
-import {hashPassword} from "$lib/server/auth";
+import {invalid, redirect} from "@sveltejs/kit";
+import {checkPassword, createSession, hashPassword} from "$lib/server/auth";
+import {env} from "$env/dynamic/private";
+
+export const signIn = form(
+  v.object({
+    username: v.pipe(v.string(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/, "Username can only contain lowercase letters, numbers, dashes and underscores")),
+    password: v.pipe(v.string(), v.minLength(8), v.maxLength(255)),
+  }),
+  async ({username, password,}, issue) => {
+    const user = await prisma.user.findFirst({where: {username,},});
+    if (!user) {
+      invalid(issue.username("Invalid username"));
+
+    }
+    if (!checkPassword(password, user.password)) {
+      invalid(issue.password("Invalid password"));
+    }
+    const {cookies,} = getRequestEvent();
+    await createSession(cookies, user.id);
+  }
+);
 
 export const signUp = form(
   v.object({
@@ -29,7 +47,7 @@ export const signUp = form(
         },
       });
       const {cookies,} = getRequestEvent();
-      await auth.createSession(cookies, user.id);
+      await createSession(cookies, user.id);
     } catch (error) {
       console.error(error);
       invalid("An error has occurred");

@@ -4,17 +4,13 @@
   import FormLabel from "$comp/form_label.svelte";
   import FormInput from "$comp/form_input.svelte";
   import Card from "$comp/card.svelte";
-  import type {ActionData} from "./$types";
-  import {signUp} from "./data.remote";
+  import {signUp} from "$lib/functions/auth.remote";
   import {flash} from "$lib/flash";
   import {redirect} from "@sveltejs/kit";
-
-  let {form,}: { form: ActionData } = $props();
 </script>
 
 <Card title="Sign up" class="max-w-md mx-auto">
   <div class="flex flex-col gap-4">
-    <p style="color: red">{form?.message ?? ""}</p>
     <form {...signUp.enhance(async form => {
       try {
         if (await form.submit()) {
