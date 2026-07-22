@@ -1,5 +1,5 @@
 import {env} from "$env/dynamic/private";
-import {redirect, type RequestEvent} from "@sveltejs/kit";
+import {type Cookies, redirect, type RequestEvent} from "@sveltejs/kit";
 import {getRequestEvent} from "$app/server";
 import {prisma, type Session, type User} from "$lib/server/db";
 import {compareSync, hashSync} from "bcrypt";
@@ -27,7 +27,7 @@ export function getSessionId(event: RequestEvent): string | null {
   return event.cookies.get(SESSION_COOKIE_NAME) ?? null;
 }
 
-export async function createSession(event: RequestEvent, userId: string): Promise<Session> {
+export async function createSession(event: RequestEvent | Cookies, userId: string): Promise<Session> {
   const session = await prisma.session.create({
     data: {
       userId,
@@ -38,8 +38,11 @@ export async function createSession(event: RequestEvent, userId: string): Promis
   return session;
 }
 
-export function setSessionTokenCookie(event: RequestEvent, sessionId: string, expiresAt: Date) {
-  event.cookies.set(SESSION_COOKIE_NAME, sessionId, {
+export function setSessionTokenCookie(event: RequestEvent | Cookies, sessionId: string, expiresAt: Date) {
+  const cookies = Object.hasOwn(event, "cookies")
+    ? (event as RequestEvent).cookies
+    : event as Cookies;
+  cookies.set(SESSION_COOKIE_NAME, sessionId, {
     secure: env.NODE_ENV !== "development",
     path: "/",
     expires: expiresAt,
