@@ -1,10 +1,12 @@
 <script lang="ts">
-  import {enhance} from "$app/forms";
   import Button from "$comp/button.svelte";
   import Divider from "$comp/divider.svelte";
   import FormLabel from "$comp/form_label.svelte";
   import FormInput from "$comp/form_input.svelte";
   import Card from "$comp/card.svelte";
+  import {flash} from "$lib/flash";
+  import {redirect} from "@sveltejs/kit";
+  import {signIn} from "./data.remote";
 
   let {form, data,} = $props();
 </script>
@@ -12,10 +14,23 @@
 <Card title="Sign in" class="max-w-md mx-auto">
   <div class="flex flex-col gap-4">
     <p style="color: red">{form?.message ?? ""}</p>
-    <form method="post" use:enhance class="flex flex-col gap-2">
-      <FormLabel name="Username">
+    <form {...signIn.enhance(async form => {
+      try {
+        if (await form.submit()) {
+          flash("success", "Welcome back!");
+        } else {
+          flash("error", "Could not sign in");
+          return;
+        }
+      } catch {
+        flash("error", "Could not sign in", "An unknown error occurred");
+        return;
+      }
+      redirect(302, "/");
+    })} class="flex flex-col gap-2">
+      <FormLabel name="Username" error={signIn.fields.username.issues()}>
         <FormInput
-          name="username"
+          {...signIn.fields.username.as("text")}
           minlength={3}
           maxlength={24}
           required
@@ -23,11 +38,11 @@
           autocapitalize="off"
         />
       </FormLabel>
-      <FormLabel name="Password">
+      <FormLabel name="Password" error={signIn.fields.password.issues()}>
         <FormInput
-          name="password"
-          type="password"
+          {...signIn.fields.password.as("password")}
           minlength={8}
+          maxlength={255}
           required
           autocomplete="current-password"
           autocapitalize="off"
