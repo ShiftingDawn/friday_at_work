@@ -8,12 +8,11 @@
   import {redirect} from "@sveltejs/kit";
   import {signIn} from "./data.remote";
 
-  let {form, data,} = $props();
+  let {data,} = $props();
 </script>
 
 <Card title="Sign in" class="max-w-md mx-auto">
   <div class="flex flex-col gap-4">
-    <p style="color: red">{form?.message ?? ""}</p>
     <form {...signIn.enhance(async form => {
       try {
         if (await form.submit()) {

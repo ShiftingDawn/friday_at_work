@@ -6,7 +6,7 @@ import {checkPassword, createSession} from "$lib/server/auth";
 
 export const signIn = form(
   v.object({
-    username: v.pipe(v.string(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/)),
+    username: v.pipe(v.string(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/, "Username can only contain lowercase letters, numbers, dashes and underscores")),
     password: v.pipe(v.string(), v.minLength(8), v.maxLength(255)),
   }),
   async ({username, password,}, issue) => {
