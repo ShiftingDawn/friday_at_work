@@ -14,6 +14,7 @@ export const load: PageServerLoad = async ({url, locals,}) => {
         workspaceId: locals.workspace!.id,
         hidden: false,
       },
+      orderBy: {name: "asc",},
     }),
     hidden: showHidden ? await prisma.drink.findMany({
       where: {

@@ -3,16 +3,20 @@ import {prisma} from "$lib/server/db";
 import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
-import {canWrite, hasWriteRole} from "$lib/server/permission";
+import {hasWriteRole} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({locals,}) => {
   return {
-    people: await prisma.person.findMany({where: {workspaceId: locals.workspace!.id,},}),
+    people: await prisma.person.findMany({
+      where: {workspaceId: locals.workspace!.id,},
+      orderBy: {name: "asc",},
+    }),
     drinks: await prisma.drink.findMany({
       where: {
         hidden: false,
         workspaceId: locals.workspace!.id,
       },
+      orderBy: {name: "asc",},
     }),
   };
 };

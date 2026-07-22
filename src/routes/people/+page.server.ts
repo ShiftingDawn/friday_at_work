@@ -5,7 +5,12 @@ import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({locals,}) => {
-  return {people: await prisma.person.findMany({where: {workspaceId: locals.workspace!.id,},}),};
+  return {
+    people: await prisma.person.findMany({
+      where: {workspaceId: locals.workspace!.id,},
+      orderBy: {name: "asc",},
+    }),
+  };
 };
 
 export const actions = {
