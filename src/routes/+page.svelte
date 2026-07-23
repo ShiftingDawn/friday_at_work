@@ -1,6 +1,5 @@
 <script lang="ts">
   import type {PageProps} from "./$types";
-  import {enhance} from "$app/forms";
   import Card from "$comp/card.svelte";
   import IconSubmit from "$icon/submit.svelte";
   import IconButton from "$comp/icon_button.svelte";
@@ -8,6 +7,7 @@
   import Section from "$comp/section.svelte";
   import DrinkImage from "$comp/drink_image.svelte";
   import {flash} from "$lib/flash";
+  import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
 
   const {data,}: PageProps = $props();
 </script>
@@ -16,13 +16,18 @@
     <p>You do not have the permission to register consumptions</p>
   </Card>
 {:else}
-  <form method="POST" class="flex flex-col gap-4" use:enhance={() => {
-    flash("info", "Consumption", "Processing...");
-    return ({update,}) => {
-      flash("success", "Consumption", "Registered successfully");
-      update();
-    };
-  }}>
+  <form {...addConsumption.enhance(async form => {
+    try {
+      flash("info", "Consumption", "Processing...");
+      if (await form.submit()) {
+        flash("success", "Consumption", "Registered successfully");
+      } else {
+        flash("error", "Could not register consumption");
+      }
+    } catch {
+      flash("error", "Could not register consumption", "An unknown error occurred");
+    }
+  })} class="flex flex-col gap-4">
     <Card title="Register consumption">
       {#snippet action()}
         <IconButton type="submit">
@@ -30,16 +35,16 @@
         </IconButton>
       {/snippet}
       <Section name="Select person" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {#each data.people as person(person.id)}
-          <FormRadio name="person" value={person.id}>
+        {#each await getPeopleForConsumption() as person(person.id)}
+          <FormRadio {...addConsumption.fields.person.as("radio", person.id)}>
             {person.name}
           </FormRadio>
         {/each}
       </Section>
       <Section name="Select drink" class="flex flex-col gap-4">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {#each data.drinks as drink(drink.id)}
-            <FormRadio name="drink" value={drink.id}>
+          {#each await getDrinksForConsumption() as drink(drink.id)}
+            <FormRadio {...addConsumption.fields.drink.as("radio", drink.id)}>
               <DrinkImage file={drink.id} lastModified={drink.modifiedAt}/>
               {drink.name}
             </FormRadio>

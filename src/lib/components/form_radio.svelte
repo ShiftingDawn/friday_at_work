@@ -8,7 +8,7 @@
   }: {
     children: Snippet,
     name: string,
-    value: HTMLInputElement["value"]
+    value?: string,
   } = $props();
 </script>
 
@@ -18,6 +18,6 @@
     has-checked:bg-ctp-rosewater has-checked:rounded-xl transition-all
     has-checked:text-ctp-crust cursor-pointer has-checked:cursor-default
 `}>
-    <input type="radio" name={name} value={value} class="appearance-none absolute"/>
-    {@render children?.()}
+  <input type="radio" name={name} value={value} class="appearance-none absolute"/>
+  {@render children?.()}
 </label>

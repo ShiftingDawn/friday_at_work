@@ -7,7 +7,7 @@
   import Button from "$comp/button.svelte";
   import IconButton from "$comp/icon_button.svelte";
   import IconSubmit from "$icon/plus.svelte";
-  import {createPerson} from "$lib/functions/people.remote";
+  import {createPerson, getPeople} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
 
   const {data,}: PageProps = $props();
@@ -52,7 +52,7 @@
     {/if}
   {/snippet}
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#each data.people as person(person.id)}
+    {#each await getPeople() as person(person.id)}
       <Button as="a" href={`/people/${person.id}`} class="w-full p-2 h-10">
         {person.name}
       </Button>

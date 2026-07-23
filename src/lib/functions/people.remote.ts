@@ -1,8 +1,16 @@
 import * as v from "valibot";
-import {command, form} from "$app/server";
+import {command, form, query} from "$app/server";
 import {testFunctionRole} from "$lib/functions/index";
 import {prisma} from "$lib/server/db";
 import {invalid} from "@sveltejs/kit";
+
+export const getPeople = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
+  return prisma.person.findMany({
+    where: {workspaceId: locals.workspace!.id,},
+    orderBy: {name: "asc",},
+  });
+});
 
 export const createPerson = form(
   v.object({name: v.pipe(v.string(), v.minLength(3), v.trim()),}),

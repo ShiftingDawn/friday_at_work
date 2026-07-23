@@ -9,5 +9,4 @@ export const load: PageServerLoad = async (event) => {
   if (env.DISABLE_REGISTER === "true") {
     return redirect(307, "/signin");
   }
-  return {};
 };

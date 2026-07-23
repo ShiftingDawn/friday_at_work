@@ -7,18 +7,19 @@ const config = {
     runes: ({filename,}) => filename.split(/[/\\]/).includes("node_modules") ? undefined : true,
     experimental: {async: true,},
   },
-  experimental: {remoteFunctions: true,},
-  adapter: adapter(),
-  typescript: {
-    config: (config) => {
-      config.include.push("../prisma.config.ts");
+  kit: {
+    experimental: {remoteFunctions: true,},
+    adapter: adapter(),
+    typescript: {
+      config: (config) => {
+        config.include.push("../prisma.config.ts");
+      },
     },
-  },
-  alias: {
-    "$comp/*": "./src/lib/components/*",
-    "$icon/*": "./src/lib/icon/*",
-    "$lib/*": "./src/lib/*",
-    "@/*": "./src/*",
+    alias: {
+      "$comp": "src/lib/components",
+      "$icon": "src/lib/icon",
+      "@": "src",
+    },
   },
 };
 
