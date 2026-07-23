@@ -34,9 +34,9 @@
           autocapitalize="off"
         />
       </FormLabel>
-      <FormLabel name="Password" error={signUp.fields.password.issues()}>
+      <FormLabel name="Password" error={signUp.fields._password.issues()}>
         <FormInput
-          {...signUp.fields.password.as("password")}
+          {...signUp.fields._password.as("password")}
           minlength={8}
           maxlength={255}
           required
@@ -44,9 +44,9 @@
           autocapitalize="off"
         />
       </FormLabel>
-      <FormLabel name="Confirm password" error={signUp.fields.password2.issues()}>
+      <FormLabel name="Confirm password" error={signUp.fields._password2.issues()}>
         <FormInput
-          {...signUp.fields.password2.as("password")}
+          {...signUp.fields._password2.as("password")}
           minlength={8}
           maxlength={255}
           required

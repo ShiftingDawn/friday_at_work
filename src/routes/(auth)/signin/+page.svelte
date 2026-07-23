@@ -36,9 +36,9 @@
           autocapitalize="off"
         />
       </FormLabel>
-      <FormLabel name="Password" error={signIn.fields.password.issues()}>
+      <FormLabel name="Password" error={signIn.fields._password.issues()}>
         <FormInput
-          {...signIn.fields.password.as("password")}
+          {...signIn.fields._password.as("password")}
           minlength={8}
           maxlength={255}
           required
