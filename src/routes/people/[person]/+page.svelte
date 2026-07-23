@@ -3,7 +3,6 @@
   import Card from "$comp/card.svelte";
   import BackButton from "$comp/back_button.svelte";
   import Section from "$comp/section.svelte";
-  import {enhance} from "$app/forms";
   import FormInput from "$comp/form_input.svelte";
   import FormLabel from "$comp/form_label.svelte";
   import Button from "$comp/button.svelte";
@@ -13,10 +12,16 @@
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
+  import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
+  import {flash} from "$lib/flash";
+  import {onMount} from "svelte";
+  import {invalidateAll} from "$app/navigation";
 
   const {data,}: PageProps = $props();
   const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
   let updateFormLoading = $state(false);
+
+  onMount(() => updatePerson.fields.set({name: data.person!.name,}));
 </script>
 
 <Card title={data.person!.name}>
@@ -25,15 +30,21 @@
   {/snippet}
   {#if data.canAdmin}
     <Section name="Update data">
-      <form method="POST" action="?/update" class="max-w-md flex flex-col gap-4" use:enhance={() => {
+      <form {...updatePerson.enhance(async form => {
         updateFormLoading = true;
-        return async ({update,}) => {
-          await update();
-          updateFormLoading = false;
-        };
-      }}>
-        <FormLabel name="Name">
-          <FormInput type="text" min="3" name="name" value={data.person!.name} disabled={updateFormLoading}/>
+        try {
+          if (await form.submit()) {
+            flash("success", "Person updated successfully");
+          } else {
+            flash("error", "Could not update person", "An unknown error occurred");
+          }
+        } catch {
+          flash("error", "Could not update person");
+        }
+        updateFormLoading = false;
+      })} class="max-w-md flex flex-col gap-4">
+        <FormLabel name="Name" error={updatePerson.fields.name.issues()}>
+          <FormInput {...updatePerson.fields.name.as("text")} required min="3" disabled={updateFormLoading}/>
         </FormLabel>
         <Button type="submit" loading={updateFormLoading}>
           Save
@@ -52,11 +63,14 @@
             &euro;{displayPrice(totalPrice)}
         </span>
     {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
-      <form method="POST" action="?/resetconsumptions">
-        <IconButton type="submit">
-          <IconReset/>
-        </IconButton>
-      </form>
+      <IconButton type="submit" onclick={async () => {
+        flash("info", "Resetting receipt...");
+        await resetPersonConsumptions();
+        await invalidateAll();
+        flash("success", "Receipt has been reset successfully");
+      }}>
+        <IconReset/>
+      </IconButton>
     {/if}
   {/snippet}
   {#if data.consumptions?.length === 0}
@@ -98,7 +112,8 @@
       </thead>
       <tbody>
       {#each data.allConsumptions as consumption(`history_${consumption.timestamp.getTime()}`)}
-        <TableRow class={data.person!.reset && consumption.timestamp < data.person!.reset ? "bg-ctp-mantle/50" : undefined}>
+        <TableRow
+          class={data.person!.reset && consumption.timestamp < data.person!.reset ? "bg-ctp-mantle/50" : undefined}>
           <TableCell>{consumption.drink!.name}</TableCell>
           <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
           <TableCell>{consumption.creator.username}</TableCell>

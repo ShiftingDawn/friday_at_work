@@ -1,9 +1,7 @@
-import type {Actions, PageServerLoad} from "./$types";
+import type {PageServerLoad} from "./$types";
 import {prisma} from "$lib/server/db";
-import {zfd} from "zod-form-data";
-import {z} from "zod";
 import {fail} from "@sveltejs/kit";
-import {hasAdminRole, hasWriteRole} from "$lib/server/permission";
+import {hasAdminRole} from "$lib/server/permission";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
   const person = await prisma.person.findFirst({
@@ -56,48 +54,3 @@ export const load: PageServerLoad = async ({params, locals,}) => {
     })),
   };
 };
-
-export const actions = {
-  update: async ({request, params, locals,}) => {
-    if (!(await hasWriteRole(locals))) {
-      return fail(403);
-    }
-    const person = await prisma.person.findUnique({
-      where: {
-        id: params.person,
-        workspaceId: locals.workspace!.id,
-      },
-    });
-    if (!person) {
-      return fail(404);
-    }
-    const {data, success, error,} = updateScheme.safeParse(await request.formData());
-    if (!success) {
-      return fail(400);
-    }
-    await prisma.person.update({
-      where: {id: person.id,},
-      data: {name: data?.name,},
-    });
-  },
-  resetconsumptions: async ({params, locals,}) => {
-    if (!(await hasAdminRole(locals))) {
-      return fail(403);
-    }
-    const person = await prisma.person.findUnique({
-      where: {
-        id: params.person,
-        workspaceId: locals.workspace!.id,
-      },
-    });
-    if (!person) {
-      return fail(404);
-    }
-    await prisma.person.update({
-      where: {id: person.id,},
-      data: {reset: new Date(),},
-    });
-  },
-} satisfies Actions;
-
-const updateScheme = zfd.formData({name: zfd.text(z.string().trim().min(3)),});
