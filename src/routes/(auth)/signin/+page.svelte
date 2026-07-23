@@ -5,8 +5,9 @@
   import FormInput from "$comp/form_input.svelte";
   import Card from "$comp/card.svelte";
   import {flash} from "$lib/flash";
-  import {redirect} from "@sveltejs/kit";
   import {signIn} from "$lib/functions/auth.remote";
+  import {goto} from "$app/navigation";
+  import {resolve} from "$app/paths";
 
   let {data,} = $props();
 </script>
@@ -17,15 +18,13 @@
       try {
         if (await form.submit()) {
           flash("success", "Welcome back!");
+          await goto(resolve("/"));
         } else {
           flash("error", "Could not sign in");
-          return;
         }
       } catch {
         flash("error", "Could not sign in", "An unknown error occurred");
-        return;
       }
-      redirect(302, "/");
     })} class="flex flex-col gap-2">
       <FormLabel name="Username" error={signIn.fields.username.issues()}>
         <FormInput

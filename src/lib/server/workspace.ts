@@ -1,5 +1,5 @@
 import {Prisma} from "@/generated/prisma/client";
-import type {RequestEvent} from "@sveltejs/kit";
+import type {Cookies, RequestEvent} from "@sveltejs/kit";
 import {env} from "$env/dynamic/private";
 import {prisma} from "$lib/server/db";
 
@@ -7,8 +7,11 @@ export type Workspace = Prisma.WorkspaceGetPayload<object>;
 
 const WORKSPACE_COOKIE_NAME = "workspace";
 
-export function setWorkspaceCookie(event: RequestEvent, sessionId: string) {
-  event.cookies.set(WORKSPACE_COOKIE_NAME, sessionId, {
+export function setWorkspaceCookie(event: RequestEvent | Cookies, sessionId: string) {
+  const cookies = Object.hasOwn(event, "cookies")
+    ? (event as RequestEvent).cookies
+    : event as Cookies;
+  cookies.set(WORKSPACE_COOKIE_NAME, sessionId, {
     secure: env.NODE_ENV !== "development",
     path: "/",
     sameSite: "strict",
@@ -16,8 +19,11 @@ export function setWorkspaceCookie(event: RequestEvent, sessionId: string) {
   });
 }
 
-export function getWorkspaceId(event: RequestEvent): string | null {
-  return event.cookies.get(WORKSPACE_COOKIE_NAME) ?? null;
+export function getWorkspaceId(event: RequestEvent | Cookies): string | null {
+  const cookies = Object.hasOwn(event, "cookies")
+    ? (event as RequestEvent).cookies
+    : event as Cookies;
+  return cookies.get(WORKSPACE_COOKIE_NAME) ?? null;
 }
 
 export async function getWorkspace(userId: string, workspaceId: string): Promise<Workspace | null> {

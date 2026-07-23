@@ -6,7 +6,8 @@
   import Card from "$comp/card.svelte";
   import {signUp} from "$lib/functions/auth.remote";
   import {flash} from "$lib/flash";
-  import {redirect} from "@sveltejs/kit";
+  import {goto} from "$app/navigation";
+  import {resolve} from "$app/paths";
 </script>
 
 <Card title="Sign up" class="max-w-md mx-auto">
@@ -15,15 +16,13 @@
       try {
         if (await form.submit()) {
           flash("success", "Welcome!");
+          await goto(resolve("/"));
         } else {
           flash("error", "Could not create account");
-          return;
         }
       } catch {
         flash("error", "Could not create account", "An unknown error occurred");
-        return;
       }
-      redirect(302, "/");
     })} class="flex flex-col gap-2">
       <FormLabel name="Username" error={signUp.fields.username.issues()}>
         <FormInput

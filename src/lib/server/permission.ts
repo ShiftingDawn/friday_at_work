@@ -22,11 +22,11 @@ export async function getRole(userId: string, workspace: string | Workspace): Pr
   }
 }
 
-function canWrite(role: WorkspaceRole): boolean {
+export function canWrite(role: WorkspaceRole): boolean {
   return role === "WRITE" || role === "ADMIN" || role === "OWNER";
 }
 
-function canAdmin(role: WorkspaceRole): boolean {
+export function canAdmin(role: WorkspaceRole): boolean {
   return role === "ADMIN" || role === "OWNER";
 }
 
