@@ -9,6 +9,7 @@
   import IconSignOut from "$icon/signout.svelte";
   import IconButton from "$comp/icon_button.svelte";
   import {twMerge} from "tailwind-merge";
+  import {onNavigate} from "$app/navigation";
 
   let menuAnchor = $state<HTMLElement>();
   let menuElement = $state<HTMLDivElement>();
@@ -28,6 +29,7 @@
       left: ${left}px;
     `;
   });
+  onNavigate(() => menuAnchor = undefined);
 </script>
 
 <nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-30">
