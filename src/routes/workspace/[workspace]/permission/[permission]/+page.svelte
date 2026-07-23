@@ -47,7 +47,7 @@
           flash("error", "Could not update permission", "An unknown error occurred");
         }
       })} class="max-w-md flex flex-col gap-4">
-        <FormLabel name="Permission level">
+        <FormLabel name="Permission level" error={updateWorkspacePermission.fields.role.issues()}>
           <select {...updateWorkspacePermission.fields.role.as("select")} required
                   disabled={updatePermissionFormLoading} class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
             <option value="read" selected={data.permission!.permission === "READ"}>Read only</option>

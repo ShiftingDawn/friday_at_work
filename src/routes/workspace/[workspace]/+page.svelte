@@ -39,7 +39,7 @@
         updateFormLoading = false;
       }
       )} class="flex flex-col gap-4 max-w-md">
-        <FormLabel name="Name">
+        <FormLabel name="Name" error={updateWorkspace.fields.name.issues()}>
           <FormInput {...updateWorkspace.fields.name.as("text")} min="3" disabled={updateFormLoading}/>
         </FormLabel>
         <Button type="submit" class="w-full" loading={updateFormLoading}>
@@ -72,11 +72,11 @@
         <Modal title="Add permission" open={modalOpen} onclose={() => modalOpen = false}
                canclose={!addPermissionFormLoading}>
           <div class="flex flex-col gap-4">
-            <FormLabel name="Username">
+            <FormLabel name="Username" error={addWorkspacePermission.fields.username.issues()}>
               <FormInput {...addWorkspacePermission.fields.username.as("text")} min="3" required
                          disabled={addPermissionFormLoading}/>
             </FormLabel>
-            <FormLabel name="Permission level">
+            <FormLabel name="Permission level" error={addWorkspacePermission.fields.role.issues()}>
               <select {...addWorkspacePermission.fields.role.as("select")} required disabled={addPermissionFormLoading}
                       class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
                 <option value="read" selected>Read only</option>
