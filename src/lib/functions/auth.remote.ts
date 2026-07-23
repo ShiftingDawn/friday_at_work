@@ -7,7 +7,7 @@ import {env} from "$env/dynamic/private";
 
 export const signIn = form(
   v.object({
-    username: v.pipe(v.string(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/, "Username can only contain lowercase letters, numbers, dashes and underscores")),
+    username: v.pipe(v.string(), v.trim(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/, "Username can only contain lowercase letters, numbers, dashes and underscores")),
     password: v.pipe(v.string(), v.minLength(8), v.maxLength(255)),
   }),
   async ({username, password,}, issue) => {
@@ -26,7 +26,7 @@ export const signIn = form(
 
 export const signUp = form(
   v.object({
-    username: v.pipe(v.string(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/, "Username can only contain lowercase letters, numbers, dashes and underscores")),
+    username: v.pipe(v.string(), v.trim(), v.minLength(3), v.maxLength(24), v.regex(/^[a-z0-9_-]+$/, "Username can only contain lowercase letters, numbers, dashes and underscores")),
     password: v.pipe(v.string(), v.minLength(8), v.maxLength(255)),
     password2: v.pipe(v.string(), v.minLength(8), v.maxLength(255)),
   }),

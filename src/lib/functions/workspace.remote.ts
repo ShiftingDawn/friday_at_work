@@ -7,7 +7,7 @@ import {fail, invalid} from "@sveltejs/kit";
 import type {Permission} from "@/generated/prisma/enums";
 
 export const createWorkspace = form(
-  v.object({name: v.pipe(v.string(), v.minLength(3)),}),
+  v.object({name: v.pipe(v.string(), v.trim(), v.minLength(3)),}),
   async ({name,}) => {
     const {locals, cookies,} = getRequestEvent();
     const workspace = await prisma.workspace.create({
@@ -28,7 +28,7 @@ export const selectWorkspace = command(v.pipe(v.string(), v.uuid()), async works
 });
 
 export const updateWorkspace = form(
-  v.object({name: v.pipe(v.string(), v.minLength(3)),}),
+  v.object({name: v.pipe(v.string(), v.trim(), v.minLength(3)),}),
   async ({name,}) => {
     const {locals, params,} = await testFunctionRole("ADMIN");
     const workspace = await getWorkspace(locals.user!.id, params.workspace!);
@@ -44,7 +44,7 @@ export const updateWorkspace = form(
 
 export const addWorkspacePermission = form(
   v.object({
-    username: v.pipe(v.string(), v.minLength(3)),
+    username: v.pipe(v.string(), v.trim(), v.minLength(3)),
     role: v.picklist(["admin", "write", "read",]),
   }),
   async ({username, role,}) => {
