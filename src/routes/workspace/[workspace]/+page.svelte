@@ -9,11 +9,14 @@
   import Button from "$comp/button.svelte";
   import {flash} from "$lib/flash";
   import Modal from "$comp/modal.svelte";
+  import {onMount} from "svelte";
 
   const {data,}: PageProps = $props();
   let modalOpen = $state(false);
   let updateFormLoading = $state(false);
   let addPermissionFormLoading = $state(false);
+
+  onMount(() => updateWorkspace.fields.set({name: data.ws!.name,}));
 </script>
 
 <Card title={data.ws!.name}>
@@ -37,7 +40,7 @@
       }
       )} class="flex flex-col gap-4 max-w-md">
         <FormLabel name="Name">
-          <FormInput type="text" min="3" name="name" value={data.ws!.name} disabled={updateFormLoading}/>
+          <FormInput {...updateWorkspace.fields.name.as("text")} min="3" disabled={updateFormLoading}/>
         </FormLabel>
         <Button type="submit" class="w-full" loading={updateFormLoading}>
           Save
@@ -70,10 +73,11 @@
                canclose={!addPermissionFormLoading}>
           <div class="flex flex-col gap-4">
             <FormLabel name="Username">
-              <FormInput type="text" min="3" name="username" disabled={addPermissionFormLoading}/>
+              <FormInput {...addWorkspacePermission.fields.username.as("text")} min="3" required
+                         disabled={addPermissionFormLoading}/>
             </FormLabel>
             <FormLabel name="Permission level">
-              <select name="role" required disabled={addPermissionFormLoading}
+              <select {...addWorkspacePermission.fields.role.as("select")} required disabled={addPermissionFormLoading}
                       class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
                 <option value="read" selected>Read only</option>
                 <option value="write">Read and Write</option>

@@ -43,7 +43,7 @@
   <Modal title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}
          canclose={!createFormLoading}>
     <FormLabel name="Name">
-      <FormInput type="text" min="3" name="name" disabled={createFormLoading}/>
+      <FormInput {...createWorkspace.fields.name.as("text")} min="3" disabled={createFormLoading}/>
     </FormLabel>
     {#snippet actions()}
       <Button type="submit" class="font-bold uppercase" loading={createFormLoading}>
