@@ -1,10 +1,36 @@
 import * as v from "valibot";
-import {command, form, getRequestEvent} from "$app/server";
+import {command, form, getRequestEvent, query} from "$app/server";
 import {prisma} from "$lib/server/db";
 import {getWorkspace, setWorkspaceCookie} from "$lib/server/workspace";
 import {testFunctionRole} from "$lib/functions/index";
-import {fail, invalid} from "@sveltejs/kit";
+import {invalid} from "@sveltejs/kit";
 import type {Permission} from "@/generated/prisma/enums";
+
+export const getPermittedWorkspaces = query(async () => {
+  const {locals,} = getRequestEvent();
+  return prisma.workspace.findMany({
+    where: {
+      OR: [
+        {ownerId: locals.user!.id,},
+        {permissions: {some: {userId: locals.user!.id,},},},
+      ],
+    },
+  });
+});
+
+export const getNotCurrentWorkspace = query(async () => {
+  const {locals, params,} = await testFunctionRole("READ", getRequestEvent().params.workspace);
+  return prisma.workspace.findFirst({
+    where: {
+      id: params.workspace,
+      OR: [
+        {ownerId: locals.user!.id,},
+        {permissions: {every: {userId: locals.user!.id,},},},
+      ],
+    },
+    include: {permissions: {include: {user: {select: {username: true,},},},},},
+  });
+});
 
 export const createWorkspace = form(
   v.object({name: v.pipe(v.string(), v.trim(), v.minLength(3)),}),

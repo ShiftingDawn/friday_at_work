@@ -7,7 +7,7 @@
   import Section from "$comp/section.svelte";
   import IconSubmit from "$icon/plus.svelte";
   import IconButton from "$comp/icon_button.svelte";
-  import {createWorkspace, selectWorkspace} from "$lib/functions/workspace.remote";
+  import {createWorkspace, getPermittedWorkspaces, selectWorkspace} from "$lib/functions/workspace.remote";
   import {flash} from "$lib/flash";
   import {goto} from "$app/navigation";
   import {resolve} from "$app/paths";
@@ -60,7 +60,7 @@
     </IconButton>
   {/snippet}
   <div class="flex flex-col gap-2">
-    {#each data.workspaces as workspace(workspace.id)}
+    {#each await getPermittedWorkspaces() as workspace(workspace.id)}
       <Button class="w-full" onclick={async () => {
         try {
           await selectWorkspace(workspace.id);
