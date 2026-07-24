@@ -20,7 +20,7 @@
   <link rel="apple-touch-icon" href="/icon152.png" type="image/png" sizes="152x152"/>
   <link rel="apple-touch-icon" href="/icon120.png" type="image/png" sizes="120x120"/>
   <link rel="shortcut icon" href="/icon152.png" type="image/png" sizes="152x152"/>
-  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="manifest" href="/manifest.json">
 </svelte:head>
 
 {#if data.isLoggedIn && data.hasWorkspace }
