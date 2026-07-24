@@ -21,6 +21,7 @@
     try {
       flash("info", "Consumption", "Processing...");
       if (await form.submit()) {
+        form.element.reset();
         flash("success", "Consumption", "Registered successfully");
       } else {
         flash("error", "Could not register consumption");
