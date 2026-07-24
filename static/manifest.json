@@ -1,8 +1,9 @@
 {
   "name": "Friday at Work",
   "short_name": "Friday at Work",
+  "start_url": ".",
   "display": "standalone",
-  "theme_color": "#b4befee",
+  "theme_color": "#b4befe",
   "background_color": "#1e1e2e",
   "icons": [
     {
