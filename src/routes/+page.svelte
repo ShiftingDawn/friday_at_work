@@ -8,6 +8,7 @@
   import DrinkImage from "$comp/drink_image.svelte";
   import {flash} from "$lib/flash";
   import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
+  import Spinner from "$comp/spinner.svelte";
 
   const {data,}: PageProps = $props();
 </script>
@@ -35,21 +36,31 @@
         </IconButton>
       {/snippet}
       <Section name="Select person" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {#each await getPeopleForConsumption() as person(person.id)}
-          <FormRadio {...addConsumption.fields.person.as("radio", person.id)}>
-            {person.name}
-          </FormRadio>
-        {/each}
-      </Section>
-      <Section name="Select drink" class="flex flex-col gap-4">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {#each await getDrinksForConsumption() as drink(drink.id)}
-            <FormRadio {...addConsumption.fields.drink.as("radio", drink.id)}>
-              <DrinkImage file={drink.id} lastModified={drink.modifiedAt}/>
-              {drink.name}
+        <svelte:boundary>
+          {#snippet pending()}
+            <Spinner>Loading people</Spinner>
+          {/snippet}
+          {#each await getPeopleForConsumption() as person(person.id)}
+            <FormRadio {...addConsumption.fields.person.as("radio", person.id)}>
+              {person.name}
             </FormRadio>
           {/each}
-        </div>
+        </svelte:boundary>
+      </Section>
+      <Section name="Select drink" class="flex flex-col gap-4">
+        <svelte:boundary>
+          {#snippet pending()}
+            <Spinner>Loading drinks</Spinner>
+          {/snippet}
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {#each await getDrinksForConsumption() as drink(drink.id)}
+              <FormRadio {...addConsumption.fields.drink.as("radio", drink.id)}>
+                <DrinkImage file={drink.id} lastModified={drink.modifiedAt}/>
+                {drink.name}
+              </FormRadio>
+            {/each}
+          </div>
+        </svelte:boundary>
       </Section>
     </Card>
   </form>

@@ -14,6 +14,7 @@
   import IconShow from "$icon/show.svelte";
   import {addDrink, getHiddenDrinks, getVisibleDrinks} from "$lib/functions/drinks.remote";
   import {flash} from "$lib/flash";
+  import Spinner from "$comp/spinner.svelte";
 
   const {data,}: PageProps = $props();
   const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
@@ -75,32 +76,42 @@
     {/if}
   {/snippet}
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#each await getVisibleDrinks() as drink(drink.id)}
-      <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
-        <div class="font-bold text-center text-2xl">{drink.name}</div>
-        <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-          <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
-        </div>
-        <div class="font-bold text-center text-2xl">
-          &euro;&nbsp;{(drink.price / 100).toFixed(2)}
-        </div>
-      </Card>
-    {/each}
+    <svelte:boundary>
+      {#snippet pending()}
+        <Spinner>Loading drinks</Spinner>
+      {/snippet}
+      {#each await getVisibleDrinks() as drink(drink.id)}
+        <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
+          <div class="font-bold text-center text-2xl">{drink.name}</div>
+          <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
+            <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
+          </div>
+          <div class="font-bold text-center text-2xl">
+            &euro;&nbsp;{(drink.price / 100).toFixed(2)}
+          </div>
+        </Card>
+      {/each}
+    </svelte:boundary>
   </div>
   {#if showHidden}
     <Section name="Hidden drinks">
       <div class="mt-4 grid grid-cols-4 gap-4">
-        {#each await getHiddenDrinks()! as drink(drink.id)}
-          <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1">
-            <div class="font-bold text-center text-2xl">{drink.name}</div>
-            <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-              <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
-            </div>
-            <div class="font-bold text-center text-2xl">
-              &euro;&nbsp;{(drink.price / 100).toFixed(2)}
-            </div>
-          </Card>
-        {/each}
+        <svelte:boundary>
+          {#snippet pending()}
+            <Spinner>Loading hidden drinks</Spinner>
+          {/snippet}
+          {#each await getHiddenDrinks()! as drink(drink.id)}
+            <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1">
+              <div class="font-bold text-center text-2xl">{drink.name}</div>
+              <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
+                <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
+              </div>
+              <div class="font-bold text-center text-2xl">
+                &euro;&nbsp;{(drink.price / 100).toFixed(2)}
+              </div>
+            </Card>
+          {/each}
+        </svelte:boundary>
       </div>
     </Section>
   {/if}

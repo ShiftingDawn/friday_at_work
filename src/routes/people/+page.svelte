@@ -9,6 +9,7 @@
   import IconSubmit from "$icon/plus.svelte";
   import {createPerson, getPeople} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
+  import Spinner from "$comp/spinner.svelte";
 
   const {data,}: PageProps = $props();
   let modalOpen = $state(false);
@@ -52,10 +53,16 @@
     {/if}
   {/snippet}
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#each await getPeople() as person(person.id)}
-      <Button as="a" href={`/people/${person.id}`} class="w-full p-2 h-10">
-        {person.name}
-      </Button>
-    {/each}
+    <svelte:boundary>
+      {#snippet pending()}
+        <Spinner>Loading people</Spinner>
+      {/snippet}
+      {#each await getPeople() as person(person.id)}
+        <Button as="a" href={`/people/${person.id}`} class="w-full p-2 h-10">
+          {person.name}
+        </Button>
+      {/each}
+
+    </svelte:boundary>
   </div>
 </Card>
