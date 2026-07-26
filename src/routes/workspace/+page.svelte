@@ -9,7 +9,7 @@
   import IconButton from "$comp/icon_button.svelte";
   import {createWorkspace, getPermittedWorkspaces, selectWorkspace} from "$lib/functions/workspace.remote";
   import {flash} from "$lib/flash";
-  import {goto} from "$app/navigation";
+  import {goto, invalidateAll} from "$app/navigation";
   import {resolve} from "$app/paths";
 
   const {data,} = $props();
@@ -64,6 +64,7 @@
       <Button class="w-full" onclick={async () => {
         try {
           await selectWorkspace(workspace.id);
+          await invalidateAll();
           flash("success", "Loaded workspace", workspace.name);
           await goto(resolve("/"));
         } catch {
