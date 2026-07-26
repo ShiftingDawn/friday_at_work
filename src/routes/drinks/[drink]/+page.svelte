@@ -87,7 +87,7 @@
     </div>
     {#snippet actions()}
       <Button type="submit" class="font-bold uppercase" loading={setThresholdLoading}>
-        Restock
+        Register
       </Button>
     {/snippet}
   </Modal>
