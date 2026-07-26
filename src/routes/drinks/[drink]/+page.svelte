@@ -142,6 +142,8 @@
     <p>Current stock: {data.stock}</p>
     <p>Threshold: {data.drink?.threshold ?? "Unspecified"}</p>
     <p>Last restock: {data.last_restock?.timestamp?.toLocaleString() ?? "never"}</p>
+    <p>Total amount consumed: {data.amountConsumed}</p>
+    <p>Total amount restocked: {data.amountRestocked}</p>
     <div class="flex gap-4 flex-wrap">
       <Button as="a" href={`/drinks/${params.drink}/restocks`}>Restock history</Button>
       {#if data.canWrite}

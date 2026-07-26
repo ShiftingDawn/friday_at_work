@@ -17,6 +17,8 @@ export const load: PageServerLoad = async ({params, locals,}) => {
   ]);
   return {
     drink: await prisma.drink.findFirst({where: {workspaceId: locals.workspace!.id, id: params.drink,},}),
+    amountRestocked: restocked._sum.amount ?? 0,
+    amountConsumed: consumed,
     stock: (restocked._sum.amount ?? 0) - consumed,
     last_restock: await prisma.restock.findFirst({
       where: {drinkId: params.drink,},
