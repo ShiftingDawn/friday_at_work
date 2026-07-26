@@ -82,6 +82,7 @@ model Drink {
   workspaceId String   @db.Uuid
   name        String
   price       Int
+  threshold   Int?
   hidden      Boolean  @default(false)
   modifiedAt  DateTime @default(now())
 

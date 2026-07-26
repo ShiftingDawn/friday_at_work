@@ -4,6 +4,7 @@ import {testFunctionRole} from "$lib/functions/index";
 import {prisma} from "$lib/server/db";
 import {bunfile} from "$lib/bunfile";
 import {upload} from "$lib/server/storage";
+import {invalid} from "@sveltejs/kit";
 
 export const getVisibleDrinks = query(async () => {
   const {locals,} = await testFunctionRole("READ");
@@ -45,5 +46,20 @@ export const addDrink = form(
     if (image) {
       await upload(image, drink.id, image.type);
     }
+  }
+);
+
+export const setDrinkThreshold = form(
+  v.object({amount: v.pipe(v.number(), v.integer(), v.minValue(-1)),}),
+  async ({amount,}) => {
+    const {params,} = await testFunctionRole("WRITE");
+    const drink = await prisma.drink.findFirst({where: {id: params.drink,},});
+    if (!drink) {
+      invalid("Drink not found");
+    }
+    await prisma.drink.update({
+      where: {id: drink.id,},
+      data: {threshold: amount === -1 ? null : amount,},
+    });
   }
 );

@@ -28,10 +28,12 @@ export type AggregateDrink = {
 
 export type DrinkAvgAggregateOutputType = {
   price: number | null
+  threshold: number | null
 }
 
 export type DrinkSumAggregateOutputType = {
   price: number | null
+  threshold: number | null
 }
 
 export type DrinkMinAggregateOutputType = {
@@ -39,6 +41,7 @@ export type DrinkMinAggregateOutputType = {
   workspaceId: string | null
   name: string | null
   price: number | null
+  threshold: number | null
   hidden: boolean | null
   modifiedAt: Date | null
 }
@@ -48,6 +51,7 @@ export type DrinkMaxAggregateOutputType = {
   workspaceId: string | null
   name: string | null
   price: number | null
+  threshold: number | null
   hidden: boolean | null
   modifiedAt: Date | null
 }
@@ -57,6 +61,7 @@ export type DrinkCountAggregateOutputType = {
   workspaceId: number
   name: number
   price: number
+  threshold: number
   hidden: number
   modifiedAt: number
   _all: number
@@ -65,10 +70,12 @@ export type DrinkCountAggregateOutputType = {
 
 export type DrinkAvgAggregateInputType = {
   price?: true
+  threshold?: true
 }
 
 export type DrinkSumAggregateInputType = {
   price?: true
+  threshold?: true
 }
 
 export type DrinkMinAggregateInputType = {
@@ -76,6 +83,7 @@ export type DrinkMinAggregateInputType = {
   workspaceId?: true
   name?: true
   price?: true
+  threshold?: true
   hidden?: true
   modifiedAt?: true
 }
@@ -85,6 +93,7 @@ export type DrinkMaxAggregateInputType = {
   workspaceId?: true
   name?: true
   price?: true
+  threshold?: true
   hidden?: true
   modifiedAt?: true
 }
@@ -94,6 +103,7 @@ export type DrinkCountAggregateInputType = {
   workspaceId?: true
   name?: true
   price?: true
+  threshold?: true
   hidden?: true
   modifiedAt?: true
   _all?: true
@@ -190,6 +200,7 @@ export type DrinkGroupByOutputType = {
   workspaceId: string
   name: string
   price: number
+  threshold: number | null
   hidden: boolean
   modifiedAt: Date
   _count: DrinkCountAggregateOutputType | null
@@ -222,6 +233,7 @@ export type DrinkWhereInput = {
   workspaceId?: Prisma.UuidFilter<"Drink"> | string
   name?: Prisma.StringFilter<"Drink"> | string
   price?: Prisma.IntFilter<"Drink"> | number
+  threshold?: Prisma.IntNullableFilter<"Drink"> | number | null
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
   modifiedAt?: Prisma.DateTimeFilter<"Drink"> | Date | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
@@ -234,6 +246,7 @@ export type DrinkOrderByWithRelationInput = {
   workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrderInput | Prisma.SortOrder
   hidden?: Prisma.SortOrder
   modifiedAt?: Prisma.SortOrder
   workspace?: Prisma.WorkspaceOrderByWithRelationInput
@@ -249,6 +262,7 @@ export type DrinkWhereUniqueInput = Prisma.AtLeast<{
   workspaceId?: Prisma.UuidFilter<"Drink"> | string
   name?: Prisma.StringFilter<"Drink"> | string
   price?: Prisma.IntFilter<"Drink"> | number
+  threshold?: Prisma.IntNullableFilter<"Drink"> | number | null
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
   modifiedAt?: Prisma.DateTimeFilter<"Drink"> | Date | string
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
@@ -261,6 +275,7 @@ export type DrinkOrderByWithAggregationInput = {
   workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrderInput | Prisma.SortOrder
   hidden?: Prisma.SortOrder
   modifiedAt?: Prisma.SortOrder
   _count?: Prisma.DrinkCountOrderByAggregateInput
@@ -278,6 +293,7 @@ export type DrinkScalarWhereWithAggregatesInput = {
   workspaceId?: Prisma.UuidWithAggregatesFilter<"Drink"> | string
   name?: Prisma.StringWithAggregatesFilter<"Drink"> | string
   price?: Prisma.IntWithAggregatesFilter<"Drink"> | number
+  threshold?: Prisma.IntNullableWithAggregatesFilter<"Drink"> | number | null
   hidden?: Prisma.BoolWithAggregatesFilter<"Drink"> | boolean
   modifiedAt?: Prisma.DateTimeWithAggregatesFilter<"Drink"> | Date | string
 }
@@ -286,6 +302,7 @@ export type DrinkCreateInput = {
   id?: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDrinksInput
@@ -298,6 +315,7 @@ export type DrinkUncheckedCreateInput = {
   workspaceId: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutDrinkInput
@@ -308,6 +326,7 @@ export type DrinkUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDrinksNestedInput
@@ -320,6 +339,7 @@ export type DrinkUncheckedUpdateInput = {
   workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput
@@ -331,6 +351,7 @@ export type DrinkCreateManyInput = {
   workspaceId: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
 }
@@ -339,6 +360,7 @@ export type DrinkUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -348,6 +370,7 @@ export type DrinkUncheckedUpdateManyInput = {
   workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -367,12 +390,14 @@ export type DrinkCountOrderByAggregateInput = {
   workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
   modifiedAt?: Prisma.SortOrder
 }
 
 export type DrinkAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
 }
 
 export type DrinkMaxOrderByAggregateInput = {
@@ -380,6 +405,7 @@ export type DrinkMaxOrderByAggregateInput = {
   workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
   modifiedAt?: Prisma.SortOrder
 }
@@ -389,12 +415,14 @@ export type DrinkMinOrderByAggregateInput = {
   workspaceId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
   modifiedAt?: Prisma.SortOrder
 }
 
 export type DrinkSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
 }
 
 export type DrinkScalarRelationFilter = {
@@ -452,6 +480,14 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type DrinkCreateNestedOneWithoutConsumptionsInput = {
   create?: Prisma.XOR<Prisma.DrinkCreateWithoutConsumptionsInput, Prisma.DrinkUncheckedCreateWithoutConsumptionsInput>
   connectOrCreate?: Prisma.DrinkCreateOrConnectWithoutConsumptionsInput
@@ -484,6 +520,7 @@ export type DrinkCreateWithoutWorkspaceInput = {
   id?: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutDrinkInput
@@ -494,6 +531,7 @@ export type DrinkUncheckedCreateWithoutWorkspaceInput = {
   id?: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutDrinkInput
@@ -534,6 +572,7 @@ export type DrinkScalarWhereInput = {
   workspaceId?: Prisma.UuidFilter<"Drink"> | string
   name?: Prisma.StringFilter<"Drink"> | string
   price?: Prisma.IntFilter<"Drink"> | number
+  threshold?: Prisma.IntNullableFilter<"Drink"> | number | null
   hidden?: Prisma.BoolFilter<"Drink"> | boolean
   modifiedAt?: Prisma.DateTimeFilter<"Drink"> | Date | string
 }
@@ -542,6 +581,7 @@ export type DrinkCreateWithoutConsumptionsInput = {
   id?: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDrinksInput
@@ -553,6 +593,7 @@ export type DrinkUncheckedCreateWithoutConsumptionsInput = {
   workspaceId: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutDrinkInput
@@ -578,6 +619,7 @@ export type DrinkUpdateWithoutConsumptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDrinksNestedInput
@@ -589,6 +631,7 @@ export type DrinkUncheckedUpdateWithoutConsumptionsInput = {
   workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restocks?: Prisma.RestockUncheckedUpdateManyWithoutDrinkNestedInput
@@ -598,6 +641,7 @@ export type DrinkCreateWithoutRestocksInput = {
   id?: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   workspace: Prisma.WorkspaceCreateNestedOneWithoutDrinksInput
@@ -609,6 +653,7 @@ export type DrinkUncheckedCreateWithoutRestocksInput = {
   workspaceId: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutDrinkInput
@@ -634,6 +679,7 @@ export type DrinkUpdateWithoutRestocksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutDrinksNestedInput
@@ -645,6 +691,7 @@ export type DrinkUncheckedUpdateWithoutRestocksInput = {
   workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput
@@ -654,6 +701,7 @@ export type DrinkCreateManyWorkspaceInput = {
   id?: string
   name: string
   price: number
+  threshold?: number | null
   hidden?: boolean
   modifiedAt?: Date | string
 }
@@ -662,6 +710,7 @@ export type DrinkUpdateWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consumptions?: Prisma.ConsumptionUpdateManyWithoutDrinkNestedInput
@@ -672,6 +721,7 @@ export type DrinkUncheckedUpdateWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput
@@ -682,6 +732,7 @@ export type DrinkUncheckedUpdateManyWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
+  threshold?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   modifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -731,6 +782,7 @@ export type DrinkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   workspaceId?: boolean
   name?: boolean
   price?: boolean
+  threshold?: boolean
   hidden?: boolean
   modifiedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
@@ -744,6 +796,7 @@ export type DrinkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   workspaceId?: boolean
   name?: boolean
   price?: boolean
+  threshold?: boolean
   hidden?: boolean
   modifiedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
@@ -754,6 +807,7 @@ export type DrinkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   workspaceId?: boolean
   name?: boolean
   price?: boolean
+  threshold?: boolean
   hidden?: boolean
   modifiedAt?: boolean
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
@@ -764,11 +818,12 @@ export type DrinkSelectScalar = {
   workspaceId?: boolean
   name?: boolean
   price?: boolean
+  threshold?: boolean
   hidden?: boolean
   modifiedAt?: boolean
 }
 
-export type DrinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "name" | "price" | "hidden" | "modifiedAt", ExtArgs["result"]["drink"]>
+export type DrinkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "workspaceId" | "name" | "price" | "threshold" | "hidden" | "modifiedAt", ExtArgs["result"]["drink"]>
 export type DrinkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   consumptions?: boolean | Prisma.Drink$consumptionsArgs<ExtArgs>
@@ -794,6 +849,7 @@ export type $DrinkPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     workspaceId: string
     name: string
     price: number
+    threshold: number | null
     hidden: boolean
     modifiedAt: Date
   }, ExtArgs["result"]["drink"]>
@@ -1226,6 +1282,7 @@ export interface DrinkFieldRefs {
   readonly workspaceId: Prisma.FieldRef<"Drink", 'String'>
   readonly name: Prisma.FieldRef<"Drink", 'String'>
   readonly price: Prisma.FieldRef<"Drink", 'Int'>
+  readonly threshold: Prisma.FieldRef<"Drink", 'Int'>
   readonly hidden: Prisma.FieldRef<"Drink", 'Boolean'>
   readonly modifiedAt: Prisma.FieldRef<"Drink", 'DateTime'>
 }

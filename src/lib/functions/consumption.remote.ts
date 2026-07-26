@@ -4,6 +4,33 @@ import {testFunctionRole} from "$lib/functions";
 import {prisma} from "$lib/server/db";
 import {invalid} from "@sveltejs/kit";
 
+export const getDrinksUnderThreshold = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
+  const drinks = await prisma.drink.findMany({
+    where: {
+      workspaceId: locals.workspace!.id,
+      threshold: {not: null,},
+      hidden: false,
+    },
+    include: {
+      _count: {select: {consumptions: true,},},
+      restocks: {select: {amount: true,},},
+    },
+  });
+  return drinks.map(d => {
+    const totalStock = d.restocks.reduce((a, b) => a + b.amount, 0);
+    const totalConsumptions = d._count.consumptions ?? 0;
+    return ({
+      id: d.id,
+      name: d.name,
+      totalStock,
+      totalConsumptions,
+      threshold: d.threshold!,
+      missingAmount: d.threshold! - (totalStock - totalConsumptions),
+    });
+  }).filter(d => d.missingAmount > 0);
+});
+
 export const getPeopleForConsumption = query(async () => {
   const {locals,} = await testFunctionRole("WRITE");
   return prisma.person.findMany({

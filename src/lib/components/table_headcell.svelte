@@ -1,9 +1,14 @@
 <script lang="ts">
-    import type {HTMLThAttributes} from "svelte/elements";
+  import type {HTMLThAttributes} from "svelte/elements";
+  import {twMerge} from "tailwind-merge";
 
-    const {children, ...props}: HTMLThAttributes = $props();
+  const {
+    children,
+    class: cls,
+    ...props
+  }: HTMLThAttributes & { class?: string } = $props();
 </script>
 
-<th {...props} class="font-bold text-left first-of-type:pl-4 last-of-type:pr-4">
-    {@render children?.()}
+<th {...props} class={twMerge("font-bold text-left px-4", cls)}>
+  {@render children?.()}
 </th>

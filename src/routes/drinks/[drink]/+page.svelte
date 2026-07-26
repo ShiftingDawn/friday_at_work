@@ -13,11 +13,18 @@
   import DrinkImage from "$comp/drink_image.svelte";
   import {displayPrice} from "$lib";
   import type {ChangeEventHandler} from "svelte/elements";
+  import {setDrinkThreshold} from "$lib/functions/drinks.remote";
+  import {flash} from "$lib/flash";
+  import {onMount} from "svelte";
 
   const {params, data,}: PageProps = $props();
-  let modalOpen = $state(false);
+  let addRestockModalOpen = $state(false);
+  let setThresholdModalOpen = $state(false);
+  let setThresholdLoading = $state(false);
   let updateDataFormLoading = $state(false);
   let reskinFormLoading = $state(false);
+
+  onMount(() => setDrinkThreshold.fields.set({amount: data.drink?.threshold ?? -1,}));
 
   const onCorrectionCheckChanged: ChangeEventHandler<HTMLInputElement> = e => {
     const input: HTMLInputElement = document.querySelector("#restockamountfield")!;
@@ -30,7 +37,8 @@
 </script>
 
 <form method="POST" action="?/restock">
-  <Modal title="Register restock" open={modalOpen} onclose={() => modalOpen = false} class="max-w-md">
+  <Modal title="Register restock" open={addRestockModalOpen} onclose={() => addRestockModalOpen = false}
+         class="max-w-md">
     <div class="flex flex-col gap-4">
       <FormLabel name="Amount">
         <FormInput
@@ -49,6 +57,36 @@
     </div>
     {#snippet actions()}
       <Button type="submit" class="font-bold uppercase">
+        Restock
+      </Button>
+    {/snippet}
+  </Modal>
+</form>
+
+<form {...setDrinkThreshold.enhance(async form => {
+  setThresholdLoading = true;
+  try {
+    if (await form.submit()) {
+      setThresholdModalOpen = false;
+      flash("success", "Threshold registered successfully");
+    } else {
+      flash("error", "Could not register threshold");
+    }
+  } catch {
+    flash("error", "Could not register threshold", "An unknown error occurred");
+  }
+  setThresholdLoading = false;
+})}>
+  <Modal title="Register threshold" open={setThresholdModalOpen} onclose={() => setThresholdLoading = false}
+         class="max-w-md" canclose={!setThresholdLoading}>
+    <div class="flex flex-col gap-4">
+      <FormLabel name="Amount">
+        <FormInput {...setDrinkThreshold.fields.amount.as("number")} required min="-1" autofocus/>
+      </FormLabel>
+      <p>Set to -1 to disable threshold</p>
+    </div>
+    {#snippet actions()}
+      <Button type="submit" class="font-bold uppercase" loading={setThresholdLoading}>
         Restock
       </Button>
     {/snippet}
@@ -102,12 +140,16 @@
   {/if}
   <Section name="Stock" class="flex flex-col gap-2">
     <p>Current stock: {data.stock}</p>
+    <p>Threshold: {data.drink?.threshold ?? "Unspecified"}</p>
     <p>Last restock: {data.last_restock?.timestamp?.toLocaleString() ?? "never"}</p>
-    <div class="max-w-md grid grid-cols-2 gap-4">
+    <div class="flex gap-4 flex-wrap">
       <Button as="a" href={`/drinks/${params.drink}/restocks`}>Restock history</Button>
       {#if data.canWrite}
-        <Button onclick={() => modalOpen = true}>
+        <Button onclick={() => addRestockModalOpen = true}>
           Add Restock
+        </Button>
+        <Button onclick={() => setThresholdModalOpen = true}>
+          Register threshold
         </Button>
       {/if}
     </div>
