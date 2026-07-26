@@ -10,6 +10,7 @@
   import {createPerson, getPeople} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
   import Spinner from "$comp/spinner.svelte";
+  import Center from "$comp/center.svelte";
 
   const {data,}: PageProps = $props();
   let modalOpen = $state(false);
@@ -55,7 +56,9 @@
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     <svelte:boundary>
       {#snippet pending()}
-        <Spinner>Loading people</Spinner>
+        <Center>
+          <Spinner>Loading people</Spinner>
+        </Center>
       {/snippet}
       {#each await getPeople() as person(person.id)}
         <Button as="a" href={`/people/${person.id}`} class="w-full p-2 h-10">

@@ -15,6 +15,7 @@
   import {addDrink, getHiddenDrinks, getVisibleDrinks} from "$lib/functions/drinks.remote";
   import {flash} from "$lib/flash";
   import Spinner from "$comp/spinner.svelte";
+  import Center from "$comp/center.svelte";
 
   const {data,}: PageProps = $props();
   const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
@@ -78,7 +79,9 @@
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     <svelte:boundary>
       {#snippet pending()}
-        <Spinner>Loading drinks</Spinner>
+        <Center>
+          <Spinner>Loading drinks</Spinner>
+        </Center>
       {/snippet}
       {#each await getVisibleDrinks() as drink(drink.id)}
         <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
@@ -98,7 +101,9 @@
       <div class="mt-4 grid grid-cols-4 gap-4">
         <svelte:boundary>
           {#snippet pending()}
-            <Spinner>Loading hidden drinks</Spinner>
+            <Center>
+              <Spinner>Loading hidden drinks</Spinner>
+            </Center>
           {/snippet}
           {#each await getHiddenDrinks()! as drink(drink.id)}
             <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1">

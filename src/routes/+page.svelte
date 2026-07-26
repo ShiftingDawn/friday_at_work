@@ -9,6 +9,7 @@
   import {flash} from "$lib/flash";
   import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
   import Spinner from "$comp/spinner.svelte";
+  import Center from "$comp/center.svelte";
 
   const {data,}: PageProps = $props();
 </script>
@@ -39,7 +40,9 @@
       <Section name="Select person" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <svelte:boundary>
           {#snippet pending()}
-            <Spinner>Loading people</Spinner>
+            <Center>
+              <Spinner>Loading people</Spinner>
+            </Center>
           {/snippet}
           {#each await getPeopleForConsumption() as person(person.id)}
             <FormRadio {...addConsumption.fields.person.as("radio", person.id)}>
@@ -51,7 +54,9 @@
       <Section name="Select drink" class="flex flex-col gap-4">
         <svelte:boundary>
           {#snippet pending()}
-            <Spinner>Loading drinks</Spinner>
+            <Center>
+              <Spinner>Loading drinks</Spinner>
+            </Center>
           {/snippet}
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {#each await getDrinksForConsumption() as drink(drink.id)}
