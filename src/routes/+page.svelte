@@ -19,7 +19,7 @@
 {:then drinks}
   {#if drinks.length > 0}
     <Card title="Threshold errors" class="mb-4">
-      <p>
+      <p class="mx-4">
         {#if drinks.length === 1}
           One drink is
         {:else}
