@@ -26,7 +26,7 @@
 {#if data.isLoggedIn && data.hasWorkspace }
   <Navbar/>
 {/if}
-<div class="container mx-auto mt-4">
+<div class="container mx-auto mt-4 pb-4">
   {@render children()}
 </div>
 <Flash/>
