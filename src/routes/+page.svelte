@@ -31,32 +31,34 @@
 {:then drinks}
   {#if drinks.length > 0}
     <Card title="Threshold error" class="mb-4">
-      <table class="w-full">
-        <thead>
-        <TableRow>
-          <TableHeadCell class="w-full">Name</TableHeadCell>
-          <TableHeadCell>Threshold</TableHeadCell>
-          <TableHeadCell>Stock</TableHeadCell>
-          <TableHeadCell>Missing</TableHeadCell>
-          <TableHeadCell/>
-        </TableRow>
-        </thead>
-        <tbody>
-        {#each drinks as drink(`threshold_${drink.id}`)}
+      <div class="w-full overflow-auto">
+        <table class="w-full">
+          <thead>
           <TableRow>
-            <TableCell>{drink.name}</TableCell>
-            <TableCell>{drink.threshold}</TableCell>
-            <TableCell>{drink.totalStock - drink.totalConsumptions}</TableCell>
-            <TableCell>{drink.missingAmount}</TableCell>
-            <TableCell>
-              <Button as="a" href={`/drinks/${drink.id}`} class="w-fit">
-                Details
-              </Button>
-            </TableCell>
+            <TableHeadCell class="w-full">Name</TableHeadCell>
+            <TableHeadCell>Threshold</TableHeadCell>
+            <TableHeadCell>Stock</TableHeadCell>
+            <TableHeadCell>Missing</TableHeadCell>
+            <TableHeadCell/>
           </TableRow>
-        {/each}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          {#each drinks as drink(`threshold_${drink.id}`)}
+            <TableRow>
+              <TableCell>{drink.name}</TableCell>
+              <TableCell>{drink.threshold}</TableCell>
+              <TableCell>{drink.totalStock - drink.totalConsumptions}</TableCell>
+              <TableCell>{drink.missingAmount}</TableCell>
+              <TableCell>
+                <Button as="a" href={`/drinks/${drink.id}`} class="w-fit">
+                  Details
+                </Button>
+              </TableCell>
+            </TableRow>
+          {/each}
+          </tbody>
+        </table>
+      </div>
     </Card>
   {/if}
 {:catch}

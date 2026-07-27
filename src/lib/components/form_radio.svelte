@@ -13,7 +13,7 @@
 </script>
 
 <label class={`
-    flex flex-col gap-2 relative rounded-[50px] p-2 bg-ctp-surface1
+    flex flex-col gap-2 relative rounded-[50px] p-2 bg-ctp-surface1 overflow-hidden
     items-center justify-center hover:bg-ctp-lavender hover:text-ctp-crust
     has-checked:bg-ctp-rosewater has-checked:rounded-xl transition-all
     has-checked:text-ctp-crust cursor-pointer has-checked:cursor-default
