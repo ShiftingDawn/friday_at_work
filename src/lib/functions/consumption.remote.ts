@@ -4,57 +4,6 @@ import {testFunctionRole} from "$lib/functions";
 import {prisma} from "$lib/server/db";
 import {invalid} from "@sveltejs/kit";
 
-export const getDrinksUnderThreshold = query(async () => {
-  const {locals,} = await testFunctionRole("READ");
-  const workspaceId = locals.workspace!.id;
-
-  const [drinks, restocks, consumptions,] = await prisma.$transaction([
-    prisma.drink.findMany({
-      where: {
-        workspaceId,
-        threshold: {not: null,},
-        hidden: false,
-      },
-      select: {
-        id: true,
-        name: true,
-        threshold: true,
-      },
-    }),
-    prisma.restock.groupBy({
-      by: ["drinkId",],
-      where: {drink: {workspaceId,},},
-      _sum: {amount: true,},
-    }),
-    prisma.consumption.groupBy({
-      by: ["drinkId",],
-      where: {workspaceId,},
-      _count: {drinkId: true,},
-    }),
-  ]);
-
-  const stockMap = new Map(
-    restocks.map(r => [r.drinkId, r._sum.amount ?? 0,])
-  );
-  const consumptionMap = new Map(
-    consumptions.map(c => [c.drinkId, c._count.drinkId,])
-  );
-  return drinks.map(d => {
-    const totalStock = stockMap.get(d.id) ?? 0;
-    const totalConsumptions = consumptionMap.get(d.id) ?? 0;
-    const missingAmount = d.threshold! - (totalStock - totalConsumptions);
-
-    return {
-      id: d.id,
-      name: d.name,
-      totalStock,
-      totalConsumptions,
-      threshold: d.threshold!,
-      missingAmount,
-    };
-  }).filter(d => d.missingAmount > 0);
-});
-
 export const getPeopleForConsumption = query(async () => {
   const {locals,} = await testFunctionRole("WRITE");
   return prisma.person.findMany({

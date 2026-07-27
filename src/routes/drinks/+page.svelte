@@ -16,6 +16,10 @@
   import {flash} from "$lib/flash";
   import Spinner from "$comp/spinner.svelte";
   import Center from "$comp/center.svelte";
+  import {getDrinksUnderThreshold} from "$lib/functions/drinks.remote";
+  import TableRow from "$comp/table_row.svelte";
+  import TableHeadCell from "$comp/table_headcell.svelte";
+  import TableCell from "$comp/table_cell.svelte";
 
   const {data,}: PageProps = $props();
   const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
@@ -121,3 +125,44 @@
     </Section>
   {/if}
 </Card>
+
+{#await getDrinksUnderThreshold()}
+  <!-- NOOP -->
+{:then drinks}
+  {#if drinks.length > 0}
+    <Card title="Threshold error" class="mt-4">
+      <div class="w-full overflow-auto">
+        <table class="w-full">
+          <thead>
+          <TableRow>
+            <TableHeadCell class="w-full">Name</TableHeadCell>
+            <TableHeadCell>Threshold</TableHeadCell>
+            <TableHeadCell>Stock</TableHeadCell>
+            <TableHeadCell>Missing</TableHeadCell>
+            <TableHeadCell/>
+          </TableRow>
+          </thead>
+          <tbody>
+          {#each drinks as drink(`threshold_${drink.id}`)}
+            <TableRow>
+              <TableCell>{drink.name}</TableCell>
+              <TableCell>{drink.threshold}</TableCell>
+              <TableCell>{drink.totalStock - drink.totalConsumptions}</TableCell>
+              <TableCell>{drink.missingAmount}</TableCell>
+              <TableCell>
+                <Button as="a" href={`/drinks/${drink.id}`} class="w-fit">
+                  Details
+                </Button>
+              </TableCell>
+            </TableRow>
+          {/each}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  {/if}
+{:catch}
+  <Card title="Threshold error" class="mb-4">
+    <p>An error occurred while checking thresholds.</p>
+  </Card>
+{/await}
