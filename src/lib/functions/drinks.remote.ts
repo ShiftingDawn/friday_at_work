@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import {form, query} from "$app/server";
+import {command, form, query} from "$app/server";
 import {testFunctionRole} from "$lib/functions/index";
 import {prisma} from "$lib/server/db";
 import {bunfile} from "$lib/bunfile";
@@ -91,6 +91,24 @@ export const modifyDrinkHistoryRecord = form(
       },
       where: {id: consumption.id,},
     });
+  }
+);
+
+export const deleteDrinkHistoryRecord = command(
+  v.pipe(v.string(), v.uuid()),
+  async id => {
+    const {params,} = await testFunctionRole("ADMIN");
+    const consumption = await prisma.consumption.findFirst({
+      where: {
+        id,
+        personId: params.person,
+        drink: {workspaceId: params.workspace,},
+      },
+    });
+    if (!consumption) {
+      invalid("Consumption not found");
+    }
+    await prisma.consumption.delete({where: {id: consumption.id,},});
   }
 );
 
