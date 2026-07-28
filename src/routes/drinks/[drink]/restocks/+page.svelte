@@ -5,6 +5,7 @@
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
+  import {displayDate} from "$lib";
 
   const {data,}: PageProps = $props();
 </script>
@@ -28,7 +29,7 @@
       <tbody>
       {#each data.drink!.restocks as restock(restock.id)}
         <TableRow>
-          <TableCell>{restock.timestamp.toLocaleDateString("en-US", {dateStyle: "long",})}</TableCell>
+          <TableCell>{displayDate(restock.timestamp)}</TableCell>
           <TableCell>{restock.type === "RESTOCK" ? "Restock" : "Correction"}</TableCell>
           <TableCell>{restock.amount}</TableCell>
           <TableCell>{restock.creator.username}</TableCell>
