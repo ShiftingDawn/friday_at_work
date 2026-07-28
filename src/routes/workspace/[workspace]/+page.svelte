@@ -6,6 +6,7 @@
   import {addWorkspacePermission, getNotCurrentWorkspace, updateWorkspace} from "$lib/functions/workspace.remote";
   import FormLabel from "$comp/form_label.svelte";
   import FormInput from "$comp/form_input.svelte";
+  import FormSelect from "$comp/form_select.svelte";
   import Button from "$comp/button.svelte";
   import {flash} from "$lib/flash";
   import Modal from "$comp/modal.svelte";
@@ -84,13 +85,13 @@
                            disabled={addPermissionFormLoading}/>
               </FormLabel>
               <FormLabel name="Permission level" error={addWorkspacePermission.fields.role.issues()}>
-                <select {...addWorkspacePermission.fields.role.as("select")} required
+                <FormSelect {...addWorkspacePermission.fields.role.as("select")} required
                         disabled={addPermissionFormLoading}
                         class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
                   <option value="read" selected>Read only</option>
                   <option value="write">Read and Write</option>
                   <option value="admin">Admin</option>
-                </select>
+                </FormSelect>
               </FormLabel>
             </div>
             {#snippet actions()}

@@ -11,6 +11,7 @@
   import {flash} from "$lib/flash";
   import {goto} from "$app/navigation";
   import {resolve} from "$app/paths";
+  import FormSelect from "$comp/form_select.svelte";
 
   const {data,}: PageProps = $props();
   let updatePermissionFormLoading = $state(false);
@@ -48,12 +49,12 @@
         }
       })} class="max-w-md flex flex-col gap-4">
         <FormLabel name="Permission level" error={updateWorkspacePermission.fields.role.issues()}>
-          <select {...updateWorkspacePermission.fields.role.as("select")} required
+          <FormSelect {...updateWorkspacePermission.fields.role.as("select")} required
                   disabled={updatePermissionFormLoading} class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
             <option value="read" selected={data.permission!.permission === "READ"}>Read only</option>
             <option value="write" selected={data.permission!.permission === "WRITE"}>Read and Write</option>
             <option value="admin" selected={data.permission!.permission === "ADMIN"}>Administrator</option>
-          </select>
+          </FormSelect>
         </FormLabel>
         <Button type="submit" loading={updatePermissionFormLoading}>
           Save
