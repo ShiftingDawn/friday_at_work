@@ -9,13 +9,12 @@
   import {displayPrice} from "$lib";
   import IconButton from "$comp/icon_button.svelte";
   import IconReset from "$icon/reset.svelte";
-  import TableRow from "$comp/table_row.svelte";
-  import TableHeadCell from "$comp/table_headcell.svelte";
-  import TableCell from "$comp/table_cell.svelte";
   import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
   import {invalidateAll} from "$app/navigation";
+  import ReceiptTable from "./receipttable.svelte";
+  import HistoryTable from "./historytable.svelte";
 
   const {data,}: PageProps = $props();
   const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
@@ -76,51 +75,12 @@
   {#if data.consumptions?.length === 0}
     <p>No consumptions yet</p>
   {:else}
-    <table class="w-full">
-      <thead>
-      <TableRow>
-        <TableHeadCell>Drink</TableHeadCell>
-        <TableHeadCell>Price</TableHeadCell>
-        <TableHeadCell>Amount</TableHeadCell>
-        <TableHeadCell>Total</TableHeadCell>
-      </TableRow>
-      </thead>
-      <tbody>
-      {#each data.consumptions! as consumption(`${consumption.drink!.id}_${consumption.price}`)}
-        <TableRow>
-          <TableCell>{consumption.drink!.name}</TableCell>
-          <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
-          <TableCell>{consumption.count}</TableCell>
-          <TableCell>&euro;{displayPrice(consumption.price, consumption.count)}</TableCell>
-        </TableRow>
-      {/each}
-      </tbody>
-    </table>
+    <ReceiptTable consumptions={data.consumptions}/>
   {/if}
 </Card>
 {#if data.allConsumptions}
   <Card title="History" class="mt-4">
     <p>Records with a dark color have been reset already</p>
-    <table class="w-full">
-      <thead>
-      <TableRow>
-        <TableHeadCell>Drink</TableHeadCell>
-        <TableHeadCell>Price</TableHeadCell>
-        <TableHeadCell>Registered by</TableHeadCell>
-        <TableHeadCell>Registered at</TableHeadCell>
-      </TableRow>
-      </thead>
-      <tbody>
-      {#each data.allConsumptions as consumption(`history_${consumption.timestamp.getTime()}`)}
-        <TableRow
-          class={data.person!.reset && consumption.timestamp < data.person!.reset ? "bg-ctp-mantle/50" : undefined}>
-          <TableCell>{consumption.drink!.name}</TableCell>
-          <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
-          <TableCell>{consumption.creator.username}</TableCell>
-          <TableCell>{consumption.timestamp.toLocaleDateString("en-us", {dateStyle: "long",})}</TableCell>
-        </TableRow>
-      {/each}
-      </tbody>
-    </table>
+    <HistoryTable canAdmin={data.canAdmin} person={data.person} consumptions={data.allConsumptions}/>
   </Card>
 {/if}

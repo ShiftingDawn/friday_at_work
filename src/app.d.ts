@@ -2,6 +2,7 @@
 // for information about these interfaces
 declare global {
   namespace App {
+    type Unpacked<T> = T extends (infer U)[] ? U : T;
     // interface Error {}
     interface Locals {
       user: import("$lib/server/auth").ServerSession["user"],

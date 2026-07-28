@@ -64,6 +64,36 @@ export const setDrinkThreshold = form(
   }
 );
 
+export const modifyDrinkHistoryRecord = form(
+  v.object({
+    id: v.pipe(v.string(), v.uuid()),
+    drink: v.pipe(v.string(), v.uuid()),
+    price: v.pipe(v.number(), v.integer(), v.minValue(1)),
+    timestamp: v.pipe(v.string(), v.toDate()),
+  }),
+  async ({id, drink, price, timestamp,}) => {
+    const {params,} = await testFunctionRole("ADMIN");
+    const consumption = await prisma.consumption.findFirst({
+      where: {
+        id,
+        personId: params.person,
+        drink: {workspaceId: params.workspace,},
+      },
+    });
+    if (!consumption) {
+      invalid("Consumption not found");
+    }
+    await prisma.consumption.update({
+      data: {
+        drinkId: drink,
+        price,
+        timestamp: new Date(timestamp.toISOString().split("T")[0] + "T" + consumption.timestamp.toISOString().split("T")[1]),
+      },
+      where: {id: consumption.id,},
+    });
+  }
+);
+
 export const getDrinksUnderThreshold = query(async () => {
   const {locals,} = await testFunctionRole("READ");
   const workspaceId = locals.workspace!.id;
