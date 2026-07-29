@@ -10,13 +10,8 @@
   import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
   import Spinner from "$comp/spinner.svelte";
   import Center from "$comp/center.svelte";
-  import {onMount} from "svelte";
 
   const {data,}: PageProps = $props();
-
-  onMount(() => {
-    flash("success", "test", "test");
-  });
 </script>
 
 {#await getDrinksForConsumption()}
