@@ -6,6 +6,7 @@
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
   import {displayDate} from "$lib";
+    import Table from "$comp/table.svelte";
 
   const {data,}: PageProps = $props();
 </script>
@@ -17,7 +18,7 @@
   {#if !data.drink?.restocks?.length}
     <p>No restocks yet</p>
   {:else}
-    <table class="w-full">
+    <Table>
       <thead>
       <TableRow>
         <TableHeadCell>Date</TableHeadCell>
@@ -36,6 +37,6 @@
         </TableRow>
       {/each}
       </tbody>
-    </table>
+    </Table>
   {/if}
 </Card>

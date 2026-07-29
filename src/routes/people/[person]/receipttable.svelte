@@ -4,11 +4,12 @@
   import TableCell from "$comp/table_cell.svelte";
   import type {PageProps} from "./$types";
   import {displayPrice} from "$lib";
+    import Table from "$comp/table.svelte";
 
   const {consumptions,}: {consumptions: PageProps["data"]["consumptions"];} = $props();
 </script>
 
-<table class="w-full">
+<Table>
   <thead>
   <TableRow>
     <TableHeadCell>Drink</TableHeadCell>
@@ -27,4 +28,4 @@
     </TableRow>
   {/each}
   </tbody>
-</table>
+</Table>

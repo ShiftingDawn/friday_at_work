@@ -12,6 +12,7 @@
   import FormLabel from "$comp/form_label.svelte";
   import Button from "$comp/button.svelte";
   import {enhance} from "$app/forms";
+  import Table from "$comp/table.svelte";
 
   const {data, form,} = $props();
   let modalOpen = $state(false);
@@ -63,7 +64,7 @@
       {/snippet}
     </Modal>
   </form>
-  <table class="w-full">
+  <Table>
     <thead>
     <TableRow>
       <TableHeadCell>Name</TableHeadCell>
@@ -78,5 +79,5 @@
       </TableRow>
     {/each}
     </tbody>
-  </table>
+  </Table>
 </Card>

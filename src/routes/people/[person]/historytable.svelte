@@ -15,6 +15,7 @@
   import FormSelect from "$comp/form_select.svelte";
   import FormInput from "$comp/form_input.svelte";
   import {invalidateAll} from "$app/navigation";
+    import Table from "$comp/table.svelte";
 
   const {
     canAdmin,
@@ -110,7 +111,7 @@
   </Modal>
 {/if}
 
-<table class="w-full">
+<Table>
   <thead>
   <TableRow>
     <TableHeadCell>Drink</TableHeadCell>
@@ -145,4 +146,4 @@
     </TableRow>
   {/each}
   </tbody>
-</table>
+</Table>

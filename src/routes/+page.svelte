@@ -18,16 +18,14 @@
   <!-- NOOP -->
 {:then drinks}
   {#if drinks.length > 0}
-    <Card title="Threshold errors" class="mb-4">
-      <p class="mx-4">
-        {#if drinks.length === 1}
-          One drink is
-        {:else}
-          Multiple drinks are
-        {/if}
-        not meeting their set threshold. Visit the drinks page for more details.
-      </p>
-    </Card>
+    <div class="bg-ctp-red text-ctp-base p-4 rounded-2xl shadow-lg mb-4">
+      {#if drinks.length === 1}
+        One drink is
+      {:else}
+        Multiple drinks are
+      {/if}
+      not meeting their set threshold. Visit the drinks page for more details.
+    </div>
   {/if}
 {/await}
 {#if !data.canWrite}

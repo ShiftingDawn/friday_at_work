@@ -12,14 +12,14 @@
   import IconCreate from "$icon/plus.svelte";
   import IconHide from "$icon/hide.svelte";
   import IconShow from "$icon/show.svelte";
-  import {addDrink, getHiddenDrinks, getVisibleDrinks} from "$lib/functions/drinks.remote";
+  import {addDrink, getDrinksUnderThreshold, getHiddenDrinks, getVisibleDrinks} from "$lib/functions/drinks.remote";
   import {flash} from "$lib/flash";
   import Spinner from "$comp/spinner.svelte";
   import Center from "$comp/center.svelte";
-  import {getDrinksUnderThreshold} from "$lib/functions/drinks.remote";
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
+  import Table from "$comp/table.svelte";
 
   const {data,}: PageProps = $props();
   const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
@@ -132,7 +132,7 @@
   {#if drinks.length > 0}
     <Card title="Threshold error" class="mt-4">
       <div class="w-full overflow-auto">
-        <table class="w-full">
+        <Table>
           <thead>
           <TableRow>
             <TableHeadCell class="w-full">Name</TableHeadCell>
@@ -157,7 +157,7 @@
             </TableRow>
           {/each}
           </tbody>
-        </table>
+        </Table>
       </div>
     </Card>
   {/if}
