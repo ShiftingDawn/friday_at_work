@@ -35,10 +35,12 @@
 {:else}
   <form {...addConsumption.enhance(async form => {
     try {
-      flash("info", "Consumption", "Processing...");
+      const personRadio = document.querySelector(`input[value='${form.fields.person.value()}']`) as HTMLInputElement;
+      const personName = (personRadio.nextSibling! as unknown as {wholeText: string}).wholeText.trim();
+      flash("info", "Consumption", `Processing drink for ${personName}`);
       if (await form.submit()) {
         form.element.reset();
-        flash("success", "Consumption", "Registered successfully");
+        flash("success", "Consumption", `Poured one out for ${personName}`);
       } else {
         flash("error", "Could not register consumption");
       }
