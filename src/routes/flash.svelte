@@ -5,7 +5,7 @@
   import {flip} from "svelte/animate";
 </script>
 
-<div class="fixed inset-0 pointer-events-none flex flex-col-reverse justify-start items-center gap-4 pb-4">
+<div class="fixed inset-0 pointer-events-none flex flex-col-reverse justify-start items-center gap-4 pb-4 z-50">
   {#each $flashStore as flash, i (flash.id)}
     <div
       animate:flip={{ duration: 200, }}

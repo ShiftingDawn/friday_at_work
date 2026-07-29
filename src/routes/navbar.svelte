@@ -32,7 +32,7 @@
   onNavigate(() => menuAnchor = undefined);
 </script>
 
-<nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-30">
+<nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
   <div class="flex items-start gap-4">
     <HeaderButton name="Home" href="/">
       <IconHome/>
@@ -49,13 +49,13 @@
       <IconAccount/>
     </IconButton>
     <div class={twMerge(
-      "fixed inset-0 z-40 hidden",
+      "fixed inset-0 z-30 hidden",
       menuAnchor && "block"
     )} onclick={() => menuAnchor = undefined} onkeydown={() => menuAnchor = undefined}
          role={menuAnchor ? "button" : undefined} aria-label={menuAnchor ? "Close menu" : undefined}>
     </div>
     <div bind:this={menuElement} style={menuStyle} class={twMerge(
-      "fixed origin-top-right rounded-lg bg-ctp-surface1 shadow-xl overflow-hidden z-50",
+      "fixed origin-top-right rounded-lg bg-ctp-surface1 shadow-xl overflow-hidden z-40",
       "transition-all duration-200 ease-out",
       "scale-95 opacity-0 pointer-events-none",
       menuAnchor && "scale-100 opacity-100 pointer-events-auto"
