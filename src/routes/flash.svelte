@@ -12,16 +12,21 @@
       in:fly={{ y: 32, duration: 250, opacity: 0, delay: i * 50,}}
       out:fly={{ y: 32, duration: 200, opacity: 0, }}
       class={twMerge(
-        "w-xs px-4 py-2 rounded-lg shadow-lg text-ctp-base",
+        "w-xs rounded-lg shadow-lg text-ctp-base overflow-hidden",
         flash.type === "success" && "bg-ctp-green",
         flash.type === "warning" && "bg-ctp-yellow",
         flash.type === "error" && "bg-ctp-red",
         flash.type === "info" && "bg-ctp-blue"
       )}>
-      {#if flash.title}
-        <p><strong>{flash.title}</strong></p>
-      {/if}
-      <p>{flash.text}</p>
+      <div class="px-4 py-2 overflow-auto">
+        {#if flash.title}
+          <p><strong>{flash.title}</strong></p>
+        {/if}
+        <p>{flash.text}</p>
+      </div>
+      <div class="w-full bg-white h-1 animate-shrink origin-left" aria-hidden="true" role="presentation">
+
+      </div>
     </div>
   {/each}
 </div>
