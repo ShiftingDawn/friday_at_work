@@ -16,6 +16,10 @@
   import {setDrinkThreshold} from "$lib/functions/drinks.remote";
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
+  import Table from "$comp/table.svelte";
+  import TableRow from "$comp/table_row.svelte";
+  import TableHeadCell from "$comp/table_headcell.svelte";
+  import TableCell from "$comp/table_cell.svelte";
 
   const {params, data,}: PageProps = $props();
   let addRestockModalOpen = $state(false);
@@ -191,4 +195,26 @@
       </div>
     </Section>
   {/if}
+</Card>
+<Card title="Consumptions" class="mt-4">
+  <Table>
+    <thead>
+      <TableRow>
+        <TableHeadCell>Person</TableHeadCell>
+        <TableHeadCell>Price</TableHeadCell>
+        <TableHeadCell>Registered by</TableHeadCell>
+        <TableHeadCell>Registered at</TableHeadCell>
+      </TableRow>
+    </thead>
+    <tbody>
+      {#each data.consumptions as consumption(consumption.id)}
+        <TableRow>
+          <TableCell>{consumption.person.name}</TableCell>
+          <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
+          <TableCell>{consumption.creator.username}</TableCell>
+          <TableCell>{displayDate(consumption.timestamp)}</TableCell>
+        </TableRow>
+      {/each}
+    </tbody>
+  </Table>
 </Card>

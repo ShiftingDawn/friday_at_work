@@ -8,22 +8,27 @@ import {hasWriteRole} from "$lib/server/permission";
 import {getWorkspace} from "$lib/server/workspace";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
-  const [restocked, consumed,] = await Promise.all([
+  const [restocked, consumptions,] = await Promise.all([
     prisma.restock.aggregate({
       where: {drinkId: params.drink,},
       _sum: {amount: true,},
     }),
-    prisma.consumption.count({where: {workspaceId: locals.workspace!.id, drinkId: params.drink,},}),
+    prisma.consumption.findMany({
+      where: {workspaceId: locals.workspace!.id, drinkId: params.drink,},
+      include: {person: {select: {name: true,},}, creator: {select: {username: true,},},},
+      orderBy: {timestamp: "desc",},
+    }),
   ]);
   return {
     drink: await prisma.drink.findFirst({where: {workspaceId: locals.workspace!.id, id: params.drink,},}),
     amountRestocked: restocked._sum.amount ?? 0,
-    amountConsumed: consumed,
-    stock: (restocked._sum.amount ?? 0) - consumed,
+    amountConsumed: consumptions.length,
+    stock: (restocked._sum.amount ?? 0) - consumptions.length,
     last_restock: await prisma.restock.findFirst({
       where: {drinkId: params.drink,},
       orderBy: {timestamp: "desc",},
     }),
+    consumptions,
   };
 };
 
