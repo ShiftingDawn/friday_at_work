@@ -8,13 +8,14 @@
   import DrinkImage from "$comp/drink_image.svelte";
   import {flash} from "$lib/flash";
   import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
+  import {getDrinksUnderThreshold} from "$lib/functions/drinks.remote";
   import Spinner from "$comp/spinner.svelte";
   import Center from "$comp/center.svelte";
 
   const {data,}: PageProps = $props();
 </script>
 
-{#await getDrinksForConsumption()}
+{#await getDrinksUnderThreshold()}
   <!-- NOOP -->
 {:then drinks}
   {#if drinks.length > 0}
