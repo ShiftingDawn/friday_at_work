@@ -2,6 +2,7 @@
   import HeaderButton from "$comp/header_button.svelte";
   import HeaderMenuButton from "$comp/header_menu_button.svelte";
   import IconHome from "$icon/home.svelte";
+  import IconTrophy from "$icon/trophy.svelte";
   import IconPerson from "$icon/person.svelte";
   import IconDrinks from "$icon/drinks.svelte";
   import IconWorkspace from "$icon/workspace.svelte";
@@ -36,6 +37,9 @@
   <div class="flex items-start gap-4">
     <HeaderButton name="Home" href="/">
       <IconHome/>
+    </HeaderButton>
+    <HeaderButton name="Scores" href="/scores">
+      <IconTrophy/>
     </HeaderButton>
     <HeaderButton name="People" href="/people">
       <IconPerson/>
