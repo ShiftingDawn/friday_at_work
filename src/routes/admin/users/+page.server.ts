@@ -1,7 +1,7 @@
 import type {Actions, PageServerLoad} from "./$types";
-import {prisma} from "$lib/server/db";
 import {fail} from "@sveltejs/kit";
 import {hashSync} from "bcrypt";
+import {prisma} from "$lib/server/db";
 
 export const load: PageServerLoad = async () => {
   return {users: await prisma.user.findMany({include: {_count: {select: {workspaces: true,},},},}),};

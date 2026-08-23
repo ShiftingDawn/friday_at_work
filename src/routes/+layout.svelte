@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type {LayoutProps} from "./$types";
-  import Navbar from "./navbar.svelte";
-  import "./layout.css";
-  import Flash from "./flash.svelte";
+    import type {LayoutProps} from "./$types";
+    import Navbar from "./navbar.svelte";
+    import "./layout.css";
+    import Flash from "./flash.svelte";
 
-  let {children, data,}: LayoutProps = $props();
+    let {children, data,}: LayoutProps = $props();
 </script>
 
 <svelte:head>
@@ -24,7 +24,7 @@
 </svelte:head>
 
 {#if data.isLoggedIn && data.hasWorkspace }
-  <Navbar/>
+  <Navbar isAdmin={data.isUserAdmin}/>
 {/if}
 <div class="container mx-auto p-4">
   {@render children()}

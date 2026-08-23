@@ -8,6 +8,7 @@
     import IconDrinks from "$icon/drinks.svelte";
     import IconWorkspace from "$icon/workspace.svelte";
     import IconAccount from "$icon/account.svelte";
+    import IconSettings from "$icon/settings.svelte";
     import IconSignOut from "$icon/signout.svelte";
     import IconButton from "$comp/icon_button.svelte";
     import {twMerge} from "tailwind-merge";
@@ -32,6 +33,8 @@
     `;
     });
     onNavigate(() => menuAnchor = undefined);
+
+    const {isAdmin,}: { isAdmin: boolean } = $props();
 </script>
 
 <nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
@@ -72,6 +75,11 @@
         <HeaderMenuButton name="Preferences" href="/settings">
           <IconAccount/>
         </HeaderMenuButton>
+        {#if isAdmin}
+          <HeaderMenuButton name="Admin panel" href="/admin">
+            <IconSettings/>
+          </HeaderMenuButton>
+        {/if}
         <HeaderMenuButton name="Sign out" href="/signout" data-sveltekit-reload>
           <IconSignOut/>
         </HeaderMenuButton>

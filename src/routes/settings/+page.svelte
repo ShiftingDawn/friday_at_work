@@ -1,8 +1,6 @@
 <script lang="ts">
     import Button from "$comp/button.svelte";
     import Card from "$comp/card.svelte";
-    import IconButton from "$comp/icon_button.svelte";
-    import IconSettings from "$icon/settings.svelte";
     import FormCheckbox from "$comp/form_checkbox.svelte";
     import Section from "$comp/section.svelte";
     import {onMount} from "svelte";
@@ -37,13 +35,6 @@
 </Card>
 
 <Card title="Account" class="max-w-md mx-auto mt-4">
-  {#snippet action()}
-    {#if data.isUserAdmin}
-      <IconButton as="a" href="/account/admin">
-        <IconSettings/>
-      </IconButton>
-    {/if}
-  {/snippet}
   <div class="flex flex-col gap-4">
     <Button as="a" href="/settings/password">
       Change password

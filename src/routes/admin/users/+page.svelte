@@ -1,26 +1,26 @@
 <script lang="ts">
-  import Card from "$comp/card.svelte";
-  import BackButton from "$comp/back_button.svelte";
-  import IconButton from "$comp/icon_button.svelte";
-  import TableRow from "$comp/table_row.svelte";
-  import TableHeadCell from "$comp/table_headcell.svelte";
-  import TableCell from "$comp/table_cell.svelte";
-  import Modal from "$comp/modal.svelte";
-  import IconCreate from "$icon/plus.svelte";
-  import FormInput from "$comp/form_input.svelte";
-  import FormCheckbox from "$comp/form_checkbox.svelte";
-  import FormLabel from "$comp/form_label.svelte";
-  import Button from "$comp/button.svelte";
-  import {enhance} from "$app/forms";
-  import Table from "$comp/table.svelte";
+    import Card from "$comp/card.svelte";
+    import BackButton from "$comp/back_button.svelte";
+    import IconButton from "$comp/icon_button.svelte";
+    import TableRow from "$comp/table_row.svelte";
+    import TableHeadCell from "$comp/table_headcell.svelte";
+    import TableCell from "$comp/table_cell.svelte";
+    import Modal from "$comp/modal.svelte";
+    import IconCreate from "$icon/plus.svelte";
+    import FormInput from "$comp/form_input.svelte";
+    import FormCheckbox from "$comp/form_checkbox.svelte";
+    import FormLabel from "$comp/form_label.svelte";
+    import Button from "$comp/button.svelte";
+    import {enhance} from "$app/forms";
+    import Table from "$comp/table.svelte";
 
-  const {data, form,} = $props();
-  let modalOpen = $state(false);
+    const {data, form,} = $props();
+    let modalOpen = $state(false);
 </script>
 
 <Card title="Manage users">
   {#snippet back()}
-    <BackButton href="/account/admin"/>
+    <BackButton href="/admin"/>
   {/snippet}
   {#snippet action()}
     <IconButton onclick={() => modalOpen = true}>
@@ -35,22 +35,22 @@
         {/if}
         <FormLabel name="Username">
           <FormInput
-            name="username"
-            minlength={3}
-            maxlength={24}
-            required
-            autocomplete="off"
-            autocapitalize="off"
+              name="username"
+              minlength={3}
+              maxlength={24}
+              required
+              autocomplete="off"
+              autocapitalize="off"
           />
         </FormLabel>
         <FormLabel name="Password">
           <FormInput
-            name="password"
-            type="password"
-            minlength={8}
-            required
-            autocomplete="off"
-            autocapitalize="off"
+              name="password"
+              type="password"
+              minlength={8}
+              required
+              autocomplete="off"
+              autocapitalize="off"
           />
         </FormLabel>
         <div class="ml-2">
