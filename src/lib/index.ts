@@ -3,7 +3,11 @@ export function displayPrice(price: number, count: number = 1) {
 }
 
 export function displayDate<T extends Date | undefined>(date: T): T extends Date ? string : undefined {
-  return date?.toLocaleDateString("en-US", {dateStyle: "long",}) as T extends Date ? string : undefined;
+  const str = date?.toLocaleDateString("en-US", {dateStyle: "long",}) as T extends Date ? string : undefined;
+  if ("showtime" in localStorage && date) {
+    return `${str} at ${date.toLocaleString("nl-NL", {timeStyle: "short",})}` as T extends Date ? string : undefined;
+  }
+  return str;
 }
 
 export function getWeekStartDate() {

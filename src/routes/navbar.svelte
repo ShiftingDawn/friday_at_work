@@ -1,36 +1,37 @@
 <script lang="ts">
-  import HeaderButton from "$comp/header_button.svelte";
-  import HeaderMenuButton from "$comp/header_menu_button.svelte";
-  import IconHome from "$icon/home.svelte";
-  import IconTrophy from "$icon/trophy.svelte";
-  import IconPerson from "$icon/person.svelte";
-  import IconDrinks from "$icon/drinks.svelte";
-  import IconWorkspace from "$icon/workspace.svelte";
-  import IconAccount from "$icon/account.svelte";
-  import IconSignOut from "$icon/signout.svelte";
-  import IconButton from "$comp/icon_button.svelte";
-  import {twMerge} from "tailwind-merge";
-  import {onNavigate} from "$app/navigation";
+    import HeaderButton from "$comp/header_button.svelte";
+    import HeaderMenuButton from "$comp/header_menu_button.svelte";
+    import IconHome from "$icon/home.svelte";
+    import IconMenu from "$icon/menu.svelte";
+    import IconTrophy from "$icon/trophy.svelte";
+    import IconPerson from "$icon/person.svelte";
+    import IconDrinks from "$icon/drinks.svelte";
+    import IconWorkspace from "$icon/workspace.svelte";
+    import IconAccount from "$icon/account.svelte";
+    import IconSignOut from "$icon/signout.svelte";
+    import IconButton from "$comp/icon_button.svelte";
+    import {twMerge} from "tailwind-merge";
+    import {onNavigate} from "$app/navigation";
 
-  let menuAnchor = $state<HTMLElement>();
-  let menuElement = $state<HTMLDivElement>();
-  let menuStyle = $state("");
-  $effect(() => {
-    if (!menuAnchor || !menuElement) return;
-    const rect = menuAnchor.getBoundingClientRect();
-    const menuWidth = menuElement.offsetWidth;
-    const margin = 8;
-    let left = rect.right - menuWidth;
-    // Keep the menu on screen.
-    left = Math.max(margin, left);
-    left = Math.min(left, window.innerWidth - menuWidth - margin);
-    menuStyle = `
+    let menuAnchor = $state<HTMLElement>();
+    let menuElement = $state<HTMLDivElement>();
+    let menuStyle = $state("");
+    $effect(() => {
+      if (!menuAnchor || !menuElement) return;
+      const rect = menuAnchor.getBoundingClientRect();
+      const menuWidth = menuElement.offsetWidth;
+      const margin = 8;
+      let left = rect.right - menuWidth;
+      // Keep the menu on screen.
+      left = Math.max(margin, left);
+      left = Math.min(left, window.innerWidth - menuWidth - margin);
+      menuStyle = `
       position: fixed;
       top: ${rect.top}px;
       left: ${left}px;
     `;
-  });
-  onNavigate(() => menuAnchor = undefined);
+    });
+    onNavigate(() => menuAnchor = undefined);
 </script>
 
 <nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
@@ -50,7 +51,7 @@
   </div>
   <div class="relative">
     <IconButton onclick={e => menuAnchor = e.currentTarget}>
-      <IconAccount/>
+      <IconMenu/>
     </IconButton>
     <div class={twMerge(
       "fixed inset-0 z-30 hidden",
@@ -68,7 +69,7 @@
         <HeaderMenuButton name="Workspace" href="/workspace">
           <IconWorkspace/>
         </HeaderMenuButton>
-        <HeaderMenuButton name="Account" href="/account">
+        <HeaderMenuButton name="Preferences" href="/settings">
           <IconAccount/>
         </HeaderMenuButton>
         <HeaderMenuButton name="Sign out" href="/signout" data-sveltekit-reload>

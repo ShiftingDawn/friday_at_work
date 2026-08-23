@@ -1,13 +1,13 @@
 <script lang="ts">
-  import Button from "$comp/button.svelte";
-  import Divider from "$comp/divider.svelte";
-  import FormLabel from "$comp/form_label.svelte";
-  import FormInput from "$comp/form_input.svelte";
-  import Card from "$comp/card.svelte";
-  import {signUp} from "$lib/functions/auth.remote";
-  import {flash} from "$lib/flash";
-  import {goto} from "$app/navigation";
-  import {resolve} from "$app/paths";
+    import Button from "$comp/button.svelte";
+    import Divider from "$comp/divider.svelte";
+    import FormLabel from "$comp/form_label.svelte";
+    import FormInput from "$comp/form_input.svelte";
+    import Card from "$comp/card.svelte";
+    import {signUp} from "$lib/functions/auth.remote";
+    import {flash} from "$lib/flash";
+    import {goto} from "$app/navigation";
+    import {resolve} from "$app/paths";
 </script>
 
 <Card title="Sign up" class="max-w-md mx-auto">
@@ -18,40 +18,40 @@
           flash("success", "Welcome!");
           await goto(resolve("/"));
         } else {
-          flash("error", "Could not create account");
+          flash("error", "Could not create settings");
         }
       } catch {
-        flash("error", "Could not create account", "An unknown error occurred");
+        flash("error", "Could not create settings", "An unknown error occurred");
       }
     })} class="flex flex-col gap-2">
       <FormLabel name="Username" error={signUp.fields.username.issues()}>
         <FormInput
-          name="username"
-          minlength={3}
-          maxlength={24}
-          required
-          autocomplete="off"
-          autocapitalize="off"
+            name="username"
+            minlength={3}
+            maxlength={24}
+            required
+            autocomplete="off"
+            autocapitalize="off"
         />
       </FormLabel>
       <FormLabel name="Password" error={signUp.fields._password.issues()}>
         <FormInput
-          {...signUp.fields._password.as("password")}
-          minlength={8}
-          maxlength={255}
-          required
-          autocomplete="off"
-          autocapitalize="off"
+            {...signUp.fields._password.as("password")}
+            minlength={8}
+            maxlength={255}
+            required
+            autocomplete="off"
+            autocapitalize="off"
         />
       </FormLabel>
       <FormLabel name="Confirm password" error={signUp.fields._password2.issues()}>
         <FormInput
-          {...signUp.fields._password2.as("password")}
-          minlength={8}
-          maxlength={255}
-          required
-          autocomplete="off"
-          autocapitalize="off"
+            {...signUp.fields._password2.as("password")}
+            minlength={8}
+            maxlength={255}
+            required
+            autocomplete="off"
+            autocapitalize="off"
         />
       </FormLabel>
       <div class="mx-auto">
