@@ -21,3 +21,13 @@ export function getLastWeekStartDate() {
   monday.setDate(diff - 7);
   return monday;
 }
+
+export function getMonthStartDate() {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), 1);
+}
+
+export function getLastMonthStartDate() {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth() - 1, 1);
+}

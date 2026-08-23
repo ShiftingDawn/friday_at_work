@@ -31,6 +31,11 @@
       >
         {record.label}
       </div>
+      {#if record.amount < rows[0].amount}
+        <div style="grid-column: {rows[0].amount - record.amount} span / {rows[0].amount - record.amount} span"
+             aria-hidden="true" role="presentation"
+        ></div>
+      {/if}
     {/each}
   </div>
 </div>
