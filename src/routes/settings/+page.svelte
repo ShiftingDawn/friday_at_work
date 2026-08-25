@@ -3,23 +3,21 @@
     import Card from "$comp/card.svelte";
     import FormCheckbox from "$comp/form_checkbox.svelte";
     import Section from "$comp/section.svelte";
+    import { showTime } from "$lib/preferences.js";
     import {onMount} from "svelte";
     import type {ChangeEventHandler} from "svelte/elements";
+    import { get } from 'svelte/store'
 
     const {data,} = $props();
 
     onMount(() => {
-      if ("showtimes" in localStorage) {
+      if (get(showTime)) {
         const checkbox = document.querySelector("#showtimestampscheckbox") as HTMLInputElement;
         checkbox.checked = true;
       }
     });
     const onShowTimestampsCheckboxChanged: ChangeEventHandler<HTMLInputElement> = e => {
-      if (e.currentTarget.checked) {
-        localStorage.setItem("showtimes", "1");
-      } else {
-        localStorage.removeItem("showtimes");
-      }
+      showTime.set(e.currentTarget.checked);
     };
 </script>
 

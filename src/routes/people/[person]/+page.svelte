@@ -58,7 +58,7 @@
 </Card>
 <Card title="Receipt" class="mt-4">
   {#snippet action()}
-        <span class="text-ctp-blue font-bold text-xl mr-4">
+        <span class="text-info font-bold text-xl mr-4">
             &euro;{displayPrice(totalPrice)}
         </span>
     {#if data.canAdmin && (data.consumptions?.length || 0) > 0}

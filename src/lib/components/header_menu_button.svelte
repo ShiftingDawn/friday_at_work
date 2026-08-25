@@ -16,7 +16,7 @@
 </script>
 
 <li>
-  <a href={href} class="flex items-center gap-4 px-4 py-2 first:pt-4 last:pb-4 hover:bg-ctp-lavender hover:text-ctp-crust" data-sveltekit-reload={doReload}>
+  <a href={href} class="flex items-center gap-4 px-4 py-2 first:pt-4 last:pb-4 hover:bg-primary hover:text-text-alt" data-sveltekit-reload={doReload}>
     <div class="w-8 h-8">
       {@render children()}
     </div>

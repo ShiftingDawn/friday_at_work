@@ -5,7 +5,7 @@
   const {href,}: { href: ResolvedPathname } = $props();
 </script>
 
-<a class="flex items-center hover:bg-ctp-lavender hover:text-ctp-crust rounded-lg transition-all"
+<a class="flex items-center hover:bg-primary hover:text-text-alt rounded-lg transition-all"
    href={href}>
     <div class="w-8 h-8">
         <IconBack/>

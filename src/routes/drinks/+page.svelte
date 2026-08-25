@@ -52,7 +52,7 @@
         <FormInput {...addDrink.fields.price.as("number")} required min="0" disabled={newDrinkFormLoading}/>
       </FormLabel>
       <FormLabel name="Image" error={addDrink.fields.image.issues()}>
-        <FormInput {...addDrink.fields.image.as("file")} class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"
+        <FormInput {...addDrink.fields.image.as("file")} class="p-0 file:h-8 file:bg-surface2 file:px-2 file:mr-2"
                    disabled={newDrinkFormLoading}/>
       </FormLabel>
     </div>
@@ -88,7 +88,7 @@
         </Center>
       {/snippet}
       {#each await getVisibleDrinks() as drink(drink.id)}
-        <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1 shadow-none">
+        <Card as="a" href={`/drinks/${drink.id}`} class="bg-surface1 shadow-none">
           <div class="font-bold text-center text-2xl">{drink.name}</div>
           <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
             <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
@@ -110,7 +110,7 @@
             </Center>
           {/snippet}
           {#each await getHiddenDrinks()! as drink(drink.id)}
-            <Card as="a" href={`/drinks/${drink.id}`} class="bg-ctp-surface1">
+            <Card as="a" href={`/drinks/${drink.id}`} class="bg-surface1">
               <div class="font-bold text-center text-2xl">{drink.name}</div>
               <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
                 <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>

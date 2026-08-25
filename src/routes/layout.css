@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@catppuccin/tailwindcss/mocha.css";
 
 @theme {
     --animate-shrink: shrink 5s linear forwards;
@@ -14,8 +13,30 @@
         transform: scaleX(0);
     }
 }
+
+@theme {
+    --color-base: #eff1f5;
+    --color-base-alt: #acb0be;
+
+    --color-text: #4c4f69;
+    --color-text-alt: #dce0e8;
+
+    --color-surface0: #ccd0da;
+    --color-surface1: #bcc0cc;
+    --color-surface2: #acb0be;
+
+    --color-primary: #7287fd;
+    --color-secondary: #dc8a78;
+
+    --color-success: #40a02b;
+    --color-info: #1e66f5;
+    --color-warning: #df8e1d;
+    --color-error: #d20f39;
+}
+
 html, body {
     width: 100%;
     height: 100%;
-    @apply bg-ctp-base text-ctp-text;
+    background: var(--color-base);
+    color: var(--color-text);
 }

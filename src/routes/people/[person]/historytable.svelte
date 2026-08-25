@@ -3,7 +3,7 @@
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
-  import {displayDate, displayPrice} from "$lib";
+  import {displayPrice} from "$lib";
   import Button from "$comp/button.svelte";
   import Modal from "$comp/modal.svelte";
   import {getDrinksForConsumption} from "$lib/functions/consumption.remote";
@@ -16,6 +16,7 @@
   import FormInput from "$comp/form_input.svelte";
   import {invalidateAll} from "$app/navigation";
     import Table from "$comp/table.svelte";
+    import Date from "$comp/date.svelte";
 
   const {
     canAdmin,
@@ -89,13 +90,13 @@
   <Modal title="Delete record" open={Boolean(deleteModalData)} onclose={() => deleteModalData = undefined}>
     <p>Are you sure you want to delete the following data?</p>
     <p>This cannot be undone!</p>
-    <div class="grid grid-cols-2 bg-ctp-base p-4 rounded-md">
+    <div class="grid grid-cols-2 bg-base p-4 rounded-md">
       <strong>Drink</strong>
       <span>{deleteModalData!.drink.name}</span>
       <strong>Price</strong>
       <span>&euro;{displayPrice(deleteModalData!.price)}</span>
       <strong>Timestamp</strong>
-      <span>{displayDate(deleteModalData!.timestamp)}</span>
+      <span><Date value={deleteModalData!.timestamp}/></span>
     </div>
     {#snippet actions()}
       <Button type="button" onclick={async () => {
@@ -126,11 +127,11 @@
   <tbody>
   {#each consumptions as consumption(`history_${consumption.timestamp.getTime()}`)}
     <TableRow
-      class={person!.reset && consumption.timestamp < person!.reset ? "bg-ctp-mantle/50" : undefined}>
+      class={person!.reset && consumption.timestamp < person!.reset ? "bg-secondary" : undefined}>
       <TableCell>{consumption.drink!.name}</TableCell>
       <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
       <TableCell>{consumption.creator.username}</TableCell>
-      <TableCell>{displayDate(consumption.timestamp)}</TableCell>
+      <TableCell><Date value={consumption.timestamp}/></TableCell>
       {#if canAdmin}
         <TableHeadCell>
           <div class="flex gap-4">

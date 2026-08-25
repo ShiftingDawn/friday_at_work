@@ -30,8 +30,8 @@
 
 <svelte:element this={as} disabled={disabled || loading} {...rest}
                 class={twMerge(
-                  "bg-ctp-surface1 min-w-8 h-8 px-4 rounded-full cursor-pointer hover:bg-ctp-lavender hover:text-ctp-base transition-all flex flex-row gap-2 items-center justify-center",
-                  (disabled || loading) && "hover:bg-ctp-unset hover:text-ctp-text cursor-not-allowed",
+                  "bg-surface1 min-w-8 h-8 px-4 rounded-full cursor-pointer hover:bg-primary hover:text-base transition-all flex flex-row gap-2 items-center justify-center",
+                  (disabled || loading) && "hover:bg-unset hover:text-text cursor-not-allowed",
                   cls as any
                 )}
 >

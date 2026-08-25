@@ -17,22 +17,22 @@
 </script>
 
 <label class={twMerge(
-  "flex flex-col bg-ctp-overlay2 rounded-2xl group/formcontrol",
-  error && "bg-ctp-red",
+  "flex flex-col bg-base-alt rounded-2xl group/formcontrol",
+  error && "bg-error",
   cls
 )} data-invalid={Boolean(error)}>
-  <span class="pl-4 pr-2 text-ctp-base font-bold">{name}</span>
+  <span class="pl-4 pr-2 text-base font-bold">{name}</span>
   <span class="p-1">
         {@render children()}
     </span>
   {#if typeof error === "string"}
-    <p class="px-4 text-ctp-base">{error}</p>
+    <p class="px-4 text-base">{error}</p>
   {:else if Array.isArray(error)}
     {#each error as err, i (i)}
       {#if typeof err === "string"}
-        <p class="px-4 text-ctp-base">{err}</p>
+        <p class="px-4 text-base">{err}</p>
       {:else}
-        <p class="px-4 text-ctp-base">{err.message}</p>
+        <p class="px-4 text-base">{err.message}</p>
       {/if}
     {/each}
   {/if}

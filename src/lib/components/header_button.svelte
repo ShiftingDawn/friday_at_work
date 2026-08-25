@@ -23,8 +23,8 @@
 </script>
 
 <a href={href} class={twMerge(
-  "text-ctp-text bg-ctp-surface0 rounded-[50px] px-4 py-2 flex items-center gap-2 min-w-fit transition-all hover:bg-ctp-lavender hover:text-ctp-crust",
-  active && "bg-ctp-rosewater text-ctp-crust rounded-lg hover:cursor-default hover:bg-ctp-rosewater"
+  "text-text bg-surface0 rounded-[50px] px-4 py-2 flex items-center gap-2 min-w-fit transition-all hover:bg-primary hover:text-text-alt",
+  active && "bg-secondary text-text-alt rounded-lg hover:cursor-default hover:bg-secondary"
 )} data-sveltekit-reload={doReload}>
     <div class="w-8 h-8">
         {@render children()}

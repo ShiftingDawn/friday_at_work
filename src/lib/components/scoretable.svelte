@@ -10,12 +10,12 @@
 </script>
 
 <div
-    class="grid gap-4 text-ctp-crust"
+    class="grid gap-4 text-text-alt"
     style="grid-template-columns: auto 1fr;"
 >
   <div class="grid gap-4">
     {#each rows as record(`score_${record.id}`)}
-      <div class="bg-ctp-lavender p-2 rounded-lg text-center min-w-10">
+      <div class="bg-primary p-2 rounded-lg text-center min-w-10">
         {record.amount}
       </div>
     {/each}
@@ -28,7 +28,7 @@
     >
       {#each rows as record(`bar_${record.id}`)}
         <div
-            class="bg-ctp-lavender rounded-lg min-w-0 flex items-center pl-2 truncate"
+            class="bg-primary rounded-lg min-w-0 flex items-center pl-2 truncate"
             style="grid-column: {record.amount} span / {record.amount} span"
         >
           {record.label}

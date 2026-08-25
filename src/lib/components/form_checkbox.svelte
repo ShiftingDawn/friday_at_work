@@ -15,14 +15,14 @@
 
 <label class="flex items-center gap-4">
   <input type="checkbox" {name} {checked} class={`
-                appearance-none w-8 h-8 bg-ctp-surface0 rounded-lg border-2 border-ctp-surface2
-                checked:bg-ctp-lavender checked:border-ctp-lavender peer
+                appearance-none w-8 h-8 bg-surface0 rounded-lg border-2 border-surface2
+                checked:bg-primary checked:border-primary peer
     `} {...rest} />
   <svg class="absolute w-8 h-8 mt-1 hidden peer-checked:block"
        xmlns="http://www.w3.org/2000/svg"
        viewBox="0 0 24 24"
        fill="none"
-       stroke="var(--color-ctp-base)"
+       stroke="var(--color-base)"
        stroke-width="4"
        stroke-linecap="round"
        stroke-linejoin="round"

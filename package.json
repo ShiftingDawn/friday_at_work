@@ -2,7 +2,6 @@
   "name": "friday-at-work",
   "version": "0.0.1",
   "devDependencies": {
-    "@catppuccin/tailwindcss": "^1.0.0",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@sveltejs/adapter-node": "^5.5.7",
@@ -42,6 +41,7 @@
     "@prisma/client": "^7.8.0",
     "bcrypt": "^6.0.0",
     "pg": "^8.22.0",
+    "svelte-persisted-store": "^0.12.0",
     "tailwind-merge": "^3.6.0",
     "valibot": "^1.4.2",
     "zod": "^4.4.3",
