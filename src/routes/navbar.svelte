@@ -37,7 +37,7 @@
     const {isAdmin,}: { isAdmin: boolean } = $props();
 </script>
 
-<nav class="sticky top-0 bg-ctp-crust p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
+<nav class="sticky top-0 bg-text-alt p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
   <div class="flex items-start gap-4">
     <HeaderButton name="Home" href="/">
       <IconHome/>
@@ -63,7 +63,7 @@
          role={menuAnchor ? "button" : undefined} aria-label={menuAnchor ? "Close menu" : undefined}>
     </div>
     <div bind:this={menuElement} style={menuStyle} class={twMerge(
-      "fixed origin-top-right rounded-lg bg-ctp-surface1 shadow-xl overflow-hidden z-40",
+      "fixed origin-top-right rounded-lg bg-surface1 shadow-xl overflow-hidden z-40",
       "transition-all duration-200 ease-out",
       "scale-95 opacity-0 pointer-events-none",
       menuAnchor && "scale-100 opacity-100 pointer-events-auto"

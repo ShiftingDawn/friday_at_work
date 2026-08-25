@@ -10,7 +10,7 @@
 </script>
 
 <tr {...props} class={twMerge(
-  "h-12 border-b border-ctp-surface1 hover:bg-ctp-surface1 transition-colors",
+  "h-12 border-b border-surface1 hover:bg-surface1 transition-colors",
   cls as string
 )}>
   {@render children?.()}

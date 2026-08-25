@@ -14,7 +14,7 @@
 <div class="flex flex-row items-center gap-4">
   <div class={twMerge(`
   aspect-square w-12 rounded-full animate-spin spin
-  border-ctp-text border-4 border-r-ctp-red
+  border-text border-4 border-r-error
   `, cls)}>
   </div>
   {@render children?.()}

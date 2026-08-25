@@ -9,6 +9,6 @@
   }: HTMLSelectAttributes = $props();
 </script>
 
-<select class={twMerge("w-full bg-ctp-surface1 rounded-full px-4 py-2", cls as string)} {...rest}>
+<select class={twMerge("w-full bg-surface1 rounded-full px-4 py-2", cls as string)} {...rest}>
   {@render children?.()}
 </select>

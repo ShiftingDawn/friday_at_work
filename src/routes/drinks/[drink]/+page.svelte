@@ -168,7 +168,7 @@
           <DrinkImage file={data.drink!.id} class="w-64" id="drinkimage"
                       lastModified={data.drink!.modifiedAt}/>
           {#if reskinFormLoading}
-            <div class="absolute inset-0 bg-ctp-crust/50 backdrop-blur-xs flex items-center justify-center">
+            <div class="absolute inset-0 bg-text-alt/50 backdrop-blur-xs flex items-center justify-center">
               <Spinner/>
             </div>
           {/if}
@@ -181,7 +181,7 @@
                   reskinFormLoading = false;
                 };
               }}>
-          <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-ctp-surface2 file:px-2 file:mr-2"
+          <FormInput type="file" name="image" class="p-0 file:h-8 file:bg-surface2 file:px-2 file:mr-2"
                      disabled={reskinFormLoading}/>
           <Button type="submit" class="self-start" disabled={reskinFormLoading}>
             Save

@@ -28,14 +28,14 @@
 )}>
     {#if open}
         <button type="button" aria-label="Close dialog" onclick={onclose}
-                class="absolute inset-0 bg-ctp-crust/50 backdrop-blur-xs"
+                class="absolute inset-0 bg-text-alt/50 backdrop-blur-xs"
                 disabled={canclose === false}
         ></button>
         <div in:fade={{duration: 150,}} out:fade={{duration: 150,}}
-             class={twMerge("relative min-w-xs bg-ctp-surface0 rounded-lg shadow-lg flex flex-col gap-2", cls)}
+             class={twMerge("relative min-w-xs bg-surface0 rounded-lg shadow-lg flex flex-col gap-2", cls)}
         >
             {#if title}
-                <div class="text-xl font-bold uppercase bg-ctp-surface1 p-4 rounded-t-lg shadow-lg">
+                <div class="text-xl font-bold uppercase bg-surface1 p-4 rounded-t-lg shadow-lg">
                     {title}
                 </div>
             {/if}

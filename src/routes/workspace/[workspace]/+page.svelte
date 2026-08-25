@@ -87,7 +87,7 @@
               <FormLabel name="Permission level" error={addWorkspacePermission.fields.role.issues()}>
                 <FormSelect {...addWorkspacePermission.fields.role.as("select")} required
                         disabled={addPermissionFormLoading}
-                        class="w-full bg-ctp-surface1 rounded-full px-4 py-2">
+                        class="w-full bg-surface1 rounded-full px-4 py-2">
                   <option value="read" selected>Read only</option>
                   <option value="write">Read and Write</option>
                   <option value="admin">Admin</option>
@@ -106,7 +106,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {#each wsQuery.current!.permissions as permission(permission.id)}
             <Button as="a" href={`/workspace/${data.workspaceId}/permission/${permission.id}`}
-                    class="bg-ctp-surface1 shadow-none">
+                    class="bg-surface1 shadow-none">
               {permission.user.username}
             </Button>
           {/each}

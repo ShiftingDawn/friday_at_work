@@ -20,7 +20,7 @@
 </script>
 
 <svelte:element this={as} {...rest}
-                class={twMerge("w-12 h-12 bg-ctp-surface1 rounded-full cursor-pointer hover:bg-ctp-lavender hover:text-ctp-base transition-all flex items-center justify-center", cls as any)}
+                class={twMerge("w-12 h-12 bg-surface1 rounded-full cursor-pointer hover:bg-primary hover:text-base transition-all flex items-center justify-center", cls as any)}
 >
     <div class="w-8 h-8">
         {@render children?.()}
