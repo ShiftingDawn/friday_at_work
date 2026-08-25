@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@catppuccin/tailwindcss/mocha.css";
 
 @theme {
     --animate-shrink: shrink 5s linear forwards;
