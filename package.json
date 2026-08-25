@@ -42,6 +42,7 @@
     "@prisma/client": "^7.8.0",
     "bcrypt": "^6.0.0",
     "pg": "^8.22.0",
+    "svelte-persisted-store": "^0.12.0",
     "tailwind-merge": "^3.6.0",
     "valibot": "^1.4.2",
     "zod": "^4.4.3",
