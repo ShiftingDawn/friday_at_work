@@ -15,7 +15,7 @@
 >
   <div class="grid gap-4">
     {#each rows as record(`score_${record.id}`)}
-      <div class="bg-ctp-lavender p-2 rounded-lg text-center">
+      <div class="bg-ctp-lavender p-2 rounded-lg text-center min-w-10">
         {record.amount}
       </div>
     {/each}
