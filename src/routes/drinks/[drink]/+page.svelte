@@ -11,8 +11,9 @@
   import FormCheckbox from "$comp/form_checkbox.svelte";
   import Modal from "$comp/modal.svelte";
   import DrinkImage from "$comp/drink_image.svelte";
-  import {displayDate, displayPrice} from "$lib";
+  import Date from "$comp/date.svelte";
   import type {ChangeEventHandler} from "svelte/elements";
+  import {displayPrice} from "$lib";
   import {setDrinkThreshold} from "$lib/functions/drinks.remote";
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
@@ -145,7 +146,7 @@
   <Section name="Stock" class="flex flex-col gap-2">
     <p>Current stock: {data.stock}</p>
     <p>Threshold: {data.drink?.threshold ?? "Unspecified"}</p>
-    <p>Last restock: {displayDate(data.last_restock?.timestamp) ?? "never"}</p>
+    <p>Last restock: <Date value={data.last_restock?.timestamp} fallback="never"/></p>
     <p>Total amount consumed: {data.amountConsumed}</p>
     <p>Total amount restocked: {data.amountRestocked}</p>
     <div class="flex gap-4 flex-wrap">
@@ -212,7 +213,7 @@
           <TableCell>{consumption.person.name}</TableCell>
           <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
           <TableCell>{consumption.creator.username}</TableCell>
-          <TableCell>{displayDate(consumption.timestamp)}</TableCell>
+          <TableCell><Date value={consumption.timestamp}/></TableCell>
         </TableRow>
       {/each}
     </tbody>

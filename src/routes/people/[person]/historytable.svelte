@@ -3,7 +3,7 @@
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
-  import {displayDate, displayPrice} from "$lib";
+  import {displayPrice} from "$lib";
   import Button from "$comp/button.svelte";
   import Modal from "$comp/modal.svelte";
   import {getDrinksForConsumption} from "$lib/functions/consumption.remote";
@@ -16,6 +16,7 @@
   import FormInput from "$comp/form_input.svelte";
   import {invalidateAll} from "$app/navigation";
     import Table from "$comp/table.svelte";
+    import Date from "$comp/date.svelte";
 
   const {
     canAdmin,
@@ -95,7 +96,7 @@
       <strong>Price</strong>
       <span>&euro;{displayPrice(deleteModalData!.price)}</span>
       <strong>Timestamp</strong>
-      <span>{displayDate(deleteModalData!.timestamp)}</span>
+      <span><Date value={deleteModalData!.timestamp}/></span>
     </div>
     {#snippet actions()}
       <Button type="button" onclick={async () => {
@@ -130,7 +131,7 @@
       <TableCell>{consumption.drink!.name}</TableCell>
       <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
       <TableCell>{consumption.creator.username}</TableCell>
-      <TableCell>{displayDate(consumption.timestamp)}</TableCell>
+      <TableCell><Date value={consumption.timestamp}/></TableCell>
       {#if canAdmin}
         <TableHeadCell>
           <div class="flex gap-4">
