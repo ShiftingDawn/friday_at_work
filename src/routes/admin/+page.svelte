@@ -8,5 +8,8 @@
     <Button as="a" href="/admin/users">
       Manage users
     </Button>
+    <Button as="a" href="/admin/test">
+      Test panel
+    </Button>
   </div>
 </Card>
