@@ -15,23 +15,23 @@
 }
 
 @theme {
-    --color-base: #eff1f5;
-    --color-base-alt: #acb0be;
+    --color-base: #211a27;
+    --color-base-alt: #332337;
 
-    --color-text: #4c4f69;
-    --color-text-alt: #dce0e8;
+    --color-text: #f8e9ed;
+    --color-text-alt: #211a27;
 
-    --color-surface0: #ccd0da;
-    --color-surface1: #bcc0cc;
-    --color-surface2: #acb0be;
+    --color-surface0: #302330;
+    --color-surface1: #3b2836;
+    --color-surface2: #49303d;
 
-    --color-primary: #7287fd;
-    --color-secondary: #dc8a78;
+    --color-primary: #f05a9d;
+    --color-secondary: #8b7cff;
 
-    --color-success: #40a02b;
-    --color-info: #1e66f5;
-    --color-warning: #df8e1d;
-    --color-error: #d20f39;
+    --color-success: #50c878;
+    --color-info: #55a9e8;
+    --color-warning: #f5ad45;
+    --color-error: #ed6262;
 }
 
 html, body {
