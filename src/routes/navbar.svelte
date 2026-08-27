@@ -37,7 +37,7 @@
     const {isAdmin,}: { isAdmin: boolean } = $props();
 </script>
 
-<nav class="sticky top-0 bg-text-alt p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
+<nav class="sticky top-0 bg-navbar p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
   <div class="flex items-start gap-4">
     <HeaderButton name="Home" href="/">
       <IconHome/>
