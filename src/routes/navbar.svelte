@@ -10,9 +10,14 @@
     import IconAccount from "$icon/account.svelte";
     import IconSettings from "$icon/settings.svelte";
     import IconSignOut from "$icon/signout.svelte";
+    import IconThemeAuto from "$icon/automode.svelte";
+    import IconThemeLight from "$icon/lightmode.svelte";
+    import IconThemeDark from "$icon/darkmode.svelte";
     import IconButton from "$comp/icon_button.svelte";
     import {twMerge} from "tailwind-merge";
     import {onNavigate} from "$app/navigation";
+    import {theme} from "@/lib/preferences";
+    import {get} from "svelte/store";
 
     let menuAnchor = $state<HTMLElement>();
     let menuElement = $state<HTMLDivElement>();
@@ -35,6 +40,19 @@
     onNavigate(() => menuAnchor = undefined);
 
     const {isAdmin,}: { isAdmin: boolean } = $props();
+
+    let currentTheme = $theme;
+
+    function switchTheme() {
+      let newTheme: "light" | "dark" | "auto" = "auto";
+      if (currentTheme === "auto") {
+        newTheme = "light";
+      } else if (currentTheme === "light") {
+        newTheme = "dark";
+      }
+      theme.set(newTheme);
+      window.location.reload();
+    }
 </script>
 
 <nav class="sticky top-0 bg-navbar p-4 flex items-start justify-between gap-4 shadow-xl overflow-auto z-20">
@@ -78,6 +96,19 @@
         {#if isAdmin}
           <HeaderMenuButton name="Admin panel" href="/admin">
             <IconSettings/>
+          </HeaderMenuButton>
+        {/if}
+        {#if currentTheme === "auto"}
+          <HeaderMenuButton as="button" name="Use light theme" onclick={switchTheme}>
+            <IconThemeLight/>
+          </HeaderMenuButton>
+        {:else if currentTheme == "light"}
+          <HeaderMenuButton as="button" name="Use dark theme" onclick={switchTheme}>
+            <IconThemeDark/>
+          </HeaderMenuButton>
+        {:else }
+          <HeaderMenuButton as="button" name="Use system theme" onclick={switchTheme}>
+            <IconThemeAuto/>
           </HeaderMenuButton>
         {/if}
         <HeaderMenuButton name="Sign out" href="/signout" data-sveltekit-reload>
