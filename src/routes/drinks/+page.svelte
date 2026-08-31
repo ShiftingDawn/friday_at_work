@@ -1,30 +1,30 @@
 <script lang="ts">
-  import type {PageProps} from "./$types";
-  import {page} from "$app/state";
-  import Card from "$comp/card.svelte";
-  import Section from "$comp/section.svelte";
-  import Modal from "$comp/modal.svelte";
-  import FormLabel from "$comp/form_label.svelte";
-  import FormInput from "$comp/form_input.svelte";
-  import Button from "$comp/button.svelte";
-  import DrinkImage from "$comp/drink_image.svelte";
-  import IconButton from "$comp/icon_button.svelte";
-  import IconCreate from "$icon/plus.svelte";
-  import IconHide from "$icon/hide.svelte";
-  import IconShow from "$icon/show.svelte";
-  import {addDrink, getDrinksUnderThreshold, getHiddenDrinks, getVisibleDrinks} from "$lib/functions/drinks.remote";
-  import {flash} from "$lib/flash";
-  import Spinner from "$comp/spinner.svelte";
-  import Center from "$comp/center.svelte";
-  import TableRow from "$comp/table_row.svelte";
-  import TableHeadCell from "$comp/table_headcell.svelte";
-  import TableCell from "$comp/table_cell.svelte";
-  import Table from "$comp/table.svelte";
+    import type {PageProps} from "./$types";
+    import {page} from "$app/state";
+    import Card from "$comp/card.svelte";
+    import Section from "$comp/section.svelte";
+    import Modal from "$comp/modal.svelte";
+    import FormLabel from "$comp/form_label.svelte";
+    import FormInput from "$comp/form_input.svelte";
+    import Button from "$comp/button.svelte";
+    import DrinkImage from "$comp/drink_image.svelte";
+    import IconButton from "$comp/icon_button.svelte";
+    import IconCreate from "$icon/plus.svelte";
+    import IconHide from "$icon/hide.svelte";
+    import IconShow from "$icon/show.svelte";
+    import {addDrink, getDrinksUnderThreshold, getHiddenDrinks, getVisibleDrinks} from "$lib/functions/drinks.remote";
+    import {flash} from "$lib/flash";
+    import Spinner from "$comp/spinner.svelte";
+    import Center from "$comp/center.svelte";
+    import TableRow from "$comp/table_row.svelte";
+    import TableHeadCell from "$comp/table_headcell.svelte";
+    import TableCell from "$comp/table_cell.svelte";
+    import Table from "$comp/table.svelte";
 
-  const {data,}: PageProps = $props();
-  const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
-  let modalOpen = $state(false);
-  let newDrinkFormLoading = $state(false);
+    const {data,}: PageProps = $props();
+    const showHidden = $derived(new URLSearchParams(page.url.search).has("hidden", "true"));
+    let modalOpen = $state(false);
+    let newDrinkFormLoading = $state(false);
 </script>
 
 <form {...addDrink.enhance(async form => {
@@ -52,8 +52,8 @@
         <FormInput {...addDrink.fields.price.as("number")} required min="0" disabled={newDrinkFormLoading}/>
       </FormLabel>
       <FormLabel name="Image" error={addDrink.fields.image.issues()}>
-        <FormInput {...addDrink.fields.image.as("file")} class="p-0 file:h-8 file:bg-surface2 file:px-2 file:mr-2"
-                   disabled={newDrinkFormLoading}/>
+        <FormInput {...addDrink.fields.image.as("file")} disabled={newDrinkFormLoading}
+                   class="p-0 file:h-8 file:bg-surface2 file:px-2 file:mr-2 cursor-pointer"/>
       </FormLabel>
     </div>
     {#snippet actions()}
