@@ -1,26 +1,26 @@
 <script lang="ts">
-  import type {PageProps} from "./$types";
-  import Card from "$comp/card.svelte";
-  import BackButton from "$comp/back_button.svelte";
-  import Section from "$comp/section.svelte";
-  import FormInput from "$comp/form_input.svelte";
-  import FormLabel from "$comp/form_label.svelte";
-  import Button from "$comp/button.svelte";
-  import {displayPrice} from "$lib";
-  import IconButton from "$comp/icon_button.svelte";
-  import IconReset from "$icon/reset.svelte";
-  import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
-  import {flash} from "$lib/flash";
-  import {onMount} from "svelte";
-  import {invalidateAll} from "$app/navigation";
-  import ReceiptTable from "./receipttable.svelte";
-  import HistoryTable from "./historytable.svelte";
+    import type {PageProps} from "./$types";
+    import Card from "$comp/card.svelte";
+    import BackButton from "$comp/back_button.svelte";
+    import Section from "$comp/section.svelte";
+    import FormInput from "$comp/form_input.svelte";
+    import FormLabel from "$comp/form_label.svelte";
+    import Button from "$comp/button.svelte";
+    import {displayPrice} from "$lib";
+    import IconButton from "$comp/icon_button.svelte";
+    import IconReset from "$icon/reset.svelte";
+    import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
+    import {flash} from "$lib/flash";
+    import {onMount} from "svelte";
+    import {invalidateAll} from "$app/navigation";
+    import ReceiptTable from "./receipttable.svelte";
+    import HistoryTable from "./historytable.svelte";
 
-  const {data,}: PageProps = $props();
-  const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
-  let updateFormLoading = $state(false);
+    const {data,}: PageProps = $props();
+    const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
+    let updateFormLoading = $state(false);
 
-  onMount(() => updatePerson.fields.set({name: data.person!.name,}));
+    onMount(() => updatePerson.fields.set({name: data.person!.name,}));
 </script>
 
 <Card title={data.person!.name}>

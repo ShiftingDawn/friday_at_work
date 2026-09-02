@@ -6,7 +6,7 @@
     import { showTime } from "$lib/preferences.js";
     import {onMount} from "svelte";
     import type {ChangeEventHandler} from "svelte/elements";
-    import { get } from 'svelte/store'
+    import { get } from "svelte/store";
 
     const {data,} = $props();
 

@@ -3,13 +3,11 @@
 
   const {
     value,
-     fallback
-  }: {
-    value: Date | undefined, fallback?: string
-  } = $props();
+    fallback,
+  }: {value: Date | undefined, fallback?: string} = $props();
 
   const showTimestamp = $showTime;
- 
+
   function displayDate<T extends Date | undefined>(date: T): T extends Date ? string : undefined {
     const str = date?.toLocaleDateString("en-US", {dateStyle: "long",}) as T extends Date ? string : undefined;
     if (showTimestamp && date) {
