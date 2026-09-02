@@ -30,14 +30,13 @@
 <form {...addDrink.enhance(async form => {
   newDrinkFormLoading = true;
   try {
-    flash("info", "Registering drink...");
     if (await form.submit()) {
-      flash("success", "Drink registered successfully");
+      flash("success", `Added drink ${addDrink.fields.name.value} to the menu`);
     } else {
-      flash("error", "Could not register drink");
+      flash("error", `Could not add drink ${addDrink.fields.name.value} to the menu`);
     }
   } catch {
-    flash("error", "Could not register drink", "An unknown error occurred");
+    flash("error", "Could not add drink to the menu", "An unknown error occurred");
   }
   newDrinkFormLoading = false;
   modalOpen = false;
@@ -134,28 +133,28 @@
       <div class="w-full overflow-auto">
         <Table>
           <thead>
-          <TableRow>
-            <TableHeadCell class="w-full">Name</TableHeadCell>
-            <TableHeadCell>Threshold</TableHeadCell>
-            <TableHeadCell>Stock</TableHeadCell>
-            <TableHeadCell>Missing</TableHeadCell>
-            <TableHeadCell/>
-          </TableRow>
+            <TableRow>
+              <TableHeadCell class="w-full">Name</TableHeadCell>
+              <TableHeadCell>Threshold</TableHeadCell>
+              <TableHeadCell>Stock</TableHeadCell>
+              <TableHeadCell>Missing</TableHeadCell>
+              <TableHeadCell/>
+            </TableRow>
           </thead>
           <tbody>
-          {#each drinks as drink(`threshold_${drink.id}`)}
-            <TableRow>
-              <TableCell>{drink.name}</TableCell>
-              <TableCell>{drink.threshold}</TableCell>
-              <TableCell>{drink.totalStock - drink.totalConsumptions}</TableCell>
-              <TableCell>{drink.missingAmount}</TableCell>
-              <TableCell>
-                <Button as="a" href={`/drinks/${drink.id}`} class="w-fit">
-                  Details
-                </Button>
-              </TableCell>
-            </TableRow>
-          {/each}
+            {#each drinks as drink(`threshold_${drink.id}`)}
+              <TableRow>
+                <TableCell>{drink.name}</TableCell>
+                <TableCell>{drink.threshold}</TableCell>
+                <TableCell>{drink.totalStock - drink.totalConsumptions}</TableCell>
+                <TableCell>{drink.missingAmount}</TableCell>
+                <TableCell>
+                  <Button as="a" href={`/drinks/${drink.id}`} class="w-fit">
+                    Details
+                  </Button>
+                </TableCell>
+              </TableRow>
+            {/each}
           </tbody>
         </Table>
       </div>

@@ -73,12 +73,12 @@
   try {
     if (await form.submit()) {
       setThresholdModalOpen = false;
-      flash("success", "Threshold registered successfully");
+      flash("success", `Registered threshold ${setDrinkThreshold.fields.value} for drink ${data.drink!.name}`);
     } else {
-      flash("error", "Could not register threshold");
+      flash("error", `Could not register threshold for drink ${data.drink!.name}`);
     }
   } catch {
-    flash("error", "Could not register threshold", "An unknown error occurred");
+    flash("error", `Could not register threshold for drink ${data.drink!.name}`, "An unknown error occurred");
   }
   setThresholdLoading = false;
 })}>

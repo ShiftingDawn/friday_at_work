@@ -1,20 +1,20 @@
 <script lang="ts">
-  import type {PageProps} from "./$types";
-  import Card from "$comp/card.svelte";
-  import Modal from "$comp/modal.svelte";
-  import FormLabel from "$comp/form_label.svelte";
-  import FormInput from "$comp/form_input.svelte";
-  import Button from "$comp/button.svelte";
-  import IconButton from "$comp/icon_button.svelte";
-  import IconSubmit from "$icon/plus.svelte";
-  import {createPerson, getPeople} from "$lib/functions/people.remote";
-  import {flash} from "$lib/flash";
-  import Spinner from "$comp/spinner.svelte";
-  import Center from "$comp/center.svelte";
+    import type {PageProps} from "./$types";
+    import Card from "$comp/card.svelte";
+    import Modal from "$comp/modal.svelte";
+    import FormLabel from "$comp/form_label.svelte";
+    import FormInput from "$comp/form_input.svelte";
+    import Button from "$comp/button.svelte";
+    import IconButton from "$comp/icon_button.svelte";
+    import IconSubmit from "$icon/plus.svelte";
+    import {createPerson, getPeople} from "$lib/functions/people.remote";
+    import {flash} from "$lib/flash";
+    import Spinner from "$comp/spinner.svelte";
+    import Center from "$comp/center.svelte";
 
-  const {data,}: PageProps = $props();
-  let modalOpen = $state(false);
-  let newPersonFormLoading = $state(false);
+    const {data,}: PageProps = $props();
+    let modalOpen = $state(false);
+    let newPersonFormLoading = $state(false);
 </script>
 
 {#if data.canWrite}
@@ -22,7 +22,7 @@
     newPersonFormLoading = true;
     try {
       if (await form.submit()) {
-        flash("success", "Person registered successfully");
+        flash("success", `${createPerson.fields.name.value} joined the club!`);
       } else {
         flash("error", "Could not register person");
       }

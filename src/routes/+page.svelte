@@ -11,6 +11,7 @@
     import {getDrinksUnderThreshold} from "$lib/functions/drinks.remote";
     import Spinner from "$comp/spinner.svelte";
     import Center from "$comp/center.svelte";
+    import {getRandomElement} from "$lib";
 
     const {data,}: PageProps = $props();
 </script>
@@ -38,12 +39,17 @@
     try {
       const personRadio = document.querySelector(`input[value='${form.fields.person.value()}']`) as HTMLInputElement;
       const personName = (personRadio.nextSibling! as unknown as { wholeText: string }).wholeText.trim();
-      flash("info", "Consumption", `Processing drink for ${personName}`);
       if (await form.submit()) {
         form.element.reset();
-        flash("success", "Consumption", `Poured one out for ${personName}`);
+        flash("success", "Consumption", getRandomElement([
+          `Poured one out for ${personName}`,
+          `Enjoy your drink, ${personName}!`,
+        ]));
       } else {
-        flash("error", "Could not register consumption");
+        flash("error", getRandomElement([
+          `Could not pour one out for ${personName}`,
+          `Could not register a consumption for ${personName}!`,
+        ]));
       }
     } catch {
       flash("error", "Could not register consumption", "An unknown error occurred");

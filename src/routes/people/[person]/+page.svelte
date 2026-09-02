@@ -33,12 +33,12 @@
         updateFormLoading = true;
         try {
           if (await form.submit()) {
-            flash("success", "Person updated successfully");
+            flash("success", `Updated data for ${data.person!.name}`);
           } else {
-            flash("error", "Could not update person", "An unknown error occurred");
+            flash("error", `Could not update data for ${data.person!.name}`, "An unknown error occurred");
           }
         } catch {
-          flash("error", "Could not update person");
+          flash("error", `Could not update data for ${data.person!.name}`);
         }
         updateFormLoading = false;
       })} class="max-w-md flex flex-col gap-4">

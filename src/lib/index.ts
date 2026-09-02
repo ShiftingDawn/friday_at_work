@@ -27,3 +27,7 @@ export function getLastMonthStartDate() {
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth() - 1, 1);
 }
+
+export function getRandomElement<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
