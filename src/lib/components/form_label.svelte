@@ -1,19 +1,19 @@
 <script lang="ts">
-  import type {Snippet} from "svelte";
-  import {twMerge} from "tailwind-merge";
-  import type {RemoteFormIssue} from "@sveltejs/kit";
+    import type {Snippet} from "svelte";
+    import {twMerge} from "tailwind-merge";
+    import type {RemoteFormIssue} from "@sveltejs/kit";
 
-  const {
-    name,
-    class: cls,
-    error,
-    children,
-  }: {
-    name: string,
-    class?: string,
-    error?: string | string[] | boolean | RemoteFormIssue[],
-    children: Snippet
-  } = $props();
+    const {
+      name,
+      class: cls,
+      error,
+      children,
+    }: {
+      name: string,
+      class?: string,
+      error?: string | string[] | boolean | RemoteFormIssue[],
+      children: Snippet
+    } = $props();
 </script>
 
 <label class={twMerge(
@@ -21,18 +21,18 @@
   error && "bg-error",
   cls
 )} data-invalid={Boolean(error)}>
-  <span class="pl-4 pr-2 text-base font-bold">{name}</span>
+  <span class="pl-4 pr-2 text-text font-bold">{name}</span>
   <span class="p-1">
         {@render children()}
     </span>
   {#if typeof error === "string"}
-    <p class="px-4 text-base">{error}</p>
+    <p class="px-4 text-text">{error}</p>
   {:else if Array.isArray(error)}
     {#each error as err, i (i)}
       {#if typeof err === "string"}
-        <p class="px-4 text-base">{err}</p>
+        <p class="px-4 text-text">{err}</p>
       {:else}
-        <p class="px-4 text-base">{err.message}</p>
+        <p class="px-4 text-text">{err.message}</p>
       {/if}
     {/each}
   {/if}
