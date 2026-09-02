@@ -3,6 +3,7 @@
     import {Chart} from "chart.js/auto";
     import {useOldBarStyle} from "$lib/preferences";
     import {get} from "svelte/store";
+    import {getColorPrimary, getColorText, listenToThemeChanges} from "$lib/client";
 
     interface Row {
       id: string;
@@ -15,22 +16,20 @@
     onMount(() => {
       if (get(useOldBarStyle)) return;
       const ctx = document.getElementById(`${id}canvas`) as HTMLCanvasElement;
-      const barColor = window.getComputedStyle(ctx).getPropertyValue("--color-primary");
       const chart = new Chart(ctx, {
         type: "bar",
         options: {
           maintainAspectRatio: false,
           indexAxis: "y",
           plugins: {legend: {display: false,},},
-          // @ts-expect-error scale does not exist, but it does tho
-          scale: {ticks: {precision: 0,},},
+          scales: {x: {ticks: {precision: 0,},}, y: {ticks: {color: getColorText(),},},},
         },
         data: {
           labels: rows.map(row => row.label),
           datasets: [
             {
               data: rows.map(row => row.amount),
-              backgroundColor: barColor,
+              backgroundColor: getColorPrimary(),
               borderSkipped: false,
               borderRadius: 8,
               barThickness: 32,
@@ -38,9 +37,13 @@
           ],
         },
       });
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-        chart.data.datasets[0].backgroundColor = window.getComputedStyle(ctx).getPropertyValue("--color-primary");
+      const unsub = listenToThemeChanges(() => {
+        chart.data.datasets[0].backgroundColor = getColorPrimary();
+        chart.options.scales!.x!.ticks!.color = getColorText();
+        chart.options.scales!.y!.ticks!.color = getColorText();
+        chart.update();
       });
+      return () => unsub();
     });
 </script>
 

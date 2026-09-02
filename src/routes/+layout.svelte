@@ -5,19 +5,19 @@
     import Flash from "./flash.svelte";
     import {onMount} from "svelte";
     import {Chart} from "chart.js/auto";
+    import {getColorText, listenToThemeChanges} from "$lib/client";
 
     let {children, data,}: LayoutProps = $props();
 
     onMount(() => {
-      Chart.defaults.responsive = true;
-
       function updateChartStyles() {
-        const styles = window.getComputedStyle(document.body);
-        Chart.defaults.color = styles.getPropertyValue("--color-text");
+        Chart.defaults.color = getColorText();
       }
 
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateChartStyles);
+      Chart.defaults.responsive = true;
+      const unsub = listenToThemeChanges(updateChartStyles);
       updateChartStyles();
+      return () => unsub();
     });
 </script>
 

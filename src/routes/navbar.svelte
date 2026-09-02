@@ -41,9 +41,8 @@
 
     const {isAdmin,}: { isAdmin: boolean } = $props();
 
-    let currentTheme = $theme;
-
     function switchTheme() {
+      const currentTheme = get(theme);
       let newTheme: "light" | "dark" | "auto" = "auto";
       if (currentTheme === "auto") {
         newTheme = "light";
@@ -51,7 +50,6 @@
         newTheme = "dark";
       }
       theme.set(newTheme);
-      window.location.reload();
     }
 </script>
 
@@ -98,11 +96,11 @@
             <IconSettings/>
           </HeaderMenuButton>
         {/if}
-        {#if currentTheme === "auto"}
+        {#if $theme === "auto"}
           <HeaderMenuButton as="button" name="Use light theme" onclick={switchTheme}>
             <IconThemeLight/>
           </HeaderMenuButton>
-        {:else if currentTheme == "light"}
+        {:else if $theme == "light"}
           <HeaderMenuButton as="button" name="Use dark theme" onclick={switchTheme}>
             <IconThemeDark/>
           </HeaderMenuButton>

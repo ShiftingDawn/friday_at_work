@@ -1,6 +1,7 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import {Chart} from "chart.js/auto";
+    import {getColorPrimary, getColorText, isDarkMode, listenToThemeChanges} from "$lib/client";
 
     interface Row {
       id: string;
@@ -18,12 +19,11 @@
 
     onMount(() => {
       const ctx = document.getElementById(id) as HTMLCanvasElement;
-      const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
 
       function makeColors() {
-        const dark = isDarkMode.matches;
+        const dark = isDarkMode();
         return [
-          window.getComputedStyle(ctx).getPropertyValue("--color-primary"),
+          getColorPrimary(),
           window.getComputedStyle(ctx).getPropertyValue("--color-secondary"),
           dark ? "#f38ba8" : "#d20f39",
           dark ? "#fab387" : "#fe640b",
@@ -48,9 +48,12 @@
           ],
         },
       });
-      isDarkMode.addEventListener("change", () => {
+      const unsub = listenToThemeChanges(() => {
         chart.data.datasets[0].backgroundColor = makeColors();
+        chart.options.plugins!.legend!.labels!.color = getColorText();
+        chart.update();
       });
+      return () => unsub();
     });
 </script>
 
