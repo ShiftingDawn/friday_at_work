@@ -3,8 +3,22 @@
     import Navbar from "./navbar.svelte";
     import "./layout.css";
     import Flash from "./flash.svelte";
+    import {onMount} from "svelte";
+    import {Chart} from "chart.js/auto";
 
     let {children, data,}: LayoutProps = $props();
+
+    onMount(() => {
+      Chart.defaults.responsive = true;
+
+      function updateChartStyles() {
+        const styles = window.getComputedStyle(document.body);
+        Chart.defaults.color = styles.getPropertyValue("--color-text");
+      }
+
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", updateChartStyles);
+      updateChartStyles();
+    });
 </script>
 
 <svelte:head>
