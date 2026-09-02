@@ -45,6 +45,7 @@ export const actions = {
       data: {
         name: data?.name,
         price: data?.price,
+        modifiedAt: new Date(),
       },
       where: {id: params.drink,},
     });
@@ -82,7 +83,10 @@ export const actions = {
     }
     await prisma.drink.update({
       where: {id: params.drink,},
-      data: {hidden: !current.hidden,},
+      data: {
+        hidden: !current.hidden,
+        modifiedAt: new Date(),
+      },
     });
   },
   restock: async ({request, params, locals,}) => {
@@ -107,6 +111,7 @@ export const actions = {
 const updateScheme = zfd.formData({
   name: zfd.text(z.string().trim().min(3)),
   price: zfd.numeric(z.int().min(0)),
+  tint: zfd.text(z.string().regex(/^#[0-9a-f]{6}$/i, {message: "Invalid color format. Must be a 7-character hex code (e.g., #RRGGBB).",})),
 });
 
 const reskinScheme = zfd.formData({image: zfd.file(),});
