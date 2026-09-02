@@ -18,10 +18,10 @@
           flash("success", "Welcome!");
           await goto(resolve("/"));
         } else {
-          flash("error", "Could not create settings");
+          flash("error", "Could not sign up");
         }
       } catch {
-        flash("error", "Could not create settings", "An unknown error occurred");
+        flash("error", "Could not sign up", "An unknown error occurred");
       }
     })} class="flex flex-col gap-2">
       <FormLabel name="Username" error={signUp.fields.username.issues()}>
