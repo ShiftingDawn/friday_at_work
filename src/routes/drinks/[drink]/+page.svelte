@@ -199,27 +199,29 @@
     </Section>
   {/if}
 </Card>
-<Card title="Consumptions" class="mt-4">
-  <Table>
-    <thead>
-    <TableRow>
-      <TableHeadCell>Person</TableHeadCell>
-      <TableHeadCell>Price</TableHeadCell>
-      <TableHeadCell>Registered by</TableHeadCell>
-      <TableHeadCell>Registered at</TableHeadCell>
-    </TableRow>
-    </thead>
-    <tbody>
-    {#each data.consumptions as consumption(consumption.id)}
-      <TableRow>
-        <TableCell>{consumption.person.name}</TableCell>
-        <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
-        <TableCell>{consumption.creator.username}</TableCell>
-        <TableCell>
-          <Date value={consumption.timestamp}/>
-        </TableCell>
-      </TableRow>
-    {/each}
-    </tbody>
-  </Table>
-</Card>
+{#if data.consumptions}
+  <Card title="Consumptions" class="mt-4">
+    <Table>
+      <thead>
+        <TableRow>
+          <TableHeadCell>Person</TableHeadCell>
+          <TableHeadCell>Price</TableHeadCell>
+          <TableHeadCell>Registered by</TableHeadCell>
+          <TableHeadCell>Registered at</TableHeadCell>
+        </TableRow>
+      </thead>
+      <tbody>
+        {#each data.consumptions as consumption(consumption.id)}
+          <TableRow>
+            <TableCell>{consumption.person.name}</TableCell>
+            <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
+            <TableCell>{consumption.creator.username}</TableCell>
+            <TableCell>
+              <Date value={consumption.timestamp}/>
+            </TableCell>
+          </TableRow>
+        {/each}
+      </tbody>
+    </Table>
+  </Card>
+{/if}

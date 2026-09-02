@@ -4,7 +4,7 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {upload} from "$lib/server/storage";
-import {hasWriteRole} from "$lib/server/permission";
+import {hasAdminRole, hasWriteRole} from "$lib/server/permission";
 import {getWorkspace} from "$lib/server/workspace";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
       where: {drinkId: params.drink,},
       orderBy: {timestamp: "desc",},
     }),
-    consumptions,
+    consumptions: (await hasAdminRole(locals) ? consumptions : undefined),
   };
 };
 
