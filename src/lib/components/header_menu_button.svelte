@@ -31,11 +31,11 @@
 
 <li>
   <svelte:element this={as} {...rest}
-                  class="flex items-center gap-4 px-4 py-2 first:pt-4 last:pb-4 hover:bg-primary hover:text-text-alt cursor-pointer"
+                  class="flex items-center gap-4 px-4 py-2 first:pt-4 last:pb-4 hover:bg-primary hover:text-text-alt cursor-pointer w-52"
                   data-sveltekit-reload={doReload}>
     <div class="w-8 h-8">
       {@render children()}
     </div>
-    <span class="font-bold">{name}</span>
+    <span class="font-bold whitespace-nowrap">{name}</span>
   </svelte:element>
 </li>

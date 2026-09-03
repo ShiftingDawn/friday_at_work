@@ -97,15 +97,15 @@
           </HeaderMenuButton>
         {/if}
         {#if $theme === "auto"}
-          <HeaderMenuButton as="button" name="Use light theme" onclick={switchTheme}>
+          <HeaderMenuButton as="button" name="Light theme" onclick={switchTheme}>
             <IconThemeLight/>
           </HeaderMenuButton>
         {:else if $theme == "light"}
-          <HeaderMenuButton as="button" name="Use dark theme" onclick={switchTheme}>
+          <HeaderMenuButton as="button" name="Dark theme" onclick={switchTheme}>
             <IconThemeDark/>
           </HeaderMenuButton>
         {:else }
-          <HeaderMenuButton as="button" name="Use system theme" onclick={switchTheme}>
+          <HeaderMenuButton as="button" name="System theme" onclick={switchTheme}>
             <IconThemeAuto/>
           </HeaderMenuButton>
         {/if}
