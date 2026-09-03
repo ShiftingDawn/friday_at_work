@@ -21,18 +21,20 @@
   error && "bg-error",
   cls
 )} data-invalid={Boolean(error)}>
-  <span class="pl-4 pr-2 text-text font-bold">{name}</span>
+  <span class={`pl-4 pr-2 font-bold ${error ? "text-base" : "text-text"}`}>
+    {name}
+  </span>
   <span class="p-1">
         {@render children()}
     </span>
   {#if typeof error === "string"}
-    <p class="px-4 text-text">{error}</p>
+    <p class="px-4 text-base">{error}</p>
   {:else if Array.isArray(error)}
     {#each error as err, i (i)}
       {#if typeof err === "string"}
-        <p class="px-4 text-text">{err}</p>
+        <p class="px-4 text-base">{err}</p>
       {:else}
-        <p class="px-4 text-text">{err.message}</p>
+        <p class="px-4 text-base">{err.message}</p>
       {/if}
     {/each}
   {/if}

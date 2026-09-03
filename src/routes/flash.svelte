@@ -16,7 +16,7 @@
         in:fly={{ y: 32, duration: 250, opacity: 0, delay: i * 50,}}
         out:fly={{ y: 32, duration: 200, opacity: 0, }}
         class={twMerge(
-          "w-xs rounded-lg shadow-lg text-text overflow-hidden",
+          "w-xs rounded-lg shadow-lg text-base overflow-hidden",
           flash.type === "success" && "bg-success",
           flash.type === "warning" && "bg-warning",
           flash.type === "error" && "bg-error",

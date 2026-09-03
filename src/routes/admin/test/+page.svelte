@@ -4,6 +4,8 @@
     import Section from "$comp/section.svelte";
     import BackButton from "$comp/back_button.svelte";
     import {flash, type FlashMessageType} from "$lib/flash";
+    import FormLabel from "$comp/form_label.svelte";
+    import FormInput from "$comp/form_input.svelte";
 
     function testFlash(type: FlashMessageType, title: boolean) {
       if (title) {
@@ -45,5 +47,13 @@
         Error without title
       </Button>
     </div>
+  </Section>
+  <Section name="Forms" class="flex flex-col gap-4">
+    <FormLabel name="Text input">
+      <FormInput/>
+    </FormLabel>
+    <FormLabel name="Text input" error="With error">
+      <FormInput/>
+    </FormLabel>
   </Section>
 </Card>

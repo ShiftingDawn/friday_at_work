@@ -20,7 +20,7 @@
   <!-- NOOP -->
 {:then drinks}
   {#if drinks.length > 0}
-    <div class="bg-error text-text p-4 rounded-2xl shadow-lg mb-4">
+    <div class="bg-error text-base p-4 rounded-2xl shadow-lg mb-4">
       {#if drinks.length === 1}
         One drink is
       {:else}
