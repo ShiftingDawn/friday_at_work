@@ -85,7 +85,7 @@ export const getLastMonthTopDrinkers = query(async () => {
         some: {
           timestamp: {
             gt: getLastMonthStartDate(),
-            lt: getLastMonthStartDate(),
+            lt: getMonthStartDate(),
           },
         },
       },
