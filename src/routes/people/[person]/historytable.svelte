@@ -15,21 +15,40 @@
   import FormSelect from "$comp/form_select.svelte";
   import FormInput from "$comp/form_input.svelte";
   import {invalidateAll} from "$app/navigation";
-    import Table from "$comp/table.svelte";
-    import Date from "$comp/date.svelte";
+  import Table from "$comp/table.svelte";
+  import Date from "$comp/date.svelte";
+  import TablePaginate from "$comp/table_paginate.svelte";
+  import {getPersonHistoryRecords} from "$lib/functions/people.remote";
+  import {onMount} from "svelte";
 
+  type Record = ({ drink: { name: string }, creator: { username: string } } & {
+    id: string,
+    workspaceId: string,
+    personId: string,
+    drinkId: string,
+    creatorId: string,
+    price: number,
+    timestamp: globalThis.Date
+  });
   const {
     canAdmin,
     person,
-    consumptions,
+    amount,
   }: {
     canAdmin: boolean;
     person: PageProps["data"]["person"];
-    consumptions: PageProps["data"]["allConsumptions"];
+    amount: number;
   } = $props();
 
-  let editModalData = $state<App.Unpacked<PageProps["data"]["allConsumptions"]>>();
-  let deleteModalData = $state<App.Unpacked<PageProps["data"]["allConsumptions"]>>();
+  let data = $state<Record[]>();
+  let editModalData = $state<Record>();
+  let deleteModalData = $state<Record>();
+
+  function fetchMore(start: number, take: number) {
+    getPersonHistoryRecords({start, take,}).then(d => data = d);
+  }
+
+  onMount(() => fetchMore(0, 20));
 
   $effect(() => {
     if (editModalData) {
@@ -113,38 +132,51 @@
 {/if}
 
 <Table>
+  {#snippet paginate()}
+    <TablePaginate total={amount} size={20} onchange={fetchMore}/>
+  {/snippet}
   <thead>
-  <TableRow>
-    <TableHeadCell>Drink</TableHeadCell>
-    <TableHeadCell>Price</TableHeadCell>
-    <TableHeadCell>Registered by</TableHeadCell>
-    <TableHeadCell>Registered at</TableHeadCell>
-    {#if canAdmin}
-      <TableHeadCell/>
-    {/if}
-  </TableRow>
-  </thead>
-  <tbody>
-  {#each consumptions as consumption(`history_${consumption.timestamp.getTime()}`)}
-    <TableRow
-      class={person!.reset && consumption.timestamp < person!.reset ? "bg-secondary" : undefined}>
-      <TableCell>{consumption.drink!.name}</TableCell>
-      <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
-      <TableCell>{consumption.creator.username}</TableCell>
-      <TableCell><Date value={consumption.timestamp}/></TableCell>
+    <TableRow>
+      <TableHeadCell>Drink</TableHeadCell>
+      <TableHeadCell>Price</TableHeadCell>
+      <TableHeadCell>Registered by</TableHeadCell>
+      <TableHeadCell>Registered at</TableHeadCell>
       {#if canAdmin}
-        <TableHeadCell>
-          <div class="flex gap-4">
-            <Button onclick={() => editModalData = consumption}>
-              Edit
-            </Button>
-            <Button onclick={() => deleteModalData = consumption}>
-              Delete
-            </Button>
-          </div>
-        </TableHeadCell>
+        <TableHeadCell/>
       {/if}
     </TableRow>
-  {/each}
+  </thead>
+  <tbody>
+    {#each data as consumption(`history_${consumption.timestamp.getTime()}`)}
+      <TableRow class={
+      person!.reset && consumption.timestamp < person!.reset
+        ? "bg-historytable-marked text-historytable-marked-text"
+        : undefined
+       }>
+        <TableCell>{consumption.drink!.name}</TableCell>
+        <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
+        <TableCell>{consumption.creator.username}</TableCell>
+        <TableCell>
+          <Date value={consumption.timestamp}/>
+        </TableCell>
+        {#if canAdmin}
+          <TableHeadCell>
+            <div class="flex gap-4">
+              <Button onclick={() => editModalData = consumption}>
+                Edit
+              </Button>
+              <Button onclick={() => deleteModalData = consumption}>
+                Delete
+              </Button>
+            </div>
+          </TableHeadCell>
+        {/if}
+      </TableRow>
+    {/each}
   </tbody>
 </Table>
+{#if data === undefined}
+  <Center>
+    <Spinner/>
+  </Center>
+{/if}

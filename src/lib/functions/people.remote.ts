@@ -61,3 +61,19 @@ export const resetPersonConsumptions = command(async () => {
     data: {reset: new Date(),},
   });
 });
+
+export const getPersonHistoryRecords = query(
+  v.object({start: v.number(), take: v.number(),}),
+  async ({start, take,}) => {
+    const {params,} = await testFunctionRole("ADMIN");
+    return await prisma.consumption.findMany({
+      where: {personId: params.person!,},
+      orderBy: {timestamp: "desc",},
+      include: {
+        drink: {select: {name: true,},},
+        creator: {select: {username: true,},},
+      },
+      skip: start,
+      take,
+    });
+  });

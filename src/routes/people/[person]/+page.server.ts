@@ -24,14 +24,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
   if (!person) {
     return fail(404);
   }
-  const allConsumptions = !(await hasAdminRole(locals)) ? null : await prisma.consumption.findMany({
-    where: {personId: person.id,},
-    orderBy: {timestamp: "desc",},
-    include: {
-      drink: {select: {name: true,},},
-      creator: {select: {username: true,},},
-    },
-  });
+  const consumptionHistorySize = !(await hasAdminRole(locals)) ? 0 : await prisma.consumption.count({where: {personId: person.id,},});
   const consumptions = await prisma.consumption.groupBy({
     by: ["drinkId", "price",],
     where: {
@@ -46,7 +39,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
   });
   return {
     person,
-    allConsumptions,
+    consumptionHistorySize,
     consumptions: consumptions.map(consumption => ({
       drink: drinks.find(drink => drink.id === consumption.drinkId),
       price: consumption.price,
