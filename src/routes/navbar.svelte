@@ -63,12 +63,14 @@
       <HeaderButton name="Scores" href="/scores">
         <IconTrophy/>
       </HeaderButton>
-      <HeaderButton name="People" href="/people">
-        <IconPerson/>
-      </HeaderButton>
-      <HeaderButton name="Drinks" href="/drinks">
-        <IconDrinks/>
-      </HeaderButton>
+      <div class="hidden md:contents">
+        <HeaderButton name="People" href="/people">
+          <IconPerson/>
+        </HeaderButton>
+        <HeaderButton name="Drinks" href="/drinks">
+          <IconDrinks/>
+        </HeaderButton>
+      </div>
     </div>
     <div class="relative">
       <IconButton onclick={e => menuAnchor = e.currentTarget}>
@@ -81,11 +83,17 @@
            role={menuAnchor ? "button" : undefined} aria-label={menuAnchor ? "Close menu" : undefined}>
       </div>
       <div bind:this={menuElement} style={menuStyle} class={twMerge(
-        "top-0 fixed origin-top-right rounded-lg bg-navbar-menu text-navbar-menu-text shadow-xl z-40",
+        "top-0 fixed origin-top-right rounded-lg bg-navbar-menu text-navbar-menu-text shadow-xl z-40 overflow-hidden",
         "backdrop-blur-lg transition-all duration-200 ease-out scale-95 opacity-0 pointer-events-none",
         menuAnchor && "scale-100 opacity-100 pointer-events-auto"
       )} aria-hidden={!menuAnchor}>
         <ul>
+          <HeaderMenuButton name="People" href="/people" class="md:hidden">
+            <IconPerson/>
+          </HeaderMenuButton>
+          <HeaderMenuButton name="Drinks" href="/drinks" class="md:hidden">
+            <IconDrinks/>
+          </HeaderMenuButton>
           <HeaderMenuButton name="Workspace" href="/workspace">
             <IconWorkspace/>
           </HeaderMenuButton>

@@ -21,6 +21,7 @@
     name,
     children,
     "data-sveltekit-reload": doReload,
+    class: cls,
     ...rest
   }: {
     name: string,
@@ -29,7 +30,7 @@
   } & Props = $props();
 </script>
 
-<li>
+<li class={cls}>
   <svelte:element
       this={as} {...rest} data-sveltekit-reload={doReload}
       class="flex items-center gap-4 px-4 py-2 first:pt-4 last:pb-4 hover:bg-button-hover hover:text-button-hover-text cursor-pointer w-52"
