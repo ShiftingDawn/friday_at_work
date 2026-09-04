@@ -37,6 +37,7 @@
           updateFormLoading = true;
           try {
             if (await form.submit()) {
+              form.element.reset();
               flash("success", "Workspace has been updated");
             } else {
               flash("error", "Could not update workspace");
@@ -70,6 +71,7 @@
                    if (await form.submit()) {
                      addPermissionFormLoading = false;
                      modalOpen = false;
+                     form.element.reset();
                      flash("success", "Added permission successfully");
                    } else {
                      flash("error", "Could not add permission");

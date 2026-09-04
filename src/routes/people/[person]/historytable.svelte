@@ -68,6 +68,7 @@
            try {
              if (await form.submit()) {
                editModalData = undefined;
+               form.element.reset();
                flash("success", "Edited history record successfully");
              } else {
                flash("error", "Could not edit history record");

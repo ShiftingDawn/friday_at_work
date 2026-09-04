@@ -15,6 +15,7 @@
   import type {ChangeEventHandler} from "svelte/elements";
   import {displayPrice} from "$lib";
   import {
+    addDrinkRestockForm,
     getDrinkConsumptionCount,
     getDrinkLastRestock,
     getDrinkRestockCount,
@@ -26,6 +27,7 @@
 
   const {params, data,}: PageProps = $props();
   let addRestockModalOpen = $state(false);
+  let addRestockLoading = $state(false);
   let setThresholdModalOpen = $state(false);
   let setThresholdLoading = $state(false);
   let updateDataFormLoading = $state(false);
@@ -49,17 +51,27 @@
 </script>
 
 <Modal as="form" title="Register restock" open={addRestockModalOpen} onclose={() => addRestockModalOpen = false}
-       class="max-w-md" method="POST" action="?/restock">
+       class="max-w-md" canclose={!addRestockLoading} {...addDrinkRestockForm.enhance(async form => {
+         addRestockLoading = true;
+         try {
+           if (await form.submit()) {
+             addRestockModalOpen = false;
+             form.element.reset();
+             flash("success", `Restocked ${form.fields.amount.value()} items for drink ${data.drink!.name}`);
+           } else {
+             flash("error", `Could not register restock for drink ${data.drink!.name}`);
+           }
+         } catch (error) {
+           flash("error", `Could not register restock for drink ${data.drink!.name}`, "An unknown error occurred");
+           console.error(error);
+         }
+         addRestockLoading = false;
+       })}
+>
   <div class="flex flex-col gap-4">
-    <FormLabel name="Amount">
-      <FormInput
-          id="restockamountfield"
-          type="number"
-          min="1"
-          name="amount"
-          required
-          autofocus
-      />
+    <FormLabel name="Amount" error={addDrinkRestockForm.fields.amount.issues()}>
+      <FormInput id="restockamountfield" {...addDrinkRestockForm.fields.amount.as("number")} required min="1"
+                 autofocus/>
     </FormLabel>
     <FormCheckbox name="correction" onchange={onCorrectionCheckChanged}>
       Restock is correction
@@ -67,7 +79,7 @@
     <p>If restock correction is enabled, negative amounts can be entered to shrink the available stock.</p>
   </div>
   {#snippet actions()}
-    <Button type="submit" class="font-bold uppercase">
+    <Button type="submit" class="font-bold uppercase" loading={addRestockLoading}>
       Restock
     </Button>
   {/snippet}
@@ -79,12 +91,14 @@
          try {
            if (await form.submit()) {
              setThresholdModalOpen = false;
-             flash("success", `Registered threshold ${setDrinkThreshold.fields.value} for drink ${data.drink!.name}`);
+             form.element.reset();
+             flash("success", `Registered threshold ${form.fields.amount.value()} for drink ${data.drink!.name}`);
            } else {
              flash("error", `Could not register threshold for drink ${data.drink!.name}`);
            }
-         } catch {
+         } catch (error) {
            flash("error", `Could not register threshold for drink ${data.drink!.name}`, "An unknown error occurred");
+           console.error(error);
          }
          setThresholdLoading = false;
        })}

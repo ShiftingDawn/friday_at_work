@@ -33,6 +33,7 @@
         updateFormLoading = true;
         try {
           if (await form.submit()) {
+            form.element.reset();
             flash("success", `Updated data for ${data.person!.name}`);
           } else {
             flash("error", `Could not update data for ${data.person!.name}`, "An unknown error occurred");

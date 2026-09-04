@@ -32,6 +32,7 @@
          newDrinkFormLoading = true;
          try {
            if (await form.submit()) {
+             form.element.reset();
              flash("success", `Added drink ${addDrink.fields.name.value} to the menu`);
            } else {
              flash("error", `Could not add drink ${addDrink.fields.name.value} to the menu`);

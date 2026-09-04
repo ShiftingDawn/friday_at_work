@@ -33,6 +33,7 @@
          createFormLoading = true;
          try {
            if (await form.submit()) {
+             form.element.reset();
              flash("success", "Workspace has been created");
              createFormLoading = false;
              modalOpen = false;

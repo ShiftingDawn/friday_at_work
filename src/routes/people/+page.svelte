@@ -23,6 +23,7 @@
            newPersonFormLoading = true;
            try {
              if (await form.submit()) {
+               form.element.reset();
                flash("success", `${createPerson.fields.name.value} joined the club!`);
              } else {
                flash("error", "Could not register person");
