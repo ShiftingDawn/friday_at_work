@@ -18,6 +18,7 @@ model User {
   workspacePermissions WorkspacePermission[]
   consumptions         Consumption[]
   restocks             Restock[]
+  stockChecks          StockCheck[]
 
   @@map("users")
 }
@@ -89,6 +90,7 @@ model Drink {
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
   restocks     Restock[]
+  stockChecks  StockCheck[]
 
   @@map("drinks")
 }
@@ -123,8 +125,25 @@ model Restock {
   type      RestockType @default(RESTOCK)
   timestamp DateTime    @default(now())
 
-  drink   Drink @relation(fields: [drinkId], references: [id])
-  creator User  @relation(fields: [creatorId], references: [id])
+  drink       Drink        @relation(fields: [drinkId], references: [id])
+  creator     User         @relation(fields: [creatorId], references: [id])
+  stockChecks StockCheck[]
 
   @@map("restocks")
+}
+
+model StockCheck {
+  id        String   @id @default(uuid()) @db.Uuid
+  drinkId   String   @db.Uuid
+  creatorId String   @db.Uuid
+  restockId String?  @db.Uuid
+  expected  Int
+  actual    Int
+  timestamp DateTime @default(now())
+
+  drink   Drink    @relation(fields: [drinkId], references: [id])
+  creator User     @relation(fields: [creatorId], references: [id])
+  restock Restock? @relation(fields: [restockId], references: [id])
+
+  @@map("stock_check")
 }

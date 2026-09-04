@@ -4,7 +4,7 @@ import {testFunctionRole} from "$lib/functions/index";
 import {prisma} from "$lib/server/db";
 import {bunfile} from "$lib/bunfile";
 import {upload} from "$lib/server/storage";
-import {error, invalid} from "@sveltejs/kit";
+import {invalid} from "@sveltejs/kit";
 
 export const getVisibleDrinks = query(async () => {
   const {locals,} = await testFunctionRole("READ");
@@ -98,28 +98,20 @@ export const setDrinkThreshold = form(
   }
 );
 
-export const addDrinkRestock = command(
-  v.object({amount: v.number(), correction: v.optional(v.boolean(), false),}),
-  async ({amount, correction,}) => {
-    const {params,} = await testFunctionRole("WRITE");
-    return _addDrinkRestockInternal(params.drink!, amount, correction);
-  }
-);
-
-export const addDrinkRestockForm = form(
+export const addDrinkRestock = form(
   v.object({amount: v.number(), correction: v.pipe(v.optional(v.string()), v.transform(str => str === "on")),}),
   async ({amount, correction,}, issues) => {
     const {params,} = await testFunctionRole("WRITE");
     if (!correction && amount < 1) {
       invalid(issues.amount("Amount must be at least 1."));
     }
-    return _addDrinkRestockInternal(params.drink!, amount, correction === true);
+    await _addDrinkRestockInternal(params.drink!, amount, correction === true);
   }
 );
 
 async function _addDrinkRestockInternal(drinkId: string, amount: number, correction: boolean) {
   const {locals,} = await testFunctionRole("WRITE");
-  await prisma.restock.create({
+  const restock = await prisma.restock.create({
     data: {
       drinkId: drinkId,
       amount: amount,
@@ -130,7 +122,26 @@ async function _addDrinkRestockInternal(drinkId: string, amount: number, correct
   void getDrinkConsumptionCount(drinkId).refresh();
   void getDrinkRestockCount(drinkId).refresh();
   void getDrinkLastRestock(drinkId).refresh();
+  return restock;
 }
+
+export const addDrinkStockCheck = command(
+  v.object({expected: v.number(), actual: v.number(), correction: v.optional(v.boolean(), false),}),
+  async ({expected, actual, correction,}) => {
+    const amount = expected - actual;
+    const {locals, params,} = await testFunctionRole("WRITE");
+    const restock = amount > 0 ? await _addDrinkRestockInternal(params.drink!, amount * -1, correction) : undefined;
+    await prisma.stockCheck.create({
+      data: {
+        drinkId: params.drink!,
+        creatorId: locals.user!.id,
+        restockId: restock?.id,
+        expected,
+        actual,
+      },
+    });
+  }
+);
 
 export const modifyDrinkHistoryRecord = form(
   v.object({

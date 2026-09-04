@@ -179,6 +179,7 @@ export type UserWhereInput = {
   workspacePermissions?: Prisma.WorkspacePermissionListRelationFilter
   consumptions?: Prisma.ConsumptionListRelationFilter
   restocks?: Prisma.RestockListRelationFilter
+  stockChecks?: Prisma.StockCheckListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -191,6 +192,7 @@ export type UserOrderByWithRelationInput = {
   workspacePermissions?: Prisma.WorkspacePermissionOrderByRelationAggregateInput
   consumptions?: Prisma.ConsumptionOrderByRelationAggregateInput
   restocks?: Prisma.RestockOrderByRelationAggregateInput
+  stockChecks?: Prisma.StockCheckOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -206,6 +208,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   workspacePermissions?: Prisma.WorkspacePermissionListRelationFilter
   consumptions?: Prisma.ConsumptionListRelationFilter
   restocks?: Prisma.RestockListRelationFilter
+  stockChecks?: Prisma.StockCheckListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -238,6 +241,7 @@ export type UserCreateInput = {
   workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -250,6 +254,7 @@ export type UserUncheckedCreateInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUpdateInput = {
@@ -262,6 +267,7 @@ export type UserUpdateInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -274,6 +280,7 @@ export type UserUncheckedUpdateInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUncheckedUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -401,6 +408,20 @@ export type UserUpdateOneRequiredWithoutRestocksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRestocksInput, Prisma.UserUpdateWithoutRestocksInput>, Prisma.UserUncheckedUpdateWithoutRestocksInput>
 }
 
+export type UserCreateNestedOneWithoutStockChecksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStockChecksInput, Prisma.UserUncheckedCreateWithoutStockChecksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStockChecksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStockChecksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStockChecksInput, Prisma.UserUncheckedCreateWithoutStockChecksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStockChecksInput
+  upsert?: Prisma.UserUpsertWithoutStockChecksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStockChecksInput, Prisma.UserUpdateWithoutStockChecksInput>, Prisma.UserUncheckedUpdateWithoutStockChecksInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   username: string
@@ -410,6 +431,7 @@ export type UserCreateWithoutSessionsInput = {
   workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -421,6 +443,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -448,6 +471,7 @@ export type UserUpdateWithoutSessionsInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -459,6 +483,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUncheckedUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutWorkspacesInput = {
@@ -470,6 +495,7 @@ export type UserCreateWithoutWorkspacesInput = {
   workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutWorkspacesInput = {
@@ -481,6 +507,7 @@ export type UserUncheckedCreateWithoutWorkspacesInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -508,6 +535,7 @@ export type UserUpdateWithoutWorkspacesInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkspacesInput = {
@@ -519,6 +547,7 @@ export type UserUncheckedUpdateWithoutWorkspacesInput = {
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUncheckedUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutWorkspacePermissionsInput = {
@@ -530,6 +559,7 @@ export type UserCreateWithoutWorkspacePermissionsInput = {
   workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutWorkspacePermissionsInput = {
@@ -541,6 +571,7 @@ export type UserUncheckedCreateWithoutWorkspacePermissionsInput = {
   workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutCreatorInput
   restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutWorkspacePermissionsInput = {
@@ -568,6 +599,7 @@ export type UserUpdateWithoutWorkspacePermissionsInput = {
   workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkspacePermissionsInput = {
@@ -579,6 +611,7 @@ export type UserUncheckedUpdateWithoutWorkspacePermissionsInput = {
   workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutCreatorNestedInput
   restocks?: Prisma.RestockUncheckedUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutConsumptionsInput = {
@@ -590,6 +623,7 @@ export type UserCreateWithoutConsumptionsInput = {
   workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
   restocks?: Prisma.RestockCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutConsumptionsInput = {
@@ -601,6 +635,7 @@ export type UserUncheckedCreateWithoutConsumptionsInput = {
   workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
   restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutConsumptionsInput = {
@@ -628,6 +663,7 @@ export type UserUpdateWithoutConsumptionsInput = {
   workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
   restocks?: Prisma.RestockUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConsumptionsInput = {
@@ -639,6 +675,7 @@ export type UserUncheckedUpdateWithoutConsumptionsInput = {
   workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
   restocks?: Prisma.RestockUncheckedUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutRestocksInput = {
@@ -650,6 +687,7 @@ export type UserCreateWithoutRestocksInput = {
   workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
   workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutCreatorInput
 }
 
 export type UserUncheckedCreateWithoutRestocksInput = {
@@ -661,6 +699,7 @@ export type UserUncheckedCreateWithoutRestocksInput = {
   workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
   consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutCreatorInput
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type UserCreateOrConnectWithoutRestocksInput = {
@@ -688,6 +727,7 @@ export type UserUpdateWithoutRestocksInput = {
   workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
   workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRestocksInput = {
@@ -699,6 +739,71 @@ export type UserUncheckedUpdateWithoutRestocksInput = {
   workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
   workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
   consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutCreatorNestedInput
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserCreateWithoutStockChecksInput = {
+  id?: string
+  username: string
+  password: string
+  isAdmin?: boolean
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  workspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput
+  workspacePermissions?: Prisma.WorkspacePermissionCreateNestedManyWithoutUserInput
+  consumptions?: Prisma.ConsumptionCreateNestedManyWithoutCreatorInput
+  restocks?: Prisma.RestockCreateNestedManyWithoutCreatorInput
+}
+
+export type UserUncheckedCreateWithoutStockChecksInput = {
+  id?: string
+  username: string
+  password: string
+  isAdmin?: boolean
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  workspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedCreateNestedManyWithoutUserInput
+  consumptions?: Prisma.ConsumptionUncheckedCreateNestedManyWithoutCreatorInput
+  restocks?: Prisma.RestockUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type UserCreateOrConnectWithoutStockChecksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStockChecksInput, Prisma.UserUncheckedCreateWithoutStockChecksInput>
+}
+
+export type UserUpsertWithoutStockChecksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStockChecksInput, Prisma.UserUncheckedUpdateWithoutStockChecksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStockChecksInput, Prisma.UserUncheckedCreateWithoutStockChecksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStockChecksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStockChecksInput, Prisma.UserUncheckedUpdateWithoutStockChecksInput>
+}
+
+export type UserUpdateWithoutStockChecksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  workspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUpdateManyWithoutUserNestedInput
+  consumptions?: Prisma.ConsumptionUpdateManyWithoutCreatorNestedInput
+  restocks?: Prisma.RestockUpdateManyWithoutCreatorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStockChecksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  workspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+  workspacePermissions?: Prisma.WorkspacePermissionUncheckedUpdateManyWithoutUserNestedInput
+  consumptions?: Prisma.ConsumptionUncheckedUpdateManyWithoutCreatorNestedInput
+  restocks?: Prisma.RestockUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 
@@ -712,6 +817,7 @@ export type UserCountOutputType = {
   workspacePermissions: number
   consumptions: number
   restocks: number
+  stockChecks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -720,6 +826,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   workspacePermissions?: boolean | UserCountOutputTypeCountWorkspacePermissionsArgs
   consumptions?: boolean | UserCountOutputTypeCountConsumptionsArgs
   restocks?: boolean | UserCountOutputTypeCountRestocksArgs
+  stockChecks?: boolean | UserCountOutputTypeCountStockChecksArgs
 }
 
 /**
@@ -767,6 +874,13 @@ export type UserCountOutputTypeCountRestocksArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.RestockWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStockChecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StockCheckWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -778,6 +892,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   workspacePermissions?: boolean | Prisma.User$workspacePermissionsArgs<ExtArgs>
   consumptions?: boolean | Prisma.User$consumptionsArgs<ExtArgs>
   restocks?: boolean | Prisma.User$restocksArgs<ExtArgs>
+  stockChecks?: boolean | Prisma.User$stockChecksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -809,6 +924,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   workspacePermissions?: boolean | Prisma.User$workspacePermissionsArgs<ExtArgs>
   consumptions?: boolean | Prisma.User$consumptionsArgs<ExtArgs>
   restocks?: boolean | Prisma.User$restocksArgs<ExtArgs>
+  stockChecks?: boolean | Prisma.User$stockChecksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -822,6 +938,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     workspacePermissions: Prisma.$WorkspacePermissionPayload<ExtArgs>[]
     consumptions: Prisma.$ConsumptionPayload<ExtArgs>[]
     restocks: Prisma.$RestockPayload<ExtArgs>[]
+    stockChecks: Prisma.$StockCheckPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1227,6 +1344,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   workspacePermissions<T extends Prisma.User$workspacePermissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workspacePermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkspacePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   consumptions<T extends Prisma.User$consumptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$consumptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConsumptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   restocks<T extends Prisma.User$restocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$restocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stockChecks<T extends Prisma.User$stockChecksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stockChecksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1770,6 +1888,30 @@ export type User$restocksArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.RestockScalarFieldEnum | Prisma.RestockScalarFieldEnum[]
+}
+
+/**
+ * User.stockChecks
+ */
+export type User$stockChecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockCheck
+   */
+  select?: Prisma.StockCheckSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockCheck
+   */
+  omit?: Prisma.StockCheckOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockCheckInclude<ExtArgs> | null
+  where?: Prisma.StockCheckWhereInput
+  orderBy?: Prisma.StockCheckOrderByWithRelationInput | Prisma.StockCheckOrderByWithRelationInput[]
+  cursor?: Prisma.StockCheckWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StockCheckScalarFieldEnum | Prisma.StockCheckScalarFieldEnum[]
 }
 
 /**

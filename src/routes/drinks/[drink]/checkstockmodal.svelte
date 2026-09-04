@@ -4,7 +4,7 @@
   import FormLabel from "$comp/form_label.svelte";
   import Modal from "$comp/modal.svelte";
   import Section from "$comp/section.svelte";
-  import {addDrinkRestock} from "$lib/functions/drinks.remote";
+  import {addDrinkRestock, addDrinkStockCheck} from "$lib/functions/drinks.remote";
 
   const {expected,}: { expected: number, } = $props();
 
@@ -32,7 +32,7 @@
       handleClose();
       return;
     }
-    addDrinkRestock({amount: difference * -1, correction: true,}).then(() => {
+    addDrinkStockCheck({expected, actual: stockCounted, correction: true,}).then(() => {
       handleClose();
     });
   }

@@ -226,6 +226,7 @@ export type RestockWhereInput = {
   timestamp?: Prisma.DateTimeFilter<"Restock"> | Date | string
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  stockChecks?: Prisma.StockCheckListRelationFilter
 }
 
 export type RestockOrderByWithRelationInput = {
@@ -237,6 +238,7 @@ export type RestockOrderByWithRelationInput = {
   timestamp?: Prisma.SortOrder
   drink?: Prisma.DrinkOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
+  stockChecks?: Prisma.StockCheckOrderByRelationAggregateInput
 }
 
 export type RestockWhereUniqueInput = Prisma.AtLeast<{
@@ -251,6 +253,7 @@ export type RestockWhereUniqueInput = Prisma.AtLeast<{
   timestamp?: Prisma.DateTimeFilter<"Restock"> | Date | string
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  stockChecks?: Prisma.StockCheckListRelationFilter
 }, "id">
 
 export type RestockOrderByWithAggregationInput = {
@@ -286,6 +289,7 @@ export type RestockCreateInput = {
   timestamp?: Date | string
   drink: Prisma.DrinkCreateNestedOneWithoutRestocksInput
   creator: Prisma.UserCreateNestedOneWithoutRestocksInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutRestockInput
 }
 
 export type RestockUncheckedCreateInput = {
@@ -295,6 +299,7 @@ export type RestockUncheckedCreateInput = {
   amount: number
   type?: $Enums.RestockType
   timestamp?: Date | string
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutRestockInput
 }
 
 export type RestockUpdateInput = {
@@ -304,6 +309,7 @@ export type RestockUpdateInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   drink?: Prisma.DrinkUpdateOneRequiredWithoutRestocksNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutRestocksNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutRestockNestedInput
 }
 
 export type RestockUncheckedUpdateInput = {
@@ -313,6 +319,7 @@ export type RestockUncheckedUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutRestockNestedInput
 }
 
 export type RestockCreateManyInput = {
@@ -383,6 +390,11 @@ export type RestockMinOrderByAggregateInput = {
 
 export type RestockSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+}
+
+export type RestockNullableScalarRelationFilter = {
+  is?: Prisma.RestockWhereInput | null
+  isNot?: Prisma.RestockWhereInput | null
 }
 
 export type RestockCreateNestedManyWithoutCreatorInput = {
@@ -473,12 +485,29 @@ export type EnumRestockTypeFieldUpdateOperationsInput = {
   set?: $Enums.RestockType
 }
 
+export type RestockCreateNestedOneWithoutStockChecksInput = {
+  create?: Prisma.XOR<Prisma.RestockCreateWithoutStockChecksInput, Prisma.RestockUncheckedCreateWithoutStockChecksInput>
+  connectOrCreate?: Prisma.RestockCreateOrConnectWithoutStockChecksInput
+  connect?: Prisma.RestockWhereUniqueInput
+}
+
+export type RestockUpdateOneWithoutStockChecksNestedInput = {
+  create?: Prisma.XOR<Prisma.RestockCreateWithoutStockChecksInput, Prisma.RestockUncheckedCreateWithoutStockChecksInput>
+  connectOrCreate?: Prisma.RestockCreateOrConnectWithoutStockChecksInput
+  upsert?: Prisma.RestockUpsertWithoutStockChecksInput
+  disconnect?: Prisma.RestockWhereInput | boolean
+  delete?: Prisma.RestockWhereInput | boolean
+  connect?: Prisma.RestockWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RestockUpdateToOneWithWhereWithoutStockChecksInput, Prisma.RestockUpdateWithoutStockChecksInput>, Prisma.RestockUncheckedUpdateWithoutStockChecksInput>
+}
+
 export type RestockCreateWithoutCreatorInput = {
   id?: string
   amount: number
   type?: $Enums.RestockType
   timestamp?: Date | string
   drink: Prisma.DrinkCreateNestedOneWithoutRestocksInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutRestockInput
 }
 
 export type RestockUncheckedCreateWithoutCreatorInput = {
@@ -487,6 +516,7 @@ export type RestockUncheckedCreateWithoutCreatorInput = {
   amount: number
   type?: $Enums.RestockType
   timestamp?: Date | string
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutRestockInput
 }
 
 export type RestockCreateOrConnectWithoutCreatorInput = {
@@ -533,6 +563,7 @@ export type RestockCreateWithoutDrinkInput = {
   type?: $Enums.RestockType
   timestamp?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutRestocksInput
+  stockChecks?: Prisma.StockCheckCreateNestedManyWithoutRestockInput
 }
 
 export type RestockUncheckedCreateWithoutDrinkInput = {
@@ -541,6 +572,7 @@ export type RestockUncheckedCreateWithoutDrinkInput = {
   amount: number
   type?: $Enums.RestockType
   timestamp?: Date | string
+  stockChecks?: Prisma.StockCheckUncheckedCreateNestedManyWithoutRestockInput
 }
 
 export type RestockCreateOrConnectWithoutDrinkInput = {
@@ -569,6 +601,58 @@ export type RestockUpdateManyWithWhereWithoutDrinkInput = {
   data: Prisma.XOR<Prisma.RestockUpdateManyMutationInput, Prisma.RestockUncheckedUpdateManyWithoutDrinkInput>
 }
 
+export type RestockCreateWithoutStockChecksInput = {
+  id?: string
+  amount: number
+  type?: $Enums.RestockType
+  timestamp?: Date | string
+  drink: Prisma.DrinkCreateNestedOneWithoutRestocksInput
+  creator: Prisma.UserCreateNestedOneWithoutRestocksInput
+}
+
+export type RestockUncheckedCreateWithoutStockChecksInput = {
+  id?: string
+  drinkId: string
+  creatorId: string
+  amount: number
+  type?: $Enums.RestockType
+  timestamp?: Date | string
+}
+
+export type RestockCreateOrConnectWithoutStockChecksInput = {
+  where: Prisma.RestockWhereUniqueInput
+  create: Prisma.XOR<Prisma.RestockCreateWithoutStockChecksInput, Prisma.RestockUncheckedCreateWithoutStockChecksInput>
+}
+
+export type RestockUpsertWithoutStockChecksInput = {
+  update: Prisma.XOR<Prisma.RestockUpdateWithoutStockChecksInput, Prisma.RestockUncheckedUpdateWithoutStockChecksInput>
+  create: Prisma.XOR<Prisma.RestockCreateWithoutStockChecksInput, Prisma.RestockUncheckedCreateWithoutStockChecksInput>
+  where?: Prisma.RestockWhereInput
+}
+
+export type RestockUpdateToOneWithWhereWithoutStockChecksInput = {
+  where?: Prisma.RestockWhereInput
+  data: Prisma.XOR<Prisma.RestockUpdateWithoutStockChecksInput, Prisma.RestockUncheckedUpdateWithoutStockChecksInput>
+}
+
+export type RestockUpdateWithoutStockChecksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  drink?: Prisma.DrinkUpdateOneRequiredWithoutRestocksNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutRestocksNestedInput
+}
+
+export type RestockUncheckedUpdateWithoutStockChecksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type RestockCreateManyCreatorInput = {
   id?: string
   drinkId: string
@@ -583,6 +667,7 @@ export type RestockUpdateWithoutCreatorInput = {
   type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   drink?: Prisma.DrinkUpdateOneRequiredWithoutRestocksNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutRestockNestedInput
 }
 
 export type RestockUncheckedUpdateWithoutCreatorInput = {
@@ -591,6 +676,7 @@ export type RestockUncheckedUpdateWithoutCreatorInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutRestockNestedInput
 }
 
 export type RestockUncheckedUpdateManyWithoutCreatorInput = {
@@ -615,6 +701,7 @@ export type RestockUpdateWithoutDrinkInput = {
   type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutRestocksNestedInput
+  stockChecks?: Prisma.StockCheckUpdateManyWithoutRestockNestedInput
 }
 
 export type RestockUncheckedUpdateWithoutDrinkInput = {
@@ -623,6 +710,7 @@ export type RestockUncheckedUpdateWithoutDrinkInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumRestockTypeFieldUpdateOperationsInput | $Enums.RestockType
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockChecks?: Prisma.StockCheckUncheckedUpdateManyWithoutRestockNestedInput
 }
 
 export type RestockUncheckedUpdateManyWithoutDrinkInput = {
@@ -634,6 +722,35 @@ export type RestockUncheckedUpdateManyWithoutDrinkInput = {
 }
 
 
+/**
+ * Count Type RestockCountOutputType
+ */
+
+export type RestockCountOutputType = {
+  stockChecks: number
+}
+
+export type RestockCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  stockChecks?: boolean | RestockCountOutputTypeCountStockChecksArgs
+}
+
+/**
+ * RestockCountOutputType without action
+ */
+export type RestockCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RestockCountOutputType
+   */
+  select?: Prisma.RestockCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * RestockCountOutputType without action
+ */
+export type RestockCountOutputTypeCountStockChecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StockCheckWhereInput
+}
+
 
 export type RestockSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -644,6 +761,8 @@ export type RestockSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   timestamp?: boolean
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  stockChecks?: boolean | Prisma.Restock$stockChecksArgs<ExtArgs>
+  _count?: boolean | Prisma.RestockCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["restock"]>
 
 export type RestockSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -681,6 +800,8 @@ export type RestockOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type RestockInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  stockChecks?: boolean | Prisma.Restock$stockChecksArgs<ExtArgs>
+  _count?: boolean | Prisma.RestockCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RestockIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
@@ -696,6 +817,7 @@ export type $RestockPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     drink: Prisma.$DrinkPayload<ExtArgs>
     creator: Prisma.$UserPayload<ExtArgs>
+    stockChecks: Prisma.$StockCheckPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1100,6 +1222,7 @@ export interface Prisma__RestockClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   drink<T extends Prisma.DrinkDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DrinkDefaultArgs<ExtArgs>>): Prisma.Prisma__DrinkClient<runtime.Types.Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  stockChecks<T extends Prisma.Restock$stockChecksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Restock$stockChecksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1533,6 +1656,30 @@ export type RestockDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Restocks to delete.
    */
   limit?: number
+}
+
+/**
+ * Restock.stockChecks
+ */
+export type Restock$stockChecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockCheck
+   */
+  select?: Prisma.StockCheckSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockCheck
+   */
+  omit?: Prisma.StockCheckOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockCheckInclude<ExtArgs> | null
+  where?: Prisma.StockCheckWhereInput
+  orderBy?: Prisma.StockCheckOrderByWithRelationInput | Prisma.StockCheckOrderByWithRelationInput[]
+  cursor?: Prisma.StockCheckWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StockCheckScalarFieldEnum | Prisma.StockCheckScalarFieldEnum[]
 }
 
 /**

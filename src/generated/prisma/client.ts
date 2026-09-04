@@ -81,3 +81,8 @@ export type Consumption = Prisma.ConsumptionModel
  * 
  */
 export type Restock = Prisma.RestockModel
+/**
+ * Model StockCheck
+ * 
+ */
+export type StockCheck = Prisma.StockCheckModel

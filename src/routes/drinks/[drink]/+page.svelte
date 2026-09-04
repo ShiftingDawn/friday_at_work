@@ -15,7 +15,7 @@
   import type {ChangeEventHandler} from "svelte/elements";
   import {displayPrice} from "$lib";
   import {
-    addDrinkRestockForm,
+    addDrinkRestock,
     getDrinkConsumptionCount,
     getDrinkLastRestock,
     getDrinkRestockCount,
@@ -52,7 +52,7 @@
 </script>
 
 <Modal as="form" title="Register restock" open={addRestockModalOpen} onclose={() => addRestockModalOpen = false}
-       class="max-w-md" canclose={!addRestockLoading} {...addDrinkRestockForm.enhance(async form => {
+       class="max-w-md" canclose={!addRestockLoading} {...addDrinkRestock.enhance(async form => {
          addRestockLoading = true;
          try {
            if (await form.submit()) {
@@ -70,8 +70,8 @@
        })}
 >
   <div class="flex flex-col gap-4">
-    <FormLabel name="Amount" error={addDrinkRestockForm.fields.amount.issues()}>
-      <FormInput id="restockamountfield" {...addDrinkRestockForm.fields.amount.as("number")} required min="1"
+    <FormLabel name="Amount" error={addDrinkRestock.fields.amount.issues()}>
+      <FormInput id="restockamountfield" {...addDrinkRestock.fields.amount.as("number")} required min="1"
                  autofocus/>
     </FormLabel>
     <FormCheckbox name="correction" onchange={onCorrectionCheckChanged}>
@@ -172,6 +172,7 @@
     <p>Total amount restocked: {restockCount}</p>
     <div class="flex gap-4 flex-wrap">
       <Button as="a" href={`/drinks/${params.drink}/restocks`}>Restock history</Button>
+      <Button as="a" href={`/drinks/${params.drink}/stockchecks`}>Stock check history</Button>
       {#if data.canWrite}
         <Checkstockmodal expected={stock}/>
         <Button onclick={() => addRestockModalOpen = true}>
