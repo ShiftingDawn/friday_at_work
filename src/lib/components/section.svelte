@@ -1,28 +1,32 @@
 <script lang="ts">
 
-    import type {Snippet} from "svelte";
-    import {twMerge} from "tailwind-merge";
+  import type {Snippet} from "svelte";
+  import {twMerge} from "tailwind-merge";
 
-    const {
-      name,
-      class: cls,
-      children,
-    }: {
-      name?: string,
-      class?: string,
-      children?: Snippet
-    } = $props();
+  const {
+    name,
+    class: cls,
+    children,
+  }: {
+    name?: string,
+    class?: string,
+    children?: Snippet
+  } = $props();
 </script>
 
-<div class={twMerge(
-  "border-4 border-surface1 rounded-lg p-4 relative",
-  cls,
-  name && "mt-6 pt-6"
-)}>
-    {#if name}
-        <div class="absolute bg-surface1 px-2 py-1 rounded-full left-4 -top-4.5">
-            {name}
-        </div>
-    {/if}
+{#if name}
+  <div class={twMerge("bg-section text-section-text rounded-lg p-4", name && "flex flex-col gap-2")}>
+    <div>
+      <div class="m-2 mt-0 rounded-full text-lg font-bold">
+        {name}
+      </div>
+    </div>
+    <div class={cls}>
+      {@render children?.()}
+    </div>
+  </div>
+{:else}
+  <div class={twMerge("bg-section text-section-text rounded-lg p-4", cls)}>
     {@render children?.()}
-</div>
+  </div>
+{/if}

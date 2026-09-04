@@ -1,27 +1,27 @@
 <script lang="ts">
-    import type {Snippet} from "svelte";
-    import {twMerge} from "tailwind-merge";
-    import type {RemoteFormIssue} from "@sveltejs/kit";
+  import type {Snippet} from "svelte";
+  import {twMerge} from "tailwind-merge";
+  import type {RemoteFormIssue} from "@sveltejs/kit";
 
-    const {
-      name,
-      class: cls,
-      error,
-      children,
-    }: {
-      name: string,
-      class?: string,
-      error?: string | string[] | boolean | RemoteFormIssue[],
-      children: Snippet
-    } = $props();
+  const {
+    name,
+    class: cls,
+    error,
+    children,
+  }: {
+    name: string,
+    class?: string,
+    error?: string | string[] | boolean | RemoteFormIssue[],
+    children: Snippet
+  } = $props();
 </script>
 
 <label class={twMerge(
-  "flex flex-col bg-base-alt rounded-2xl group/formcontrol",
-  error && "bg-error",
+  "flex flex-col bg-input-label text-input-label-text rounded-2xl group/formcontrol",
+  error && "bg-error text-error-text",
   cls
 )} data-invalid={Boolean(error)}>
-  <span class={`pl-4 pr-2 font-bold ${error ? "text-base" : "text-text"}`}>
+  <span class="pl-4 pr-2 font-bold">
     {name}
   </span>
   <span class="p-1">

@@ -3,7 +3,7 @@
     import {Chart} from "chart.js/auto";
     import {useOldBarStyle} from "$lib/preferences";
     import {get} from "svelte/store";
-    import {getColorPrimary, getColorText, listenToThemeChanges} from "$lib/client";
+    import {listenToThemeChanges} from "$lib/client";
 
     interface Row {
       id: string;
@@ -12,6 +12,14 @@
     }
 
     const {id, rows,}: { id: string, rows: Row[] } = $props();
+
+    function getColorPrimary() {
+      return window.getComputedStyle(document.documentElement).getPropertyValue("--color-scores-bar");
+    }
+
+    function getColorText() {
+      return window.getComputedStyle(document.documentElement).getPropertyValue("--color-text");
+    }
 
     onMount(() => {
       if (get(useOldBarStyle)) return;

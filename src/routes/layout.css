@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
   --animate-shrink: shrink 5s linear forwards;
 }
@@ -14,118 +16,120 @@
   }
 }
 
-:root {
-  --clr-light-base: #eff1f5;
-  --clr-light-base-alt: #acb0be;
-  --clr-light-text: #4c4f69;
-  --clr-light-text-alt: #dce0e8;
-  --clr-light-navbar: var(--clr-light-text-alt);
-  --clr-light-navbar-button: var(--color-surface0);
-  --clr-light-navbar-button-text: var(--color-text);
-  --clr-light-navbar-button-hover: var(--color-primary);
-  --clr-light-navbar-button-hover-text: var(--color-base);
-  --clr-light-navbar-button-active: var(--color-secondary);
-  --clr-light-navbar-button-active-text: var(--color-base);
-  --clr-light-surface0: #ccd0da;
-  --clr-light-surface1: #bcc0cc;
-  --clr-light-surface2: #acb0be;
-  --clr-light-primary: #7287fd;
-  --clr-light-secondary: #dc8a78;
-  --clr-light-success: #40a02b;
-  --clr-light-info: #1e66f5;
-  --clr-light-warning: #df8e1d;
-  --clr-light-error: #d20f39;
+@theme {
+  --color-body: hsl(41deg 86% 83%);
+  --color-text: hsl(234deg 16% 35%);
+  --color-text-inverse: hsl(220deg, 23%, 95%);
+  --color-success: hsl(109deg 58% 40% / 75%);
+  --color-success-text: var(--color-text-inverse);
+  --color-info: hsl(220deg 91% 54% / 75%);
+  --color-info-text: var(--color-text-inverse);
+  --color-warning: hsl(35deg 77% 49% / 75%);
+  --color-warning-text: var(--color-text-inverse);
+  --color-error: hsl(347deg 87% 44% / 75%);
+  --color-error-text: var(--color-text-inverse);
 
-  --clr-dark-base: hsl(0 0 5%);
-  --clr-dark-base-alt: hsl(0 0 20%);
-  --clr-dark-text: hsl(0 0 90%);
-  --clr-dark-text-alt: hsl(0 0 5%);
-  --clr-dark-navbar: var(--clr-dark-base-alt);
-  --clr-dark-navbar-button: var(--color-surface0);
-  --clr-dark-navbar-button-text: var(--color-text);
-  --clr-dark-navbar-button-hover: var(--color-primary);
-  --clr-dark-navbar-button-hover-text: var(--color-base);
-  --clr-dark-navbar-button-active: var(--color-secondary);
-  --clr-dark-navbar-button-active-text: var(--color-base);
-  --clr-dark-surface0: hsl(0 0 10%);
-  --clr-dark-surface1: hsl(0 0 15%);
-  --clr-dark-surface2: hsl(0 0 20%);
-  --clr-dark-primary: hsl(232, 97%, 85%);
-  --clr-dark-secondary: hsl(10, 56%, 91%);
-  --clr-dark-success: #50c878;
-  --clr-dark-info: #55a9e8;
-  --clr-dark-warning: #f5ad45;
-  --clr-dark-error: #ed6262;
+  --color-divider: hsl(231deg 97% 72%);
+  --color-divider-text: var(--color-text-inverse);
+  --color-navbar: hsl(0deg 0% 100% / 30%);
+  --color-navbar-text: var(--color-text);
+  --color-navbar-menu: hsl(0deg 0% 100% / 50%);
+  --color-navbar-menu-text: var(--color-text);
+  --color-card: hsl(0deg 0% 100% / 30%);
+  --color-card-text: var(--color-text);
+  --color-card-header: hsl(0deg 0 100% / 50%);
+  --color-card-header-text: var(--color-text);
+  --color-section: var(--color-card);
+  --color-section-text: var(--color-text);
+  --color-dialog: hsl(0deg 0% 100% / 50%);
+  --color-dialog-text: var(--color-text);
+  --color-dialog-header: hsl(0deg 0 100% / 50%);
+  --color-dialog-header-text: var(--color-text);
+  --color-table-hover: hsl(0deg 0% 0% / 30%);
+  --color-table-hover-text: var(--color-text-inverse);
+
+  --color-button: hsl(231deg 97% 72%);
+  --color-button-text: var(--color-text-inverse);
+  --color-button-hover: hsl(231deg 97% 72%);
+  --color-button-hover-text: var(--color-text-inverse);
+  --color-button-active: hsl(109deg 58% 40%);
+  --color-button-active-text: var(--color-text-inverse);
+  --color-input-label: var(--color-button);
+  --color-input-label-text: var(--color-button-text);
+  --color-input: hsl(0deg 0% 100% / 75%);
+  --color-input-text: var(--color-text);
+  --color-checkbox: var(--color-button);
+  --color-checkbox-check: var(--color-button-text);
+  --color-select: hsl(0deg 0% 100% / 75%);
+  --color-select-text: var(--color-text);
+
+  --color-scores-bar: hsl(231deg 97% 72%);
+  --color-historytable-marked: hsl(234deg 16% 35% / 20%);
 }
 
-@theme {
-  --color-base: var(--clr-light-base);
-  --color-base-alt: var(--clr-light-base-alt);
-  --color-text: var(--clr-light-text);
-  --color-text-alt: var(--clr-light-text-alt);
-  --color-navbar: var(--clr-light-navbar);
-  --color-navbar-button: var(--clr-light-navbar-button);
-  --color-navbar-button-text: var(--clr-light-navbar-button-text);
-  --color-navbar-button-hover: var(--clr-light-navbar-button-hover);
-  --color-navbar-button-hover-text: var(--clr-light-navbar-button-hover-text);
-  --color-navbar-button-active: var(--clr-light-navbar-button-active);
-  --color-navbar-button-active-text: var(--clr-light-navbar-button-active-text);
-  --color-surface0: var(--clr-light-surface0);
-  --color-surface1: var(--clr-light-surface1);
-  --color-surface2: var(--clr-light-surface2);
-  --color-primary: var(--clr-light-primary);
-  --color-secondary: var(--clr-light-secondary);
-  --color-success: var(--clr-light-success);
-  --color-info: var(--clr-light-info);
-  --color-warning: var(--clr-light-warning);
-  --color-error: var(--clr-light-error);
+html[data-theme="dark"] {
+  --color-body: hsl(35deg 77% 49%);
+  --color-text: hsl(226deg 64% 88%);
+  --color-text-inverse: hsl(240deg 21% 15%);
+  --color-success: hsl(115deg 54% 76% / 75%);
+  --color-info: hsl(217deg 92% 76% / 75%);
+  --color-warning: hsl(41deg 86% 83% / 75%);
+  --color-error: hsl(343deg 81% 75% / 75%);
+
+  --color-divider: hsl(232deg 97% 85%);
+  --color-navbar: hsl(0deg 0% 0% / 30%);
+  --color-navbar-menu: hsl(0deg 0% 100% / 50%);
+  --color-card: hsl(0deg 0% 0% / 30%);
+  --color-card-header: hsl(0deg 0% 0% / 50%);
+  --color-dialog: hsl(0deg 0% 100% / 50%);
+  --color-dialog-header: hsl(0deg 0 100% / 50%);
+  --color-table-hover: hsl(0deg 0% 100% / 30%);
+
+  --color-button: hsl(232deg 97% 85%);
+  --color-button-hover: hsl(231deg 97% 72%);
+  --color-button-active: hsl(115deg 54% 76%);
+  --color-input: hsl(0deg 0% 0% / 30%);
+  --color-select: hsl(0deg 0% 0% / 30%);
+
+  --color-scores-bar: hsl(231deg 97% 72%);
+  --color-historytable-marked: hsl(234deg 16% 35% / 20%);
 }
 
 html, body {
   width: 100%;
   min-height: 100%;
-  background: var(--color-base);
+  background-color: var(--color-body);
   color: var(--color-text);
 }
 
-html[data-theme="dark"] {
-  --color-base: var(--clr-dark-base);
-  --color-base-alt: var(--clr-dark-base-alt);
-  --color-text: var(--clr-dark-text);
-  --color-text-alt: var(--clr-dark-text-alt);
-  --color-navbar: var(--clr-dark-navbar);
-  --color-navbar-button: var(--clr-dark-navbar-button);
-  --color-navbar-button-text: var(--clr-dark-navbar-button-text);
-  --color-navbar-button-hover: var(--clr-dark-navbar-button-hover);
-  --color-navbar-button-hover-text: var(--clr-dark-navbar-button-hover-text);
-  --color-navbar-button-active: var(--clr-dark-navbar-button-active);
-  --color-navbar-button-active-text: var(--clr-dark-navbar-button-active-text);
-  --color-surface0: var(--clr-dark-surface0);
-  --color-surface1: var(--clr-dark-surface1);
-  --color-surface2: var(--clr-dark-surface2);
-  --color-primary: var(--clr-dark-primary);
-  --color-secondary: var(--clr-dark-secondary);
-  --color-success: var(--clr-dark-success);
-  --color-info: var(--clr-dark-info);
-  --color-warning: var(--clr-dark-warning);
-  --color-error: var(--clr-dark-error);
+#backdrop path.out-top {
+  fill: #f38ba8;
 }
 
-@media (prefers-color-scheme: dark) {
-  html[data-theme="auto"] {
-    --color-base: var(--clr-dark-base);
-    --color-base-alt: var(--clr-dark-base-alt);
-    --color-text: var(--clr-dark-text);
-    --color-text-alt: var(--clr-dark-text-alt);
-    --color-navbar: var(--clr-dark-navbar);
-    --color-surface0: var(--clr-dark-surface0);
-    --color-surface1: var(--clr-dark-surface1);
-    --color-surface2: var(--clr-dark-surface2);
-    --color-primary: var(--clr-dark-primary);
-    --color-secondary: var(--clr-dark-secondary);
-    --color-success: var(--clr-dark-success);
-    --color-info: var(--clr-dark-info);
-    --color-warning: var(--clr-dark-warning);
-    --color-error: var(--clr-dark-error);
-  }
+#backdrop path.in-top {
+  fill: #f5c2e7;
+}
+
+#backdrop path.out-bottom {
+  fill: #74c7ec;
+}
+
+#backdrop path.in-bottom {
+  fill: #a6e3a1;
+}
+
+html[data-theme="dark"] #backdrop path.out-top {
+  fill: #d20f39;
+}
+
+html[data-theme="dark"] #backdrop path.in-top {
+  fill: #ea76cb;
+}
+
+html[data-theme="dark"] #backdrop path.out-bottom {
+  fill: #209fb5;
+}
+
+html[data-theme="dark"] #backdrop path.in-bottom {
+  fill: #40a02b;
 }

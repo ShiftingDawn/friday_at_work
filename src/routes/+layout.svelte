@@ -1,24 +1,29 @@
 <script lang="ts">
-    import type {LayoutProps} from "./$types";
-    import Navbar from "./navbar.svelte";
-    import "./layout.css";
-    import Flash from "./flash.svelte";
-    import {onMount} from "svelte";
-    import {Chart} from "chart.js/auto";
-    import {getColorText, listenToThemeChanges} from "$lib/client";
+  import type {LayoutProps} from "./$types";
+  import Navbar from "./navbar.svelte";
+  import "./layout.css";
+  import Flash from "./flash.svelte";
+  import {onMount} from "svelte";
+  import {Chart} from "chart.js/auto";
+  import {listenToThemeChanges} from "$lib/client";
 
-    let {children, data,}: LayoutProps = $props();
+  let {children, data,}: LayoutProps = $props();
 
-    onMount(() => {
-      function updateChartStyles() {
-        Chart.defaults.color = getColorText();
+  onMount(() => {
+    function updateChartStyles() {
+
+      function getColorText() {
+        return window.getComputedStyle(document.documentElement).getPropertyValue("--color-text");
       }
 
-      Chart.defaults.responsive = true;
-      const unsub = listenToThemeChanges(updateChartStyles);
-      updateChartStyles();
-      return () => unsub();
-    });
+      Chart.defaults.color = getColorText();
+    }
+
+    Chart.defaults.responsive = true;
+    const unsub = listenToThemeChanges(updateChartStyles);
+    updateChartStyles();
+    return () => unsub();
+  });
 </script>
 
 <svelte:head>
@@ -43,4 +48,5 @@
 <div class="container mx-auto p-4">
   {@render children()}
 </div>
+<div id="modalroot"></div>
 <Flash/>

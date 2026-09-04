@@ -17,11 +17,3 @@ export function listenToThemeChanges(callback: (theme: "light" | "dark" | "auto"
 export function isDarkMode() {
   return get(theme) == "dark" || (get(theme) == "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 }
-
-export function getColorPrimary() {
-  return window.getComputedStyle(document.documentElement).getPropertyValue("--color-primary");
-}
-
-export function getColorText() {
-  return window.getComputedStyle(document.documentElement).getPropertyValue("--color-text");
-}

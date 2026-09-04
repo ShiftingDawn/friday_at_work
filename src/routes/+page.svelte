@@ -1,26 +1,26 @@
 <script lang="ts">
-    import type {PageProps} from "./$types";
-    import Card from "$comp/card.svelte";
-    import IconSubmit from "$icon/submit.svelte";
-    import IconButton from "$comp/icon_button.svelte";
-    import FormRadio from "$comp/form_radio.svelte";
-    import Section from "$comp/section.svelte";
-    import DrinkImage from "$comp/drink_image.svelte";
-    import {flash} from "$lib/flash";
-    import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
-    import {getDrinksUnderThreshold} from "$lib/functions/drinks.remote";
-    import Spinner from "$comp/spinner.svelte";
-    import Center from "$comp/center.svelte";
-    import {getRandomElement} from "$lib";
+  import type {PageProps} from "./$types";
+  import Card from "$comp/card.svelte";
+  import IconSubmit from "$icon/submit.svelte";
+  import IconButton from "$comp/icon_button.svelte";
+  import FormRadio from "$comp/form_radio.svelte";
+  import Section from "$comp/section.svelte";
+  import DrinkImage from "$comp/drink_image.svelte";
+  import {flash} from "$lib/flash";
+  import {addConsumption, getDrinksForConsumption, getPeopleForConsumption} from "$lib/functions/consumption.remote";
+  import {getDrinksUnderThreshold} from "$lib/functions/drinks.remote";
+  import Spinner from "$comp/spinner.svelte";
+  import Center from "$comp/center.svelte";
+  import {getRandomElement} from "$lib";
 
-    const {data,}: PageProps = $props();
+  const {data,}: PageProps = $props();
 </script>
 
 {#await getDrinksUnderThreshold()}
   <!-- NOOP -->
 {:then drinks}
   {#if drinks.length > 0}
-    <div class="bg-error text-base p-4 rounded-2xl shadow-lg mb-4">
+    <div class="bg-error text-error-text backdrop-blur-md p-4 rounded-2xl shadow-lg mb-4">
       {#if drinks.length === 1}
         One drink is
       {:else}

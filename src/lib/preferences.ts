@@ -6,6 +6,8 @@ export const useOldBarStyle = persisted("useOldBarStyle", false);
 
 theme.subscribe(selectedTheme => {
   if (typeof document !== "undefined") {
-    document.documentElement.setAttribute("data-theme", selectedTheme);
+    const useDarkMode = selectedTheme === "dark"
+      || (selectedTheme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.setAttribute("data-theme", useDarkMode ? "dark" : "light");
   }
 });
