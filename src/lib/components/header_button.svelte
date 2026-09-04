@@ -23,7 +23,8 @@
 </script>
 
 <a href={href} class={twMerge(
-  "bg-button-hover text-button-hover-text rounded-[50px] px-4 py-2 flex items-center gap-2 min-w-fit transition-all hover:rounded-lg",
+  "bg-button text-button-text rounded-[50px] px-4 py-2 flex items-center gap-2 min-w-fit transition-all hover:rounded-lg",
+  !active && "hover:bg-button-hover hover:text-button-hover-text",
   active && "bg-button-active rounded-lg hover:cursor-default"
 )} data-sveltekit-reload={doReload}>
   <div class="w-8 h-8">
