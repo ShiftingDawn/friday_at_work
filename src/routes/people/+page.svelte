@@ -1,49 +1,48 @@
 <script lang="ts">
-    import type {PageProps} from "./$types";
-    import Card from "$comp/card.svelte";
-    import Modal from "$comp/modal.svelte";
-    import FormLabel from "$comp/form_label.svelte";
-    import FormInput from "$comp/form_input.svelte";
-    import Button from "$comp/button.svelte";
-    import IconButton from "$comp/icon_button.svelte";
-    import IconSubmit from "$icon/plus.svelte";
-    import {createPerson, getPeople} from "$lib/functions/people.remote";
-    import {flash} from "$lib/flash";
-    import Spinner from "$comp/spinner.svelte";
-    import Center from "$comp/center.svelte";
+  import type {PageProps} from "./$types";
+  import Card from "$comp/card.svelte";
+  import Modal from "$comp/modal.svelte";
+  import FormLabel from "$comp/form_label.svelte";
+  import FormInput from "$comp/form_input.svelte";
+  import Button from "$comp/button.svelte";
+  import IconButton from "$comp/icon_button.svelte";
+  import IconSubmit from "$icon/plus.svelte";
+  import {createPerson, getPeople} from "$lib/functions/people.remote";
+  import {flash} from "$lib/flash";
+  import Spinner from "$comp/spinner.svelte";
+  import Center from "$comp/center.svelte";
 
-    const {data,}: PageProps = $props();
-    let modalOpen = $state(false);
-    let newPersonFormLoading = $state(false);
+  const {data,}: PageProps = $props();
+  let modalOpen = $state(false);
+  let newPersonFormLoading = $state(false);
 </script>
 
 {#if data.canWrite}
-  <form {...createPerson.enhance(async form => {
-    newPersonFormLoading = true;
-    try {
-      if (await form.submit()) {
-        flash("success", `${createPerson.fields.name.value} joined the club!`);
-      } else {
-        flash("error", "Could not register person");
-      }
-    } catch {
-      flash("error", "Could not register person", "An unknown error occurred");
-    }
-    newPersonFormLoading = false;
-    modalOpen = false;
-  })}>
-    <Modal title="Register new person" open={modalOpen} onclose={() => modalOpen = false}
-           canclose={!newPersonFormLoading}>
-      <FormLabel name="Name" error={createPerson.fields.name.issues()}>
-        <FormInput {...createPerson.fields.name.as("text")} required min="3" disabled={newPersonFormLoading}/>
-      </FormLabel>
-      {#snippet actions()}
-        <Button type="submit" class="font-bold uppercase" loading={newPersonFormLoading}>
-          Add
-        </Button>
-      {/snippet}
-    </Modal>
-  </form>
+  <Modal as="form" title="Register new person" open={modalOpen} onclose={() => modalOpen = false}
+         canclose={!newPersonFormLoading} {...createPerson.enhance(async form => {
+           newPersonFormLoading = true;
+           try {
+             if (await form.submit()) {
+               flash("success", `${createPerson.fields.name.value} joined the club!`);
+             } else {
+               flash("error", "Could not register person");
+             }
+           } catch {
+             flash("error", "Could not register person", "An unknown error occurred");
+           }
+           newPersonFormLoading = false;
+           modalOpen = false;
+         })}
+  >
+    <FormLabel name="Name" error={createPerson.fields.name.issues()}>
+      <FormInput {...createPerson.fields.name.as("text")} required min="3" disabled={newPersonFormLoading}/>
+    </FormLabel>
+    {#snippet actions()}
+      <Button type="submit" class="font-bold uppercase" loading={newPersonFormLoading}>
+        Add
+      </Button>
+    {/snippet}
+  </Modal>
 {/if}
 <Card title="Manage people" class="mt-4">
   {#snippet action()}

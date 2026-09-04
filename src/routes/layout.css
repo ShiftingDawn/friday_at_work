@@ -81,8 +81,8 @@ html[data-theme="dark"] {
   --color-navbar-menu: hsl(0deg 0% 0% / 50%);
   --color-card: hsl(0deg 0% 0% / 30%);
   --color-card-header: hsl(0deg 0% 0% / 50%);
-  --color-dialog: hsl(0deg 0% 100% / 50%);
-  --color-dialog-header: hsl(0deg 0 100% / 50%);
+  --color-dialog: hsl(0deg 0% 0% / 50%);
+  --color-dialog-header: hsl(0deg 0 0% / 50%);
   --color-table-hover: hsl(0deg 0% 100% / 30%);
 
   --color-button: hsl(232deg 97% 85%);

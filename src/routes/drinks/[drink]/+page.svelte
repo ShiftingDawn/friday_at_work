@@ -18,7 +18,6 @@
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
   import HistoryTable from "./historytable.svelte";
-  import Table from "$comp/table.svelte";
 
   const {params, data,}: PageProps = $props();
   let addRestockModalOpen = $state(false);
@@ -39,62 +38,59 @@
   };
 </script>
 
-<form method="POST" action="?/restock">
-  <Modal title="Register restock" open={addRestockModalOpen} onclose={() => addRestockModalOpen = false}
-         class="max-w-md">
-    <div class="flex flex-col gap-4">
-      <FormLabel name="Amount">
-        <FormInput
-            id="restockamountfield"
-            type="number"
-            min="1"
-            name="amount"
-            required
-            autofocus
-        />
-      </FormLabel>
-      <FormCheckbox name="correction" onchange={onCorrectionCheckChanged}>
-        Restock is correction
-      </FormCheckbox>
-      <p>If restock correction is enabled, negative amounts can be entered to shrink the available stock.</p>
-    </div>
-    {#snippet actions()}
-      <Button type="submit" class="font-bold uppercase">
-        Restock
-      </Button>
-    {/snippet}
-  </Modal>
-</form>
+<Modal as="form" title="Register restock" open={addRestockModalOpen} onclose={() => addRestockModalOpen = false}
+       class="max-w-md" method="POST" action="?/restock">
+  <div class="flex flex-col gap-4">
+    <FormLabel name="Amount">
+      <FormInput
+          id="restockamountfield"
+          type="number"
+          min="1"
+          name="amount"
+          required
+          autofocus
+      />
+    </FormLabel>
+    <FormCheckbox name="correction" onchange={onCorrectionCheckChanged}>
+      Restock is correction
+    </FormCheckbox>
+    <p>If restock correction is enabled, negative amounts can be entered to shrink the available stock.</p>
+  </div>
+  {#snippet actions()}
+    <Button type="submit" class="font-bold uppercase">
+      Restock
+    </Button>
+  {/snippet}
+</Modal>
 
-<form {...setDrinkThreshold.enhance(async form => {
-  setThresholdLoading = true;
-  try {
-    if (await form.submit()) {
-      setThresholdModalOpen = false;
-      flash("success", `Registered threshold ${setDrinkThreshold.fields.value} for drink ${data.drink!.name}`);
-    } else {
-      flash("error", `Could not register threshold for drink ${data.drink!.name}`);
-    }
-  } catch {
-    flash("error", `Could not register threshold for drink ${data.drink!.name}`, "An unknown error occurred");
-  }
-  setThresholdLoading = false;
-})}>
-  <Modal title="Register threshold" open={setThresholdModalOpen} onclose={() => setThresholdLoading = false}
-         class="max-w-md" canclose={!setThresholdLoading}>
-    <div class="flex flex-col gap-4">
-      <FormLabel name="Amount">
-        <FormInput {...setDrinkThreshold.fields.amount.as("number")} required min="-1" autofocus/>
-      </FormLabel>
-      <p>Set to -1 to disable threshold</p>
-    </div>
-    {#snippet actions()}
-      <Button type="submit" class="font-bold uppercase" loading={setThresholdLoading}>
-        Register
-      </Button>
-    {/snippet}
-  </Modal>
-</form>
+<Modal as="form" title="Register threshold" open={setThresholdModalOpen} onclose={() => setThresholdModalOpen = false}
+       class="max-w-md" canclose={!setThresholdLoading} {...setDrinkThreshold.enhance(async form => {
+         setThresholdLoading = true;
+         try {
+           if (await form.submit()) {
+             setThresholdModalOpen = false;
+             flash("success", `Registered threshold ${setDrinkThreshold.fields.value} for drink ${data.drink!.name}`);
+           } else {
+             flash("error", `Could not register threshold for drink ${data.drink!.name}`);
+           }
+         } catch {
+           flash("error", `Could not register threshold for drink ${data.drink!.name}`, "An unknown error occurred");
+         }
+         setThresholdLoading = false;
+       })}
+>
+  <div class="flex flex-col gap-4">
+    <FormLabel name="Amount">
+      <FormInput {...setDrinkThreshold.fields.amount.as("number")} required min="-1" autofocus/>
+    </FormLabel>
+    <p>Set to -1 to disable threshold</p>
+  </div>
+  {#snippet actions()}
+    <Button type="submit" class="font-bold uppercase" loading={setThresholdLoading}>
+      Register
+    </Button>
+  {/snippet}
+</Modal>
 
 <Card title={data.drink!.name}>
   {#snippet back()}

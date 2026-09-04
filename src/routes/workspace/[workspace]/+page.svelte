@@ -63,44 +63,43 @@
         <Button onclick={() => modalOpen = true}>
           Add
         </Button>
-        <form {...addWorkspacePermission.enhance(async form => {
-          addPermissionFormLoading = true;
-          try {
-            if (await form.submit()) {
-              addPermissionFormLoading = false;
-              modalOpen = false;
-              flash("success", "Added permission successfully");
-            } else {
-              flash("error", "Could not add permission");
-            }
-          } catch {
-            flash("error", "Could not add permission", "An unknown error occurred");
-          }
-        })}>
-          <Modal title="Add permission" open={modalOpen} onclose={() => modalOpen = false}
-                 canclose={!addPermissionFormLoading}>
-            <div class="flex flex-col gap-4">
-              <FormLabel name="Username" error={addWorkspacePermission.fields.username.issues()}>
-                <FormInput {...addWorkspacePermission.fields.username.as("text")} min="3" required
-                           disabled={addPermissionFormLoading}/>
-              </FormLabel>
-              <FormLabel name="Permission level" error={addWorkspacePermission.fields.role.issues()}>
-                <FormSelect {...addWorkspacePermission.fields.role.as("select")} required
-                        disabled={addPermissionFormLoading}
-                        class="w-full bg-surface1 rounded-full px-4 py-2">
-                  <option value="read" selected>Read only</option>
-                  <option value="write">Read and Write</option>
-                  <option value="admin">Admin</option>
-                </FormSelect>
-              </FormLabel>
-            </div>
-            {#snippet actions()}
-              <Button type="submit" class="font-bold uppercase" loading={addPermissionFormLoading}>
-                Add
-              </Button>
-            {/snippet}
-          </Modal>
-        </form>
+        <Modal as="form" title="Add permission" open={modalOpen} onclose={() => modalOpen = false}
+               canclose={!addPermissionFormLoading} {...addWorkspacePermission.enhance(async form => {
+                 addPermissionFormLoading = true;
+                 try {
+                   if (await form.submit()) {
+                     addPermissionFormLoading = false;
+                     modalOpen = false;
+                     flash("success", "Added permission successfully");
+                   } else {
+                     flash("error", "Could not add permission");
+                   }
+                 } catch {
+                   flash("error", "Could not add permission", "An unknown error occurred");
+                 }
+               })}
+        >
+          <div class="flex flex-col gap-4">
+            <FormLabel name="Username" error={addWorkspacePermission.fields.username.issues()}>
+              <FormInput {...addWorkspacePermission.fields.username.as("text")} min="3" required
+                         disabled={addPermissionFormLoading}/>
+            </FormLabel>
+            <FormLabel name="Permission level" error={addWorkspacePermission.fields.role.issues()}>
+              <FormSelect {...addWorkspacePermission.fields.role.as("select")} required
+                          disabled={addPermissionFormLoading}
+                          class="w-full bg-surface1 rounded-full px-4 py-2">
+                <option value="read" selected>Read only</option>
+                <option value="write">Read and Write</option>
+                <option value="admin">Admin</option>
+              </FormSelect>
+            </FormLabel>
+          </div>
+          {#snippet actions()}
+            <Button type="submit" class="font-bold uppercase" loading={addPermissionFormLoading}>
+              Add
+            </Button>
+          {/snippet}
+        </Modal>
       {/if}
       {#if wsQuery.current!.permissions?.length > 0}
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">

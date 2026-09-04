@@ -28,30 +28,29 @@
   </Card>
 {/if}
 
-<form {...createWorkspace.enhance(async form => {
-  createFormLoading = true;
-  try {
-    if (await form.submit()) {
-      flash("success", "Workspace has been created");
-      createFormLoading = false;
-      modalOpen = false;
-    }
-  } catch {
-    flash("error", "Could not create workspace", "An unknown error occurred");
-  }
-})}>
-  <Modal title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}
-         canclose={!createFormLoading}>
-    <FormLabel name="Name" error={createWorkspace.fields.name.issues()}>
-      <FormInput {...createWorkspace.fields.name.as("text")} min="3" disabled={createFormLoading}/>
-    </FormLabel>
-    {#snippet actions()}
-      <Button type="submit" class="font-bold uppercase" loading={createFormLoading}>
-        Create
-      </Button>
-    {/snippet}
-  </Modal>
-</form>
+<Modal as="form" title="Register new workspace" open={modalOpen} onclose={() => modalOpen = false}
+       canclose={!createFormLoading} {...createWorkspace.enhance(async form => {
+         createFormLoading = true;
+         try {
+           if (await form.submit()) {
+             flash("success", "Workspace has been created");
+             createFormLoading = false;
+             modalOpen = false;
+           }
+         } catch {
+           flash("error", "Could not create workspace", "An unknown error occurred");
+         }
+       })}
+>
+  <FormLabel name="Name" error={createWorkspace.fields.name.issues()}>
+    <FormInput {...createWorkspace.fields.name.as("text")} min="3" disabled={createFormLoading}/>
+  </FormLabel>
+  {#snippet actions()}
+    <Button type="submit" class="font-bold uppercase" loading={createFormLoading}>
+      Create
+    </Button>
+  {/snippet}
+</Modal>
 
 <Card title="Select workspace" class="max-w-md mx-auto">
   {#snippet action()}

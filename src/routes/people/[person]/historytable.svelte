@@ -63,50 +63,50 @@
 </script>
 
 {#if canAdmin}
-  <form {...modifyDrinkHistoryRecord.enhance(async form => {
-    try {
-      if (await form.submit()) {
-        editModalData = undefined;
-        flash("success", "Edited history record successfully");
-      } else {
-        flash("error", "Could not edit history record");
-      }
-    } catch {
-      flash("error", "Could not edit history record", "An unknown error occurred");
-    }
-  })}>
-    <Modal title="Edit history record" open={Boolean(editModalData)} onclose={() => editModalData = undefined}>
-      {#await getDrinksForConsumption()}
-        <Center>
-          <Spinner>Loading data</Spinner>
-        </Center>
-      {:then drinks}
-        <div class="flex flex-col gap-4">
-          <input type="hidden" name="id" value={editModalData!.id}/>
-          <FormLabel name="Drink" error={modifyDrinkHistoryRecord.fields.drink.issues()}>
-            <FormSelect {...modifyDrinkHistoryRecord.fields.drink.as("select")}>
-              {#each drinks as drink(drink.id)}
-                <option value={drink.id} selected={drink.id === editModalData!.drinkId}>
-                  {drink.name}
-                </option>
-              {/each}
-            </FormSelect>
-          </FormLabel>
-          <FormLabel name="Price" error={modifyDrinkHistoryRecord.fields.price.issues()}>
-            <FormInput {...modifyDrinkHistoryRecord.fields.price.as("number")} required min="1"/>
-          </FormLabel>
-          <FormLabel name="Timestamp" error={modifyDrinkHistoryRecord.fields.timestamp.issues()}>
-            <FormInput {...modifyDrinkHistoryRecord.fields.timestamp.as("date")} required/>
-          </FormLabel>
-        </div>
-      {/await}
-      {#snippet actions()}
-        <Button type="submit" disabled={getDrinksForConsumption().loading}>
-          Save modifications
-        </Button>
-      {/snippet}
-    </Modal>
-  </form>
+  <Modal as="form" title="Edit history record" open={Boolean(editModalData)} onclose={() => editModalData = undefined}
+         {...modifyDrinkHistoryRecord.enhance(async form => {
+           try {
+             if (await form.submit()) {
+               editModalData = undefined;
+               flash("success", "Edited history record successfully");
+             } else {
+               flash("error", "Could not edit history record");
+             }
+           } catch {
+             flash("error", "Could not edit history record", "An unknown error occurred");
+           }
+         })}
+  >
+    {#await getDrinksForConsumption()}
+      <Center>
+        <Spinner>Loading data</Spinner>
+      </Center>
+    {:then drinks}
+      <div class="flex flex-col gap-4">
+        <input type="hidden" name="id" value={editModalData!.id}/>
+        <FormLabel name="Drink" error={modifyDrinkHistoryRecord.fields.drink.issues()}>
+          <FormSelect {...modifyDrinkHistoryRecord.fields.drink.as("select")}>
+            {#each drinks as drink(drink.id)}
+              <option value={drink.id} selected={drink.id === editModalData!.drinkId}>
+                {drink.name}
+              </option>
+            {/each}
+          </FormSelect>
+        </FormLabel>
+        <FormLabel name="Price" error={modifyDrinkHistoryRecord.fields.price.issues()}>
+          <FormInput {...modifyDrinkHistoryRecord.fields.price.as("number")} required min="1"/>
+        </FormLabel>
+        <FormLabel name="Timestamp" error={modifyDrinkHistoryRecord.fields.timestamp.issues()}>
+          <FormInput {...modifyDrinkHistoryRecord.fields.timestamp.as("date")} required/>
+        </FormLabel>
+      </div>
+    {/await}
+    {#snippet actions()}
+      <Button type="submit" disabled={getDrinksForConsumption().loading}>
+        Save modifications
+      </Button>
+    {/snippet}
+  </Modal>
   <Modal title="Delete record" open={Boolean(deleteModalData)} onclose={() => deleteModalData = undefined}>
     <p>Are you sure you want to delete the following data?</p>
     <p>This cannot be undone!</p>

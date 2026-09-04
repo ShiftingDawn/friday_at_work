@@ -27,41 +27,41 @@
   let newDrinkFormLoading = $state(false);
 </script>
 
-<form {...addDrink.enhance(async form => {
-  newDrinkFormLoading = true;
-  try {
-    if (await form.submit()) {
-      flash("success", `Added drink ${addDrink.fields.name.value} to the menu`);
-    } else {
-      flash("error", `Could not add drink ${addDrink.fields.name.value} to the menu`);
-    }
-  } catch {
-    flash("error", "Could not add drink to the menu", "An unknown error occurred");
-  }
-  newDrinkFormLoading = false;
-  modalOpen = false;
-})} enctype="multipart/form-data">
-  <Modal title="Register new drink" open={modalOpen} onclose={() => modalOpen = false}
-         canclose={!newDrinkFormLoading}>
-    <div class="flex flex-col gap-4">
-      <FormLabel name="Name" error={addDrink.fields.name.issues()}>
-        <FormInput {...addDrink.fields.name.as("text")} required min="3" disabled={newDrinkFormLoading}/>
-      </FormLabel>
-      <FormLabel name="Price" error={addDrink.fields.price.issues()}>
-        <FormInput {...addDrink.fields.price.as("number")} required min="0" disabled={newDrinkFormLoading}/>
-      </FormLabel>
-      <FormLabel name="Image" error={addDrink.fields.image.issues()}>
-        <FormInput {...addDrink.fields.image.as("file")} disabled={newDrinkFormLoading}
-                   class="p-0 file:h-8 file:bg-button file:text-button-text file:px-2 file:mr-2 cursor-pointer"/>
-      </FormLabel>
-    </div>
-    {#snippet actions()}
-      <Button type="submit" class="font-bold uppercase" loading={newDrinkFormLoading}>
-        Add
-      </Button>
-    {/snippet}
-  </Modal>
-</form>
+<Modal as="form" title="Register new drink" open={modalOpen} onclose={() => modalOpen = false}
+       canclose={!newDrinkFormLoading} {...addDrink.enhance(async form => {
+         newDrinkFormLoading = true;
+         try {
+           if (await form.submit()) {
+             flash("success", `Added drink ${addDrink.fields.name.value} to the menu`);
+           } else {
+             flash("error", `Could not add drink ${addDrink.fields.name.value} to the menu`);
+           }
+         } catch {
+           flash("error", "Could not add drink to the menu", "An unknown error occurred");
+         }
+         newDrinkFormLoading = false;
+         modalOpen = false;
+       })} enctype="multipart/form-data"
+>
+  <div class="flex flex-col gap-4">
+    <FormLabel name="Name" error={addDrink.fields.name.issues()}>
+      <FormInput {...addDrink.fields.name.as("text")} required min="3" disabled={newDrinkFormLoading}/>
+    </FormLabel>
+    <FormLabel name="Price" error={addDrink.fields.price.issues()}>
+      <FormInput {...addDrink.fields.price.as("number")} required min="0" disabled={newDrinkFormLoading}/>
+    </FormLabel>
+    <FormLabel name="Image" error={addDrink.fields.image.issues()}>
+      <FormInput {...addDrink.fields.image.as("file")} disabled={newDrinkFormLoading}
+                 class="p-0 file:h-8 file:bg-button file:text-button-text file:px-2 file:mr-2 cursor-pointer"/>
+    </FormLabel>
+  </div>
+  {#snippet actions()}
+    <Button type="submit" class="font-bold uppercase" loading={newDrinkFormLoading}>
+      Add
+    </Button>
+  {/snippet}
+</Modal>
+
 <Card title="Manage drinks">
   {#snippet action()}
     {#if !showHidden}
