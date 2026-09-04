@@ -24,6 +24,7 @@
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
   import HistoryTable from "./historytable.svelte";
+  import Checkstockmodal from "./checkstockmodal.svelte";
 
   const {params, data,}: PageProps = $props();
   let addRestockModalOpen = $state(false);
@@ -172,6 +173,7 @@
     <div class="flex gap-4 flex-wrap">
       <Button as="a" href={`/drinks/${params.drink}/restocks`}>Restock history</Button>
       {#if data.canWrite}
+        <Checkstockmodal expected={stock}/>
         <Button onclick={() => addRestockModalOpen = true}>
           Add Restock
         </Button>
