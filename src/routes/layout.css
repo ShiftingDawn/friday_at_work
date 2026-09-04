@@ -133,3 +133,7 @@ html[data-theme="dark"] #backdrop path.out-bottom {
 html[data-theme="dark"] #backdrop path.in-bottom {
   fill: #40a02b;
 }
+
+*:not([class*="transition-"]) {
+  @apply transition-colors;
+}
