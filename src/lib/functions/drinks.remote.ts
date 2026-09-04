@@ -4,7 +4,7 @@ import {testFunctionRole} from "$lib/functions/index";
 import {prisma} from "$lib/server/db";
 import {bunfile} from "$lib/bunfile";
 import {upload} from "$lib/server/storage";
-import {invalid} from "@sveltejs/kit";
+import {error, invalid} from "@sveltejs/kit";
 
 export const getVisibleDrinks = query(async () => {
   const {locals,} = await testFunctionRole("READ");
@@ -101,20 +101,36 @@ export const setDrinkThreshold = form(
 export const addDrinkRestock = command(
   v.object({amount: v.number(), correction: v.optional(v.boolean(), false),}),
   async ({amount, correction,}) => {
-    const {locals, params,} = await testFunctionRole("WRITE");
-    await prisma.restock.create({
-      data: {
-        drinkId: params.drink!,
-        amount: amount,
-        type: correction ? "CORRECTION" : undefined,
-        creatorId: locals.user!.id,
-      },
-    });
-    void getDrinkConsumptionCount(params.drink!).refresh();
-    void getDrinkRestockCount(params.drink!).refresh();
-    void getDrinkLastRestock(params.drink!).refresh();
+    const {params,} = await testFunctionRole("WRITE");
+    return _addDrinkRestockInternal(params.drink!, amount, correction);
   }
 );
+
+export const addDrinkRestockForm = form(
+  v.object({amount: v.number(), correction: v.pipe(v.optional(v.string()), v.transform(str => str === "on")),}),
+  async ({amount, correction,}, issues) => {
+    const {params,} = await testFunctionRole("WRITE");
+    if (!correction && amount < 1) {
+      invalid(issues.amount("Amount must be at least 1."));
+    }
+    return _addDrinkRestockInternal(params.drink!, amount, correction === true);
+  }
+);
+
+async function _addDrinkRestockInternal(drinkId: string, amount: number, correction: boolean) {
+  const {locals,} = await testFunctionRole("WRITE");
+  await prisma.restock.create({
+    data: {
+      drinkId: drinkId,
+      amount: amount,
+      type: correction ? "CORRECTION" : undefined,
+      creatorId: locals.user!.id,
+    },
+  });
+  void getDrinkConsumptionCount(drinkId).refresh();
+  void getDrinkRestockCount(drinkId).refresh();
+  void getDrinkLastRestock(drinkId).refresh();
+}
 
 export const modifyDrinkHistoryRecord = form(
   v.object({
