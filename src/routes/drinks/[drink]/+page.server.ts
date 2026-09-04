@@ -4,31 +4,11 @@ import {zfd} from "zod-form-data";
 import {z} from "zod";
 import {fail} from "@sveltejs/kit";
 import {upload} from "$lib/server/storage";
-import {hasAdminRole, hasWriteRole} from "$lib/server/permission";
+import {hasWriteRole} from "$lib/server/permission";
 import {getWorkspace} from "$lib/server/workspace";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
-  const [restocked, consumptionCount,] = await Promise.all([
-    prisma.restock.aggregate({
-      where: {drinkId: params.drink,},
-      _sum: {amount: true,},
-    }),
-    prisma.consumption.count({
-      where: {workspaceId: locals.workspace!.id, drinkId: params.drink,},
-      orderBy: {timestamp: "desc",},
-    }),
-  ]);
-  return {
-    drink: await prisma.drink.findFirst({where: {workspaceId: locals.workspace!.id, id: params.drink,},}),
-    amountRestocked: restocked._sum.amount ?? 0,
-    amountConsumed: consumptionCount,
-    stock: (restocked._sum.amount ?? 0) - consumptionCount,
-    last_restock: await prisma.restock.findFirst({
-      where: {drinkId: params.drink,},
-      orderBy: {timestamp: "desc",},
-    }),
-    consumptionCount: (await hasAdminRole(locals) ? consumptionCount : 0),
-  };
+  return {drink: await prisma.drink.findFirst({where: {workspaceId: locals.workspace!.id, id: params.drink,},}),};
 };
 
 export const actions = {

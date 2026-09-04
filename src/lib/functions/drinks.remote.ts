@@ -28,6 +28,40 @@ export const getHiddenDrinks = query(async () => {
   }) : undefined;
 });
 
+export const getDrinkRestockCount = query(
+  v.pipe(v.string(), v.uuid()),
+  async (drinkId) => {
+    await testFunctionRole("READ");
+    const result = await prisma.restock.aggregate({
+      where: {drinkId: drinkId,},
+      _sum: {amount: true,},
+    });
+    return result._sum.amount!;
+  }
+);
+
+export const getDrinkConsumptionCount = query(
+  v.pipe(v.string(), v.uuid()),
+  async (drinkId) => {
+    const {locals,} = await testFunctionRole("READ");
+    return prisma.consumption.count({
+      where: {workspaceId: locals.workspace!.id, drinkId: drinkId,},
+      orderBy: {timestamp: "desc",},
+    });
+  }
+);
+
+export const getDrinkLastRestock = query(
+  v.pipe(v.string(), v.uuid()),
+  async (drinkId) => {
+    await testFunctionRole("READ");
+    return prisma.restock.findFirst({
+      where: {drinkId: drinkId,},
+      orderBy: {timestamp: "desc",},
+    });
+  }
+);
+
 export const addDrink = form(
   v.object({
     name: v.pipe(v.string(), v.trim(), v.minLength(3)),
@@ -61,6 +95,24 @@ export const setDrinkThreshold = form(
       where: {id: drink.id,},
       data: {threshold: amount === -1 ? null : amount,},
     });
+  }
+);
+
+export const addDrinkRestock = command(
+  v.object({amount: v.number(), correction: v.optional(v.boolean(), false),}),
+  async ({amount, correction,}) => {
+    const {locals, params,} = await testFunctionRole("WRITE");
+    await prisma.restock.create({
+      data: {
+        drinkId: params.drink!,
+        amount: amount,
+        type: correction ? "CORRECTION" : undefined,
+        creatorId: locals.user!.id,
+      },
+    });
+    void getDrinkConsumptionCount(params.drink!).refresh();
+    void getDrinkRestockCount(params.drink!).refresh();
+    void getDrinkLastRestock(params.drink!).refresh();
   }
 );
 

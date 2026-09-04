@@ -14,7 +14,12 @@
   import Date from "$comp/date.svelte";
   import type {ChangeEventHandler} from "svelte/elements";
   import {displayPrice} from "$lib";
-  import {setDrinkThreshold} from "$lib/functions/drinks.remote";
+  import {
+    getDrinkConsumptionCount,
+    getDrinkLastRestock,
+    getDrinkRestockCount,
+    setDrinkThreshold
+  } from "$lib/functions/drinks.remote";
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
   import HistoryTable from "./historytable.svelte";
@@ -25,6 +30,11 @@
   let setThresholdLoading = $state(false);
   let updateDataFormLoading = $state(false);
   let reskinFormLoading = $state(false);
+
+  const restockCount = $derived(await getDrinkRestockCount(data.drink!.id));
+  const consumptionCount = $derived(await getDrinkConsumptionCount(data.drink!.id));
+  const stock = $derived(restockCount - consumptionCount);
+  const lastRestock = $derived(await getDrinkLastRestock(data.drink!.id));
 
   onMount(() => setDrinkThreshold.fields.set({amount: data.drink?.threshold ?? -1,}));
 
@@ -138,13 +148,13 @@
     </Section>
   {/if}
   <Section name="Stock" class="flex flex-col gap-2">
-    <p>Current stock: {data.stock}</p>
+    <p>Current stock: {stock}</p>
     <p>Threshold: {data.drink?.threshold ?? "Unspecified"}</p>
     <p>Last restock:
-      <Date value={data.last_restock?.timestamp} fallback="never"/>
+      <Date value={lastRestock?.timestamp} fallback="never"/>
     </p>
-    <p>Total amount consumed: {data.amountConsumed}</p>
-    <p>Total amount restocked: {data.amountRestocked}</p>
+    <p>Total amount consumed: {consumptionCount}</p>
+    <p>Total amount restocked: {restockCount}</p>
     <div class="flex gap-4 flex-wrap">
       <Button as="a" href={`/drinks/${params.drink}/restocks`}>Restock history</Button>
       {#if data.canWrite}
@@ -194,8 +204,8 @@
   {/if}
 </Card>
 
-{#if data.consumptionCount > 0}
+{#if data.canAdmin && consumptionCount > 0}
   <Card title="Consumptions" class="mt-4">
-    <HistoryTable amount={data.consumptionCount}/>
+    <HistoryTable amount={consumptionCount}/>
   </Card>
 {/if}
