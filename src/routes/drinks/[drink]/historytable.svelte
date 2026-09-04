@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {displayPrice} from "$lib";
+  import {displayPrice, fresh} from "$lib";
   import DateComponent from "$comp/date.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TablePaginate from "$comp/table_paginate.svelte";
@@ -28,7 +28,7 @@
   let data = $state<Record[]>();
 
   function fetchMore(start: number, take: number) {
-    getDrinkHistoryRecords({start, take,}).then(d => data = d);
+    fresh(getDrinkHistoryRecords({start, take,})).then(d => data = d);
   }
 
   onMount(() => fetchMore(0, 20));

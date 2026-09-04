@@ -1,3 +1,6 @@
+import type {RemoteQuery} from "@sveltejs/kit";
+import {browser} from "globals";
+
 export function displayPrice(price: number, count: number = 1) {
   return ((price / 100) * count).toFixed(2);
 }
@@ -30,4 +33,11 @@ export function getLastMonthStartDate() {
 
 export function getRandomElement<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
+}
+
+export async function fresh<T>(query: RemoteQuery<T>) {
+  if (browser && query.ready) {
+    await query.refresh();
+  }
+  return await query;
 }

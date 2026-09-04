@@ -3,7 +3,7 @@
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
-  import {displayPrice} from "$lib";
+  import {displayPrice, fresh} from "$lib";
   import Button from "$comp/button.svelte";
   import Modal from "$comp/modal.svelte";
   import {getDrinksForConsumption} from "$lib/functions/consumption.remote";
@@ -46,7 +46,7 @@
   let deleteModalData = $state<Record>();
 
   function fetchMore(start: number, take: number) {
-    getPersonHistoryRecords({start, take,}).then(d => data = d);
+    fresh(getPersonHistoryRecords({start, take,})).then(d => data = d);
   }
 
   onMount(() => fetchMore(0, 20));
