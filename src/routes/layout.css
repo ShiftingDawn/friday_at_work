@@ -78,7 +78,7 @@ html[data-theme="dark"] {
 
   --color-divider: hsl(232deg 97% 85%);
   --color-navbar: hsl(0deg 0% 0% / 30%);
-  --color-navbar-menu: hsl(0deg 0% 100% / 50%);
+  --color-navbar-menu: hsl(0deg 0% 0% / 50%);
   --color-card: hsl(0deg 0% 0% / 30%);
   --color-card-header: hsl(0deg 0% 0% / 50%);
   --color-dialog: hsl(0deg 0% 100% / 50%);
