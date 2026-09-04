@@ -40,6 +40,7 @@
     amount: number;
   } = $props();
 
+  let page = $state(0);
   let data = $state<Record[]>();
   let editModalData = $state<Record>();
   let deleteModalData = $state<Record>();
@@ -133,7 +134,7 @@
 
 <Table>
   {#snippet paginate()}
-    <TablePaginate total={amount} size={20} onchange={fetchMore}/>
+    <TablePaginate total={amount} bind:page size={20} onchange={fetchMore}/>
   {/snippet}
   <thead>
     <TableRow>

@@ -162,3 +162,17 @@ export const getDrinksUnderThreshold = query(async () => {
     };
   }).filter(d => d.missingAmount > 0);
 });
+
+export const getDrinkHistoryRecords = query(
+  v.object({start: v.number(), take: v.number(),}),
+  async ({start, take,}) => {
+    const {params, locals,} = await testFunctionRole("ADMIN");
+    return await prisma.consumption.findMany({
+      where: {workspaceId: locals.workspace!.id, drinkId: params.drink,},
+      orderBy: {timestamp: "desc",},
+      include: {person: {select: {name: true,},}, creator: {select: {username: true,},},},
+      skip: start,
+      take,
+    });
+  }
+);

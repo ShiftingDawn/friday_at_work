@@ -76,4 +76,5 @@ export const getPersonHistoryRecords = query(
       skip: start,
       take,
     });
-  });
+  }
+);

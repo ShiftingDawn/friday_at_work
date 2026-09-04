@@ -4,15 +4,15 @@
 
   let {
     total,
+    page = $bindable(),
     size,
     onchange,
   }: {
     total: number;
+    page: number;
     size: number,
     onchange: (from: number, take: number) => void;
   } = $props();
-
-  let page = $state(0);
 
   function getTotalPages() {
     return Math.ceil(total / size);

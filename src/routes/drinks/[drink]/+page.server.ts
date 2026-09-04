@@ -8,27 +8,26 @@ import {hasAdminRole, hasWriteRole} from "$lib/server/permission";
 import {getWorkspace} from "$lib/server/workspace";
 
 export const load: PageServerLoad = async ({params, locals,}) => {
-  const [restocked, consumptions,] = await Promise.all([
+  const [restocked, consumptionCount,] = await Promise.all([
     prisma.restock.aggregate({
       where: {drinkId: params.drink,},
       _sum: {amount: true,},
     }),
-    prisma.consumption.findMany({
+    prisma.consumption.count({
       where: {workspaceId: locals.workspace!.id, drinkId: params.drink,},
-      include: {person: {select: {name: true,},}, creator: {select: {username: true,},},},
       orderBy: {timestamp: "desc",},
     }),
   ]);
   return {
     drink: await prisma.drink.findFirst({where: {workspaceId: locals.workspace!.id, id: params.drink,},}),
     amountRestocked: restocked._sum.amount ?? 0,
-    amountConsumed: consumptions.length,
-    stock: (restocked._sum.amount ?? 0) - consumptions.length,
+    amountConsumed: consumptionCount,
+    stock: (restocked._sum.amount ?? 0) - consumptionCount,
     last_restock: await prisma.restock.findFirst({
       where: {drinkId: params.drink,},
       orderBy: {timestamp: "desc",},
     }),
-    consumptions: (await hasAdminRole(locals) ? consumptions : undefined),
+    consumptionCount: (await hasAdminRole(locals) ? consumptionCount : 0),
   };
 };
 
