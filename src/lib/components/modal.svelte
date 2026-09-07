@@ -33,7 +33,6 @@
     title,
     children,
     actions,
-    enhance,
     ...rest
   }: Props = $props();
 </script>
@@ -42,7 +41,7 @@
   <svelte:element this={as} class={twMerge(
     "hidden fixed z-40 inset-0 pointer-events-none items-end pb-16 md:pb-0 md:items-center lg:items-start lg:pt-16 justify-center backdrop-blur-none transition-all",
     open && "flex pointer-events-auto"
-  )} formAction={enhance} {...rest}>
+  )} {...rest}>
     {#if open}
       <button type="button" aria-label="Close dialog" onclick={canclose !== false ? onclose : undefined}
               class="absolute inset-0 backdrop-blur-xs" disabled={canclose === false}

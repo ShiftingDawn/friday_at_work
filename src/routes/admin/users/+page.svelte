@@ -1,7 +1,6 @@
 <script lang="ts">
   import Card from "$comp/card.svelte";
   import BackButton from "$comp/back_button.svelte";
-  import IconButton from "$comp/icon_button.svelte";
   import TableRow from "$comp/table_row.svelte";
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
@@ -11,10 +10,11 @@
   import FormCheckbox from "$comp/form_checkbox.svelte";
   import FormLabel from "$comp/form_label.svelte";
   import Button from "$comp/button.svelte";
-  import {enhance} from "$app/forms";
   import Table from "$comp/table.svelte";
+  import {adminCreateUser} from "$lib/functions/admin.remote";
+  import {flash} from "$lib/flash";
 
-  const {data, form,} = $props();
+  const {data,} = $props();
   let modalOpen = $state(false);
 </script>
 
@@ -27,14 +27,25 @@
       <IconCreate/>
     </IconButton>
   {/snippet}
-  <Modal as="form" title="Add user" open={modalOpen} onclose={() => modalOpen = false} action="?/createuser" {enhance}>
+  <Modal as="form" title="Add user" open={modalOpen} onclose={() => modalOpen = false}
+         {...adminCreateUser.enhance(async form => {
+           try {
+             if (await form.submit()) {
+               flash("success", `User ${form.fields.username.value()} has been created`);
+               form.element.reset();
+               modalOpen = false;
+             } else {
+               flash("error", `Could not create user ${form.fields.username.value()}`);
+             }
+           } catch {
+             flash("error", "Could not create user");
+           }
+         })}
+  >
     <div class="flex flex-col gap-4">
-      {#if form?.message}
-        <span>{form.message}</span>
-      {/if}
-      <FormLabel name="Username">
+      <FormLabel name="Username" error={adminCreateUser.fields.username.issues()}>
         <FormInput
-            name="username"
+            {...adminCreateUser.fields.username.as("text")}
             minlength={3}
             maxlength={24}
             required
@@ -42,10 +53,9 @@
             autocapitalize="off"
         />
       </FormLabel>
-      <FormLabel name="Password">
+      <FormLabel name="Password" error={adminCreateUser.fields._password.issues()}>
         <FormInput
-            name="password"
-            type="password"
+            {...adminCreateUser.fields._password.as("password")}
             minlength={8}
             required
             autocomplete="off"
