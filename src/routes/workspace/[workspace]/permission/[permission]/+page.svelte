@@ -3,7 +3,6 @@
   import Card from "$comp/card.svelte";
   import Button from "$comp/button.svelte";
   import BackButton from "$comp/back_button.svelte";
-  import IconButton from "$comp/icon_button.svelte";
   import Section from "$comp/section.svelte";
   import DeleteIcon from "$icon/delete.svelte";
   import FormLabel from "$comp/form_label.svelte";
@@ -23,13 +22,13 @@
   {/snippet}
   {#snippet action()}
     {#if data.canAdmin}
-      <IconButton type="submit" onclick={async () => {
+      <Button type="submit" onclick={async () => {
         await deleteWorkspacePermission();
         flash("success", "Permission deleted succesfully");
         await goto(resolve(`/workspace/${data.workspaceId}`));
-      }}>
-        <DeleteIcon/>
-      </IconButton>
+      }} icon={DeleteIcon}>
+        Remove
+      </Button>
     {/if}
   {/snippet}
   {#if data.canAdmin}

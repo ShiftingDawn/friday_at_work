@@ -23,9 +23,9 @@
     <BackButton href="/admin"/>
   {/snippet}
   {#snippet action()}
-    <IconButton onclick={() => modalOpen = true}>
-      <IconCreate/>
-    </IconButton>
+    <Button onclick={() => modalOpen = true} icon={IconCreate}>
+      Add
+    </Button>
   {/snippet}
   <Modal as="form" title="Add user" open={modalOpen} onclose={() => modalOpen = false}
          {...adminCreateUser.enhance(async form => {

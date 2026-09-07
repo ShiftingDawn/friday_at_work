@@ -106,8 +106,7 @@
       {#if wsQuery.current!.permissions?.length > 0}
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {#each wsQuery.current!.permissions as permission(permission.id)}
-            <Button as="a" href={`/workspace/${data.workspaceId}/permission/${permission.id}`}
-                    class="bg-surface1 shadow-none">
+            <Button as="a" href={`/workspace/${data.workspaceId}/permission/${permission.id}`}>
               {permission.user.username}
             </Button>
           {/each}

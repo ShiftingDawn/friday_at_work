@@ -2,7 +2,6 @@
   import type {PageProps} from "./$types";
   import Card from "$comp/card.svelte";
   import IconSubmit from "$icon/submit.svelte";
-  import IconButton from "$comp/icon_button.svelte";
   import FormRadio from "$comp/form_radio.svelte";
   import Section from "$comp/section.svelte";
   import DrinkImage from "$comp/drink_image.svelte";
@@ -12,6 +11,7 @@
   import Spinner from "$comp/spinner.svelte";
   import Center from "$comp/center.svelte";
   import {getRandomElement} from "$lib";
+  import Button from "$comp/button.svelte";
 
   const {data,}: PageProps = $props();
 </script>
@@ -57,9 +57,9 @@
   })} class="flex flex-col gap-4">
     <Card title="Register consumption">
       {#snippet action()}
-        <IconButton type="submit">
-          <IconSubmit/>
-        </IconButton>
+        <Button type="submit" icon={IconSubmit}>
+          Save
+        </Button>
       {/snippet}
       <Section name="Select person" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <svelte:boundary>

@@ -2,13 +2,11 @@
   import type {PageProps} from "./$types";
   import {page} from "$app/state";
   import Card from "$comp/card.svelte";
-  import Section from "$comp/section.svelte";
   import Modal from "$comp/modal.svelte";
   import FormLabel from "$comp/form_label.svelte";
   import FormInput from "$comp/form_input.svelte";
   import Button from "$comp/button.svelte";
   import DrinkImage from "$comp/drink_image.svelte";
-  import IconButton from "$comp/icon_button.svelte";
   import IconCreate from "$icon/plus.svelte";
   import IconHide from "$icon/hide.svelte";
   import IconShow from "$icon/show.svelte";
@@ -65,19 +63,10 @@
 
 <Card title="Manage drinks">
   {#snippet action()}
-    {#if !showHidden}
-      <IconButton as="a" href="/drinks?hidden=true">
-        <IconHide/>
-      </IconButton>
-    {:else}
-      <IconButton as="a" href="/drinks?hidden=false">
-        <IconShow/>
-      </IconButton>
-    {/if}
     {#if data.canWrite}
-      <IconButton onclick={() => modalOpen = true}>
-        <IconCreate/>
-      </IconButton>
+      <Button onclick={() => modalOpen = true} icon={IconCreate}>
+        Add
+      </Button>
     {/if}
   {/snippet}
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -100,29 +89,41 @@
       {/each}
     </svelte:boundary>
   </div>
+</Card>
+
+<Card title="Hidden drinks" class="mt-4">
+  {#snippet action()}
+    {#if !showHidden}
+      <Button as="a" href="/drinks?hidden=true" icon={IconShow}>
+        Show
+      </Button>
+    {:else}
+      <Button as="a" href="/drinks?hidden=false" icon={IconHide}>
+        Hide
+      </Button>
+    {/if}
+  {/snippet}
   {#if showHidden}
-    <Section name="Hidden drinks">
-      <div class="mt-4 grid grid-cols-4 gap-4">
-        <svelte:boundary>
-          {#snippet pending()}
-            <Center>
-              <Spinner>Loading hidden drinks</Spinner>
-            </Center>
-          {/snippet}
-          {#each await getHiddenDrinks()! as drink(drink.id)}
-            <Card as="a" href={`/drinks/${drink.id}`} class="bg-surface1">
-              <div class="font-bold text-center text-2xl">{drink.name}</div>
-              <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-                <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
-              </div>
-              <div class="font-bold text-center text-2xl">
-                &euro;&nbsp;{(drink.price / 100).toFixed(2)}
-              </div>
-            </Card>
-          {/each}
-        </svelte:boundary>
-      </div>
-    </Section>
+    <div class="mt-4 grid grid-cols-4 gap-4">
+      <svelte:boundary>
+        {#snippet pending()}
+          <Center>
+            <Spinner>Loading hidden drinks</Spinner>
+          </Center>
+        {/snippet}
+        {#each await getHiddenDrinks()! as drink(drink.id)}
+          <Card as="a" href={`/drinks/${drink.id}`} class="bg-surface1">
+            <div class="font-bold text-center text-2xl">{drink.name}</div>
+            <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
+              <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
+            </div>
+            <div class="font-bold text-center text-2xl">
+              &euro;&nbsp;{(drink.price / 100).toFixed(2)}
+            </div>
+          </Card>
+        {/each}
+      </svelte:boundary>
+    </div>
   {/if}
 </Card>
 

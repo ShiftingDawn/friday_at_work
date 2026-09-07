@@ -6,7 +6,6 @@
   import Modal from "$comp/modal.svelte";
   import Section from "$comp/section.svelte";
   import IconSubmit from "$icon/plus.svelte";
-  import IconButton from "$comp/icon_button.svelte";
   import {createWorkspace, getPermittedWorkspaces, selectWorkspace} from "$lib/functions/workspace.remote";
   import {flash} from "$lib/flash";
   import {goto, invalidateAll} from "$app/navigation";
@@ -55,9 +54,9 @@
 
 <Card title="Select workspace" class="max-w-md mx-auto">
   {#snippet action()}
-    <IconButton onclick={() => modalOpen = true}>
-      <IconSubmit/>
-    </IconButton>
+    <Button onclick={() => modalOpen = true} icon={IconSubmit}>
+      Add
+    </Button>
   {/snippet}
   <div class="flex flex-col gap-2">
     {#each await getPermittedWorkspaces() as workspace(workspace.id)}

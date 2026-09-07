@@ -5,7 +5,6 @@
   import FormLabel from "$comp/form_label.svelte";
   import FormInput from "$comp/form_input.svelte";
   import Button from "$comp/button.svelte";
-  import IconButton from "$comp/icon_button.svelte";
   import IconSubmit from "$icon/plus.svelte";
   import {createPerson, getPeople} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
@@ -48,9 +47,9 @@
 <Card title="Manage people" class="mt-4">
   {#snippet action()}
     {#if data.canWrite}
-      <IconButton onclick={() => modalOpen = true}>
-        <IconSubmit/>
-      </IconButton>
+      <Button onclick={() => modalOpen = true} icon={IconSubmit}>
+        Add
+      </Button>
     {/if}
   {/snippet}
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

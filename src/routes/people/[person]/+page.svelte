@@ -7,7 +7,6 @@
   import FormLabel from "$comp/form_label.svelte";
   import Button from "$comp/button.svelte";
   import {displayPrice} from "$lib";
-  import IconButton from "$comp/icon_button.svelte";
   import IconReset from "$icon/reset.svelte";
   import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
@@ -63,14 +62,14 @@
             &euro;{displayPrice(totalPrice)}
         </span>
     {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
-      <IconButton type="submit" onclick={async () => {
+      <Button onclick={async () => {
         flash("info", "Resetting receipt...");
         await resetPersonConsumptions();
         await invalidateAll();
         flash("success", "Receipt has been reset successfully");
-      }}>
-        <IconReset/>
-      </IconButton>
+      }} icon={IconReset}>
+        Reset
+      </Button>
     {/if}
   {/snippet}
   {#if data.consumptions?.length === 0}
