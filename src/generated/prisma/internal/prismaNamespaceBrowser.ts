@@ -56,6 +56,7 @@ export const ModelName = {
   Workspace: 'Workspace',
   WorkspacePermission: 'WorkspacePermission',
   Person: 'Person',
+  Credit: 'Credit',
   Drink: 'Drink',
   Consumption: 'Consumption',
   Restock: 'Restock',
@@ -124,6 +125,16 @@ export const PersonScalarFieldEnum = {
 } as const
 
 export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof PersonScalarFieldEnum]
+
+
+export const CreditScalarFieldEnum = {
+  id: 'id',
+  personId: 'personId',
+  amount: 'amount',
+  timestamp: 'timestamp'
+} as const
+
+export type CreditScalarFieldEnum = (typeof CreditScalarFieldEnum)[keyof typeof CreditScalarFieldEnum]
 
 
 export const DrinkScalarFieldEnum = {

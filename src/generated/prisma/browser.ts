@@ -43,6 +43,11 @@ export type WorkspacePermission = Prisma.WorkspacePermissionModel
  */
 export type Person = Prisma.PersonModel
 /**
+ * Model Credit
+ * 
+ */
+export type Credit = Prisma.CreditModel
+/**
  * Model Drink
  * 
  */

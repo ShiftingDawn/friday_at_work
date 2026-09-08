@@ -3,21 +3,20 @@
   import Card from "$comp/card.svelte";
   import BackButton from "$comp/back_button.svelte";
   import Section from "$comp/section.svelte";
-  import FormInput from "$comp/form_input.svelte";
-  import FormLabel from "$comp/form_label.svelte";
   import Button from "$comp/button.svelte";
   import {displayPrice} from "$lib";
-  import IconReset from "$icon/reset.svelte";
   import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
   import {invalidateAll} from "$app/navigation";
   import ReceiptTable from "./receipttable.svelte";
   import HistoryTable from "./historytable.svelte";
+  import EditPersonModal from "./editpersonmodal.svelte";
+  import AddCreditModal from "./addcreditmodal.svelte";
 
   const {data,}: PageProps = $props();
   const totalPrice = $derived(!data.consumptions?.length ? 0 : data.consumptions!.map(c => c.price * c.count).reduce((a, b) => a + b));
-  let updateFormLoading = $state(false);
+  const totalPriceWithCredit = $derived(Math.max(0, totalPrice - (data.credit?._sum?.amount ?? 0)));
 
   onMount(() => updatePerson.fields.set({name: data.person!.name,}));
 </script>
@@ -26,57 +25,37 @@
   {#snippet back()}
     <BackButton href="/people"/>
   {/snippet}
-  {#if data.canAdmin}
-    <Section name="Update data">
-      <form {...updatePerson.enhance(async form => {
-        updateFormLoading = true;
-        try {
-          if (await form.submit()) {
-            form.element.reset();
-            flash("success", `Updated data for ${data.person!.name}`);
-          } else {
-            flash("error", `Could not update data for ${data.person!.name}`, "An unknown error occurred");
-          }
-        } catch {
-          flash("error", `Could not update data for ${data.person!.name}`);
-        }
-        updateFormLoading = false;
-      })} class="max-w-md flex flex-col gap-4">
-        <FormLabel name="Name" error={updatePerson.fields.name.issues()}>
-          <FormInput {...updatePerson.fields.name.as("text")} required min="3" disabled={updateFormLoading}/>
-        </FormLabel>
-        <Button type="submit" loading={updateFormLoading}>
-          Save
-        </Button>
-      </form>
-    </Section>
-  {:else}
-    <Section name="Data">
-      <p>Name: {data.person!.name}</p>
-    </Section>
-  {/if}
-</Card>
-<Card title="Receipt" class="mt-4">
-  {#snippet action()}
-        <span class="text-info font-bold text-xl mr-4">
-            &euro;{displayPrice(totalPrice)}
-        </span>
-    {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
-      <Button onclick={async () => {
-        flash("info", "Resetting receipt...");
-        await resetPersonConsumptions();
-        await invalidateAll();
-        flash("success", "Receipt has been reset successfully");
-      }} icon={IconReset}>
-        Reset
-      </Button>
+  <Section name="Data">
+    <p>Name: {data.person!.name}</p>
+    {#if data.credit?._sum?.amount}
+      <p>Credit: &euro;{displayPrice(data.credit._sum.amount)}</p>
+    {:else}
+      <p>Credit: none</p>
     {/if}
-  {/snippet}
-  {#if data.consumptions?.length === 0}
-    <p>No consumptions yet</p>
-  {:else}
+    {#if data.canAdmin}
+      <div class="flex flex-col gap-4 md:flex-row mt-4">
+        <EditPersonModal person={data.person}/>
+        <AddCreditModal person={data.person}/>
+      </div>
+    {/if}
+  </Section>
+  <Section name="Receipt">
+    <div class="mb-4">
+      <p>Receipt: &euro;{displayPrice(totalPrice)}</p>
+      <p>Receipt with credit: &euro;{displayPrice(totalPriceWithCredit)}</p>
+      {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
+        <Button onclick={async () => {
+          flash("info", "Resetting receipt...");
+          await resetPersonConsumptions();
+          await invalidateAll();
+          flash("success", "Receipt has been reset successfully");
+        }} class="mt-4">
+          Reset receipt
+        </Button>
+      {/if}
+    </div>
     <ReceiptTable consumptions={data.consumptions}/>
-  {/if}
+  </Section>
 </Card>
 {#if data.consumptionHistorySize! > 0}
   <Card title="History" class="mt-4">

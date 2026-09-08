@@ -74,8 +74,20 @@ model Person {
 
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
+  credits      Credit[]
 
   @@map("people")
+}
+
+model Credit {
+  id        String   @id @default(uuid()) @db.Uuid
+  personId  String   @db.Uuid
+  amount    Int
+  timestamp DateTime @default(now())
+
+  person Person @relation(fields: [personId], references: [id])
+
+  @@map("credit")
 }
 
 model Drink {

@@ -4,28 +4,32 @@
   import TableCell from "$comp/table_cell.svelte";
   import type {PageProps} from "./$types";
   import {displayPrice} from "$lib";
-    import Table from "$comp/table.svelte";
+  import Table from "$comp/table.svelte";
 
-  const {consumptions,}: {consumptions: PageProps["data"]["consumptions"];} = $props();
+  const {consumptions,}: { consumptions: PageProps["data"]["consumptions"]; } = $props();
 </script>
 
 <Table>
   <thead>
-  <TableRow>
-    <TableHeadCell>Drink</TableHeadCell>
-    <TableHeadCell>Price</TableHeadCell>
-    <TableHeadCell>Amount</TableHeadCell>
-    <TableHeadCell>Total</TableHeadCell>
-  </TableRow>
+    <TableRow>
+      <TableHeadCell>Drink</TableHeadCell>
+      <TableHeadCell>Price</TableHeadCell>
+      <TableHeadCell>Amount</TableHeadCell>
+      <TableHeadCell>Total</TableHeadCell>
+    </TableRow>
   </thead>
   <tbody>
-  {#each consumptions! as consumption(`${consumption.drink!.id}_${consumption.price}`)}
-    <TableRow>
-      <TableCell>{consumption.drink!.name}</TableCell>
-      <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
-      <TableCell>{consumption.count}</TableCell>
-      <TableCell>&euro;{displayPrice(consumption.price, consumption.count)}</TableCell>
-    </TableRow>
-  {/each}
+    {#each consumptions! as consumption(`${consumption.drink!.id}_${consumption.price}`)}
+      <TableRow>
+        <TableCell>{consumption.drink!.name}</TableCell>
+        <TableCell>&euro;{displayPrice(consumption.price)}</TableCell>
+        <TableCell>{consumption.count}</TableCell>
+        <TableCell>&euro;{displayPrice(consumption.price, consumption.count)}</TableCell>
+      </TableRow>
+    {/each}
   </tbody>
 </Table>
+
+{#if !consumptions?.length}
+  <p class="mt-2 ml-2">No data yet</p>
+{/if}

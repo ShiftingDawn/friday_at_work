@@ -37,6 +37,13 @@ export const load: PageServerLoad = async ({params, locals,}) => {
     omit: {price: true,},
     where: {id: {in: consumptions.map(consumption => consumption.drinkId),},},
   });
+  const credit = await prisma.credit.aggregate({
+    _sum: {amount: true,},
+    where: {
+      personId: person.id!,
+      ...(person.reset && {timestamp: {gt: person.reset,},}),
+    },
+  });
   return {
     person,
     consumptionHistorySize,
@@ -45,5 +52,6 @@ export const load: PageServerLoad = async ({params, locals,}) => {
       price: consumption.price,
       count: consumption._count.drinkId,
     })),
+    credit,
   };
 };
