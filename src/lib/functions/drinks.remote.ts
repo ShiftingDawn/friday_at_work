@@ -130,7 +130,7 @@ export const addDrinkStockCheck = command(
   async ({expected, actual, correction,}) => {
     const amount = expected - actual;
     const {locals, params,} = await testFunctionRole("WRITE");
-    const restock = amount > 0 ? await _addDrinkRestockInternal(params.drink!, amount * -1, correction) : undefined;
+    const restock = amount != 0 ? await _addDrinkRestockInternal(params.drink!, amount * -1, correction) : undefined;
     await prisma.stockCheck.create({
       data: {
         drinkId: params.drink!,
