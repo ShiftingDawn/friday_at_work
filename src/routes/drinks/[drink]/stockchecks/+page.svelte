@@ -38,7 +38,7 @@
     <BackButton href={`/drinks/${data.drink!.id}`}/>
   {/snippet}
   {#if data.stockCheckCount === 0}
-    <p>No restocks yet</p>
+    <p>No stock checks yet</p>
   {:else}
     <Table>
       {#snippet paginate()}

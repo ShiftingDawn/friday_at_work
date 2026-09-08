@@ -1,16 +1,18 @@
 <script lang="ts">
   import Button from "$comp/button.svelte";
+  import FormCheckbox from "$comp/form_checkbox.svelte";
   import FormInput from "$comp/form_input.svelte";
   import FormLabel from "$comp/form_label.svelte";
   import Modal from "$comp/modal.svelte";
   import Section from "$comp/section.svelte";
-  import {addDrinkRestock, addDrinkStockCheck} from "$lib/functions/drinks.remote";
+  import {addDrinkStockCheck} from "$lib/functions/drinks.remote";
 
   const {expected,}: { expected: number, } = $props();
 
   let stockCounted = $state(0);
   let enteredAmount = $state("");
   let checkStockModalOpen = $state(false);
+  let saveCorrection = $state(true);
 
   function handleClose() {
     stockCounted = 0;
@@ -27,12 +29,7 @@
   }
 
   function handleSubmit() {
-    const difference = expected - stockCounted;
-    if (difference === 0) {
-      handleClose();
-      return;
-    }
-    addDrinkStockCheck({expected, actual: stockCounted, correction: true,}).then(() => {
+    addDrinkStockCheck({expected, actual: stockCounted, correction: saveCorrection,}).then(() => {
       handleClose();
     });
   }
@@ -61,12 +58,18 @@
       Add
     </Button>
   </Section>
+  <Section class="max-w-sm flex flex-col gap-4">
+    <FormCheckbox name="correction" checked={saveCorrection} onchange={e => saveCorrection = e.currentTarget.checked}>
+      Save correction
+    </FormCheckbox>
+    <p>If enabled, any difference will be corrected so the existing stock becomes the counted stock</p>
+  </Section>
   {#snippet actions()}
     <Button onclick={handleClose}>
       Cancel
     </Button>
     <Button onclick={handleSubmit}>
-      Save correction
+      Save
     </Button>
   {/snippet}
 </Modal>
