@@ -37,6 +37,7 @@ export type CreditSumAggregateOutputType = {
 export type CreditMinAggregateOutputType = {
   id: string | null
   personId: string | null
+  creatorId: string | null
   amount: number | null
   timestamp: Date | null
 }
@@ -44,6 +45,7 @@ export type CreditMinAggregateOutputType = {
 export type CreditMaxAggregateOutputType = {
   id: string | null
   personId: string | null
+  creatorId: string | null
   amount: number | null
   timestamp: Date | null
 }
@@ -51,6 +53,7 @@ export type CreditMaxAggregateOutputType = {
 export type CreditCountAggregateOutputType = {
   id: number
   personId: number
+  creatorId: number
   amount: number
   timestamp: number
   _all: number
@@ -68,6 +71,7 @@ export type CreditSumAggregateInputType = {
 export type CreditMinAggregateInputType = {
   id?: true
   personId?: true
+  creatorId?: true
   amount?: true
   timestamp?: true
 }
@@ -75,6 +79,7 @@ export type CreditMinAggregateInputType = {
 export type CreditMaxAggregateInputType = {
   id?: true
   personId?: true
+  creatorId?: true
   amount?: true
   timestamp?: true
 }
@@ -82,6 +87,7 @@ export type CreditMaxAggregateInputType = {
 export type CreditCountAggregateInputType = {
   id?: true
   personId?: true
+  creatorId?: true
   amount?: true
   timestamp?: true
   _all?: true
@@ -176,6 +182,7 @@ export type CreditGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type CreditGroupByOutputType = {
   id: string
   personId: string
+  creatorId: string
   amount: number
   timestamp: Date
   _count: CreditCountAggregateOutputType | null
@@ -206,17 +213,21 @@ export type CreditWhereInput = {
   NOT?: Prisma.CreditWhereInput | Prisma.CreditWhereInput[]
   id?: Prisma.UuidFilter<"Credit"> | string
   personId?: Prisma.UuidFilter<"Credit"> | string
+  creatorId?: Prisma.UuidFilter<"Credit"> | string
   amount?: Prisma.IntFilter<"Credit"> | number
   timestamp?: Prisma.DateTimeFilter<"Credit"> | Date | string
   person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
+  creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type CreditOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
+  creatorId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   person?: Prisma.PersonOrderByWithRelationInput
+  creator?: Prisma.UserOrderByWithRelationInput
 }
 
 export type CreditWhereUniqueInput = Prisma.AtLeast<{
@@ -225,14 +236,17 @@ export type CreditWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CreditWhereInput[]
   NOT?: Prisma.CreditWhereInput | Prisma.CreditWhereInput[]
   personId?: Prisma.UuidFilter<"Credit"> | string
+  creatorId?: Prisma.UuidFilter<"Credit"> | string
   amount?: Prisma.IntFilter<"Credit"> | number
   timestamp?: Prisma.DateTimeFilter<"Credit"> | Date | string
   person?: Prisma.XOR<Prisma.PersonScalarRelationFilter, Prisma.PersonWhereInput>
+  creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type CreditOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
+  creatorId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
   _count?: Prisma.CreditCountOrderByAggregateInput
@@ -248,6 +262,7 @@ export type CreditScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CreditScalarWhereWithAggregatesInput | Prisma.CreditScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Credit"> | string
   personId?: Prisma.UuidWithAggregatesFilter<"Credit"> | string
+  creatorId?: Prisma.UuidWithAggregatesFilter<"Credit"> | string
   amount?: Prisma.IntWithAggregatesFilter<"Credit"> | number
   timestamp?: Prisma.DateTimeWithAggregatesFilter<"Credit"> | Date | string
 }
@@ -257,11 +272,13 @@ export type CreditCreateInput = {
   amount: number
   timestamp?: Date | string
   person: Prisma.PersonCreateNestedOneWithoutCreditsInput
+  creator: Prisma.UserCreateNestedOneWithoutCreditsInput
 }
 
 export type CreditUncheckedCreateInput = {
   id?: string
   personId: string
+  creatorId: string
   amount: number
   timestamp?: Date | string
 }
@@ -271,11 +288,13 @@ export type CreditUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   person?: Prisma.PersonUpdateOneRequiredWithoutCreditsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreditsNestedInput
 }
 
 export type CreditUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -283,6 +302,7 @@ export type CreditUncheckedUpdateInput = {
 export type CreditCreateManyInput = {
   id?: string
   personId: string
+  creatorId: string
   amount: number
   timestamp?: Date | string
 }
@@ -296,6 +316,7 @@ export type CreditUpdateManyMutationInput = {
 export type CreditUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   personId?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -313,6 +334,7 @@ export type CreditOrderByRelationAggregateInput = {
 export type CreditCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
+  creatorId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
 }
@@ -324,6 +346,7 @@ export type CreditAvgOrderByAggregateInput = {
 export type CreditMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
+  creatorId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
 }
@@ -331,12 +354,55 @@ export type CreditMaxOrderByAggregateInput = {
 export type CreditMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   personId?: Prisma.SortOrder
+  creatorId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   timestamp?: Prisma.SortOrder
 }
 
 export type CreditSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+}
+
+export type CreditCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.CreditCreateWithoutCreatorInput, Prisma.CreditUncheckedCreateWithoutCreatorInput> | Prisma.CreditCreateWithoutCreatorInput[] | Prisma.CreditUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.CreditCreateOrConnectWithoutCreatorInput | Prisma.CreditCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.CreditCreateManyCreatorInputEnvelope
+  connect?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+}
+
+export type CreditUncheckedCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.CreditCreateWithoutCreatorInput, Prisma.CreditUncheckedCreateWithoutCreatorInput> | Prisma.CreditCreateWithoutCreatorInput[] | Prisma.CreditUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.CreditCreateOrConnectWithoutCreatorInput | Prisma.CreditCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.CreditCreateManyCreatorInputEnvelope
+  connect?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+}
+
+export type CreditUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.CreditCreateWithoutCreatorInput, Prisma.CreditUncheckedCreateWithoutCreatorInput> | Prisma.CreditCreateWithoutCreatorInput[] | Prisma.CreditUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.CreditCreateOrConnectWithoutCreatorInput | Prisma.CreditCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.CreditUpsertWithWhereUniqueWithoutCreatorInput | Prisma.CreditUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.CreditCreateManyCreatorInputEnvelope
+  set?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  disconnect?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  delete?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  connect?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  update?: Prisma.CreditUpdateWithWhereUniqueWithoutCreatorInput | Prisma.CreditUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.CreditUpdateManyWithWhereWithoutCreatorInput | Prisma.CreditUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.CreditScalarWhereInput | Prisma.CreditScalarWhereInput[]
+}
+
+export type CreditUncheckedUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.CreditCreateWithoutCreatorInput, Prisma.CreditUncheckedCreateWithoutCreatorInput> | Prisma.CreditCreateWithoutCreatorInput[] | Prisma.CreditUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.CreditCreateOrConnectWithoutCreatorInput | Prisma.CreditCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.CreditUpsertWithWhereUniqueWithoutCreatorInput | Prisma.CreditUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.CreditCreateManyCreatorInputEnvelope
+  set?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  disconnect?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  delete?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  connect?: Prisma.CreditWhereUniqueInput | Prisma.CreditWhereUniqueInput[]
+  update?: Prisma.CreditUpdateWithWhereUniqueWithoutCreatorInput | Prisma.CreditUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.CreditUpdateManyWithWhereWithoutCreatorInput | Prisma.CreditUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.CreditScalarWhereInput | Prisma.CreditScalarWhereInput[]
 }
 
 export type CreditCreateNestedManyWithoutPersonInput = {
@@ -389,14 +455,67 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type CreditCreateWithoutPersonInput = {
+export type CreditCreateWithoutCreatorInput = {
   id?: string
+  amount: number
+  timestamp?: Date | string
+  person: Prisma.PersonCreateNestedOneWithoutCreditsInput
+}
+
+export type CreditUncheckedCreateWithoutCreatorInput = {
+  id?: string
+  personId: string
   amount: number
   timestamp?: Date | string
 }
 
+export type CreditCreateOrConnectWithoutCreatorInput = {
+  where: Prisma.CreditWhereUniqueInput
+  create: Prisma.XOR<Prisma.CreditCreateWithoutCreatorInput, Prisma.CreditUncheckedCreateWithoutCreatorInput>
+}
+
+export type CreditCreateManyCreatorInputEnvelope = {
+  data: Prisma.CreditCreateManyCreatorInput | Prisma.CreditCreateManyCreatorInput[]
+  skipDuplicates?: boolean
+}
+
+export type CreditUpsertWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.CreditWhereUniqueInput
+  update: Prisma.XOR<Prisma.CreditUpdateWithoutCreatorInput, Prisma.CreditUncheckedUpdateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.CreditCreateWithoutCreatorInput, Prisma.CreditUncheckedCreateWithoutCreatorInput>
+}
+
+export type CreditUpdateWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.CreditWhereUniqueInput
+  data: Prisma.XOR<Prisma.CreditUpdateWithoutCreatorInput, Prisma.CreditUncheckedUpdateWithoutCreatorInput>
+}
+
+export type CreditUpdateManyWithWhereWithoutCreatorInput = {
+  where: Prisma.CreditScalarWhereInput
+  data: Prisma.XOR<Prisma.CreditUpdateManyMutationInput, Prisma.CreditUncheckedUpdateManyWithoutCreatorInput>
+}
+
+export type CreditScalarWhereInput = {
+  AND?: Prisma.CreditScalarWhereInput | Prisma.CreditScalarWhereInput[]
+  OR?: Prisma.CreditScalarWhereInput[]
+  NOT?: Prisma.CreditScalarWhereInput | Prisma.CreditScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Credit"> | string
+  personId?: Prisma.UuidFilter<"Credit"> | string
+  creatorId?: Prisma.UuidFilter<"Credit"> | string
+  amount?: Prisma.IntFilter<"Credit"> | number
+  timestamp?: Prisma.DateTimeFilter<"Credit"> | Date | string
+}
+
+export type CreditCreateWithoutPersonInput = {
+  id?: string
+  amount: number
+  timestamp?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutCreditsInput
+}
+
 export type CreditUncheckedCreateWithoutPersonInput = {
   id?: string
+  creatorId: string
   amount: number
   timestamp?: Date | string
 }
@@ -427,18 +546,37 @@ export type CreditUpdateManyWithWhereWithoutPersonInput = {
   data: Prisma.XOR<Prisma.CreditUpdateManyMutationInput, Prisma.CreditUncheckedUpdateManyWithoutPersonInput>
 }
 
-export type CreditScalarWhereInput = {
-  AND?: Prisma.CreditScalarWhereInput | Prisma.CreditScalarWhereInput[]
-  OR?: Prisma.CreditScalarWhereInput[]
-  NOT?: Prisma.CreditScalarWhereInput | Prisma.CreditScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Credit"> | string
-  personId?: Prisma.UuidFilter<"Credit"> | string
-  amount?: Prisma.IntFilter<"Credit"> | number
-  timestamp?: Prisma.DateTimeFilter<"Credit"> | Date | string
+export type CreditCreateManyCreatorInput = {
+  id?: string
+  personId: string
+  amount: number
+  timestamp?: Date | string
+}
+
+export type CreditUpdateWithoutCreatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  person?: Prisma.PersonUpdateOneRequiredWithoutCreditsNestedInput
+}
+
+export type CreditUncheckedUpdateWithoutCreatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  personId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CreditUncheckedUpdateManyWithoutCreatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  personId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CreditCreateManyPersonInput = {
   id?: string
+  creatorId: string
   amount: number
   timestamp?: Date | string
 }
@@ -447,16 +585,19 @@ export type CreditUpdateWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutCreditsNestedInput
 }
 
 export type CreditUncheckedUpdateWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CreditUncheckedUpdateManyWithoutPersonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -466,53 +607,65 @@ export type CreditUncheckedUpdateManyWithoutPersonInput = {
 export type CreditSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   personId?: boolean
+  creatorId?: boolean
   amount?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["credit"]>
 
 export type CreditSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   personId?: boolean
+  creatorId?: boolean
   amount?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["credit"]>
 
 export type CreditSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   personId?: boolean
+  creatorId?: boolean
   amount?: boolean
   timestamp?: boolean
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["credit"]>
 
 export type CreditSelectScalar = {
   id?: boolean
   personId?: boolean
+  creatorId?: boolean
   amount?: boolean
   timestamp?: boolean
 }
 
-export type CreditOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "amount" | "timestamp", ExtArgs["result"]["credit"]>
+export type CreditOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "personId" | "creatorId" | "amount" | "timestamp", ExtArgs["result"]["credit"]>
 export type CreditInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CreditIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CreditIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $CreditPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Credit"
   objects: {
     person: Prisma.$PersonPayload<ExtArgs>
+    creator: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     personId: string
+    creatorId: string
     amount: number
     timestamp: Date
   }, ExtArgs["result"]["credit"]>
@@ -910,6 +1063,7 @@ readonly fields: CreditFieldRefs;
 export interface Prisma__CreditClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   person<T extends Prisma.PersonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PersonDefaultArgs<ExtArgs>>): Prisma.Prisma__PersonClient<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -941,6 +1095,7 @@ export interface Prisma__CreditClient<T, Null = never, ExtArgs extends runtime.T
 export interface CreditFieldRefs {
   readonly id: Prisma.FieldRef<"Credit", 'String'>
   readonly personId: Prisma.FieldRef<"Credit", 'String'>
+  readonly creatorId: Prisma.FieldRef<"Credit", 'String'>
   readonly amount: Prisma.FieldRef<"Credit", 'Int'>
   readonly timestamp: Prisma.FieldRef<"Credit", 'DateTime'>
 }

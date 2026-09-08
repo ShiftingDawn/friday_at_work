@@ -130,6 +130,7 @@ export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof 
 export const CreditScalarFieldEnum = {
   id: 'id',
   personId: 'personId',
+  creatorId: 'creatorId',
   amount: 'amount',
   timestamp: 'timestamp'
 } as const

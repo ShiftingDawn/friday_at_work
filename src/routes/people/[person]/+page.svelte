@@ -34,8 +34,8 @@
     {/if}
     {#if data.canAdmin}
       <div class="flex flex-col gap-4 md:flex-row mt-4">
-        <EditPersonModal person={data.person}/>
         <AddCreditModal person={data.person}/>
+        <EditPersonModal person={data.person}/>
       </div>
     {/if}
   </Section>

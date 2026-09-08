@@ -48,11 +48,12 @@ export const updatePerson = form(
 export const addPersonCredit = form(
   v.object({amount: v.pipe(v.number(), v.minValue(0.01)),}),
   async ({amount,}) => {
-    const {params,} = await testFunctionRole("ADMIN");
+    const {params, locals,} = await testFunctionRole("ADMIN");
     await prisma.credit.create({
       data: {
         personId: params.person!,
         amount: Math.round((amount + Number.EPSILON) * 100),
+        creatorId: locals.user!.id,
       },
     });
   }

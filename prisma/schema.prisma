@@ -19,6 +19,7 @@ model User {
   consumptions         Consumption[]
   restocks             Restock[]
   stockChecks          StockCheck[]
+  credits              Credit[]
 
   @@map("users")
 }
@@ -82,10 +83,12 @@ model Person {
 model Credit {
   id        String   @id @default(uuid()) @db.Uuid
   personId  String   @db.Uuid
+  creatorId String   @db.Uuid
   amount    Int
   timestamp DateTime @default(now())
 
-  person Person @relation(fields: [personId], references: [id])
+  person  Person @relation(fields: [personId], references: [id])
+  creator User   @relation(fields: [creatorId], references: [id])
 
   @@map("credit")
 }
