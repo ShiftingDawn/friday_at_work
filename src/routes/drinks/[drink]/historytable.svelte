@@ -32,7 +32,6 @@
   }
 
   onMount(() => fetchMore(0, 20));
-
 </script>
 
 <Table>

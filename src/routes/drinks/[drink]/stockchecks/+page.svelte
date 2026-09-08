@@ -6,19 +6,44 @@
   import TableHeadCell from "$comp/table_headcell.svelte";
   import TableCell from "$comp/table_cell.svelte";
   import Table from "$comp/table.svelte";
-  import Date from "$comp/date.svelte";
+  import DateComponent from "$comp/date.svelte";
+  import TablePaginate from "$comp/table_paginate.svelte";
+  import {fresh} from "$lib";
+  import {getDrinkStockCheckHistoryRecords} from "$lib/functions/drinks.remote";
+  import {onMount} from "svelte";
+
+  type Record = {
+    id: string;
+    restockId: string | null;
+    expected: number,
+    actual: number,
+    timestamp: Date,
+    creator: { username: string, },
+  };
 
   const {data,}: PageProps = $props();
+
+  let page = $state(0);
+  let records = $state<Record[]>();
+
+  function fetchMore(start: number, take: number) {
+    fresh(getDrinkStockCheckHistoryRecords({start, take,})).then(d => records = d);
+  }
+
+  onMount(() => fetchMore(0, 20));
 </script>
 
 <Card title={`${data.drink!.name} stock check history`}>
   {#snippet back()}
     <BackButton href={`/drinks/${data.drink!.id}`}/>
   {/snippet}
-  {#if !data.drink?.stockChecks?.length}
+  {#if data.stockCheckCount === 0}
     <p>No restocks yet</p>
   {:else}
     <Table>
+      {#snippet paginate()}
+        <TablePaginate total={data.stockCheckCount} bind:page size={20} onchange={fetchMore}/>
+      {/snippet}
       <thead>
         <TableRow>
           <TableHeadCell>Date</TableHeadCell>
@@ -30,10 +55,10 @@
         </TableRow>
       </thead>
       <tbody>
-        {#each data.drink!.stockChecks as check(check.id)}
+        {#each records as check(check.id)}
           <TableRow>
             <TableCell>
-              <Date value={check.timestamp}/>
+              <DateComponent value={check.timestamp}/>
             </TableCell>
             <TableCell>{check.expected}</TableCell>
             <TableCell>{check.actual}</TableCell>

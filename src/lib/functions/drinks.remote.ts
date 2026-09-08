@@ -255,3 +255,31 @@ export const getDrinkHistoryRecords = query(
     });
   }
 );
+
+export const getDrinkRestockHistoryRecords = query(
+  v.object({start: v.number(), take: v.number(),}),
+  async ({start, take,}) => {
+    const {params,} = await testFunctionRole("READ");
+    return await prisma.restock.findMany({
+      where: {drinkId: params.drink,},
+      orderBy: {timestamp: "desc",},
+      include: {creator: {select: {username: true,},},},
+      skip: start,
+      take,
+    });
+  }
+);
+
+export const getDrinkStockCheckHistoryRecords = query(
+  v.object({start: v.number(), take: v.number(),}),
+  async ({start, take,}) => {
+    const {params,} = await testFunctionRole("READ");
+    return await prisma.stockCheck.findMany({
+      where: {drinkId: params.drink,},
+      orderBy: {timestamp: "desc",},
+      include: {creator: {select: {username: true,},},},
+      skip: start,
+      take,
+    });
+  }
+);
