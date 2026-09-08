@@ -6,11 +6,10 @@
     <meta name="text-scale" content="scale"/>
     %sveltekit.head%
     <script>
-      const useDarkMode =
-        localStorage.theme === "dark"
-        || (window.matchMedia("(prefers-color-scheme: dark)").matches && (
-          !("theme" in localStorage) || localStorage.theme === "auto"
-        ));
+      let useDarkMode = localStorage.getItem("theme") === "\"dark\"";
+      if (!("theme" in localStorage) || localStorage.theme === "\"auto\"") {
+        useDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      }
       if (useDarkMode) {
         document.documentElement.setAttribute("data-theme", "dark");
       }

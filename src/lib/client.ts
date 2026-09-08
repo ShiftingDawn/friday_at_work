@@ -1,5 +1,5 @@
 import {get} from "svelte/store";
-import {theme} from "$lib/preferences.ts";
+import {theme} from "$lib/preferences";
 import {env} from "$env/dynamic/public";
 
 export function listenToThemeChanges(callback: (theme: "light" | "dark" | "auto") => void): () => void {
