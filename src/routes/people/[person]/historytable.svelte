@@ -162,7 +162,7 @@
           <Date value={consumption.timestamp}/>
         </TableCell>
         {#if canAdmin}
-          <TableHeadCell>
+          <TableCell>
             <div class="flex gap-4">
               <Button onclick={() => editModalData = consumption}>
                 Edit
@@ -171,7 +171,7 @@
                 Delete
               </Button>
             </div>
-          </TableHeadCell>
+          </TableCell>
         {/if}
       </TableRow>
     {/each}
