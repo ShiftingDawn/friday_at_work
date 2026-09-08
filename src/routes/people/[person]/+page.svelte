@@ -35,6 +35,7 @@
     {#if data.canAdmin}
       <div class="flex flex-col gap-4 md:flex-row mt-4">
         <AddCreditModal person={data.person}/>
+        <Button as="a" href={`/people/${data.person!.id}/credit`}>Credit history</Button>
         <EditPersonModal person={data.person}/>
       </div>
     {/if}

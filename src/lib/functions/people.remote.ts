@@ -76,6 +76,20 @@ export const resetPersonConsumptions = command(async () => {
   });
 });
 
+export const getPersonCreditRecords = query(
+  v.object({start: v.number(), take: v.number(),}),
+  async ({start, take,}) => {
+    const {params,} = await testFunctionRole("READ");
+    return await prisma.credit.findMany({
+      where: {personId: params.person!,},
+      orderBy: {timestamp: "desc",},
+      include: {creator: {select: {username: true,},},},
+      skip: start,
+      take,
+    });
+  }
+);
+
 export const getPersonHistoryRecords = query(
   v.object({start: v.number(), take: v.number(),}),
   async ({start, take,}) => {

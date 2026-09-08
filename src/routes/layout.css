@@ -66,7 +66,8 @@
   --color-select-text: var(--color-text);
 
   --color-scores-bar: hsl(231deg 97% 72%);
-  --color-historytable-marked: hsl(234deg 16% 35% / 20%);
+  --color-historytable-marked: hsl(0deg 0% 0% / 30%);
+  --color-historytable-marked-text: var(--color-text-inverse);
 }
 
 html[data-theme="dark"] {
@@ -95,7 +96,8 @@ html[data-theme="dark"] {
   --color-select: hsl(0deg 0% 0% / 30%);
 
   --color-scores-bar: hsl(231deg 97% 72%);
-  --color-historytable-marked: hsl(234deg 16% 35% / 20%);
+  --color-historytable-marked: hsl(0deg 0% 0% / 60%);
+  --color-historytable-marked-text: var(--color-text);
 }
 
 html, body {
