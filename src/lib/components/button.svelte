@@ -34,9 +34,11 @@
 </script>
 
 <svelte:element this={as} disabled={disabled || loading} {...rest} class={twMerge(
-  "bg-button text-button-text min-w-8 h-8 px-4 rounded-full cursor-pointer hover:bg-button-hover hover:text-button-hover-text transition-all flex flex-row gap-2 items-center justify-center",
-  (disabled || loading) && "hover:bg-unset hover:text-text cursor-not-allowed",
-  Icon && "h-12",
+  "bg-button text-button-text min-w-8 h-8 px-4 rounded-2xl cursor-pointer transition-all flex flex-row gap-2 items-center justify-center",
+  "hover:bg-button-hover hover:text-button-hover-text hover:rounded-lg",
+  disabled && "cursor-not-allowed bg-button-disabled hover:bg-button-disabled text-button-disabled-text hover:text-button-disabled-text hover:rounded-2xl",
+  Icon && "h-12 rounded-4xl",
+  Icon && disabled && "hover:rounded-4xl",
   cls as any
 )}
 >

@@ -20,9 +20,9 @@
 </script>
 
 <svelte:element this={as} {...rest} class={twMerge(
-  "w-12 h-12 bg-button text-button-text rounded-[100%] hover:rounded-lg cursor-pointer transition-all flex items-center justify-center",
-  "hover:bg-button-hover hover:text-button-hover-text",
-  rest.disabled && "cursor-not-allowed bg-disabled hover:bg-disabled text-text hover:text-text",
+  "w-12 h-12 bg-button text-button-text rounded-[100%] cursor-pointer transition-all flex items-center justify-center",
+  "hover:bg-button-hover hover:text-button-hover-text hover:rounded-lg",
+  rest.disabled && "cursor-not-allowed bg-button-disabled hover:bg-button-disabled text-button-disabled-text hover:text-button-disabled-text hover:rounded-[100%]",
   cls as any
 )}>
   <div class="w-8 h-8">
