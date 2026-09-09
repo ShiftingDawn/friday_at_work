@@ -12,24 +12,20 @@
   import Center from "$comp/center.svelte";
   import {getRandomElement} from "$lib";
   import Button from "$comp/button.svelte";
+  import {onMount} from "svelte";
 
   const {data,}: PageProps = $props();
+
+  function testThreshold() {
+    getDrinksUnderThreshold().then(drinks => {
+      if (drinks.length <= 0) return;
+      flash("error", `${drinks.length === 1 ? "One drink is" : "Multiple drinks are"} not meeting their set threshold`, "Visit the drinks page for more details");
+    });
+  }
+
+  onMount(testThreshold);
 </script>
 
-{#await getDrinksUnderThreshold()}
-  <!-- NOOP -->
-{:then drinks}
-  {#if drinks.length > 0}
-    <div class="bg-error text-error-text backdrop-blur-md p-4 rounded-2xl shadow-lg mb-4">
-      {#if drinks.length === 1}
-        One drink is
-      {:else}
-        Multiple drinks are
-      {/if}
-      not meeting their set threshold. Visit the drinks page for more details.
-    </div>
-  {/if}
-{/await}
 {#if !data.canWrite}
   <Card title="Register consumption">
     <p>You do not have the permission to register consumptions</p>
@@ -45,6 +41,7 @@
           `Poured one out for ${personName}`,
           `Enjoy your drink, ${personName}!`,
         ]));
+        testThreshold();
       } else {
         flash("error", getRandomElement([
           `Could not pour one out for ${personName}`,
