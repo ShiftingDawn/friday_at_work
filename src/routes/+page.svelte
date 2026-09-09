@@ -32,15 +32,15 @@
   </Card>
 {:else}
   <form {...addConsumption.enhance(async form => {
+    let timeout = -1;
     try {
       const personRadio = document.querySelector(`input[value='${form.fields.person.value()}']`) as HTMLInputElement;
       const personName = (personRadio.nextSibling! as unknown as { wholeText: string }).wholeText.trim();
-      const timeout = setTimeout(() => {
+      timeout = setTimeout(() => {
         flash("info", "Still pouring...");
-      }, 3000);
+      }, 3000) as never as number;
       if (await form.submit()) {
         form.element.reset();
-        clearTimeout(timeout);
         flash("success", "Consumption", getRandomElement([
           `Poured one out for ${personName}`,
           `Enjoy your drink, ${personName}!`,
@@ -55,6 +55,7 @@
     } catch {
       flash("error", "Could not register consumption", "An unknown error occurred");
     }
+    clearTimeout(timeout);
   })} class="flex flex-col gap-4">
     <Card title="Register consumption">
       {#snippet action()}
