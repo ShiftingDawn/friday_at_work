@@ -18,6 +18,6 @@ export function flash(type: FlashMessageType, titleOrText: string, text?: string
     title: text ? titleOrText : undefined,
     text: text ? text : titleOrText,
   };
-  flashStore.update(msgs => ([msg, ...msgs,]));
+  flashStore.update(msgs => ([...msgs, msg,]));
   setTimeout(() => flashStore.update(msgs => msgs.filter(msg2 => msg2.id !== msg.id)), 5000);
 }

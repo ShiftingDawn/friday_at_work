@@ -20,14 +20,14 @@
   --color-body: hsl(41deg 86% 83%);
   --color-text: hsl(234deg 16% 35%);
   --color-text-inverse: hsl(220deg, 23%, 95%);
-  --color-success: hsl(109deg 58% 40% / 75%);
-  --color-success-text: var(--color-text-inverse);
-  --color-info: hsl(220deg 91% 54% / 75%);
-  --color-info-text: var(--color-text-inverse);
-  --color-warning: hsl(35deg 77% 49% / 75%);
-  --color-warning-text: var(--color-text-inverse);
-  --color-error: hsl(347deg 87% 44% / 75%);
-  --color-error-text: var(--color-text-inverse);
+  --color-flash-success: hsl(109deg 58% 40% / 75%);
+  --color-flash-success-text: var(--color-text-inverse);
+  --color-flash-info: hsl(220deg 91% 54% / 75%);
+  --color-flash-info-text: var(--color-text-inverse);
+  --color-flash-warning: hsl(35deg 77% 49% / 75%);
+  --color-flash-warning-text: var(--color-text-inverse);
+  --color-flash-error: hsl(347deg 87% 44% / 75%);
+  --color-flash-error-text: var(--color-text-inverse);
 
   --color-divider: hsl(231deg 97% 72%);
   --color-divider-text: var(--color-text-inverse);
@@ -60,6 +60,8 @@
   --color-input-label-text: var(--color-button-text);
   --color-input: hsl(0deg 0% 100% / 75%);
   --color-input-text: var(--color-text);
+  --color-input-error: hsl(347deg 87% 44% / 75%);
+  --color-input-error-text: var(--color-text-inverse);
   --color-checkbox: var(--color-button);
   --color-checkbox-check: var(--color-button-text);
   --color-select: hsl(0deg 0% 100% / 75%);
@@ -74,10 +76,10 @@ html[data-theme="dark"] {
   --color-body: hsl(35deg 77% 49%);
   --color-text: hsl(226deg 64% 88%);
   --color-text-inverse: hsl(240deg 21% 15%);
-  --color-success: hsl(115deg 54% 76% / 75%);
-  --color-info: hsl(217deg 92% 76% / 75%);
-  --color-warning: hsl(41deg 86% 83% / 75%);
-  --color-error: hsl(343deg 81% 75% / 75%);
+  --color-flash-success: hsl(115deg 54% 76% / 75%);
+  --color-flash-info: hsl(217deg 92% 76% / 75%);
+  --color-flash-warning: hsl(41deg 86% 83% / 75%);
+  --color-flash-error: hsl(343deg 81% 75% / 75%);
 
   --color-divider: hsl(232deg 97% 85%);
   --color-navbar: hsl(0deg 0% 0% / 30%);
@@ -93,6 +95,7 @@ html[data-theme="dark"] {
   --color-button-active: hsl(115deg 54% 76%);
   --color-button-disabled: hsl(232deg 0% 25%);
   --color-input: hsl(0deg 0% 0% / 30%);
+  --color-input-error: hsl(343deg 81% 75% / 75%);
   --color-select: hsl(0deg 0% 0% / 30%);
 
   --color-scores-bar: hsl(231deg 97% 72%);

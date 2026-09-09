@@ -18,7 +18,7 @@
 
 <label class={twMerge(
   "flex flex-col bg-input-label text-input-label-text rounded-2xl group/formcontrol",
-  error && "bg-error text-error-text",
+  error && "bg-input-error text-input-error-text",
   cls
 )} data-invalid={Boolean(error)}>
   <span class="pl-4 pr-2 font-bold">
