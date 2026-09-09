@@ -70,11 +70,82 @@ export const resetPersonConsumptions = command(async () => {
   if (!person) {
     invalid("Person not found");
   }
-  await prisma.person.update({
-    where: {id: person.id,},
-    data: {reset: new Date(),},
+  await prisma.$transaction(async tx => {
+    const receiptResetDate = new Date();
+    const consumptions = await tx.consumption.findMany({
+      select: {id: true,},
+      where: {
+        personId: person.id,
+        ...(person.reset && {timestamp: {gt: person.reset,},}),
+      },
+    });
+    const receipt = await tx.receipt.create({
+      data: {
+        personId: person.id,
+        creatorId: locals.user!.id,
+        from: person.reset,
+        to: receiptResetDate,
+      },
+    });
+    await tx.receiptHistory.createMany({
+      data: consumptions.map(({id,}) => ({
+        receiptId: receipt.id,
+        consumptionId: id,
+      })),
+    });
+    await tx.person.update({
+      where: {id: person.id,},
+      data: {reset: receiptResetDate,},
+    });
   });
 });
+
+export const getPersonReceipts = query(
+  v.object({start: v.number(), take: v.number(),}),
+  async ({start, take,}) => {
+    const {params,} = await testFunctionRole("READ");
+    return await prisma.receipt.findMany({
+      select: {
+        id: true,
+        personId: true,
+        from: true,
+        to: true,
+        creator: {select: {username: true,},},
+        _count: {select: {history: true,},},
+      },
+      where: {personId: params.person!,},
+      orderBy: {to: "desc",},
+      skip: start,
+      take,
+    });
+  }
+);
+
+export const getPersonReceiptData = query(
+  v.object({person: v.pipe(v.string(), v.uuid()), receipt: v.pipe(v.string(), v.uuid()),}),
+  async ({person, receipt,}) => {
+    const receiptData = await prisma.receipt.findFirst({
+      select: {
+        history: {
+          select: {
+            consumption: {
+              select: {
+                id: true,
+                price: true,
+                timestamp: true,
+                drink: {select: {name: true,},},
+                creator: {select: {username: true,},},
+              },
+            },
+          },
+          orderBy: {consumption: {timestamp: "desc",},},
+        },
+      },
+      where: {id: receipt, personId: person,},
+    });
+    return receiptData?.history.map(({consumption,}) => consumption) ?? [];
+  }
+);
 
 export const getPersonCreditRecords = query(
   v.object({start: v.number(), take: v.number(),}),

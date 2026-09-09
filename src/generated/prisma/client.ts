@@ -82,6 +82,16 @@ export type Drink = Prisma.DrinkModel
  */
 export type Consumption = Prisma.ConsumptionModel
 /**
+ * Model Receipt
+ * 
+ */
+export type Receipt = Prisma.ReceiptModel
+/**
+ * Model ReceiptHistory
+ * 
+ */
+export type ReceiptHistory = Prisma.ReceiptHistoryModel
+/**
  * Model Restock
  * 
  */

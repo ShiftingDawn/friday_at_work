@@ -392,6 +392,8 @@ export const ModelName = {
   Credit: 'Credit',
   Drink: 'Drink',
   Consumption: 'Consumption',
+  Receipt: 'Receipt',
+  ReceiptHistory: 'ReceiptHistory',
   Restock: 'Restock',
   StockCheck: 'StockCheck'
 } as const
@@ -409,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "workspace" | "workspacePermission" | "person" | "credit" | "drink" | "consumption" | "restock" | "stockCheck"
+    modelProps: "user" | "session" | "workspace" | "workspacePermission" | "person" | "credit" | "drink" | "consumption" | "receipt" | "receiptHistory" | "restock" | "stockCheck"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1005,6 +1007,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Receipt: {
+      payload: Prisma.$ReceiptPayload<ExtArgs>
+      fields: Prisma.ReceiptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReceiptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReceiptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>
+        }
+        findFirst: {
+          args: Prisma.ReceiptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReceiptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>
+        }
+        findMany: {
+          args: Prisma.ReceiptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>[]
+        }
+        create: {
+          args: Prisma.ReceiptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>
+        }
+        createMany: {
+          args: Prisma.ReceiptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReceiptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>[]
+        }
+        delete: {
+          args: Prisma.ReceiptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>
+        }
+        update: {
+          args: Prisma.ReceiptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReceiptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReceiptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReceiptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReceiptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptPayload>
+        }
+        aggregate: {
+          args: Prisma.ReceiptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReceipt>
+        }
+        groupBy: {
+          args: Prisma.ReceiptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceiptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReceiptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceiptCountAggregateOutputType> | number
+        }
+      }
+    }
+    ReceiptHistory: {
+      payload: Prisma.$ReceiptHistoryPayload<ExtArgs>
+      fields: Prisma.ReceiptHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReceiptHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReceiptHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ReceiptHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReceiptHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ReceiptHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ReceiptHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ReceiptHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReceiptHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ReceiptHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>
+        }
+        update: {
+          args: Prisma.ReceiptHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReceiptHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReceiptHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReceiptHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReceiptHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ReceiptHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReceiptHistory>
+        }
+        groupBy: {
+          args: Prisma.ReceiptHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceiptHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReceiptHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceiptHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
     Restock: {
       payload: Prisma.$RestockPayload<ExtArgs>
       fields: Prisma.RestockFieldRefs
@@ -1277,6 +1427,25 @@ export const ConsumptionScalarFieldEnum = {
 export type ConsumptionScalarFieldEnum = (typeof ConsumptionScalarFieldEnum)[keyof typeof ConsumptionScalarFieldEnum]
 
 
+export const ReceiptScalarFieldEnum = {
+  id: 'id',
+  personId: 'personId',
+  creatorId: 'creatorId',
+  from: 'from',
+  to: 'to'
+} as const
+
+export type ReceiptScalarFieldEnum = (typeof ReceiptScalarFieldEnum)[keyof typeof ReceiptScalarFieldEnum]
+
+
+export const ReceiptHistoryScalarFieldEnum = {
+  receiptId: 'receiptId',
+  consumptionId: 'consumptionId'
+} as const
+
+export type ReceiptHistoryScalarFieldEnum = (typeof ReceiptHistoryScalarFieldEnum)[keyof typeof ReceiptHistoryScalarFieldEnum]
+
+
 export const RestockScalarFieldEnum = {
   id: 'id',
   drinkId: 'drinkId',
@@ -1540,6 +1709,8 @@ export type GlobalOmitConfig = {
   credit?: Prisma.CreditOmit
   drink?: Prisma.DrinkOmit
   consumption?: Prisma.ConsumptionOmit
+  receipt?: Prisma.ReceiptOmit
+  receiptHistory?: Prisma.ReceiptHistoryOmit
   restock?: Prisma.RestockOmit
   stockCheck?: Prisma.StockCheckOmit
 }

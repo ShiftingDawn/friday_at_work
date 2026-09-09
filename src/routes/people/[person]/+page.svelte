@@ -44,16 +44,19 @@
     <div class="mb-4">
       <p>Receipt: &euro;{displayPrice(totalPrice)}</p>
       <p>Receipt with credit: &euro;{displayPrice(totalPriceWithCredit)}</p>
-      {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
-        <Button onclick={async () => {
-          flash("info", "Resetting receipt...");
-          await resetPersonConsumptions();
-          await invalidateAll();
-          flash("success", "Receipt has been reset successfully");
-        }} class="mt-4">
-          Reset receipt
-        </Button>
-      {/if}
+      <div class="flex flex-col gap-4 md:flex-row mt-4">
+        {#if data.canAdmin && (data.consumptions?.length || 0) > 0}
+          <Button onclick={async () => {
+            flash("info", "Resetting receipt...");
+            await resetPersonConsumptions();
+            await invalidateAll();
+            flash("success", "Receipt has been reset successfully");
+          }} class="mt-4">
+            Reset receipt
+          </Button>
+        {/if}
+        <Button as="a" href={`/people/${data.person!.id}/receipt`}>Receipt history</Button>
+      </div>
     </div>
     <ReceiptTable consumptions={data.consumptions}/>
   </Section>

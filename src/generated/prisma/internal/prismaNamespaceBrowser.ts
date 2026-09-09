@@ -59,6 +59,8 @@ export const ModelName = {
   Credit: 'Credit',
   Drink: 'Drink',
   Consumption: 'Consumption',
+  Receipt: 'Receipt',
+  ReceiptHistory: 'ReceiptHistory',
   Restock: 'Restock',
   StockCheck: 'StockCheck'
 } as const
@@ -162,6 +164,25 @@ export const ConsumptionScalarFieldEnum = {
 } as const
 
 export type ConsumptionScalarFieldEnum = (typeof ConsumptionScalarFieldEnum)[keyof typeof ConsumptionScalarFieldEnum]
+
+
+export const ReceiptScalarFieldEnum = {
+  id: 'id',
+  personId: 'personId',
+  creatorId: 'creatorId',
+  from: 'from',
+  to: 'to'
+} as const
+
+export type ReceiptScalarFieldEnum = (typeof ReceiptScalarFieldEnum)[keyof typeof ReceiptScalarFieldEnum]
+
+
+export const ReceiptHistoryScalarFieldEnum = {
+  receiptId: 'receiptId',
+  consumptionId: 'consumptionId'
+} as const
+
+export type ReceiptHistoryScalarFieldEnum = (typeof ReceiptHistoryScalarFieldEnum)[keyof typeof ReceiptHistoryScalarFieldEnum]
 
 
 export const RestockScalarFieldEnum = {

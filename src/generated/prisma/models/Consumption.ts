@@ -236,6 +236,7 @@ export type ConsumptionWhereInput = {
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  receiptHistories?: Prisma.ReceiptHistoryListRelationFilter
 }
 
 export type ConsumptionOrderByWithRelationInput = {
@@ -250,6 +251,7 @@ export type ConsumptionOrderByWithRelationInput = {
   drink?: Prisma.DrinkOrderByWithRelationInput
   workspace?: Prisma.WorkspaceOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
+  receiptHistories?: Prisma.ReceiptHistoryOrderByRelationAggregateInput
 }
 
 export type ConsumptionWhereUniqueInput = Prisma.AtLeast<{
@@ -267,6 +269,7 @@ export type ConsumptionWhereUniqueInput = Prisma.AtLeast<{
   drink?: Prisma.XOR<Prisma.DrinkScalarRelationFilter, Prisma.DrinkWhereInput>
   workspace?: Prisma.XOR<Prisma.WorkspaceScalarRelationFilter, Prisma.WorkspaceWhereInput>
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  receiptHistories?: Prisma.ReceiptHistoryListRelationFilter
 }, "id">
 
 export type ConsumptionOrderByWithAggregationInput = {
@@ -305,6 +308,7 @@ export type ConsumptionCreateInput = {
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
   workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
   creator: Prisma.UserCreateNestedOneWithoutConsumptionsInput
+  receiptHistories?: Prisma.ReceiptHistoryCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionUncheckedCreateInput = {
@@ -315,6 +319,7 @@ export type ConsumptionUncheckedCreateInput = {
   creatorId: string
   price: number
   timestamp?: Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionUpdateInput = {
@@ -325,6 +330,7 @@ export type ConsumptionUpdateInput = {
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutConsumptionsNestedInput
+  receiptHistories?: Prisma.ReceiptHistoryUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateInput = {
@@ -335,6 +341,7 @@ export type ConsumptionUncheckedUpdateInput = {
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionCreateManyInput = {
@@ -409,6 +416,11 @@ export type ConsumptionMinOrderByAggregateInput = {
 
 export type ConsumptionSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+}
+
+export type ConsumptionScalarRelationFilter = {
+  is?: Prisma.ConsumptionWhereInput
+  isNot?: Prisma.ConsumptionWhereInput
 }
 
 export type ConsumptionCreateNestedManyWithoutCreatorInput = {
@@ -579,6 +591,20 @@ export type ConsumptionUncheckedUpdateManyWithoutDrinkNestedInput = {
   deleteMany?: Prisma.ConsumptionScalarWhereInput | Prisma.ConsumptionScalarWhereInput[]
 }
 
+export type ConsumptionCreateNestedOneWithoutReceiptHistoriesInput = {
+  create?: Prisma.XOR<Prisma.ConsumptionCreateWithoutReceiptHistoriesInput, Prisma.ConsumptionUncheckedCreateWithoutReceiptHistoriesInput>
+  connectOrCreate?: Prisma.ConsumptionCreateOrConnectWithoutReceiptHistoriesInput
+  connect?: Prisma.ConsumptionWhereUniqueInput
+}
+
+export type ConsumptionUpdateOneRequiredWithoutReceiptHistoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ConsumptionCreateWithoutReceiptHistoriesInput, Prisma.ConsumptionUncheckedCreateWithoutReceiptHistoriesInput>
+  connectOrCreate?: Prisma.ConsumptionCreateOrConnectWithoutReceiptHistoriesInput
+  upsert?: Prisma.ConsumptionUpsertWithoutReceiptHistoriesInput
+  connect?: Prisma.ConsumptionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ConsumptionUpdateToOneWithWhereWithoutReceiptHistoriesInput, Prisma.ConsumptionUpdateWithoutReceiptHistoriesInput>, Prisma.ConsumptionUncheckedUpdateWithoutReceiptHistoriesInput>
+}
+
 export type ConsumptionCreateWithoutCreatorInput = {
   id?: string
   price: number
@@ -586,6 +612,7 @@ export type ConsumptionCreateWithoutCreatorInput = {
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
   workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
+  receiptHistories?: Prisma.ReceiptHistoryCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionUncheckedCreateWithoutCreatorInput = {
@@ -595,6 +622,7 @@ export type ConsumptionUncheckedCreateWithoutCreatorInput = {
   drinkId: string
   price: number
   timestamp?: Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionCreateOrConnectWithoutCreatorInput = {
@@ -643,6 +671,7 @@ export type ConsumptionCreateWithoutWorkspaceInput = {
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
   creator: Prisma.UserCreateNestedOneWithoutConsumptionsInput
+  receiptHistories?: Prisma.ReceiptHistoryCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionUncheckedCreateWithoutWorkspaceInput = {
@@ -652,6 +681,7 @@ export type ConsumptionUncheckedCreateWithoutWorkspaceInput = {
   creatorId: string
   price: number
   timestamp?: Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionCreateOrConnectWithoutWorkspaceInput = {
@@ -687,6 +717,7 @@ export type ConsumptionCreateWithoutPersonInput = {
   drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
   workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
   creator: Prisma.UserCreateNestedOneWithoutConsumptionsInput
+  receiptHistories?: Prisma.ReceiptHistoryCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionUncheckedCreateWithoutPersonInput = {
@@ -696,6 +727,7 @@ export type ConsumptionUncheckedCreateWithoutPersonInput = {
   creatorId: string
   price: number
   timestamp?: Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionCreateOrConnectWithoutPersonInput = {
@@ -731,6 +763,7 @@ export type ConsumptionCreateWithoutDrinkInput = {
   person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
   workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
   creator: Prisma.UserCreateNestedOneWithoutConsumptionsInput
+  receiptHistories?: Prisma.ReceiptHistoryCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionUncheckedCreateWithoutDrinkInput = {
@@ -740,6 +773,7 @@ export type ConsumptionUncheckedCreateWithoutDrinkInput = {
   creatorId: string
   price: number
   timestamp?: Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedCreateNestedManyWithoutConsumptionInput
 }
 
 export type ConsumptionCreateOrConnectWithoutDrinkInput = {
@@ -768,6 +802,62 @@ export type ConsumptionUpdateManyWithWhereWithoutDrinkInput = {
   data: Prisma.XOR<Prisma.ConsumptionUpdateManyMutationInput, Prisma.ConsumptionUncheckedUpdateManyWithoutDrinkInput>
 }
 
+export type ConsumptionCreateWithoutReceiptHistoriesInput = {
+  id?: string
+  price: number
+  timestamp?: Date | string
+  person: Prisma.PersonCreateNestedOneWithoutConsumptionsInput
+  drink: Prisma.DrinkCreateNestedOneWithoutConsumptionsInput
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutConsumptionsInput
+  creator: Prisma.UserCreateNestedOneWithoutConsumptionsInput
+}
+
+export type ConsumptionUncheckedCreateWithoutReceiptHistoriesInput = {
+  id?: string
+  workspaceId: string
+  personId: string
+  drinkId: string
+  creatorId: string
+  price: number
+  timestamp?: Date | string
+}
+
+export type ConsumptionCreateOrConnectWithoutReceiptHistoriesInput = {
+  where: Prisma.ConsumptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ConsumptionCreateWithoutReceiptHistoriesInput, Prisma.ConsumptionUncheckedCreateWithoutReceiptHistoriesInput>
+}
+
+export type ConsumptionUpsertWithoutReceiptHistoriesInput = {
+  update: Prisma.XOR<Prisma.ConsumptionUpdateWithoutReceiptHistoriesInput, Prisma.ConsumptionUncheckedUpdateWithoutReceiptHistoriesInput>
+  create: Prisma.XOR<Prisma.ConsumptionCreateWithoutReceiptHistoriesInput, Prisma.ConsumptionUncheckedCreateWithoutReceiptHistoriesInput>
+  where?: Prisma.ConsumptionWhereInput
+}
+
+export type ConsumptionUpdateToOneWithWhereWithoutReceiptHistoriesInput = {
+  where?: Prisma.ConsumptionWhereInput
+  data: Prisma.XOR<Prisma.ConsumptionUpdateWithoutReceiptHistoriesInput, Prisma.ConsumptionUncheckedUpdateWithoutReceiptHistoriesInput>
+}
+
+export type ConsumptionUpdateWithoutReceiptHistoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
+  drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
+  creator?: Prisma.UserUpdateOneRequiredWithoutConsumptionsNestedInput
+}
+
+export type ConsumptionUncheckedUpdateWithoutReceiptHistoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string
+  personId?: Prisma.StringFieldUpdateOperationsInput | string
+  drinkId?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ConsumptionCreateManyCreatorInput = {
   id?: string
   workspaceId: string
@@ -784,6 +874,7 @@ export type ConsumptionUpdateWithoutCreatorInput = {
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
+  receiptHistories?: Prisma.ReceiptHistoryUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateWithoutCreatorInput = {
@@ -793,6 +884,7 @@ export type ConsumptionUncheckedUpdateWithoutCreatorInput = {
   drinkId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateManyWithoutCreatorInput = {
@@ -820,6 +912,7 @@ export type ConsumptionUpdateWithoutWorkspaceInput = {
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutConsumptionsNestedInput
+  receiptHistories?: Prisma.ReceiptHistoryUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateWithoutWorkspaceInput = {
@@ -829,6 +922,7 @@ export type ConsumptionUncheckedUpdateWithoutWorkspaceInput = {
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateManyWithoutWorkspaceInput = {
@@ -856,6 +950,7 @@ export type ConsumptionUpdateWithoutPersonInput = {
   drink?: Prisma.DrinkUpdateOneRequiredWithoutConsumptionsNestedInput
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutConsumptionsNestedInput
+  receiptHistories?: Prisma.ReceiptHistoryUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateWithoutPersonInput = {
@@ -865,6 +960,7 @@ export type ConsumptionUncheckedUpdateWithoutPersonInput = {
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateManyWithoutPersonInput = {
@@ -892,6 +988,7 @@ export type ConsumptionUpdateWithoutDrinkInput = {
   person?: Prisma.PersonUpdateOneRequiredWithoutConsumptionsNestedInput
   workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutConsumptionsNestedInput
   creator?: Prisma.UserUpdateOneRequiredWithoutConsumptionsNestedInput
+  receiptHistories?: Prisma.ReceiptHistoryUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateWithoutDrinkInput = {
@@ -901,6 +998,7 @@ export type ConsumptionUncheckedUpdateWithoutDrinkInput = {
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receiptHistories?: Prisma.ReceiptHistoryUncheckedUpdateManyWithoutConsumptionNestedInput
 }
 
 export type ConsumptionUncheckedUpdateManyWithoutDrinkInput = {
@@ -912,6 +1010,35 @@ export type ConsumptionUncheckedUpdateManyWithoutDrinkInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ConsumptionCountOutputType
+ */
+
+export type ConsumptionCountOutputType = {
+  receiptHistories: number
+}
+
+export type ConsumptionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  receiptHistories?: boolean | ConsumptionCountOutputTypeCountReceiptHistoriesArgs
+}
+
+/**
+ * ConsumptionCountOutputType without action
+ */
+export type ConsumptionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConsumptionCountOutputType
+   */
+  select?: Prisma.ConsumptionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ConsumptionCountOutputType without action
+ */
+export type ConsumptionCountOutputTypeCountReceiptHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReceiptHistoryWhereInput
+}
 
 
 export type ConsumptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -926,6 +1053,8 @@ export type ConsumptionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  receiptHistories?: boolean | Prisma.Consumption$receiptHistoriesArgs<ExtArgs>
+  _count?: boolean | Prisma.ConsumptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["consumption"]>
 
 export type ConsumptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -972,6 +1101,8 @@ export type ConsumptionInclude<ExtArgs extends runtime.Types.Extensions.Internal
   drink?: boolean | Prisma.DrinkDefaultArgs<ExtArgs>
   workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  receiptHistories?: boolean | Prisma.Consumption$receiptHistoriesArgs<ExtArgs>
+  _count?: boolean | Prisma.ConsumptionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ConsumptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   person?: boolean | Prisma.PersonDefaultArgs<ExtArgs>
@@ -993,6 +1124,7 @@ export type $ConsumptionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     drink: Prisma.$DrinkPayload<ExtArgs>
     workspace: Prisma.$WorkspacePayload<ExtArgs>
     creator: Prisma.$UserPayload<ExtArgs>
+    receiptHistories: Prisma.$ReceiptHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1400,6 +1532,7 @@ export interface Prisma__ConsumptionClient<T, Null = never, ExtArgs extends runt
   drink<T extends Prisma.DrinkDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DrinkDefaultArgs<ExtArgs>>): Prisma.Prisma__DrinkClient<runtime.Types.Result.GetResult<Prisma.$DrinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   workspace<T extends Prisma.WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WorkspaceDefaultArgs<ExtArgs>>): Prisma.Prisma__WorkspaceClient<runtime.Types.Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  receiptHistories<T extends Prisma.Consumption$receiptHistoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Consumption$receiptHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReceiptHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1834,6 +1967,30 @@ export type ConsumptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Consumptions to delete.
    */
   limit?: number
+}
+
+/**
+ * Consumption.receiptHistories
+ */
+export type Consumption$receiptHistoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReceiptHistory
+   */
+  select?: Prisma.ReceiptHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReceiptHistory
+   */
+  omit?: Prisma.ReceiptHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceiptHistoryInclude<ExtArgs> | null
+  where?: Prisma.ReceiptHistoryWhereInput
+  orderBy?: Prisma.ReceiptHistoryOrderByWithRelationInput | Prisma.ReceiptHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.ReceiptHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReceiptHistoryScalarFieldEnum | Prisma.ReceiptHistoryScalarFieldEnum[]
 }
 
 /**

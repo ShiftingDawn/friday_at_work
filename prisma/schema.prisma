@@ -20,6 +20,7 @@ model User {
   restocks             Restock[]
   stockChecks          StockCheck[]
   credits              Credit[]
+  receipts             Receipt[]
 
   @@map("users")
 }
@@ -76,6 +77,7 @@ model Person {
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
   credits      Credit[]
+  receipts     Receipt[]
 
   @@map("people")
 }
@@ -119,12 +121,38 @@ model Consumption {
   price       Int
   timestamp   DateTime @default(now())
 
-  person    Person    @relation(fields: [personId], references: [id])
-  drink     Drink     @relation(fields: [drinkId], references: [id])
-  workspace Workspace @relation(fields: [workspaceId], references: [id])
-  creator   User      @relation(fields: [creatorId], references: [id])
+  person           Person           @relation(fields: [personId], references: [id])
+  drink            Drink            @relation(fields: [drinkId], references: [id])
+  workspace        Workspace        @relation(fields: [workspaceId], references: [id])
+  creator          User             @relation(fields: [creatorId], references: [id])
+  receiptHistories ReceiptHistory[]
 
   @@map("consumptions")
+}
+
+model Receipt {
+  id        String    @id @default(uuid()) @db.Uuid
+  personId  String    @db.Uuid
+  creatorId String    @db.Uuid
+  from      DateTime? @default(now())
+  to        DateTime  @default(now())
+
+  person  Person           @relation(fields: [personId], references: [id])
+  creator User             @relation(fields: [creatorId], references: [id])
+  history ReceiptHistory[]
+
+  @@map("receipt")
+}
+
+model ReceiptHistory {
+  receiptId     String @db.Uuid
+  consumptionId String @db.Uuid
+
+  receipt     Receipt     @relation(fields: [receiptId], references: [id])
+  consumption Consumption @relation(fields: [consumptionId], references: [id])
+
+  @@id(fields: [receiptId, consumptionId])
+  @@map("receipt_history")
 }
 
 enum RestockType {
