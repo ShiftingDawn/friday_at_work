@@ -1,20 +1,20 @@
 <script lang="ts">
-    import Card from "$comp/card.svelte";
-    import Section from "$comp/section.svelte";
-    import Spinner from "$comp/spinner.svelte";
-    import Center from "$comp/center.svelte";
-    import {
-      getLastMonthTopDrinkers,
-      getLastMonthTopDrinks,
-      getLastWeekTopDrinkers,
-      getLastWeekTopDrinks,
-      getMonthlyTopDrinkers,
-      getMonthlyTopDrinks,
-      getWeeklyTopDrinkers,
-      getWeeklyTopDrinks
-    } from "$lib/functions/scores.remote";
-    import Scoretable from "$comp/scoretable.svelte";
-    import ScoreboardPie from "$comp/scoreboard_pie.svelte";
+  import Card from "$comp/card.svelte";
+  import Section from "$comp/section.svelte";
+  import Spinner from "$comp/spinner.svelte";
+  import Center from "$comp/center.svelte";
+  import {
+    getLastMonthTopDrinkers,
+    getLastMonthTopDrinks, getLastMonthTopSpenders,
+    getLastWeekTopDrinkers,
+    getLastWeekTopDrinks, getLastWeekTopSpenders,
+    getMonthlyTopDrinkers,
+    getMonthlyTopDrinks, getMonthlyTopSpenders,
+    getWeeklyTopDrinkers,
+    getWeeklyTopDrinks, getWeeklyTopSpenders
+  } from "$lib/functions/scores.remote";
+  import Scoretable from "$comp/scoretable.svelte";
+  import ScoreboardPie from "$comp/scoreboard_pie.svelte";
 </script>
 
 <Card title="Top drinkers">
@@ -91,6 +91,93 @@
         id: person.id,
         label: person.name,
         amount: person.amount,
+      }))}
+      {#if people.length > 0}
+        <div class="w-full flex justify-center">
+          <ScoreboardPie id="drinkerslastmonthpie" {rows}/>
+        </div>
+        <Scoretable id="drinkerslastmonthbar" {rows}/>
+      {:else}
+        <p>No data available...</p>
+      {/if}
+    {/await}
+  </Section>
+</Card>
+
+<Card title="Top spenders" class="mt-4">
+  <Section name="This week">
+    {#await getWeeklyTopSpenders()}
+      <Center>
+        <Spinner>Loading people</Spinner>
+      </Center>
+    {:then people}
+      {@const rows = people.map(person => ({
+        id: person.id,
+        label: person.name,
+        amount: person.amount / 100,
+      }))}
+      {#if people.length > 0}
+        <div class="w-full flex justify-center">
+          <ScoreboardPie id="spendersthisweekpie" {rows}/>
+        </div>
+        <Scoretable id="spendersthisweekbar" {rows}/>
+      {:else}
+        <p>No data available...</p>
+      {/if}
+    {/await}
+  </Section>
+  <Section name="Last week">
+    {#await getLastWeekTopSpenders()}
+      <Center>
+        <Spinner>Loading people</Spinner>
+      </Center>
+    {:then people}
+      {@const rows = people.map(person => ({
+        id: person.id,
+        label: person.name,
+        amount: person.amount / 100,
+      }))}
+      {#if people.length > 0}
+        <div class="w-full flex justify-center">
+          <ScoreboardPie id="drinkerslastweekpie" {rows}/>
+        </div>
+        <Scoretable id="drinkerslastweekbar" {rows}/>
+      {:else}
+        <p>No data available...</p>
+      {/if}
+    {/await}
+  </Section>
+  <Section name="This month">
+    {#await getMonthlyTopSpenders()}
+      <Center>
+        <Spinner>Loading people</Spinner>
+      </Center>
+    {:then people}
+      {@const rows = people.map(person => ({
+        id: person.id,
+        label: person.name,
+        amount: person.amount / 100,
+      }))}
+      {#if people.length > 0}
+        <div class="w-full flex justify-center">
+          <ScoreboardPie id="drinkersthismonthpie" {rows}/>
+        </div>
+        <Scoretable id="drinkersthismonthbar" {rows}/>
+      {:else}
+        <p>No data available...</p>
+      {/if}
+    {/await}
+  </Section>
+  <Section name="Last month">
+    {#await getLastMonthTopSpenders()}
+      <Center>
+        <Spinner>Loading people</Spinner>
+      </Center>
+    {:then people}
+      {@const rows = people.map(person => ({
+        id: person.id,
+        label: person.name,
+        amount: person.amount / 100,
       }))}
       {#if people.length > 0}
         <div class="w-full flex justify-center">
