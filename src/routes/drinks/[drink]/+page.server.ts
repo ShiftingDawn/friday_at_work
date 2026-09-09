@@ -73,7 +73,6 @@ export const actions = {
 const updateScheme = zfd.formData({
   name: zfd.text(z.string().trim().min(3)),
   price: zfd.numeric(z.int().min(0)),
-  tint: zfd.text(z.string().regex(/^#[0-9a-f]{6}$/i, {message: "Invalid color format. Must be a 7-character hex code (e.g., #RRGGBB).",})),
 });
 
 const reskinScheme = zfd.formData({image: zfd.file(),});
