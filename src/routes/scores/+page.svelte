@@ -139,9 +139,9 @@
       }))}
       {#if people.length > 0}
         <div class="w-full flex justify-center">
-          <ScoreboardPie id="drinkerslastweekpie" {rows}/>
+          <ScoreboardPie id="spenderslastweekpie" {rows}/>
         </div>
-        <Scoretable id="drinkerslastweekbar" {rows}/>
+        <Scoretable id="spenderslastweekbar" {rows}/>
       {:else}
         <p>No data available...</p>
       {/if}
@@ -160,9 +160,9 @@
       }))}
       {#if people.length > 0}
         <div class="w-full flex justify-center">
-          <ScoreboardPie id="drinkersthismonthpie" {rows}/>
+          <ScoreboardPie id="spendersthismonthpie" {rows}/>
         </div>
-        <Scoretable id="drinkersthismonthbar" {rows}/>
+        <Scoretable id="spendersthismonthbar" {rows}/>
       {:else}
         <p>No data available...</p>
       {/if}
@@ -181,9 +181,9 @@
       }))}
       {#if people.length > 0}
         <div class="w-full flex justify-center">
-          <ScoreboardPie id="drinkerslastmonthpie" {rows}/>
+          <ScoreboardPie id="spenderslastmonthpie" {rows}/>
         </div>
-        <Scoretable id="drinkerslastmonthbar" {rows}/>
+        <Scoretable id="spenderslastmonthbar" {rows}/>
       {:else}
         <p>No data available...</p>
       {/if}
