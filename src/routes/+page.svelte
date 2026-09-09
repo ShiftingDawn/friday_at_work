@@ -35,13 +35,17 @@
     try {
       const personRadio = document.querySelector(`input[value='${form.fields.person.value()}']`) as HTMLInputElement;
       const personName = (personRadio.nextSibling! as unknown as { wholeText: string }).wholeText.trim();
+      const timeout = setTimeout(() => {
+        flash("info", "Still pouring...");
+      }, 3000);
       if (await form.submit()) {
         form.element.reset();
+        clearTimeout(timeout);
         flash("success", "Consumption", getRandomElement([
           `Poured one out for ${personName}`,
           `Enjoy your drink, ${personName}!`,
         ]));
-        testThreshold();
+        setTimeout(() => testThreshold(), 3000);
       } else {
         flash("error", getRandomElement([
           `Could not pour one out for ${personName}`,
