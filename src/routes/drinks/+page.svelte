@@ -91,41 +91,43 @@
   </div>
 </Card>
 
-<Card title="Hidden drinks" class="mt-4">
-  {#snippet action()}
-    {#if !showHidden}
-      <Button as="a" href="/drinks?hidden=true" icon={IconShow}>
-        Show
-      </Button>
-    {:else}
-      <Button as="a" href="/drinks?hidden=false" icon={IconHide}>
-        Hide
-      </Button>
+{#if data.hiddenDrinkCount > 0}
+  <Card title="Hidden drinks" class="mt-4">
+    {#snippet action()}
+      {#if !showHidden}
+        <Button as="a" href="/drinks?hidden=true" icon={IconShow}>
+          Show
+        </Button>
+      {:else}
+        <Button as="a" href="/drinks?hidden=false" icon={IconHide}>
+          Hide
+        </Button>
+      {/if}
+    {/snippet}
+    {#if showHidden}
+      <div class="mt-4 grid grid-cols-4 gap-4">
+        <svelte:boundary>
+          {#snippet pending()}
+            <Center>
+              <Spinner>Loading hidden drinks</Spinner>
+            </Center>
+          {/snippet}
+          {#each await getHiddenDrinks()! as drink(drink.id)}
+            <Card as="a" href={`/drinks/${drink.id}`} class="bg-surface1">
+              <div class="font-bold text-center text-2xl">{drink.name}</div>
+              <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
+                <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
+              </div>
+              <div class="font-bold text-center text-2xl">
+                &euro;&nbsp;{(drink.price / 100).toFixed(2)}
+              </div>
+            </Card>
+          {/each}
+        </svelte:boundary>
+      </div>
     {/if}
-  {/snippet}
-  {#if showHidden}
-    <div class="mt-4 grid grid-cols-4 gap-4">
-      <svelte:boundary>
-        {#snippet pending()}
-          <Center>
-            <Spinner>Loading hidden drinks</Spinner>
-          </Center>
-        {/snippet}
-        {#each await getHiddenDrinks()! as drink(drink.id)}
-          <Card as="a" href={`/drinks/${drink.id}`} class="bg-surface1">
-            <div class="font-bold text-center text-2xl">{drink.name}</div>
-            <div class="w-full py-8 px-4 aspect-square flex items-center justify-center">
-              <DrinkImage file={drink.id} class="min-w-full" lastModified={drink.modifiedAt}/>
-            </div>
-            <div class="font-bold text-center text-2xl">
-              &euro;&nbsp;{(drink.price / 100).toFixed(2)}
-            </div>
-          </Card>
-        {/each}
-      </svelte:boundary>
-    </div>
-  {/if}
-</Card>
+  </Card>
+{/if}
 
 {#await getDrinksUnderThreshold()}
   <!-- NOOP -->
