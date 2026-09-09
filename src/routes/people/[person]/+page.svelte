@@ -51,7 +51,7 @@
             await resetPersonConsumptions();
             await invalidateAll();
             flash("success", "Receipt has been reset successfully");
-          }} class="mt-4">
+          }}>
             Reset receipt
           </Button>
         {/if}
