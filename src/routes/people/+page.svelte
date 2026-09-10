@@ -23,11 +23,12 @@
            try {
              if (await form.submit()) {
                form.element.reset();
-               flash("success", `${createPerson.fields.name.value} joined the club!`);
+               flash("success", `${form.fields.name.value()} joined the club!`);
              } else {
                flash("error", "Could not register person");
              }
-           } catch {
+           } catch (error) {
+             console.error(error);
              flash("error", "Could not register person", "An unknown error occurred");
            }
            newPersonFormLoading = false;
