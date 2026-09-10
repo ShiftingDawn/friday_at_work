@@ -31,9 +31,9 @@
          try {
            if (await form.submit()) {
              form.element.reset();
-             flash("success", `Added drink ${addDrink.fields.name.value} to the menu`);
+             flash("success", `Added drink ${form.fields.name.value()} to the menu`);
            } else {
-             flash("error", `Could not add drink ${addDrink.fields.name.value} to the menu`);
+             flash("error", `Could not add drink ${form.fields.name.value()} to the menu`);
            }
          } catch {
            flash("error", "Could not add drink to the menu", "An unknown error occurred");
