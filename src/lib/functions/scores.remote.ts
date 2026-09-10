@@ -1,11 +1,16 @@
 import {query} from "$app/server";
 import {prisma} from "$lib/server/db";
 import {getLastMonthStartDate, getLastWeekStartDate, getMonthStartDate, getWeekStartDate} from "$lib";
+import {testFunctionRole} from "$lib/functions";
 
 export const getWeeklyTopDrinkers = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {_count: {select: {consumptions: {where: {timestamp: {gt: getWeekStartDate(),},},},},},},
-    where: {consumptions: {some: {timestamp: {gt: getWeekStartDate(),},},},},
+    where: {
+      workspaceId: locals.workspace!.id,
+      consumptions: {some: {timestamp: {gt: getWeekStartDate(),},},},
+    },
   });
   return people
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
@@ -16,6 +21,7 @@ export const getWeeklyTopDrinkers = query(async () => {
     }));
 });
 export const getLastWeekTopDrinkers = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {
       _count: {
@@ -32,6 +38,7 @@ export const getLastWeekTopDrinkers = query(async () => {
       },
     },
     where: {
+      workspaceId: locals.workspace!.id,
       consumptions: {
         some: {
           timestamp: {
@@ -52,9 +59,10 @@ export const getLastWeekTopDrinkers = query(async () => {
 });
 
 export const getMonthlyTopDrinkers = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {_count: {select: {consumptions: {where: {timestamp: {gt: getMonthStartDate(),},},},},},},
-    where: {consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
+    where: {workspaceId: locals.workspace!.id, consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
   });
   return people
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
@@ -65,6 +73,7 @@ export const getMonthlyTopDrinkers = query(async () => {
     }));
 });
 export const getLastMonthTopDrinkers = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {
       _count: {
@@ -81,6 +90,7 @@ export const getLastMonthTopDrinkers = query(async () => {
       },
     },
     where: {
+      workspaceId: locals.workspace!.id,
       consumptions: {
         some: {
           timestamp: {
@@ -101,9 +111,10 @@ export const getLastMonthTopDrinkers = query(async () => {
 });
 
 export const getWeeklyTopSpenders = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {consumptions: {select: {price: true,}, where: {timestamp: {gt: getWeekStartDate(),},},},},
-    where: {consumptions: {some: {timestamp: {gt: getWeekStartDate(),},},},},
+    where: {workspaceId: locals.workspace!.id, consumptions: {some: {timestamp: {gt: getWeekStartDate(),},},},},
   });
   return people
     .map(person => ({...person, spent: person.consumptions.reduce((a, b) => a + b.price, 0),}))
@@ -115,6 +126,7 @@ export const getWeeklyTopSpenders = query(async () => {
     }));
 });
 export const getLastWeekTopSpenders = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {
       consumptions: {
@@ -128,6 +140,7 @@ export const getLastWeekTopSpenders = query(async () => {
       },
     },
     where: {
+      workspaceId: locals.workspace!.id,
       consumptions: {
         some: {
           timestamp: {
@@ -149,9 +162,10 @@ export const getLastWeekTopSpenders = query(async () => {
 });
 
 export const getMonthlyTopSpenders = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {consumptions: {select: {price: true,}, where: {timestamp: {gt: getMonthStartDate(),},},},},
-    where: {consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
+    where: {workspaceId: locals.workspace!.id, consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
   });
   return people
     .map(person => ({...person, spent: person.consumptions.reduce((a, b) => a + b.price, 0),}))
@@ -163,6 +177,7 @@ export const getMonthlyTopSpenders = query(async () => {
     }));
 });
 export const getLastMonthTopSpenders = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const people = await prisma.person.findMany({
     include: {
       consumptions: {
@@ -176,6 +191,7 @@ export const getLastMonthTopSpenders = query(async () => {
       },
     },
     where: {
+      workspaceId: locals.workspace!.id,
       consumptions: {
         some: {
           timestamp: {
@@ -197,9 +213,10 @@ export const getLastMonthTopSpenders = query(async () => {
 });
 
 export const getWeeklyTopDrinks = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const drinks = await prisma.drink.findMany({
     include: {_count: {select: {consumptions: {where: {timestamp: {gt: getWeekStartDate(),},},},},},},
-    where: {consumptions: {some: {timestamp: {gt: getWeekStartDate(),},},},},
+    where: {workspaceId: locals.workspace!.id, consumptions: {some: {timestamp: {gt: getWeekStartDate(),},},},},
   });
   return drinks
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
@@ -210,6 +227,7 @@ export const getWeeklyTopDrinks = query(async () => {
     }));
 });
 export const getLastWeekTopDrinks = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const drinks = await prisma.drink.findMany({
     include: {
       _count: {
@@ -226,6 +244,7 @@ export const getLastWeekTopDrinks = query(async () => {
       },
     },
     where: {
+      workspaceId: locals.workspace!.id,
       consumptions: {
         some: {
           timestamp: {
@@ -246,9 +265,10 @@ export const getLastWeekTopDrinks = query(async () => {
 });
 
 export const getMonthlyTopDrinks = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const drinks = await prisma.drink.findMany({
     include: {_count: {select: {consumptions: {where: {timestamp: {gt: getMonthStartDate(),},},},},},},
-    where: {consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
+    where: {workspaceId: locals.workspace!.id, consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
   });
   return drinks
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
@@ -259,6 +279,7 @@ export const getMonthlyTopDrinks = query(async () => {
     }));
 });
 export const getLastMonthTopDrinks = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
   const drinks = await prisma.drink.findMany({
     include: {
       _count: {
@@ -275,6 +296,7 @@ export const getLastMonthTopDrinks = query(async () => {
       },
     },
     where: {
+      workspaceId: locals.workspace!.id,
       consumptions: {
         some: {
           timestamp: {
