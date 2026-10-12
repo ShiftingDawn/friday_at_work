@@ -5,15 +5,17 @@ import {prisma} from "$lib/server/db";
 
 export type Workspace = Prisma.WorkspaceGetPayload<object>;
 
-const WORKSPACE_COOKIE_NAME = "workspace";
+const WORKSPACE_COOKIE_NAME = "wid";
+const WORKSPACE_MAX_AGE = 3600 * 24 * 28 * 1000;
 
-export function setWorkspaceCookie(event: RequestEvent | Cookies, sessionId: string) {
+export function setWorkspaceCookie(event: RequestEvent | Cookies, workspaceId: string) {
   const cookies = Object.hasOwn(event, "cookies")
     ? (event as RequestEvent).cookies
     : event as Cookies;
-  cookies.set(WORKSPACE_COOKIE_NAME, sessionId, {
+  cookies.set(WORKSPACE_COOKIE_NAME, workspaceId, {
     secure: env.NODE_ENV !== "development",
     path: "/",
+    expires: new Date(Date.now() + WORKSPACE_MAX_AGE),
     sameSite: "strict",
     httpOnly: true,
   });

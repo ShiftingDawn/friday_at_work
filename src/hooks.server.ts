@@ -1,6 +1,7 @@
 import {type Handle, redirect} from "@sveltejs/kit";
 import * as auth from "$lib/server/auth";
 import * as workspace from "$lib/server/workspace";
+import {setWorkspaceCookie} from "$lib/server/workspace";
 import {getRole} from "$lib/server/permission";
 
 const PUBLIC_ROUTES = ["/signin", "/signup",];
@@ -49,6 +50,7 @@ export const handle: Handle = async ({event, resolve,}) => {
     }
     event.locals.workspace = ws;
     event.locals.role = await getRole(user.id, ws);
+    setWorkspaceCookie(event, workspaceId);
   }
   return resolve(event);
 };
