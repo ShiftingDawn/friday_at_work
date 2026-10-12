@@ -1384,7 +1384,8 @@ export const PersonScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
   name: 'name',
-  reset: 'reset'
+  reset: 'reset',
+  hidden: 'hidden'
 } as const
 
 export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof PersonScalarFieldEnum]

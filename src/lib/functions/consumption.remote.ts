@@ -7,7 +7,10 @@ import {invalid} from "@sveltejs/kit";
 export const getPeopleForConsumption = query(async () => {
   const {locals,} = await testFunctionRole("WRITE");
   return prisma.person.findMany({
-    where: {workspaceId: locals.workspace!.id,},
+    where: {
+      hidden: false,
+      workspaceId: locals.workspace!.id,
+    },
     orderBy: {name: "asc",},
   });
 });

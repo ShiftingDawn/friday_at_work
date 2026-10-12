@@ -13,6 +13,7 @@ export const load: PageServerLoad = async ({params, locals,}) => {
       id: true,
       name: true,
       reset: true,
+      hidden: true,
       consumptions: {
         select: {
           drink: {select: {name: true,},},

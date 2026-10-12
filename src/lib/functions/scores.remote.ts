@@ -13,6 +13,7 @@ export const getWeeklyTopDrinkers = query(async () => {
     },
   });
   return people
+    .filter(person => !person.hidden || person._count.consumptions > 0)
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
     .map(person => ({
       id: person.id,
@@ -50,6 +51,7 @@ export const getLastWeekTopDrinkers = query(async () => {
     },
   });
   return people
+    .filter(person => !person.hidden || person._count.consumptions > 0)
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
     .map(person => ({
       id: person.id,
@@ -65,6 +67,7 @@ export const getMonthlyTopDrinkers = query(async () => {
     where: {workspaceId: locals.workspace!.id, consumptions: {some: {timestamp: {gt: getMonthStartDate(),},},},},
   });
   return people
+    .filter(person => !person.hidden || person._count.consumptions > 0)
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
     .map(person => ({
       id: person.id,
@@ -102,6 +105,7 @@ export const getLastMonthTopDrinkers = query(async () => {
     },
   });
   return people
+    .filter(person => !person.hidden || person._count.consumptions > 0)
     .sort((o1, o2) => o2._count.consumptions - o1._count.consumptions)
     .map(person => ({
       id: person.id,
@@ -118,6 +122,7 @@ export const getWeeklyTopSpenders = query(async () => {
   });
   return people
     .map(person => ({...person, spent: person.consumptions.reduce((a, b) => a + b.price, 0),}))
+    .filter(person => !person.hidden || person.spent > 0)
     .sort((o1, o2) => o2.spent - o1.spent)
     .map(person => ({
       id: person.id,
@@ -153,6 +158,7 @@ export const getLastWeekTopSpenders = query(async () => {
   });
   return people
     .map(person => ({...person, spent: person.consumptions.reduce((a, b) => a + b.price, 0),}))
+    .filter(person => !person.hidden || person.spent > 0)
     .sort((o1, o2) => o2.spent - o1.spent)
     .map(person => ({
       id: person.id,
@@ -169,6 +175,7 @@ export const getMonthlyTopSpenders = query(async () => {
   });
   return people
     .map(person => ({...person, spent: person.consumptions.reduce((a, b) => a + b.price, 0),}))
+    .filter(person => !person.hidden || person.spent > 0)
     .sort((o1, o2) => o2.spent - o1.spent)
     .map(person => ({
       id: person.id,
@@ -204,6 +211,7 @@ export const getLastMonthTopSpenders = query(async () => {
   });
   return people
     .map(person => ({...person, spent: person.consumptions.reduce((a, b) => a + b.price, 0),}))
+    .filter(person => !person.hidden || person.spent > 0)
     .sort((o1, o2) => o2.spent - o1.spent)
     .map(person => ({
       id: person.id,

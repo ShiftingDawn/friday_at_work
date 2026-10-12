@@ -5,7 +5,7 @@
   import Section from "$comp/section.svelte";
   import Button from "$comp/button.svelte";
   import {displayPrice} from "$lib";
-  import {resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
+  import {hidePerson, resetPersonConsumptions, updatePerson} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
   import {onMount} from "svelte";
   import {invalidateAll} from "$app/navigation";
@@ -36,6 +36,15 @@
       <div class="flex flex-col gap-4 md:flex-row mt-4">
         <AddCreditModal person={data.person}/>
         <Button as="a" href={`/people/${data.person!.id}/credit`}>Credit history</Button>
+        <Button onclick={async () => {
+          const hide = !data.person!.hidden;
+          flash("info", `${hide ? "Hiding" : "Unhiding"} ${data.person!.name}`);
+          await hidePerson();
+          await invalidateAll();
+          flash("success", `${data.person!.name} ${hide ? "has been" : "is no longer"} hidden`);
+        }}>
+          {#if !data.person!.hidden} Hide{:else} Show{/if} person
+        </Button>
         <EditPersonModal person={data.person}/>
       </div>
     {/if}

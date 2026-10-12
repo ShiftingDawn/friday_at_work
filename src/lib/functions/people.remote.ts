@@ -7,7 +7,21 @@ import {invalid} from "@sveltejs/kit";
 export const getPeople = query(async () => {
   const {locals,} = await testFunctionRole("READ");
   return prisma.person.findMany({
-    where: {workspaceId: locals.workspace!.id,},
+    where: {
+      workspaceId: locals.workspace!.id,
+      hidden: false,
+    },
+    orderBy: {name: "asc",},
+  });
+});
+
+export const getHiddenPeople = query(async () => {
+  const {locals,} = await testFunctionRole("READ");
+  return prisma.person.findMany({
+    where: {
+      workspaceId: locals.workspace!.id,
+      hidden: true,
+    },
     orderBy: {name: "asc",},
   });
 });
@@ -44,6 +58,25 @@ export const updatePerson = form(
     });
   }
 );
+
+export const hidePerson = command(async () => {
+  const {locals, params,} = await testFunctionRole("ADMIN");
+  const person = await prisma.person.findUnique({
+    where: {
+      id: params.person,
+      workspaceId: locals.workspace!.id,
+    },
+  });
+  if (!person) {
+    invalid("Person not found");
+  }
+  await prisma.person.update({
+    where: {id: person.id,},
+    data: {hidden: !person.hidden,},
+  });
+  void getPeople().refresh();
+  void getHiddenPeople().refresh();
+});
 
 export const addPersonCredit = form(
   v.object({amount: v.pipe(v.number(), v.minValue(0.01)),}),

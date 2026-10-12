@@ -6,10 +6,11 @@
   import FormInput from "$comp/form_input.svelte";
   import Button from "$comp/button.svelte";
   import IconSubmit from "$icon/plus.svelte";
-  import {createPerson, getPeople} from "$lib/functions/people.remote";
+  import {createPerson, getHiddenPeople, getPeople} from "$lib/functions/people.remote";
   import {flash} from "$lib/flash";
   import Spinner from "$comp/spinner.svelte";
   import Center from "$comp/center.svelte";
+  import {fresh} from "$lib";
 
   const {data,}: PageProps = $props();
   let modalOpen = $state(false);
@@ -45,7 +46,7 @@
     {/snippet}
   </Modal>
 {/if}
-<Card title="Manage people" class="mt-4">
+<Card title="Manage people">
   {#snippet action()}
     {#if data.canWrite}
       <Button onclick={() => modalOpen = true} icon={IconSubmit}>
@@ -69,3 +70,16 @@
     </svelte:boundary>
   </div>
 </Card>
+{#await getHiddenPeople() then hiddenPeople}
+  {#if hiddenPeople.length > 0}
+    <Card title="Hidden people" class="mt-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {#each hiddenPeople as person(person.id)}
+          <Button as="a" href={`/people/${person.id}`} class="w-full p-2 h-10">
+            {person.name}
+          </Button>
+        {/each}
+      </div>
+    </Card>
+  {/if}
+{/await}

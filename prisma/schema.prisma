@@ -73,6 +73,7 @@ model Person {
   workspaceId String    @db.Uuid
   name        String
   reset       DateTime?
+  hidden      Boolean   @default(false)
 
   workspace    Workspace     @relation(fields: [workspaceId], references: [id])
   consumptions Consumption[]
